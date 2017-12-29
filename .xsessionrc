@@ -1,0 +1,12 @@
+#node-red & Start jetzt über sudo systemctl enable nodered.service
+screen -d -m node-red-log
+zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
+#kodi &
+sudo mpd ~/etc/mpd.conf
+mpc load Live_Ireland_Channel_und_SRF_Virus
+mpc volume 100
+mpc repeat on
+until aconnect 'Keystation 61':0 'ZynAddSubFX'; do sleep 2; done & #wartet auf zynaddsubfx
+aconnect 'Keystation 61':'Keystation 61 Port-0' 'Midi Through'
+lxterminal -e screen -r &
+sleep 3; mpc play 4
