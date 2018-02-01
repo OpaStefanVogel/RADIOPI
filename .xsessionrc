@@ -9,4 +9,5 @@ mpc repeat on
 until aconnect 'Keystation 61':0 'ZynAddSubFX'; do sleep 2; done & #wartet auf zynaddsubfx
 aconnect 'Keystation 61':'Keystation 61 Port-0' 'Midi Through'
 lxterminal -e screen -r &
+vivaldi &
 sleep 3; mpc play 4
