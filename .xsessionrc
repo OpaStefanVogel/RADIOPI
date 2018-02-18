@@ -1,5 +1,5 @@
-#node-red & Start jetzt über sudo systemctl enable nodered.service
-screen -d -m node-red-log
+screen -d -m node-red-start .node-red/flows_Radio.json & nicht mehr sudo systemctl enable nodered.service
+#screen -d -m node-red-log
 zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 #kodi &
 sudo mpd ~/etc/mpd.conf
@@ -9,4 +9,5 @@ mpc repeat on
 until aconnect 'Keystation 61':0 'ZynAddSubFX'; do sleep 2; done & #wartet auf zynaddsubfx
 aconnect 'Keystation 61':'Keystation 61 Port-0' 'Midi Through'
 lxterminal -e screen -r &
+lxterminal -e ssh@Heizung &
 sleep 3; mpc play 4; sleep 3; vivaldi &
