@@ -3310,7 +3310,8 @@
         "wires": [
             [
                 "b92e8176.0ed52",
-                "3900153b.bc9b8a"
+                "3900153b.bc9b8a",
+                "827d5fef.e3e1e"
             ]
         ]
     },
@@ -3360,14 +3361,14 @@
         "id": "50d21cbc.b0d834",
         "type": "template",
         "z": "6db5641.c4bb3a",
-        "name": "auto mode",
+        "name": "unlocked zwecks Statusabfrage",
         "field": "payload",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "char-write-req 0411 4000",
+        "template": "char-write-req 0411 8000",
         "output": "str",
-        "x": 390,
+        "x": 470,
         "y": 3280,
         "wires": [
             [
@@ -3382,8 +3383,20 @@
         "name": "",
         "server": "",
         "client": "97ba118a.d6135",
-        "x": 660,
+        "x": 790,
         "y": 3280,
+        "wires": []
+    },
+    {
+        "id": "827d5fef.e3e1e",
+        "type": "debug",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 580,
+        "y": 3220,
         "wires": []
     },
     {
@@ -3402,18 +3415,6 @@
         ]
     },
     {
-        "id": "7538a676.94ee58",
-        "type": "debug",
-        "z": "6db5641.c4bb3a",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 750,
-        "y": 3400,
-        "wires": []
-    },
-    {
         "id": "d3226500.37fb28",
         "type": "join",
         "z": "6db5641.c4bb3a",
@@ -3426,7 +3427,7 @@
         "joiner": "",
         "joinerType": "str",
         "accumulate": false,
-        "timeout": "20",
+        "timeout": "25",
         "count": "",
         "x": 490,
         "y": 3340,
@@ -3452,6 +3453,18 @@
                 "36763404.d2f0ec"
             ]
         ]
+    },
+    {
+        "id": "7538a676.94ee58",
+        "type": "debug",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 760,
+        "y": 3400,
+        "wires": []
     },
     {
         "id": "36763404.d2f0ec",
