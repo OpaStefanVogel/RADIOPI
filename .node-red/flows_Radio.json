@@ -91,6 +91,24 @@
         "wholemsg": "false"
     },
     {
+        "id": "2f4de0fa.55c6f",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
         "id": "f0401a97.0f2d2",
         "type": "inject",
         "z": "6db5641.c4bb3a",
@@ -2231,7 +2249,8 @@
             "8261573b.4f60a8",
             "ea58d61c.834528",
             "ece9ebe1.a5ce58",
-            "bba731f2.13b46"
+            "bba731f2.13b46",
+            "99300057.54375"
         ],
         "x": 255,
         "y": 2040,
@@ -2990,7 +3009,8 @@
         "z": "6db5641.c4bb3a",
         "name": "mpc (play/play 4/pause/stop/volume 80)",
         "links": [
-            "218a882b.b25b98"
+            "218a882b.b25b98",
+            "288c235f.ceb5fc"
         ],
         "x": 132,
         "y": 1655,
@@ -3008,8 +3028,8 @@
         "links": [
             "e9c94d79.019de"
         ],
-        "x": 735,
-        "y": 2900,
+        "x": 875,
+        "y": 2880,
         "wires": [],
         "inputLabels": [
             "zum mpc"
@@ -3053,7 +3073,7 @@
         "y": 2900,
         "wires": [
             [
-                "218a882b.b25b98"
+                "42742e53.14c92"
             ]
         ]
     },
@@ -3286,8 +3306,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 220,
-        "y": 2920,
+        "x": 180,
+        "y": 3000,
         "wires": [
             [
                 "f3e30c12.3444d"
@@ -3352,9 +3372,7 @@
         "x": 210,
         "y": 3220,
         "wires": [
-            [
-                "9bf1e5e9.17f3f8"
-            ]
+            []
         ]
     },
     {
@@ -3513,6 +3531,189 @@
         ],
         "x": 1095,
         "y": 3340,
+        "wires": []
+    },
+    {
+        "id": "df0db149.0939",
+        "type": "mqtt in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "Testheini78x11/psswd_ha72z",
+        "qos": "2",
+        "broker": "2f4de0fa.55c6f",
+        "x": 180,
+        "y": 3440,
+        "wires": [
+            [
+                "77679654.504c68",
+                "608eb4b2.391abc",
+                "a5ca926b.dc3bc"
+            ]
+        ]
+    },
+    {
+        "id": "77679654.504c68",
+        "type": "template",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "m",
+        "output": "str",
+        "x": 450,
+        "y": 3440,
+        "wires": [
+            [
+                "99300057.54375"
+            ]
+        ]
+    },
+    {
+        "id": "99300057.54375",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 555,
+        "y": 3440,
+        "wires": []
+    },
+    {
+        "id": "5bab66d3.a59858",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "Radio an",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 140,
+        "y": 3500,
+        "wires": [
+            [
+                "608eb4b2.391abc"
+            ]
+        ]
+    },
+    {
+        "id": "8de9f1a8.88933",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "Radio aus",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 140,
+        "y": 3560,
+        "wires": [
+            [
+                "608eb4b2.391abc"
+            ]
+        ]
+    },
+    {
+        "id": "608eb4b2.391abc",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "var m=msg.payload;\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 3520,
+        "wires": [
+            [
+                "288c235f.ceb5fc"
+            ]
+        ]
+    },
+    {
+        "id": "288c235f.ceb5fc",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "e9c94d79.019de"
+        ],
+        "x": 555,
+        "y": 3520,
+        "wires": []
+    },
+    {
+        "id": "18da1902.7b9897",
+        "type": "comment",
+        "z": "6db5641.c4bb3a",
+        "name": "mqtt",
+        "info": "",
+        "x": 50,
+        "y": 3400,
+        "wires": []
+    },
+    {
+        "id": "42742e53.14c92",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nif (r==\"an\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 2900,
+        "wires": [
+            [
+                "218a882b.b25b98"
+            ]
+        ]
+    },
+    {
+        "id": "a5ca926b.dc3bc",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "? help",
+        "func": "var m=msg.payload;\nif (m==\"?\") {\n  msg.payload=\"==>Radio ?\";\n  return msg;\n  }\nif (m==\"Radio ?\") {\n  msg.payload=\"==>Radio an\\n==>Radio aus\";\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 3581,
+        "wires": [
+            [
+                "18cef77a.2267d9",
+                "3adb4c1.c1eeab4"
+            ]
+        ]
+    },
+    {
+        "id": "3adb4c1.c1eeab4",
+        "type": "mqtt out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "2f4de0fa.55c6f",
+        "x": 650,
+        "y": 3580,
+        "wires": []
+    },
+    {
+        "id": "18cef77a.2267d9",
+        "type": "debug",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 670,
+        "y": 3640,
         "wires": []
     }
 ]
