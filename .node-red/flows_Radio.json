@@ -3679,7 +3679,7 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "? help",
-        "func": "var m=msg.payload;\nif (m==\"?\") {\n  msg.payload=\"==>Radio ?\";\n  return msg;\n  }\nif (m==\"Radio ?\") {\n  msg.payload=\"==>Radio an\\n==>Radio aus\";\n  return msg;\n  }\n",
+        "func": "var m=msg.payload;\nif (m==\"?\") {\n  msg.payload=\"Antwort von <a href='https://github.com/OpaStefanVogel/RADIOPI'>Radio</a>:<div style='border:solid; border-color: aquamarine'><code>Radio an</code><br/><code>Radio aus</code></div>\";\n  return msg;\n  }\n",
         "outputs": 1,
         "noerr": 0,
         "x": 460,
