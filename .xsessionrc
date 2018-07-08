@@ -1,4 +1,4 @@
-screen -d -m node-red-start .node-red/flows_Radio.json & nicht mehr sudo systemctl enable nodered.service
+screen -d -m node-red .node-red/flows_Radio.json & nicht mehr sudo systemctl enable nodered.service
 #screen -d -m node-red-log
 zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 #kodi &

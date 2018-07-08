@@ -2,7 +2,7 @@
  "nodes": {
   "node-red": {
    "name": "node-red",
-   "version": "0.17.5",
+   "version": "0.18.7",
    "local": false,
    "nodes": {
     "sentiment": {
@@ -349,12 +349,32 @@
      "local": false,
      "module": "node-red",
      "file": "/usr/lib/node_modules/node-red/nodes/core/storage/50-file.js"
+    },
+    "sort": {
+     "name": "sort",
+     "types": [
+      "sort"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red",
+     "file": "/usr/lib/node_modules/node-red/nodes/core/logic/18-sort.js"
+    },
+    "batch": {
+     "name": "batch",
+     "types": [
+      "batch"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red",
+     "file": "/usr/lib/node_modules/node-red/nodes/core/logic/19-batch.js"
     }
    }
   },
   "node-red-node-email": {
    "name": "node-red-node-email",
-   "version": "0.1.24",
+   "version": "0.1.29",
    "local": false,
    "nodes": {
     "email": {
@@ -372,7 +392,7 @@
   },
   "node-red-node-feedparser": {
    "name": "node-red-node-feedparser",
-   "version": "0.1.8",
+   "version": "0.1.12",
    "local": false,
    "nodes": {
     "feedparse": {
@@ -389,7 +409,7 @@
   },
   "node-red-node-rbe": {
    "name": "node-red-node-rbe",
-   "version": "0.1.14",
+   "version": "0.2.3",
    "local": false,
    "nodes": {
     "rbe": {
@@ -406,7 +426,7 @@
   },
   "node-red-node-twitter": {
    "name": "node-red-node-twitter",
-   "version": "0.1.12",
+   "version": "1.0.1",
    "local": false,
    "nodes": {
     "twitter": {
@@ -426,7 +446,7 @@
   "node-red-contrib-ibm-watson-iot": {
    "name": "node-red-contrib-ibm-watson-iot",
    "version": "0.2.8",
-   "local": true,
+   "local": false,
    "nodes": {
     "wiotp": {
      "name": "wiotp",
@@ -436,16 +456,16 @@
       "wiotp out"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-contrib-ibm-watson-iot",
-     "file": "/home/pi/.node-red/node_modules/node-red-contrib-ibm-watson-iot/application/wiotp.js"
+     "file": "/usr/lib/node_modules/node-red-contrib-ibm-watson-iot/application/wiotp.js"
     }
    }
   },
   "node-red-contrib-play-audio": {
    "name": "node-red-contrib-play-audio",
-   "version": "2.2.3",
-   "local": true,
+   "version": "2.3.2",
+   "local": false,
    "nodes": {
     "play-audio": {
      "name": "play-audio",
@@ -453,16 +473,16 @@
       "play audio"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-contrib-play-audio",
-     "file": "/home/pi/.node-red/node_modules/node-red-contrib-play-audio/play-audio.js"
+     "file": "/usr/lib/node_modules/node-red-contrib-play-audio/play-audio.js"
     }
    }
   },
   "node-red-node-ledborg": {
    "name": "node-red-node-ledborg",
-   "version": "0.0.18",
-   "local": true,
+   "version": "0.0.19",
+   "local": false,
    "nodes": {
     "ledborg": {
      "name": "ledborg",
@@ -470,16 +490,16 @@
       "ledborg"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-node-ledborg",
-     "file": "/home/pi/.node-red/node_modules/node-red-node-ledborg/78-ledborg.js"
+     "file": "/usr/lib/node_modules/node-red-node-ledborg/78-ledborg.js"
     }
    }
   },
   "node-red-node-pi-sense-hat": {
    "name": "node-red-node-pi-sense-hat",
-   "version": "0.0.15",
-   "local": true,
+   "version": "0.0.16",
+   "local": false,
    "nodes": {
     "sensehat": {
      "name": "sensehat",
@@ -488,16 +508,16 @@
       "rpi-sensehat out"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-node-pi-sense-hat",
-     "file": "/home/pi/.node-red/node_modules/node-red-node-pi-sense-hat/sensehat.js"
+     "file": "/usr/lib/node_modules/node-red-node-pi-sense-hat/sensehat.js"
     }
    }
   },
   "node-red-node-ping": {
    "name": "node-red-node-ping",
-   "version": "0.0.14",
-   "local": true,
+   "version": "0.0.15",
+   "local": false,
    "nodes": {
     "ping": {
      "name": "ping",
@@ -505,16 +525,16 @@
       "ping"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-node-ping",
-     "file": "/home/pi/.node-red/node_modules/node-red-node-ping/88-ping.js"
+     "file": "/usr/lib/node_modules/node-red-node-ping/88-ping.js"
     }
    }
   },
   "node-red-node-random": {
    "name": "node-red-node-random",
-   "version": "0.0.8",
-   "local": true,
+   "version": "0.1.0",
+   "local": false,
    "nodes": {
     "random": {
      "name": "random",
@@ -522,16 +542,16 @@
       "random"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-node-random",
-     "file": "/home/pi/.node-red/node_modules/node-red-node-random/random.js"
+     "file": "/usr/lib/node_modules/node-red-node-random/random.js"
     }
    }
   },
   "node-red-node-serialport": {
    "name": "node-red-node-serialport",
-   "version": "0.6.2",
-   "local": true,
+   "version": "0.6.7",
+   "local": false,
    "nodes": {
     "serialport": {
      "name": "serialport",
@@ -541,16 +561,16 @@
       "serial-port"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-node-serialport",
-     "file": "/home/pi/.node-red/node_modules/node-red-node-serialport/25-serial.js"
+     "file": "/usr/lib/node_modules/node-red-node-serialport/25-serial.js"
     }
    }
   },
   "node-red-node-smooth": {
    "name": "node-red-node-smooth",
-   "version": "0.0.11",
-   "local": true,
+   "version": "0.1.0",
+   "local": false,
    "nodes": {
     "smooth": {
      "name": "smooth",
@@ -558,9 +578,9 @@
       "smooth"
      ],
      "enabled": true,
-     "local": true,
+     "local": false,
      "module": "node-red-node-smooth",
-     "file": "/home/pi/.node-red/node_modules/node-red-node-smooth/17-smooth.js"
+     "file": "/usr/lib/node_modules/node-red-node-smooth/17-smooth.js"
     }
    }
   },
@@ -620,5 +640,20 @@
    }
   }
  },
- "_credentialSecret": "a4545e7ca3ebaa2bed1377e4e7be43eb478ae1828a29b2c2a4bb83ceed9edbf3"
+ "_credentialSecret": "a4545e7ca3ebaa2bed1377e4e7be43eb478ae1828a29b2c2a4bb83ceed9edbf3",
+ "users": {
+  "_": {
+   "editor": {
+    "view": {
+     "view-grid-size": 20,
+     "view-node-status": true,
+     "view-show-tips": true,
+     "view-snap-grid": true,
+     "view-show-grid": true
+    }
+   },
+   "menu-deploymenu-item-node": true,
+   "menu-deploymenu-item-full": false
+  }
+ }
 }

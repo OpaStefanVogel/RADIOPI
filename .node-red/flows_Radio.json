@@ -94,6 +94,7 @@
         "id": "2f4de0fa.55c6f",
         "type": "mqtt-broker",
         "z": "",
+        "name": "",
         "broker": "test.mosquitto.org",
         "port": "1883",
         "clientid": "",
@@ -101,12 +102,36 @@
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
         "birthTopic": "",
         "birthQos": "0",
-        "birthPayload": ""
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7855921b.f02e8c",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
     },
     {
         "id": "f0401a97.0f2d2",
@@ -2247,10 +2272,10 @@
             "69816036.48905",
             "6aed06bd.9f8518",
             "8261573b.4f60a8",
-            "ea58d61c.834528",
-            "ece9ebe1.a5ce58",
+            "99300057.54375",
             "bba731f2.13b46",
-            "99300057.54375"
+            "ea58d61c.834528",
+            "ece9ebe1.a5ce58"
         ],
         "x": 255,
         "y": 2040,
@@ -3578,7 +3603,7 @@
         "links": [
             "81532115.8324a"
         ],
-        "x": 555,
+        "x": 675,
         "y": 3440,
         "wires": []
     },
@@ -3644,7 +3669,7 @@
         "links": [
             "e9c94d79.019de"
         ],
-        "x": 555,
+        "x": 675,
         "y": 3520,
         "wires": []
     },
@@ -3696,11 +3721,11 @@
         "type": "mqtt out",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "topic": "",
+        "topic": "Testheini78x11/psswd_ha72z",
         "qos": "",
         "retain": "",
         "broker": "2f4de0fa.55c6f",
-        "x": 650,
+        "x": 730,
         "y": 3580,
         "wires": []
     },
@@ -3715,5 +3740,41 @@
         "x": 670,
         "y": 3640,
         "wires": []
+    },
+    {
+        "id": "f2413a05.90ff08",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "Hah",
+        "topic": "",
+        "payload": "Hah hatter gesacht",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "0 10-15 * * 6,0",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 90,
+        "y": 1920,
+        "wires": [
+            [
+                "7aeae711.528d08"
+            ]
+        ]
+    },
+    {
+        "id": "56c747d1.5fb9e8",
+        "type": "mqtt in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "Test",
+        "qos": "2",
+        "broker": "2f4de0fa.55c6f",
+        "x": 150,
+        "y": 3620,
+        "wires": [
+            [
+                "18cef77a.2267d9"
+            ]
+        ]
     }
 ]
