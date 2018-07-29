@@ -134,6 +134,13 @@
         "willPayload": ""
     },
     {
+        "id": "b6a85d50.5b4fb",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/mqtt_ersatz",
+        "wholemsg": "false"
+    },
+    {
         "id": "f0401a97.0f2d2",
         "type": "inject",
         "z": "6db5641.c4bb3a",
@@ -3570,9 +3577,7 @@
         "y": 3440,
         "wires": [
             [
-                "77679654.504c68",
-                "608eb4b2.391abc",
-                "a5ca926b.dc3bc"
+                "1019e656.e5f43a"
             ]
         ]
     },
@@ -3712,7 +3717,8 @@
         "wires": [
             [
                 "18cef77a.2267d9",
-                "3adb4c1.c1eeab4"
+                "3adb4c1.c1eeab4",
+                "3b88e18a.72a55e"
             ]
         ]
     },
@@ -3776,5 +3782,49 @@
                 "18cef77a.2267d9"
             ]
         ]
+    },
+    {
+        "id": "1e6c1ecb.bff2a1",
+        "type": "websocket in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "server": "b6a85d50.5b4fb",
+        "client": "",
+        "x": 240,
+        "y": 3400,
+        "wires": [
+            [
+                "1019e656.e5f43a"
+            ]
+        ]
+    },
+    {
+        "id": "1019e656.e5f43a",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 3400,
+        "wires": [
+            [
+                "77679654.504c68",
+                "608eb4b2.391abc",
+                "a5ca926b.dc3bc"
+            ]
+        ]
+    },
+    {
+        "id": "3b88e18a.72a55e",
+        "type": "websocket out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "server": "b6a85d50.5b4fb",
+        "client": "",
+        "x": 810,
+        "y": 3540,
+        "wires": []
     }
 ]

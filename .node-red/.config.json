@@ -645,7 +645,7 @@
   "_": {
    "editor": {
     "view": {
-     "view-grid-size": 20,
+     "view-grid-size": "20",
      "view-node-status": true,
      "view-show-tips": true,
      "view-snap-grid": true,
@@ -653,7 +653,8 @@
     }
    },
    "menu-deploymenu-item-node": true,
-   "menu-deploymenu-item-full": false
+   "menu-deploymenu-item-full": false,
+   "menu-menu-item-sidebar": false
   }
  }
 }
