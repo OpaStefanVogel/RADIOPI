@@ -3826,5 +3826,131 @@
         "x": 810,
         "y": 3540,
         "wires": []
+    },
+    {
+        "id": "565bd866.30d098",
+        "type": "daemon",
+        "z": "6db5641.c4bb3a",
+        "command": "aseqdump",
+        "args": "-p 20:0",
+        "cr": false,
+        "redo": true,
+        "op": "string",
+        "name": "",
+        "x": 270,
+        "y": 3720,
+        "wires": [
+            [
+                "a279e5d2.3a6448"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "251398ed.ed0b08",
+        "type": "comment",
+        "z": "6db5641.c4bb3a",
+        "name": "midi ersatz node",
+        "info": "",
+        "x": 80,
+        "y": 3720,
+        "wires": []
+    },
+    {
+        "id": "a279e5d2.3a6448",
+        "type": "debug",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 440,
+        "y": 3720,
+        "wires": []
+    },
+    {
+        "id": "fc55ae71.3ef53",
+        "type": "daemon",
+        "z": "6db5641.c4bb3a",
+        "command": "aseqdump",
+        "args": "-p 20:1",
+        "cr": false,
+        "redo": true,
+        "op": "string",
+        "name": "",
+        "x": 270,
+        "y": 3800,
+        "wires": [
+            [
+                "a279e5d2.3a6448",
+                "2e5ec969.e30866"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2e5ec969.e30866",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "msg.payload=msg.payload.slice(13,16).trim()+\" \"+msg.payload.slice(39,43).trim();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 3820,
+        "wires": [
+            [
+                "a279e5d2.3a6448",
+                "a5203f41.deddb"
+            ]
+        ]
+    },
+    {
+        "id": "a5203f41.deddb",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "midi 20:1",
+        "links": [
+            "2e159747.398188"
+        ],
+        "x": 540,
+        "y": 3840,
+        "wires": []
+    },
+    {
+        "id": "12628af5.84a885",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "var m=msg.payload;\nif (m==\"on 93,\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"Radio an\"; return msg}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 3580,
+        "wires": [
+            [
+                "608eb4b2.391abc"
+            ]
+        ]
+    },
+    {
+        "id": "2e159747.398188",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "a5203f41.deddb"
+        ],
+        "x": 300,
+        "y": 3640,
+        "wires": [
+            [
+                "12628af5.84a885"
+            ]
+        ]
     }
 ]
