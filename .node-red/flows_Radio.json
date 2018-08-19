@@ -2282,7 +2282,10 @@
             "99300057.54375",
             "bba731f2.13b46",
             "ea58d61c.834528",
-            "ece9ebe1.a5ce58"
+            "ece9ebe1.a5ce58",
+            "63f8eeaa.8eef",
+            "92a3be82.d5974",
+            "7727f9f7.a01dc8"
         ],
         "x": 255,
         "y": 2040,
@@ -3763,7 +3766,7 @@
         "y": 1920,
         "wires": [
             [
-                "7aeae711.528d08"
+                "7727f9f7.a01dc8"
             ]
         ]
     },
@@ -3841,7 +3844,8 @@
         "y": 3720,
         "wires": [
             [
-                "a279e5d2.3a6448"
+                "a279e5d2.3a6448",
+                "b4943e69.7b43"
             ],
             [],
             []
@@ -3865,10 +3869,10 @@
         "active": true,
         "tosidebar": true,
         "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 440,
-        "y": 3720,
+        "tostatus": true,
+        "complete": "payload",
+        "x": 590,
+        "y": 3700,
         "wires": []
     },
     {
@@ -3950,6 +3954,275 @@
         "wires": [
             [
                 "12628af5.84a885"
+            ]
+        ]
+    },
+    {
+        "id": "b4943e69.7b43",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload.slice(52,55).trim()==\"1\") {\n  msg.payload=msg.payload.slice(13,16).trim()+\" \"+msg.payload.slice(39,43).trim();\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 3680,
+        "wires": [
+            [
+                "a279e5d2.3a6448",
+                "351b3ef8.5ed6d2"
+            ]
+        ]
+    },
+    {
+        "id": "351b3ef8.5ed6d2",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "midi 20:0 volume 1",
+        "links": [
+            "8609cd65.79645",
+            "f29c9b74.e44a38"
+        ],
+        "x": 535,
+        "y": 3660,
+        "wires": []
+    },
+    {
+        "id": "8609cd65.79645",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 535,
+        "y": 3780,
+        "wires": [
+            [
+                "63f8eeaa.8eef"
+            ]
+        ]
+    },
+    {
+        "id": "63f8eeaa.8eef",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 655,
+        "y": 3780,
+        "wires": []
+    },
+    {
+        "id": "fa2f70eb.e3cd6",
+        "type": "comment",
+        "z": "6db5641.c4bb3a",
+        "name": "nächster Bus",
+        "info": "",
+        "x": 70,
+        "y": 3900,
+        "wires": []
+    },
+    {
+        "id": "f29c9b74.e44a38",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 215,
+        "y": 3900,
+        "wires": [
+            [
+                "d889c6da.67dae8"
+            ]
+        ]
+    },
+    {
+        "id": "d20f035f.4f249",
+        "type": "http request",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://www.cvag.de/eza/mis/stops/station/CAG-192",
+        "tls": "",
+        "x": 550,
+        "y": 3900,
+        "wires": [
+            [
+                "1e8dae29.e802c2"
+            ]
+        ]
+    },
+    {
+        "id": "d889c6da.67dae8",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 36,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 3900,
+        "wires": [
+            [
+                "ea53f4cc.925618"
+            ]
+        ]
+    },
+    {
+        "id": "1e8dae29.e802c2",
+        "type": "debug",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 730,
+        "y": 3900,
+        "wires": []
+    },
+    {
+        "id": "ea53f4cc.925618",
+        "type": "exec",
+        "z": "6db5641.c4bb3a",
+        "command": "wget ",
+        "addpay": false,
+        "append": "-O CAG-192 http://www.cvag.de/eza/mis/stops/station/CAG-192",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 510,
+        "y": 3980,
+        "wires": [
+            [],
+            [],
+            [
+                "fcb36d9.090159"
+            ]
+        ]
+    },
+    {
+        "id": "fcb36d9.090159",
+        "type": "file in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "filename": "CAG-192",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 680,
+        "y": 3980,
+        "wires": [
+            [
+                "8cfaf51b.90f458"
+            ]
+        ]
+    },
+    {
+        "id": "8cfaf51b.90f458",
+        "type": "json",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 3980,
+        "wires": [
+            [
+                "1e8dae29.e802c2",
+                "9926fd6d.500d7"
+            ]
+        ]
+    },
+    {
+        "id": "9926fd6d.500d7",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "var diff=Math.floor((msg.payload.stops[0].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 990,
+        "y": 3980,
+        "wires": [
+            [
+                "199cc2fc.c49ccd"
+            ]
+        ]
+    },
+    {
+        "id": "92a3be82.d5974",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 1140,
+        "y": 3980,
+        "wires": []
+    },
+    {
+        "id": "7727f9f7.a01dc8",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 220,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "199cc2fc.c49ccd",
+        "type": "delay",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1060,
+        "y": 3900,
+        "wires": [
+            [
+                "92a3be82.d5974"
+            ]
+        ]
+    },
+    {
+        "id": "ce9e35bb.b486c8",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "Test",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 3960,
+        "wires": [
+            [
+                "ea53f4cc.925618"
             ]
         ]
     }
