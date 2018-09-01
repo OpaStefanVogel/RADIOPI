@@ -4054,7 +4054,8 @@
         "y": 3900,
         "wires": [
             [
-                "1e8dae29.e802c2"
+                "1e8dae29.e802c2",
+                "8cfaf51b.90f458"
             ]
         ]
     },
@@ -4092,9 +4093,9 @@
         "id": "ea53f4cc.925618",
         "type": "exec",
         "z": "6db5641.c4bb3a",
-        "command": "wget ",
+        "command": "ssh",
         "addpay": false,
-        "append": "-O CAG-192 http://www.cvag.de/eza/mis/stops/station/CAG-192",
+        "append": "pi@localhost wget -O CAG-192 http://www.cvag.de/eza/mis/stops/station/CAG-192",
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
@@ -4102,10 +4103,16 @@
         "x": 510,
         "y": 3980,
         "wires": [
-            [],
-            [],
             [
-                "fcb36d9.090159"
+                "1e8dae29.e802c2"
+            ],
+            [
+                "1e8dae29.e802c2"
+            ],
+            [
+                "fcb36d9.090159",
+                "ac2116c0.1e4e78",
+                "b3bbee59.e2eae"
             ]
         ]
     },
@@ -4218,11 +4225,55 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 220,
-        "y": 3960,
+        "x": 340,
+        "y": 3980,
         "wires": [
             [
                 "ea53f4cc.925618"
+            ]
+        ]
+    },
+    {
+        "id": "a6ab2ab7.baaff8",
+        "type": "http request",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "",
+        "x": 500,
+        "y": 4080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac2116c0.1e4e78",
+        "type": "debug",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 680,
+        "y": 4060,
+        "wires": []
+    },
+    {
+        "id": "b3bbee59.e2eae",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload.code==8) {msg.payload=\"www.cvag.de hat die Frage nicht erlaubt.\";\nreturn msg;}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 990,
+        "y": 4020,
+        "wires": [
+            [
+                "92a3be82.d5974"
             ]
         ]
     }
