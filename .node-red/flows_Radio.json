@@ -3779,7 +3779,7 @@
         "qos": "2",
         "broker": "2f4de0fa.55c6f",
         "x": 150,
-        "y": 3620,
+        "y": 3700,
         "wires": [
             [
                 "18cef77a.2267d9"
@@ -4155,14 +4155,17 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "func": "var diff=Math.floor((msg.payload.stops[0].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nreturn msg;",
-        "outputs": 1,
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "outputs": 2,
         "noerr": 0,
         "x": 990,
         "y": 3980,
         "wires": [
             [
                 "199cc2fc.c49ccd"
+            ],
+            [
+                "f718ef2b.0c73e"
             ]
         ]
     },
@@ -4270,10 +4273,33 @@
         "outputs": 1,
         "noerr": 0,
         "x": 990,
-        "y": 4020,
+        "y": 4040,
         "wires": [
             [
                 "92a3be82.d5974"
+            ]
+        ]
+    },
+    {
+        "id": "f718ef2b.0c73e",
+        "type": "delay",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1140,
+        "y": 3920,
+        "wires": [
+            [
+                "ea53f4cc.925618"
             ]
         ]
     }
