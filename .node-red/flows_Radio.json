@@ -2155,7 +2155,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-l de-DE -w lookdave.wav \"{{payload}}\" && mplayer lookdave.wav",
+        "template": "-l de-DE -w lookdave.wav \"{{payload}}\" && play lookdave.wav pitch 80",
         "x": 410,
         "y": 2040,
         "wires": [
@@ -4071,7 +4071,7 @@
         "y": 3900,
         "wires": [
             [
-                "ea53f4cc.925618"
+                "8880b55a.372e08"
             ]
         ]
     },
@@ -4099,8 +4099,8 @@
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
-        "name": "",
-        "x": 510,
+        "name": "Gablenz ü. Weststr.",
+        "x": 550,
         "y": 3980,
         "wires": [
             [
@@ -4228,11 +4228,11 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 340,
+        "x": 140,
         "y": 3980,
         "wires": [
             [
-                "ea53f4cc.925618"
+                "8880b55a.372e08"
             ]
         ]
     },
@@ -4295,8 +4295,27 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 1140,
-        "y": 3920,
+        "x": 260,
+        "y": 3940,
+        "wires": [
+            [
+                "8880b55a.372e08"
+            ]
+        ]
+    },
+    {
+        "id": "8880b55a.372e08",
+        "type": "template",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 340,
+        "y": 3980,
         "wires": [
             [
                 "ea53f4cc.925618"
