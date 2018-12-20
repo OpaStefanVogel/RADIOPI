@@ -141,6 +141,14 @@
         "wholemsg": "false"
     },
     {
+        "id": "9e485ce1.d54c1",
+        "type": "websocket-client",
+        "z": "",
+        "path": "ws://heizung:1880/ws/Einkaufsliste",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
         "id": "f0401a97.0f2d2",
         "type": "inject",
         "z": "6db5641.c4bb3a",
@@ -2285,7 +2293,10 @@
             "ece9ebe1.a5ce58",
             "63f8eeaa.8eef",
             "92a3be82.d5974",
-            "7727f9f7.a01dc8"
+            "7727f9f7.a01dc8",
+            "49cf4e36.f692a",
+            "79ae5f6.3f22fa",
+            "6413a0a9.53041"
         ],
         "x": 255,
         "y": 2040,
@@ -2558,7 +2569,7 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "table",
-        "func": "var pos=msg.payload.indexOf(\"zum Vortag\")+116;\nvar pos2=msg.payload.indexOf(\"<\",pos);\nvar Kartoffelpreis=msg.payload.slice(pos,pos2);\nglobal.set(\"Kartoffelpreis\",Kartoffelpreis);\nnode.status({text:Kartoffelpreis});\nmsg.payload=Kartoffelpreis;\nreturn msg;",
+        "func": "var pos=msg.payload.indexOf(\"boerseTitleKurs\")+42;\nvar pos2=pos+6;\nvar Kartoffelpreis=msg.payload.slice(pos,pos2);\nglobal.set(\"Kartoffelpreis\",Kartoffelpreis);\nnode.status({text:Kartoffelpreis});\nmsg.payload=Kartoffelpreis;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 810,
@@ -2577,7 +2588,7 @@
         "name": "",
         "method": "GET",
         "ret": "txt",
-        "url": "http://www.raiffeisen.com/markt/telegramm/produkt/eurex/kartoffeln",
+        "url": "http://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html",
         "tls": "",
         "x": 540,
         "y": 2980,
@@ -3404,10 +3415,12 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 210,
+        "x": 230,
         "y": 3220,
         "wires": [
-            []
+            [
+                "9bf1e5e9.17f3f8"
+            ]
         ]
     },
     {
@@ -3981,7 +3994,14 @@
         "name": "midi 20:0 volume 1",
         "links": [
             "8609cd65.79645",
-            "f29c9b74.e44a38"
+            "f29c9b74.e44a38",
+            "5b888ce0.3157f4",
+            "9ab5acbf.da7a3",
+            "613f8f59.7c6d4",
+            "2709e0bc.930ae",
+            "4ba31516.c2436c",
+            "dd724e25.c6744",
+            "54de5653.bab3e8"
         ],
         "x": 535,
         "y": 3660,
@@ -4125,8 +4145,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 680,
-        "y": 3980,
+        "x": 720,
+        "y": 4020,
         "wires": [
             [
                 "8cfaf51b.90f458"
@@ -4155,7 +4175,7 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 31 fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
         "outputs": 2,
         "noerr": 0,
         "x": 990,
@@ -4177,7 +4197,7 @@
         "links": [
             "81532115.8324a"
         ],
-        "x": 1140,
+        "x": 1155,
         "y": 3980,
         "wires": []
     },
@@ -4269,7 +4289,7 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "func": "if (msg.payload.code==8) {msg.payload=\"www.cvag.de hat die Frage nicht erlaubt.\";\nreturn msg;}",
+        "func": "if (msg.payload.code==8) {msg.payload=\"www Punkt Zeh Vau Ah Geh Punkt Deh Eh hat die Frage nach der Abfahrt des nächsten Busses nicht erlaubt.\";\nreturn msg;}",
         "outputs": 1,
         "noerr": 0,
         "x": 990,
@@ -4319,6 +4339,629 @@
         "wires": [
             [
                 "ea53f4cc.925618"
+            ]
+        ]
+    },
+    {
+        "id": "f0e778ad.08b4c8",
+        "type": "exec",
+        "z": "6db5641.c4bb3a",
+        "command": "ssh",
+        "addpay": false,
+        "append": "pi@localhost wget -O CAG-194 http://www.cvag.de/eza/mis/stops/station/CAG-194",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Gablenz ü. Weststr.",
+        "x": 550,
+        "y": 4220,
+        "wires": [
+            [],
+            [],
+            [
+                "f06ddb1c.dfea48",
+                "e7f9e4bb.a61ba8"
+            ]
+        ]
+    },
+    {
+        "id": "4b5fbfb7.4a63b",
+        "type": "template",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 340,
+        "y": 4220,
+        "wires": [
+            [
+                "f0e778ad.08b4c8"
+            ]
+        ]
+    },
+    {
+        "id": "69dd8cc9.6e20f4",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 37,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 4120,
+        "wires": [
+            [
+                "4b5fbfb7.4a63b"
+            ]
+        ]
+    },
+    {
+        "id": "5b888ce0.3157f4",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 220,
+        "y": 4092,
+        "wires": [
+            [
+                "69dd8cc9.6e20f4"
+            ]
+        ]
+    },
+    {
+        "id": "ba2cd6e.d370828",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "Test",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 4220,
+        "wires": [
+            [
+                "4b5fbfb7.4a63b"
+            ]
+        ]
+    },
+    {
+        "id": "f06ddb1c.dfea48",
+        "type": "file in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "filename": "CAG-194",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 720,
+        "y": 4260,
+        "wires": [
+            [
+                "9737f8d3.b43028"
+            ]
+        ]
+    },
+    {
+        "id": "9737f8d3.b43028",
+        "type": "json",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 4200,
+        "wires": [
+            [
+                "fc4e639b.35ed"
+            ]
+        ]
+    },
+    {
+        "id": "fc4e639b.35ed",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Gablenz ü. Weststr.\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 990,
+        "y": 4200,
+        "wires": [
+            [
+                "639f4134.918e1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "639f4134.918e1",
+        "type": "delay",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1080,
+        "y": 4100,
+        "wires": [
+            [
+                "49cf4e36.f692a"
+            ]
+        ]
+    },
+    {
+        "id": "49cf4e36.f692a",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 1155,
+        "y": 4160,
+        "wires": []
+    },
+    {
+        "id": "e7f9e4bb.a61ba8",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload.code==8) {msg.payload=\"www Punkt Zeh Vau Ah Geh Punkt Deh Eh hat die Frage nach der Abfahrt des nächsten Busses nicht erlaubt.\";\nreturn msg;}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 990,
+        "y": 4280,
+        "wires": [
+            [
+                "49cf4e36.f692a"
+            ]
+        ]
+    },
+    {
+        "id": "a37c2ef9.42009",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 38,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 2940,
+        "wires": [
+            [
+                "5bc00a2c.d5b4d4"
+            ]
+        ]
+    },
+    {
+        "id": "9ab5acbf.da7a3",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 35,
+        "y": 2940,
+        "wires": [
+            [
+                "a37c2ef9.42009"
+            ]
+        ]
+    },
+    {
+        "id": "5bc00a2c.d5b4d4",
+        "type": "delay",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 360,
+        "y": 2960,
+        "wires": [
+            [
+                "ecde208d.58284"
+            ]
+        ]
+    },
+    {
+        "id": "ccbcced4.0f523",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 39,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 3180,
+        "wires": [
+            [
+                "94abbf5f.90da1"
+            ]
+        ]
+    },
+    {
+        "id": "613f8f59.7c6d4",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 75,
+        "y": 3180,
+        "wires": [
+            [
+                "ccbcced4.0f523"
+            ]
+        ]
+    },
+    {
+        "id": "94abbf5f.90da1",
+        "type": "delay",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 240,
+        "y": 3180,
+        "wires": [
+            [
+                "9bf1e5e9.17f3f8",
+                "f11c663e.12c768"
+            ]
+        ]
+    },
+    {
+        "id": "f11c663e.12c768",
+        "type": "template",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Moment, Ansage der Heizungstemperatur erfolgt in 20 Sekunden.",
+        "output": "str",
+        "x": 660,
+        "y": 3200,
+        "wires": [
+            [
+                "79ae5f6.3f22fa"
+            ]
+        ]
+    },
+    {
+        "id": "79ae5f6.3f22fa",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "vorlesen",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 799,
+        "y": 3211,
+        "wires": []
+    },
+    {
+        "id": "28616a1a.ad7df6",
+        "type": "comment",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "info": "",
+        "x": 100,
+        "y": 4280,
+        "wires": []
+    },
+    {
+        "id": "47e21606.f5c5a8",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "play 4",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 4320,
+        "wires": [
+            [
+                "cda3599a.7b18e8"
+            ]
+        ]
+    },
+    {
+        "id": "cda3599a.7b18e8",
+        "type": "exec",
+        "z": "6db5641.c4bb3a",
+        "command": "mpc",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 370,
+        "y": 4340,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4d0d16c2.a7bca8",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "play 2",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 4400,
+        "wires": [
+            [
+                "cda3599a.7b18e8"
+            ]
+        ]
+    },
+    {
+        "id": "e5ed1ed2.c520d",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "play 3",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 4480,
+        "wires": [
+            [
+                "cda3599a.7b18e8"
+            ]
+        ]
+    },
+    {
+        "id": "a72d2821.8a6ef8",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 40,\") {\n  msg.payload=\"play 4\"\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 4360,
+        "wires": [
+            [
+                "cda3599a.7b18e8"
+            ]
+        ]
+    },
+    {
+        "id": "2709e0bc.930ae",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 55,
+        "y": 4360,
+        "wires": [
+            [
+                "a72d2821.8a6ef8"
+            ]
+        ]
+    },
+    {
+        "id": "cb2b3052.10e",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 41,\") {\n  msg.payload=\"play 2\"\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 4440,
+        "wires": [
+            [
+                "cda3599a.7b18e8"
+            ]
+        ]
+    },
+    {
+        "id": "2410908d.0332",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 42,\") {\n  msg.payload=\"play 3\"\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 4520,
+        "wires": [
+            [
+                "cda3599a.7b18e8"
+            ]
+        ]
+    },
+    {
+        "id": "4ba31516.c2436c",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 55,
+        "y": 4440,
+        "wires": [
+            [
+                "cb2b3052.10e"
+            ]
+        ]
+    },
+    {
+        "id": "dd724e25.c6744",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 55,
+        "y": 4519.6416015625,
+        "wires": [
+            [
+                "2410908d.0332"
+            ]
+        ]
+    },
+    {
+        "id": "54de5653.bab3e8",
+        "type": "link in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 55,
+        "y": 4620,
+        "wires": [
+            [
+                "d1764928.2ce838"
+            ]
+        ]
+    },
+    {
+        "id": "d1764928.2ce838",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "if (msg.payload==\"on 43,\") {\n  msg.payload=\"?\";\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 4620,
+        "wires": [
+            [
+                "e4a71ee9.55379"
+            ]
+        ]
+    },
+    {
+        "id": "6413a0a9.53041",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 1055,
+        "y": 4680,
+        "wires": []
+    },
+    {
+        "id": "e4a71ee9.55379",
+        "type": "websocket out",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "server": "",
+        "client": "9e485ce1.d54c1",
+        "x": 460,
+        "y": 4620,
+        "wires": []
+    },
+    {
+        "id": "8ae7e348.fef0d",
+        "type": "websocket in",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "server": "",
+        "client": "9e485ce1.d54c1",
+        "x": 460,
+        "y": 4680,
+        "wires": [
+            [
+                "784104ab.b023ec"
+            ]
+        ]
+    },
+    {
+        "id": "dd0abd14.b0a6",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "node.status({text:msg.payload[0][1]})\nmsg.payload=msg.payload[0][1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 910,
+        "y": 4680,
+        "wires": [
+            [
+                "6413a0a9.53041"
+            ]
+        ]
+    },
+    {
+        "id": "784104ab.b023ec",
+        "type": "json",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 730,
+        "y": 4680,
+        "wires": [
+            [
+                "dd0abd14.b0a6"
             ]
         ]
     }
