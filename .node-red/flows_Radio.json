@@ -5,6 +5,13 @@
         "label": "Sheet 1"
     },
     {
+        "id": "55308ed3.60103",
+        "type": "tab",
+        "label": "Ansagen",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "e95d2d3e.16a2d",
         "type": "tab",
         "label": "Sheet 3"
@@ -147,6 +154,19 @@
         "path": "ws://heizung:1880/ws/Einkaufsliste",
         "tls": "",
         "wholemsg": "false"
+    },
+    {
+        "id": "def2ccf1.78875",
+        "type": "tls-config",
+        "z": "",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": true
     },
     {
         "id": "f0401a97.0f2d2",
@@ -2296,7 +2316,8 @@
             "7727f9f7.a01dc8",
             "49cf4e36.f692a",
             "79ae5f6.3f22fa",
-            "6413a0a9.53041"
+            "6413a0a9.53041",
+            "e11cb4bd.3c51f8"
         ],
         "x": 255,
         "y": 2040,
@@ -3284,7 +3305,8 @@
         "y": 3180,
         "wires": [
             [
-                "9bf1e5e9.17f3f8"
+                "9bf1e5e9.17f3f8",
+                "b7bb6232.cd4b9"
             ]
         ]
     },
@@ -4964,5 +4986,182 @@
                 "dd0abd14.b0a6"
             ]
         ]
+    },
+    {
+        "id": "b7bb6232.cd4b9",
+        "type": "link out",
+        "z": "6db5641.c4bb3a",
+        "name": "weiter nach Kartoffelpreis und  Heizung",
+        "links": [
+            "de3c0aa3.333c28"
+        ],
+        "x": 40,
+        "y": 3320,
+        "wires": []
+    },
+    {
+        "id": "de3c0aa3.333c28",
+        "type": "link in",
+        "z": "55308ed3.60103",
+        "name": "Ansagen",
+        "links": [
+            "b7bb6232.cd4b9"
+        ],
+        "x": 135,
+        "y": 60,
+        "wires": [
+            [
+                "1bf6ecb4.00b6d3"
+            ]
+        ]
+    },
+    {
+        "id": "1bf6ecb4.00b6d3",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "77acf016.db78"
+            ]
+        ]
+    },
+    {
+        "id": "9b39172c.cd57c8",
+        "type": "comment",
+        "z": "55308ed3.60103",
+        "name": "Wetter Chemnitz",
+        "info": "",
+        "x": 80,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "80532bf1.2d2d68",
+        "type": "inject",
+        "z": "55308ed3.60103",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "77acf016.db78"
+            ]
+        ]
+    },
+    {
+        "id": "77acf016.db78",
+        "type": "http request",
+        "z": "55308ed3.60103",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://api.met.no/weatherapi/locationforecast/1.9/?lat=50.8357&lon=12.92922",
+        "tls": "",
+        "x": 430,
+        "y": 140,
+        "wires": [
+            [
+                "e5b7f4bf.bc5d88",
+                "9ca53d3.b772ec"
+            ]
+        ]
+    },
+    {
+        "id": "9ca53d3.b772ec",
+        "type": "xml",
+        "z": "55308ed3.60103",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [
+                "e5b7f4bf.bc5d88",
+                "b42646e2.2a4d88"
+            ]
+        ]
+    },
+    {
+        "id": "e5b7f4bf.bc5d88",
+        "type": "debug",
+        "z": "55308ed3.60103",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b42646e2.2a4d88",
+        "type": "function",
+        "z": "55308ed3.60103",
+        "name": "",
+        "func": "p=msg.payload;\nt=p.weatherdata.product[0].time[0].location[0].temperature[0].$.value.replace(\".\",\",\");\nnode.status({text:t});\nmsg.payload=t;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "9bbb5309.fb026"
+            ]
+        ]
+    },
+    {
+        "id": "9bbb5309.fb026",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Die aktuelle Kämnitz Temperatur beträgt {{payload}} Grad Celsius.",
+        "output": "str",
+        "x": 900,
+        "y": 140,
+        "wires": [
+            [
+                "e11cb4bd.3c51f8"
+            ]
+        ]
+    },
+    {
+        "id": "e11cb4bd.3c51f8",
+        "type": "link out",
+        "z": "55308ed3.60103",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 1015,
+        "y": 140,
+        "wires": []
     }
 ]
