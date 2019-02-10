@@ -601,6 +601,53 @@
     }
    }
   },
+  "node-red-contrib-ttn": {
+   "name": "node-red-contrib-ttn",
+   "version": "2.0.4",
+   "local": true,
+   "nodes": {
+    "ttn-app": {
+     "name": "ttn-app",
+     "types": [
+      "ttn app"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ttn",
+     "file": "/home/pi/.node-red/node_modules/node-red-contrib-ttn/ttn-app/ttn-app.js"
+    },
+    "ttn-event": {
+     "name": "ttn-event",
+     "types": [
+      "ttn event"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ttn",
+     "file": "/home/pi/.node-red/node_modules/node-red-contrib-ttn/ttn-event/ttn-event.js"
+    },
+    "ttn-uplink": {
+     "name": "ttn-uplink",
+     "types": [
+      "ttn uplink"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ttn",
+     "file": "/home/pi/.node-red/node_modules/node-red-contrib-ttn/ttn-uplink/ttn-uplink.js"
+    },
+    "ttn-downlink": {
+     "name": "ttn-downlink",
+     "types": [
+      "ttn downlink"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ttn",
+     "file": "/home/pi/.node-red/node_modules/node-red-contrib-ttn/ttn-downlink/ttn-downlink.js"
+    }
+   }
+  },
   "node-red-node-dropbox": {
    "name": "node-red-node-dropbox",
    "version": "1.0.2",
@@ -620,24 +667,6 @@
      "file": "/home/pi/.node-red/node_modules/node-red-node-dropbox/dropbox.js"
     }
    }
-  },
-  "node-red-contrib-midi": {
-   "name": "node-red-contrib-midi",
-   "version": "1.0.1",
-   "local": true,
-   "nodes": {
-    "midi": {
-     "name": "midi",
-     "types": [
-      "midi in",
-      "midi out"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-midi",
-     "file": "/home/pi/.node-red/node_modules/node-red-contrib-midi-master/midi.js"
-    }
-   }
   }
  },
  "_credentialSecret": "a4545e7ca3ebaa2bed1377e4e7be43eb478ae1828a29b2c2a4bb83ceed9edbf3",
@@ -647,14 +676,14 @@
     "view": {
      "view-grid-size": "20",
      "view-node-status": true,
-     "view-show-tips": true,
+     "view-show-tips": false,
      "view-snap-grid": true,
      "view-show-grid": true
     }
    },
    "menu-deploymenu-item-node": true,
    "menu-deploymenu-item-full": false,
-   "menu-menu-item-sidebar": true
+   "menu-menu-item-sidebar": false
   }
  }
 }

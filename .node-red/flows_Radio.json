@@ -169,6 +169,14 @@
         "verifyservercert": true
     },
     {
+        "id": "8db57f2b.e9e07",
+        "type": "websocket-client",
+        "z": "",
+        "path": "ws://Heizung:1880/ws/Wetter",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
         "id": "f0401a97.0f2d2",
         "type": "inject",
         "z": "6db5641.c4bb3a",
@@ -5032,10 +5040,10 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 260,
-        "y": 140,
+        "y": 60,
         "wires": [
             [
-                "77acf016.db78"
+                "12ae018e.04a58e"
             ]
         ]
     },
@@ -5062,7 +5070,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 260,
-        "y": 220,
+        "y": 140,
         "wires": [
             [
                 "77acf016.db78"
@@ -5200,7 +5208,7 @@
         "y": 180,
         "wires": [
             [
-                "77acf016.db78"
+                "12ae018e.04a58e"
             ]
         ]
     },
@@ -5217,6 +5225,92 @@
         "wires": [
             [
                 "d706bedc.76842"
+            ]
+        ]
+    },
+    {
+        "id": "12ae018e.04a58e",
+        "type": "websocket out",
+        "z": "55308ed3.60103",
+        "name": "",
+        "server": "",
+        "client": "8db57f2b.e9e07",
+        "x": 490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a721f16b.6d3ca",
+        "type": "websocket in",
+        "z": "55308ed3.60103",
+        "name": "",
+        "server": "",
+        "client": "8db57f2b.e9e07",
+        "x": 560,
+        "y": 280,
+        "wires": [
+            [
+                "e5b7f4bf.bc5d88",
+                "11a2bfe8.a7b38"
+            ]
+        ]
+    },
+    {
+        "id": "c4cac141.aa04e",
+        "type": "inject",
+        "z": "55308ed3.60103",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "*/20 1-22 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "2745d3bd.ee987c"
+            ]
+        ]
+    },
+    {
+        "id": "11a2bfe8.a7b38",
+        "type": "function",
+        "z": "55308ed3.60103",
+        "name": "",
+        "func": "msg.payload=msg.payload.replace(\".\",\",\");\nnode.status({text:msg.payload});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 830,
+        "y": 280,
+        "wires": [
+            [
+                "9bbb5309.fb026"
+            ]
+        ]
+    },
+    {
+        "id": "2745d3bd.ee987c",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 280,
+        "wires": [
+            [
+                "12ae018e.04a58e"
             ]
         ]
     }
