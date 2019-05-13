@@ -2325,7 +2325,8 @@
             "49cf4e36.f692a",
             "79ae5f6.3f22fa",
             "6413a0a9.53041",
-            "e11cb4bd.3c51f8"
+            "e11cb4bd.3c51f8",
+            "57300fd8.012b9"
         ],
         "x": 255,
         "y": 2040,
@@ -2705,8 +2706,8 @@
         "active": true,
         "console": "true",
         "complete": "payload",
-        "x": 940,
-        "y": 3100,
+        "x": 960,
+        "y": 3060,
         "wires": []
     },
     {
@@ -3399,7 +3400,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "connect 00:1A:22:0B:F9:D1",
+        "template": "connect 00:1A:22:11:07:08 #vorher 00:1A:22:0B:F9:D1",
         "output": "str",
         "x": 400,
         "y": 3220,
@@ -3546,7 +3547,8 @@
         "y": 3340,
         "wires": [
             [
-                "36763404.d2f0ec"
+                "36763404.d2f0ec",
+                "7538a676.94ee58"
             ]
         ]
     },
@@ -3567,7 +3569,7 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "func": "var t=msg.payload.slice(-2);\nvar tt=eval(\"0x\"+t)/2;\nmsg.payload=tt;\nreturn msg;",
+        "func": "var t=msg.payload.slice(-2);\nvar tt=eval(\"0x\"+t)/2;\nvar b=msg.payload.slice(39,40);\nvar bb=\"Batterie ok\";\nif (b>0) bb=\"Batterie nicht ok\"\nmsg.payload=bb; //tt;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 810,
@@ -3588,7 +3590,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Die Heiztemperatur ist eingestellt auf {{payload}} Grad Celsius.",
+        "template": "Eine testweise Abfrage der Heizung war erfolgreich. {{payload}}.",
         "output": "str",
         "x": 970,
         "y": 3340,
@@ -3670,7 +3672,7 @@
         "crontab": "",
         "once": false,
         "x": 140,
-        "y": 3500,
+        "y": 3580,
         "wires": [
             [
                 "608eb4b2.391abc"
@@ -3731,7 +3733,7 @@
         "name": "mqtt",
         "info": "",
         "x": 50,
-        "y": 3400,
+        "y": 3420,
         "wires": []
     },
     {
@@ -4032,7 +4034,8 @@
             "4ba31516.c2436c",
             "dd724e25.c6744",
             "54de5653.bab3e8",
-            "757e8ee5.60481"
+            "757e8ee5.60481",
+            "8829c692.65e2d8"
         ],
         "x": 535,
         "y": 3660,
@@ -5012,7 +5015,7 @@
         "id": "de3c0aa3.333c28",
         "type": "link in",
         "z": "55308ed3.60103",
-        "name": "Ansagen",
+        "name": "Sheet Ansagen - Wetter Chemnitz",
         "links": [
             "b7bb6232.cd4b9"
         ],
@@ -5030,7 +5033,7 @@
         "z": "55308ed3.60103",
         "name": "",
         "pauseType": "delay",
-        "timeout": "30",
+        "timeout": "130",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -5039,7 +5042,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 260,
+        "x": 270,
         "y": 60,
         "wires": [
             [
@@ -5181,8 +5184,8 @@
         "links": [
             "351b3ef8.5ed6d2"
         ],
-        "x": 35,
-        "y": 180,
+        "x": 135,
+        "y": 220,
         "wires": [
             [
                 "a42f4ece.1ec72"
@@ -5311,6 +5314,358 @@
         "wires": [
             [
                 "12ae018e.04a58e"
+            ]
+        ]
+    },
+    {
+        "id": "8829c692.65e2d8",
+        "type": "link in",
+        "z": "55308ed3.60103",
+        "name": "",
+        "links": [
+            "351b3ef8.5ed6d2"
+        ],
+        "x": 55,
+        "y": 500,
+        "wires": [
+            [
+                "70084e8a.9f3ec"
+            ]
+        ]
+    },
+    {
+        "id": "77297c84.adad04",
+        "type": "comment",
+        "z": "55308ed3.60103",
+        "name": "Eieruhr",
+        "info": "",
+        "x": 50,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "70084e8a.9f3ec",
+        "type": "function",
+        "z": "55308ed3.60103",
+        "name": "",
+        "func": "if (msg.payload==\"on 45,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "9b5b3972.caf418"
+            ]
+        ]
+    },
+    {
+        "id": "57300fd8.012b9",
+        "type": "link out",
+        "z": "55308ed3.60103",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 575,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "1cd06a40.b7ed46",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Start Eieruhr noch 5 Minuten, denk auch an die Brötchen.",
+        "output": "str",
+        "x": 440,
+        "y": 500,
+        "wires": [
+            [
+                "57300fd8.012b9"
+            ]
+        ]
+    },
+    {
+        "id": "596ff392.3b91ac",
+        "type": "inject",
+        "z": "55308ed3.60103",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 440,
+        "wires": [
+            [
+                "a952802a.7a033",
+                "1cd06a40.b7ed46"
+            ]
+        ]
+    },
+    {
+        "id": "9b5b3972.caf418",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 500,
+        "wires": [
+            [
+                "1cd06a40.b7ed46",
+                "a952802a.7a033"
+            ]
+        ]
+    },
+    {
+        "id": "a952802a.7a033",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 560,
+        "wires": [
+            [
+                "2280e3dc.6d3f6c",
+                "c37776e8.757458"
+            ]
+        ]
+    },
+    {
+        "id": "2280e3dc.6d3f6c",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 620,
+        "wires": [
+            [
+                "640273c3.2c2a7c",
+                "6491b33a.dcfa0c"
+            ]
+        ]
+    },
+    {
+        "id": "640273c3.2c2a7c",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 680,
+        "wires": [
+            [
+                "daee1b38.fe62d8",
+                "8d411e55.c1cfb"
+            ]
+        ]
+    },
+    {
+        "id": "daee1b38.fe62d8",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 740,
+        "wires": [
+            [
+                "8dad2466.f47a88",
+                "20a14b65.bf39d4"
+            ]
+        ]
+    },
+    {
+        "id": "8dad2466.f47a88",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 280,
+        "y": 800,
+        "wires": [
+            [
+                "e6408dec.1048c"
+            ]
+        ]
+    },
+    {
+        "id": "c37776e8.757458",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch 4 Minuten, denk auch an die Brötchen.\n",
+        "output": "str",
+        "x": 440,
+        "y": 560,
+        "wires": [
+            [
+                "57300fd8.012b9"
+            ]
+        ]
+    },
+    {
+        "id": "6491b33a.dcfa0c",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch 3 Minuten, denk auch an die Brötchen und den Tee.\n",
+        "output": "str",
+        "x": 440,
+        "y": 620,
+        "wires": [
+            [
+                "57300fd8.012b9"
+            ]
+        ]
+    },
+    {
+        "id": "8d411e55.c1cfb",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch 2 Minuten, denk auch an die Brötchen.\n",
+        "output": "str",
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "57300fd8.012b9"
+            ]
+        ]
+    },
+    {
+        "id": "e6408dec.1048c",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eier sind fertig gekocht.",
+        "output": "str",
+        "x": 440,
+        "y": 800,
+        "wires": [
+            [
+                "57300fd8.012b9"
+            ]
+        ]
+    },
+    {
+        "id": "20a14b65.bf39d4",
+        "type": "template",
+        "z": "55308ed3.60103",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch eine Minute, denk auch an die Brötchen.\n",
+        "output": "str",
+        "x": 440,
+        "y": 740,
+        "wires": [
+            [
+                "57300fd8.012b9"
+            ]
+        ]
+    },
+    {
+        "id": "46f83afb.f08004",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 3300,
+        "wires": [
+            [
+                "50d21cbc.b0d834"
             ]
         ]
     }
