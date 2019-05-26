@@ -2191,7 +2191,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-l de-DE -w lookdave.wav \"{{payload}}\" && play lookdave.wav pitch 80",
+        "template": "-l de-DE -w lookdave.wav \"{{payload}}\" && mplayer lookdave.wav #vorher play lookdave.wav pitch 80",
         "x": 410,
         "y": 2040,
         "wires": [
@@ -3569,7 +3569,7 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "func": "var t=msg.payload.slice(-2);\nvar tt=eval(\"0x\"+t)/2;\nvar b=msg.payload.slice(39,40);\nvar bb=\"Batterie ok\";\nif (b>0) bb=\"Batterie nicht ok\"\nmsg.payload=bb; //tt;\nreturn msg;",
+        "func": "var t=msg.payload.slice(-2);\nvar tt=eval(\"0x\"+t)/2;\nvar b=msg.payload.slice(39,40);\nvar bb=\"Batterie ok\";\nif (b>0) bb=\"Batterie nicht ok\"\nvar ret=bb;\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 810,
@@ -3590,7 +3590,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Eine testweise Abfrage der Heizung war erfolgreich. {{payload}}.",
+        "template": "Die Testabfrage der Heizung war erfolgreich. {{payload}}.",
         "output": "str",
         "x": 970,
         "y": 3340,
@@ -3882,7 +3882,7 @@
         "command": "aseqdump",
         "args": "-p 20:0",
         "cr": false,
-        "redo": true,
+        "redo": false,
         "op": "string",
         "name": "",
         "x": 270,
@@ -3927,7 +3927,7 @@
         "command": "aseqdump",
         "args": "-p 20:1",
         "cr": false,
-        "redo": true,
+        "redo": false,
         "op": "string",
         "name": "",
         "x": 270,
@@ -5007,8 +5007,8 @@
         "links": [
             "de3c0aa3.333c28"
         ],
-        "x": 40,
-        "y": 3320,
+        "x": 755,
+        "y": 3180,
         "wires": []
     },
     {
