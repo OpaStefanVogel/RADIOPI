@@ -3310,12 +3310,12 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 440,
+        "x": 420,
         "y": 3180,
         "wires": [
             [
-                "9bf1e5e9.17f3f8",
-                "b7bb6232.cd4b9"
+                "6a0fa1c5.870ac",
+                "8ae53858.c332b8"
             ]
         ]
     },
@@ -3428,29 +3428,10 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 220,
-        "y": 3280,
+        "y": 3260,
         "wires": [
             [
                 "50d21cbc.b0d834"
-            ]
-        ]
-    },
-    {
-        "id": "f826ca3c.966c28",
-        "type": "inject",
-        "z": "6db5641.c4bb3a",
-        "name": "Test",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 230,
-        "y": 3220,
-        "wires": [
-            [
-                "9bf1e5e9.17f3f8"
             ]
         ]
     },
@@ -3527,11 +3508,11 @@
         "timeout": "25",
         "count": "",
         "x": 490,
-        "y": 3340,
+        "y": 3360,
         "wires": [
             [
-                "8ae53858.c332b8",
-                "7538a676.94ee58"
+                "7538a676.94ee58",
+                "db8d6e8f.78c3b"
             ]
         ]
     },
@@ -3540,10 +3521,10 @@
         "type": "function",
         "z": "6db5641.c4bb3a",
         "name": "",
-        "func": "var p=msg.payload;\nvar ind=p.indexOf(\"Notification\");\nif (ind>-1) {\n  var t=p.slice(ind,ind+53);\n  msg.payload=t;\n  return msg;\n  }",
+        "func": "var Heizungsstatus=global.get(\"Heizungsstatus\");\nvar p=Heizungsstatus[0];//msg.payload;\nvar ind=p.indexOf(\"Notification\");\nif (ind>-1) {\n  var t=p.slice(ind,ind+53);\n  msg.payload=t;\n  return msg;\n  }",
         "outputs": 1,
         "noerr": 0,
-        "x": 650,
+        "x": 690,
         "y": 3340,
         "wires": [
             [
@@ -4672,12 +4653,13 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 240,
-        "y": 3180,
+        "x": 300,
+        "y": 3200,
         "wires": [
             [
-                "9bf1e5e9.17f3f8",
-                "f11c663e.12c768"
+                "f11c663e.12c768",
+                "6a0fa1c5.870ac",
+                "8ae53858.c332b8"
             ]
         ]
     },
@@ -5666,6 +5648,58 @@
         "wires": [
             [
                 "50d21cbc.b0d834"
+            ]
+        ]
+    },
+    {
+        "id": "6a0fa1c5.870ac",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "node.status({text:msg.payload});\nmsg.payload=\"Heizungsstatus im Moment außer betrieb\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 3180,
+        "wires": [
+            [
+                "b7bb6232.cd4b9"
+            ]
+        ]
+    },
+    {
+        "id": "db8d6e8f.78c3b",
+        "type": "function",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "func": "global.set(\"Heizungsstatus\",[msg.payload,Date()]);\nnode.status({text:Date()});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 3320,
+        "wires": [
+            [
+                "8ae53858.c332b8"
+            ]
+        ]
+    },
+    {
+        "id": "ef7635f0.3f65b8",
+        "type": "inject",
+        "z": "6db5641.c4bb3a",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "00 06 * * *",
+        "once": false,
+        "onceDelay": "60",
+        "x": 230,
+        "y": 3220,
+        "wires": [
+            [
+                "9bf1e5e9.17f3f8"
             ]
         ]
     }
