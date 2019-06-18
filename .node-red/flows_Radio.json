@@ -1379,7 +1379,7 @@
         "server": "",
         "client": "9856be8c.67a94",
         "x": 390,
-        "y": 1900,
+        "y": 1860,
         "wires": [
             [
                 "a12d8098.5ed28"
@@ -2191,7 +2191,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-l de-DE -w lookdave.wav \"{{payload}}\" && mplayer lookdave.wav #vorher play lookdave.wav pitch 80",
+        "template": "-l de-DE -w lookdave.wav \"{{payload}}   over....\" && mplayer lookdave.wav #vorher play lookdave.wav pitch 80",
         "x": 410,
         "y": 2040,
         "wires": [
