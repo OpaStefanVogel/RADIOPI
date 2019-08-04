@@ -248,8 +248,8 @@
         "name": "Toggle 0/1 on input",
         "func": "\ncontext.state = context.state || 0;\n\n(context.state == 0) ? context.state = 1 : context.state = 0;\nmsg.payload = context.state;\n\nreturn msg;",
         "outputs": 1,
-        "x": 279,
-        "y": 108.04566097259521,
+        "x": 530,
+        "y": 180,
         "wires": [
             [
                 "61a0de54.9e5f2",
@@ -265,8 +265,8 @@
         "active": true,
         "console": "true",
         "complete": "payload",
-        "x": 518,
-        "y": 168.04566192626953,
+        "x": 830,
+        "y": 180,
         "wires": []
     },
     {
@@ -280,8 +280,8 @@
         "repeat": "3600",
         "crontab": "",
         "once": true,
-        "x": 118.71601867675781,
-        "y": 170.00765991210938,
+        "x": 250,
+        "y": 180,
         "wires": [
             [
                 "e799d9bd.186628",
@@ -295,8 +295,8 @@
         "z": "e95d2d3e.16a2d",
         "name": "",
         "pin": "7",
-        "x": 515.8333625793457,
-        "y": 107.87899494171143,
+        "x": 790,
+        "y": 120,
         "wires": []
     },
     {
@@ -520,7 +520,9 @@
         "overwriteFile": "false",
         "x": 379.3730163574219,
         "y": 664,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "8a28de48.75d72",
@@ -946,7 +948,9 @@
         "overwriteFile": "true",
         "x": 850,
         "y": 220,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "8b47fd92.74b8",
@@ -1792,15 +1796,15 @@
         "id": "979fc28e.68604",
         "type": "exec",
         "z": "e95d2d3e.16a2d",
-        "command": "ssh pi@localhost \"speaker-test -c1 -t sine -f 70 -P 2 -p 0.4 -l 1\"",
+        "command": "ssh pi@localhost \"speaker-test -c1 -t sine -f 90 -P 2 -p 0.4 -l 1\"",
         "addpay": false,
         "append": "",
         "useSpawn": "",
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 485.66400146484375,
-        "y": 251.85400390625,
+        "x": 670,
+        "y": 240,
         "wires": [
             [],
             [],
@@ -2191,7 +2195,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-l de-DE -w lookdave.wav \"{{payload}}   over....\" && mplayer lookdave.wav #vorher play lookdave.wav pitch 80",
+        "template": "-w lookdave.wav -vde \"{{payload}}   over....\" && mplayer lookdave.wav #-vde -l de-DE -w lookdave.wav \"{{payload}}   over....\" && mplayer lookdave.wav #vorher play lookdave.wav pitch 80",
         "x": 410,
         "y": 2040,
         "wires": [
@@ -2205,13 +2209,14 @@
         "id": "ce74b1b4.21e7b",
         "type": "exec",
         "z": "6db5641.c4bb3a",
-        "command": "pico2wave",
+        "command": "espeak",
         "addpay": true,
         "append": "",
         "useSpawn": "",
         "timer": "",
-        "name": "pico2wave",
-        "x": 630,
+        "oldrc": false,
+        "name": "espeak (vorher pico2wave)",
+        "x": 680,
         "y": 2040,
         "wires": [
             [
@@ -2359,12 +2364,12 @@
         "id": "5783bfdc.9e55e",
         "type": "daemon",
         "z": "6db5641.c4bb3a",
+        "name": "ssh asterix gap",
         "command": "ssh",
         "args": "stefan@192.168.1.5 gap -L GAP_WORKSPACE",
         "cr": true,
         "redo": false,
         "op": "string",
-        "name": "ssh asterix gap",
         "x": 320,
         "y": 2500,
         "wires": [
@@ -3860,12 +3865,12 @@
         "id": "565bd866.30d098",
         "type": "daemon",
         "z": "6db5641.c4bb3a",
+        "name": "",
         "command": "aseqdump",
         "args": "-p 20:0",
         "cr": false,
         "redo": false,
         "op": "string",
-        "name": "",
         "x": 270,
         "y": 3720,
         "wires": [
@@ -3905,12 +3910,12 @@
         "id": "fc55ae71.3ef53",
         "type": "daemon",
         "z": "6db5641.c4bb3a",
+        "name": "",
         "command": "aseqdump",
         "args": "-p 20:1",
         "cr": false,
         "redo": false,
         "op": "string",
-        "name": "",
         "x": 270,
         "y": 3800,
         "wires": [
@@ -5702,5 +5707,15 @@
                 "9bf1e5e9.17f3f8"
             ]
         ]
+    },
+    {
+        "id": "6efbad02.108134",
+        "type": "comment",
+        "z": "e95d2d3e.16a2d",
+        "name": "Lautsprechertest",
+        "info": "",
+        "x": 200,
+        "y": 120,
+        "wires": []
     }
 ]
