@@ -17,24 +17,9 @@
         "label": "Sheet 3"
     },
     {
-        "id": "4dfcddef.b20324",
-        "type": "tab",
-        "label": "Sheet 4"
-    },
-    {
         "id": "27abbd1e.d85442",
         "type": "tab",
         "label": "Sheet 8"
-    },
-    {
-        "id": "4b74616f.b48ba",
-        "type": "tab",
-        "label": "Sheet 10"
-    },
-    {
-        "id": "58b862fb.a7479c",
-        "type": "tab",
-        "label": "Sheet 6"
     },
     {
         "id": "9856be8c.67a94",
@@ -300,131 +285,6 @@
         "wires": []
     },
     {
-        "id": "83488358.7cb78",
-        "type": "inject",
-        "z": "4dfcddef.b20324",
-        "name": "Tick",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "*/5 0-22 * * 1,2,3,4,6,0",
-        "once": false,
-        "x": 80.29727172851562,
-        "y": 53.0452880859375,
-        "wires": [
-            [
-                "2e64dc49.d19b24"
-            ]
-        ]
-    },
-    {
-        "id": "2e64dc49.d19b24",
-        "type": "http request",
-        "z": "4dfcddef.b20324",
-        "name": "UK Power",
-        "method": "GET",
-        "url": "http://realtimeweb-prod.nationalgrid.com/SystemData.aspx",
-        "x": 241.76309967041016,
-        "y": 52.0195894241333,
-        "wires": [
-            [
-                "6b16b408.94e94c"
-            ]
-        ]
-    },
-    {
-        "id": "6b16b408.94e94c",
-        "type": "function",
-        "z": "4dfcddef.b20324",
-        "name": "UK Power Demand",
-        "func": "// does a simple text extract parse of the http output to provide an\n// object containing the uk power demand, frequency and time\n\nif (~msg.payload.indexOf('<span')) {\n    var dem = msg.payload.split('Demand:')[1].split(\"MW\")[0];\n    var fre = msg.payload.split('Frequency:')[1].split(\"Hz\")[0];\n\n    msg.payload = {};\n    msg.payload.demand = parseInt(dem.split(\">\")[1].split(\"<\")[0]);\n    msg.payload.frequency = parseFloat(fre.split(\">\")[1].split(\"<\")[0]);\n    \n    msg2 = {};\n    msg2.payload = (msg.payload.frequency >= 50) ? true : false;\n\n    return [msg,msg2];\n}\n\nreturn null;",
-        "outputs": "2",
-        "x": 418.76309967041016,
-        "y": 52.0195894241333,
-        "wires": [
-            [
-                "1437d38b.ebc82c"
-            ],
-            [
-                "d7185991.28e7a8"
-            ]
-        ]
-    },
-    {
-        "id": "1437d38b.ebc82c",
-        "type": "debug",
-        "z": "4dfcddef.b20324",
-        "name": "",
-        "active": true,
-        "complete": false,
-        "x": 618.7630996704102,
-        "y": 22.0195894241333,
-        "wires": []
-    },
-    {
-        "id": "d7185991.28e7a8",
-        "type": "debug",
-        "z": "4dfcddef.b20324",
-        "name": "",
-        "active": true,
-        "complete": false,
-        "x": 619.7630996704102,
-        "y": 93.0195894241333,
-        "wires": []
-    },
-    {
-        "id": "9c6b7c63.63948",
-        "type": "inject",
-        "z": "27abbd1e.d85442",
-        "name": "alle 15 min",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "*/15 5-23 * * *",
-        "once": true,
-        "x": 130,
-        "y": 40,
-        "wires": [
-            [
-                "5ad39d6d.d5ff14"
-            ]
-        ]
-    },
-    {
-        "id": "145cc1da.eba33e",
-        "type": "exec",
-        "z": "27abbd1e.d85442",
-        "command": "exec vcgencmd measure_temp",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "",
-        "name": "Raspi CPU Temperatur messen",
-        "x": 550,
-        "y": 40,
-        "wires": [
-            [
-                "6e2ffba5.91d004",
-                "d31a187a.032df8"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "6e2ffba5.91d004",
-        "type": "debug",
-        "z": "27abbd1e.d85442",
-        "name": "Raspi CPU Temp.",
-        "active": true,
-        "console": "true",
-        "complete": "payload",
-        "x": 760,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "e0987b72.1f6788",
         "type": "udp out",
         "z": "27abbd1e.d85442",
@@ -606,257 +466,6 @@
                 "e0987b72.1f6788"
             ]
         ]
-    },
-    {
-        "id": "5498e932.ab6718",
-        "type": "http in",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "url": "/chat",
-        "method": "post",
-        "x": 414.94193267822266,
-        "y": 155.0561981201172,
-        "wires": [
-            [
-                "5f871bf6.a078e4"
-            ]
-        ]
-    },
-    {
-        "id": "fe12fc78.01ed",
-        "type": "http response",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "x": 1042.1270141601562,
-        "y": 175.63299560546875,
-        "wires": []
-    },
-    {
-        "id": "2f0190c3.d0fe7",
-        "type": "template",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "syntax": "mustache",
-        "template": "\n  <iframe src=\"http://192.168.1.140:1880/dialog\" name=\"iframe_a\" height=\"70%\"></iframe>\n  <form name=\"frm\" action=\"http://192.168.1.140:1880/chat\" method=\"post\">\n  <b>Message from {{payload}}</b><br>\n  <input type=\"text\" name=\"message\" size=\"90%\"/>\n  <input type=\"hidden\" name=\"user\" value=\"{{payload}}\"><br>\n  <button type=\"submit\">Submit</button>\n  </form>\n  \n  <SCRIPT language=\"JavaScript\">\n  window.setInterval(\"reloadIFrame();\", 5000);\n  function reloadIFrame() { window.frames[\"iframe_a\"].location.reload(); }\n  </SCRIPT>\n",
-        "x": 877.291015625,
-        "y": 175.63299560546875,
-        "wires": [
-            [
-                "fe12fc78.01ed"
-            ]
-        ]
-    },
-    {
-        "id": "be549e66.41ab6",
-        "type": "http in",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "url": "/dialog",
-        "method": "get",
-        "x": 524.1270141601562,
-        "y": 236.63299560546875,
-        "wires": [
-            [
-                "384b0426.c7b4fc"
-            ]
-        ]
-    },
-    {
-        "id": "cd06a97f.32f958",
-        "type": "http response",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "x": 1042.1270141601562,
-        "y": 236.63299560546875,
-        "wires": []
-    },
-    {
-        "id": "f0f04e71.0f0fb",
-        "type": "template",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "field": "payload",
-        "template": "{{{payload}}}",
-        "x": 870.1270141601562,
-        "y": 236.63299560546875,
-        "wires": [
-            [
-                "cd06a97f.32f958"
-            ]
-        ]
-    },
-    {
-        "id": "5f871bf6.a078e4",
-        "type": "function",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "func": "  if (msg.req.body[\"user\"] != \"\") {\n    msg.payload = msg.req.body[\"user\"]\n  }\n  if (msg.req.body[\"message\"] != undefined) {\n    context.global.dialog += \n    msg.req.body[\"user\"]+': '+msg.req.body[\"message\"]+\"<BR>\";\n  }\ncontext.global.dialog = context.global.dialog || \"\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 695.7130126953125,
-        "y": 175.63299560546875,
-        "wires": [
-            [
-                "2f0190c3.d0fe7"
-            ]
-        ]
-    },
-    {
-        "id": "384b0426.c7b4fc",
-        "type": "function",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "func": "msg.payload = context.global.dialog;\nreturn msg;",
-        "outputs": 1,
-        "x": 698.1549682617188,
-        "y": 233.18301391601562,
-        "wires": [
-            [
-                "f0f04e71.0f0fb"
-            ]
-        ]
-    },
-    {
-        "id": "cc82235c.337de",
-        "type": "http in",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "url": "/login",
-        "method": "get",
-        "swaggerDoc": "",
-        "x": 82.5,
-        "y": 80,
-        "wires": [
-            [
-                "7b584313.84a7bc",
-                "85d6eac8.7a2918"
-            ]
-        ]
-    },
-    {
-        "id": "7b584313.84a7bc",
-        "type": "template",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "syntax": "mustache",
-        "template": "\n  <form action=\"http://192.168.1.140:1880/chat\" method=\"post\">\n  <b>User</b><br> <input type=\"text\" name=\"user\"/><br>\n  <button type=\"submit\">Submit</button>\n  </form>",
-        "x": 242.5,
-        "y": 80,
-        "wires": [
-            [
-                "481346bd.b7ecb8"
-            ]
-        ]
-    },
-    {
-        "id": "481346bd.b7ecb8",
-        "type": "http response",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "x": 400.5,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "4c19795b.b3e688",
-        "type": "http in",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "url": "/mypage",
-        "method": "get",
-        "x": 488.8971710205078,
-        "y": 484.0183753967285,
-        "wires": [
-            [
-                "b88df4e4.477208"
-            ]
-        ]
-    },
-    {
-        "id": "9c921e3a.636de",
-        "type": "http response",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "x": 1056.1270141601562,
-        "y": 473.63299560546875,
-        "wires": []
-    },
-    {
-        "id": "47ab4a3f.b854b4",
-        "type": "template",
-        "z": "4b74616f.b48ba",
-        "name": "template",
-        "field": "payload",
-        "template": "This is the <b>message</b>: {{payload}}",
-        "x": 908.1270141601562,
-        "y": 473.63299560546875,
-        "wires": [
-            [
-                "9c921e3a.636de"
-            ]
-        ]
-    },
-    {
-        "id": "b88df4e4.477208",
-        "type": "function",
-        "z": "4b74616f.b48ba",
-        "name": "where things happen",
-        "func": "if (msg.topic === \"new message\") {\n  context.value = msg.payload;\n  return null;\n} else {\n  msg.payload = context.value || \"never got anything\";\n  return msg;\n}",
-        "outputs": 1,
-        "x": 710.1270141601562,
-        "y": 473.63299560546875,
-        "wires": [
-            [
-                "47ab4a3f.b854b4"
-            ]
-        ]
-    },
-    {
-        "id": "ee4ddb65.11b228",
-        "type": "inject",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "topic": "new message",
-        "payload": "Have a nice day",
-        "payloadType": "string",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 553.1270141601562,
-        "y": 399.63299560546875,
-        "wires": [
-            [
-                "b88df4e4.477208"
-            ]
-        ]
-    },
-    {
-        "id": "85d6eac8.7a2918",
-        "type": "debug",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "true",
-        "x": 558.3729858398438,
-        "y": 119.36700439453125,
-        "wires": []
-    },
-    {
-        "id": "f5abec67.0a541",
-        "type": "debug",
-        "z": "4b74616f.b48ba",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "true",
-        "x": 416,
-        "y": 350,
-        "wires": []
     },
     {
         "id": "898b9dde.76746",
@@ -2331,7 +1940,8 @@
             "79ae5f6.3f22fa",
             "6413a0a9.53041",
             "e11cb4bd.3c51f8",
-            "57300fd8.012b9"
+            "57300fd8.012b9",
+            "d18e3a38.614158"
         ],
         "x": 255,
         "y": 2040,
@@ -2845,76 +2455,6 @@
             [
                 "20910576.06a36a",
                 "56443a35.84f154"
-            ]
-        ]
-    },
-    {
-        "id": "ea58d61c.834528",
-        "type": "link out",
-        "z": "27abbd1e.d85442",
-        "name": "",
-        "links": [
-            "81532115.8324a"
-        ],
-        "x": 895,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "5ad39d6d.d5ff14",
-        "type": "delay",
-        "z": "27abbd1e.d85442",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "70",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 300,
-        "y": 40,
-        "wires": [
-            [
-                "145cc1da.eba33e"
-            ]
-        ]
-    },
-    {
-        "id": "d31a187a.032df8",
-        "type": "function",
-        "z": "27abbd1e.d85442",
-        "name": "",
-        "func": "var a=msg.payload;\nmsg.payload=\"Die aktuelle CPU-Temperatur beträgt \"+a.slice(5,9).replace(/\\./g,\",\")+\" Grad Celsius\";\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 770,
-        "y": 40,
-        "wires": [
-            [
-                "ea58d61c.834528"
-            ]
-        ]
-    },
-    {
-        "id": "89ffdc93.f138e",
-        "type": "inject",
-        "z": "27abbd1e.d85442",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 140,
-        "y": 80,
-        "wires": [
-            [
-                "145cc1da.eba33e"
             ]
         ]
     },
@@ -5006,8 +4546,8 @@
         "links": [
             "b7bb6232.cd4b9"
         ],
-        "x": 135,
-        "y": 60,
+        "x": 155,
+        "y": 160,
         "wires": [
             [
                 "1bf6ecb4.00b6d3"
@@ -5029,8 +4569,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 270,
-        "y": 60,
+        "x": 310,
+        "y": 160,
         "wires": [
             [
                 "12ae018e.04a58e"
@@ -5043,8 +4583,8 @@
         "z": "55308ed3.60103",
         "name": "Wetter Chemnitz",
         "info": "",
-        "x": 80,
-        "y": 140,
+        "x": 200,
+        "y": 20,
         "wires": []
     },
     {
@@ -5059,8 +4599,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 260,
-        "y": 140,
+        "x": 220,
+        "y": 60,
         "wires": [
             [
                 "77acf016.db78"
@@ -5076,8 +4616,8 @@
         "ret": "txt",
         "url": "http://api.met.no/weatherapi/locationforecast/1.9/?lat=50.8357&lon=12.92922",
         "tls": "",
-        "x": 430,
-        "y": 140,
+        "x": 450,
+        "y": 60,
         "wires": [
             [
                 "e5b7f4bf.bc5d88",
@@ -5093,8 +4633,8 @@
         "property": "payload",
         "attr": "",
         "chr": "",
-        "x": 610,
-        "y": 140,
+        "x": 630,
+        "y": 60,
         "wires": [
             [
                 "e5b7f4bf.bc5d88",
@@ -5112,8 +4652,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 770,
-        "y": 240,
+        "x": 950,
+        "y": 120,
         "wires": []
     },
     {
@@ -5124,8 +4664,8 @@
         "func": "p=msg.payload;\nt=p.weatherdata.product[0].time[0].location[0].temperature[0].$.value.replace(\".\",\",\");\nnode.status({text:t});\nmsg.payload=t;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 750,
-        "y": 140,
+        "x": 770,
+        "y": 60,
         "wires": [
             [
                 "9bbb5309.fb026"
@@ -5143,8 +4683,8 @@
         "syntax": "mustache",
         "template": "Die aktuelle Kämnitz Temperatur beträgt {{payload}} Grad Celsius.",
         "output": "str",
-        "x": 900,
-        "y": 140,
+        "x": 920,
+        "y": 60,
         "wires": [
             [
                 "e11cb4bd.3c51f8"
@@ -5159,8 +4699,8 @@
         "links": [
             "81532115.8324a"
         ],
-        "x": 1015,
-        "y": 140,
+        "x": 1035,
+        "y": 60,
         "wires": []
     },
     {
@@ -5171,8 +4711,8 @@
         "links": [
             "351b3ef8.5ed6d2"
         ],
-        "x": 135,
-        "y": 220,
+        "x": 155,
+        "y": 100,
         "wires": [
             [
                 "a42f4ece.1ec72"
@@ -5185,7 +4725,7 @@
         "z": "55308ed3.60103",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "2",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -5194,11 +4734,12 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 260,
-        "y": 180,
+        "x": 460,
+        "y": 100,
         "wires": [
             [
-                "12ae018e.04a58e"
+                "12ae018e.04a58e",
+                "77acf016.db78"
             ]
         ]
     },
@@ -5206,12 +4747,12 @@
         "id": "a42f4ece.1ec72",
         "type": "function",
         "z": "55308ed3.60103",
-        "name": "",
+        "name": "Keyboard 44",
         "func": "if (msg.payload==\"on 44,\") {\n  return msg;\n  }",
         "outputs": 1,
         "noerr": 0,
-        "x": 130,
-        "y": 180,
+        "x": 270,
+        "y": 100,
         "wires": [
             [
                 "d706bedc.76842"
@@ -5225,8 +4766,8 @@
         "name": "",
         "server": "",
         "client": "8db57f2b.e9e07",
-        "x": 490,
-        "y": 220,
+        "x": 680,
+        "y": 160,
         "wires": []
     },
     {
@@ -5236,8 +4777,8 @@
         "name": "",
         "server": "",
         "client": "8db57f2b.e9e07",
-        "x": 560,
-        "y": 280,
+        "x": 670,
+        "y": 220,
         "wires": [
             [
                 "e5b7f4bf.bc5d88",
@@ -5257,8 +4798,8 @@
         "crontab": "*/20 1-22 * * *",
         "once": false,
         "onceDelay": 0.1,
-        "x": 250,
-        "y": 360,
+        "x": 230,
+        "y": 200,
         "wires": [
             [
                 "2745d3bd.ee987c"
@@ -5273,8 +4814,8 @@
         "func": "msg.payload=msg.payload.replace(\".\",\",\");\nnode.status({text:msg.payload});\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 830,
-        "y": 280,
+        "x": 890,
+        "y": 220,
         "wires": [
             [
                 "9bbb5309.fb026"
@@ -5296,11 +4837,12 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 280,
+        "x": 400,
+        "y": 200,
         "wires": [
             [
-                "12ae018e.04a58e"
+                "12ae018e.04a58e",
+                "77acf016.db78"
             ]
         ]
     },
@@ -5312,8 +4854,8 @@
         "links": [
             "351b3ef8.5ed6d2"
         ],
-        "x": 55,
-        "y": 500,
+        "x": 155,
+        "y": 380,
         "wires": [
             [
                 "70084e8a.9f3ec"
@@ -5326,20 +4868,20 @@
         "z": "55308ed3.60103",
         "name": "Eieruhr",
         "info": "",
-        "x": 50,
-        "y": 440,
+        "x": 170,
+        "y": 300,
         "wires": []
     },
     {
         "id": "70084e8a.9f3ec",
         "type": "function",
         "z": "55308ed3.60103",
-        "name": "",
+        "name": "Keyboard 45,",
         "func": "if (msg.payload==\"on 45,\") {\n  return msg;\n  }",
         "outputs": 1,
         "noerr": 0,
-        "x": 150,
-        "y": 500,
+        "x": 270,
+        "y": 380,
         "wires": [
             [
                 "9b5b3972.caf418"
@@ -5354,8 +4896,8 @@
         "links": [
             "81532115.8324a"
         ],
-        "x": 575,
-        "y": 740,
+        "x": 695,
+        "y": 680,
         "wires": []
     },
     {
@@ -5369,8 +4911,8 @@
         "syntax": "mustache",
         "template": "Start Eieruhr noch 5 Minuten, denk auch an die Brötchen.",
         "output": "str",
-        "x": 440,
-        "y": 500,
+        "x": 560,
+        "y": 440,
         "wires": [
             [
                 "57300fd8.012b9"
@@ -5389,8 +4931,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 240,
-        "y": 440,
+        "x": 220,
+        "y": 340,
         "wires": [
             [
                 "a952802a.7a033",
@@ -5413,8 +4955,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 500,
+        "x": 400,
+        "y": 440,
         "wires": [
             [
                 "1cd06a40.b7ed46",
@@ -5437,8 +4979,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 560,
+        "x": 400,
+        "y": 500,
         "wires": [
             [
                 "2280e3dc.6d3f6c",
@@ -5461,8 +5003,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 620,
+        "x": 400,
+        "y": 560,
         "wires": [
             [
                 "640273c3.2c2a7c",
@@ -5485,8 +5027,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 680,
+        "x": 400,
+        "y": 620,
         "wires": [
             [
                 "daee1b38.fe62d8",
@@ -5509,8 +5051,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 740,
+        "x": 400,
+        "y": 680,
         "wires": [
             [
                 "8dad2466.f47a88",
@@ -5533,8 +5075,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 280,
-        "y": 800,
+        "x": 400,
+        "y": 740,
         "wires": [
             [
                 "e6408dec.1048c"
@@ -5552,8 +5094,8 @@
         "syntax": "mustache",
         "template": "Eieruhr noch 4 Minuten, denk auch an die Brötchen.\n",
         "output": "str",
-        "x": 440,
-        "y": 560,
+        "x": 560,
+        "y": 500,
         "wires": [
             [
                 "57300fd8.012b9"
@@ -5571,8 +5113,8 @@
         "syntax": "mustache",
         "template": "Eieruhr noch 3 Minuten, denk auch an die Brötchen und den Tee.\n",
         "output": "str",
-        "x": 440,
-        "y": 620,
+        "x": 560,
+        "y": 560,
         "wires": [
             [
                 "57300fd8.012b9"
@@ -5590,8 +5132,8 @@
         "syntax": "mustache",
         "template": "Eieruhr noch 2 Minuten, denk auch an die Brötchen.\n",
         "output": "str",
-        "x": 440,
-        "y": 680,
+        "x": 560,
+        "y": 620,
         "wires": [
             [
                 "57300fd8.012b9"
@@ -5609,8 +5151,8 @@
         "syntax": "mustache",
         "template": "Eier sind fertig gekocht.",
         "output": "str",
-        "x": 440,
-        "y": 800,
+        "x": 560,
+        "y": 740,
         "wires": [
             [
                 "57300fd8.012b9"
@@ -5628,8 +5170,8 @@
         "syntax": "mustache",
         "template": "Eieruhr noch eine Minute, denk auch an die Brötchen.\n",
         "output": "str",
-        "x": 440,
-        "y": 740,
+        "x": 560,
+        "y": 680,
         "wires": [
             [
                 "57300fd8.012b9"
@@ -5716,6 +5258,137 @@
         "info": "",
         "x": 200,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b14f2fbe.65e8d",
+        "type": "inject",
+        "z": "55308ed3.60103",
+        "name": "alle 15 min",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "*/15 5-23 * * *",
+        "once": true,
+        "x": 230,
+        "y": 880,
+        "wires": [
+            [
+                "3feb78a7.0d74e8"
+            ]
+        ]
+    },
+    {
+        "id": "70d4ffef.e35a5",
+        "type": "exec",
+        "z": "55308ed3.60103",
+        "command": "exec vcgencmd measure_temp",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "name": "Raspi CPU Temperatur messen",
+        "x": 650,
+        "y": 880,
+        "wires": [
+            [
+                "bd43c4f9.f3a528",
+                "29ca6590.34d5ea"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "bd43c4f9.f3a528",
+        "type": "debug",
+        "z": "55308ed3.60103",
+        "name": "Raspi CPU Temp.",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 940,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "d18e3a38.614158",
+        "type": "link out",
+        "z": "55308ed3.60103",
+        "name": "",
+        "links": [
+            "81532115.8324a"
+        ],
+        "x": 1015,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "3feb78a7.0d74e8",
+        "type": "delay",
+        "z": "55308ed3.60103",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "70",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 400,
+        "y": 880,
+        "wires": [
+            [
+                "70d4ffef.e35a5"
+            ]
+        ]
+    },
+    {
+        "id": "29ca6590.34d5ea",
+        "type": "function",
+        "z": "55308ed3.60103",
+        "name": "",
+        "func": "var a=msg.payload;\nmsg.payload=\"Die aktuelle CPU-Temperatur beträgt \"+a.slice(5,9).replace(/\\./g,\",\")+\" Grad Celsius\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 910,
+        "y": 880,
+        "wires": [
+            [
+                "d18e3a38.614158"
+            ]
+        ]
+    },
+    {
+        "id": "26ed3662.71536a",
+        "type": "inject",
+        "z": "55308ed3.60103",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 240,
+        "y": 920,
+        "wires": [
+            [
+                "70d4ffef.e35a5"
+            ]
+        ]
+    },
+    {
+        "id": "f6be5ff3.3b58a",
+        "type": "comment",
+        "z": "55308ed3.60103",
+        "name": "CPU-Temperatur messen",
+        "info": "",
+        "x": 230,
+        "y": 840,
         "wires": []
     }
 ]

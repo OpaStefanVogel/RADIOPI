@@ -13,5 +13,10 @@ sudo apt-get install zynaddsubfx
 sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
 ssh-keygen
 nano .ssh/authorized_keys
+sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
+sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
-+
+
+
+nano .xsessionrc #mit folgendem Inhalt:
+./Desktop/CLONE_GITHUB/RADIOPI/.xsessionrc
