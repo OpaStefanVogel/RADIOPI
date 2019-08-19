@@ -22,6 +22,13 @@
         "label": "Sheet 8"
     },
     {
+        "id": "98c70e55.e2be9",
+        "type": "tab",
+        "label": "Heizung",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "9856be8c.67a94",
         "type": "websocket-client",
         "z": "",
@@ -159,6 +166,13 @@
         "z": "",
         "path": "ws://Heizung:1880/ws/Wetter",
         "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "e8a3f1fa.f64e8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/gatttool2",
         "wholemsg": "false"
     },
     {
@@ -5390,5 +5404,405 @@
         "x": 230,
         "y": 840,
         "wires": []
+    },
+    {
+        "id": "d85a31b5.32cb5",
+        "type": "http in",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "url": "/Heizung.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "c2c6bd6f.b2fc"
+            ]
+        ]
+    },
+    {
+        "id": "c2c6bd6f.b2fc",
+        "type": "file in",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "filename": "/home/pi/Desktop/CLONE_GITHUB/RADIOPI/Heizung.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 450,
+        "y": 40,
+        "wires": [
+            [
+                "5cb14c8c.fee904"
+            ]
+        ]
+    },
+    {
+        "id": "5cb14c8c.fee904",
+        "type": "http response",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d5c55ae6.4447d8",
+        "type": "daemon",
+        "z": "98c70e55.e2be9",
+        "name": "gatttool -I",
+        "command": "gatttool",
+        "args": "-I",
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "d25787de.900cf8",
+                "c74fab81.f39ad8",
+                "1f57ac15.7fbe34",
+                "d7d7861f.c80378"
+            ],
+            [
+                "f7bc067e.80d3f8",
+                "d7d7861f.c80378"
+            ],
+            [
+                "f7bc067e.80d3f8",
+                "d7d7861f.c80378"
+            ]
+        ]
+    },
+    {
+        "id": "d25787de.900cf8",
+        "type": "file",
+        "z": "98c70e55.e2be9",
+        "name": "logfile.txt",
+        "filename": "logfile.txt",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 740,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c74fab81.f39ad8",
+        "type": "function",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "func": "var t=msg.payload;\nvar notifications=global.get(\"notifications\")||[];\nvar d=new Date();\nvar ind=t.indexOf(\"Notification\");\nvar tneu=d.toString()+\"  \"+t.slice(ind,ind+53);\nif (ind>-1) notifications.push(tneu);\nwhile (notifications.length>8) notifications.shift();\nglobal.set(\"notifications\",notifications);\nif (ind>-1) {\n  msg.payload=tneu;\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 320,
+        "wires": [
+            [
+                "2f192e51.bc09b2"
+            ]
+        ]
+    },
+    {
+        "id": "1f57ac15.7fbe34",
+        "type": "join",
+        "z": "98c70e55.e2be9",
+        "name": "join",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "5",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 920,
+        "y": 340,
+        "wires": [
+            [
+                "f7bc067e.80d3f8",
+                "e9a149a9.5ccae8"
+            ]
+        ]
+    },
+    {
+        "id": "d7d7861f.c80378",
+        "type": "link out",
+        "z": "98c70e55.e2be9",
+        "name": "gatttool output ohne join",
+        "links": [
+            "9b199230.d71c9",
+            "3085e9c6.ed1e36"
+        ],
+        "x": 555,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f7bc067e.80d3f8",
+        "type": "debug",
+        "z": "98c70e55.e2be9",
+        "name": "stdout gatttool",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1120,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "8b9baf58.54e2c",
+        "type": "delay",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "4",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "d5c55ae6.4447d8",
+                "1118d851.f1e9c8"
+            ]
+        ]
+    },
+    {
+        "id": "8cf713e2.1412e",
+        "type": "link in",
+        "z": "98c70e55.e2be9",
+        "name": "gatttool ohne delay",
+        "links": [
+            "13e31969.f64ff7",
+            "d03fc04f.b147"
+        ],
+        "x": 235,
+        "y": 420,
+        "wires": [
+            [
+                "1118d851.f1e9c8",
+                "d5c55ae6.4447d8"
+            ]
+        ]
+    },
+    {
+        "id": "2f192e51.bc09b2",
+        "type": "file",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "filename": "Notifications.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 760,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "121b4f64.d82b01",
+        "type": "inject",
+        "z": "98c70e55.e2be9",
+        "name": "Test Notifications.txt",
+        "topic": "",
+        "payload": " Notification Test 14,5 °C",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 320,
+        "wires": [
+            [
+                "c74fab81.f39ad8"
+            ]
+        ]
+    },
+    {
+        "id": "e9a149a9.5ccae8",
+        "type": "function",
+        "z": "98c70e55.e2be9",
+        "name": "als global stdout speichern",
+        "func": "global.set(\"stdout\",msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1160,
+        "y": 320,
+        "wires": [
+            [
+                "58c03d34.685304"
+            ]
+        ]
+    },
+    {
+        "id": "d0380c57.34b6e",
+        "type": "link in",
+        "z": "98c70e55.e2be9",
+        "name": "stdin zu gatttool -I",
+        "links": [
+            "2beb4749.77c788",
+            "4993d777.8aa9e8",
+            "6ab53bd9.f82904",
+            "8d8cb496.89cd18",
+            "8bfd293.995bfd8",
+            "3a70e828.eb3488",
+            "15f994de.d25bdb",
+            "eca91c29.a07d3",
+            "617d12c.da3adec",
+            "be0b2506.caa358",
+            "91fb8ad9.f13f88",
+            "c8561e10.6c68",
+            "e96c87d8.d17c58",
+            "ee399061.c5dc9",
+            "15048293.c5635d",
+            "dfab2eeb.b0ad3",
+            "1ef8bf8c.60f33",
+            "e2ba8799.f9d278",
+            "c10e712f.00662",
+            "296d79b0.a2c556",
+            "a82e6468.a50188",
+            "42c6ab64.1ab064"
+        ],
+        "x": 55,
+        "y": 380,
+        "wires": [
+            [
+                "8b9baf58.54e2c"
+            ]
+        ]
+    },
+    {
+        "id": "1118d851.f1e9c8",
+        "type": "debug",
+        "z": "98c70e55.e2be9",
+        "name": "stdin gatttool",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 430,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "58c03d34.685304",
+        "type": "link out",
+        "z": "98c70e55.e2be9",
+        "name": "stdout von gatttool -I0",
+        "links": [
+            "13e47c28.8e6cc4",
+            "e7686e1.93de09"
+        ],
+        "x": 1335,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "3feb28ed.27e7b8",
+        "type": "websocket in",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "server": "e8a3f1fa.f64e8",
+        "client": "",
+        "x": 190,
+        "y": 620,
+        "wires": [
+            [
+                "d03fc04f.b147"
+            ]
+        ]
+    },
+    {
+        "id": "187832ff.8db13d",
+        "type": "websocket out",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "server": "e8a3f1fa.f64e8",
+        "client": "",
+        "x": 550,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "aa79c51c.2b1fb8",
+        "type": "inject",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "topic": "",
+        "payload": "disconnect",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d86bddf.b09f64",
+        "type": "comment",
+        "z": "98c70e55.e2be9",
+        "name": "hier wird das \"gatttool -I\" ausgeführt",
+        "info": "",
+        "x": 160,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d03fc04f.b147",
+        "type": "link out",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "links": [
+            "8cf713e2.1412e"
+        ],
+        "x": 315,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "3085e9c6.ed1e36",
+        "type": "link in",
+        "z": "98c70e55.e2be9",
+        "name": "",
+        "links": [
+            "d7d7861f.c80378"
+        ],
+        "x": 415,
+        "y": 620,
+        "wires": [
+            [
+                "187832ff.8db13d"
+            ]
+        ]
     }
 ]
