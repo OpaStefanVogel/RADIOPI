@@ -5427,11 +5427,11 @@
         "type": "file in",
         "z": "98c70e55.e2be9",
         "name": "",
-        "filename": "/home/pi/Desktop/CLONE_GITHUB/RADIOPI/Heizung.html",
+        "filename": "/home/pi/Desktop/GIT_CLONE_GITHUB/RADIOPI/Heizung.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 450,
+        "x": 460,
         "y": 40,
         "wires": [
             [

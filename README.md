@@ -19,4 +19,5 @@ sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen
 
 
 nano .xsessionrc #mit folgendem Inhalt:
-./Desktop/CLONE_GITHUB/RADIOPI/.xsessionrc
+./Desktop/GIT_CLONE_GITHUB/RADIOPI/
+.xsessionrc
