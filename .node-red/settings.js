@@ -23,6 +23,7 @@ module.exports = {
     uiPort: process.env.PORT || 1880,
 
     // By default, the Node-RED UI accepts connections on all IPv4 interfaces.
+    // To listen on all IPv6 addresses, set uiHost to "::",
     // The following property can be used to listen on a specific interface. For
     // example, the following would only allow connections from the local machine.
     //uiHost: "127.0.0.1",
@@ -40,12 +41,21 @@ module.exports = {
     //  defaults to no timeout
     //socketTimeout: 120000,
 
+    // Maximum number of messages to wait in queue while attempting to connect to TCP socket
+    //  defaults to 1000
+    //tcpMsgQueueSize: 2000,
+
     // Timeout in milliseconds for HTTP request connections
     //  defaults to 120 seconds
     //httpRequestTimeout: 120000,
 
     // The maximum length, in characters, of any message sent to the debug sidebar tab
     debugMaxLength: 1000,
+
+    // The maximum number of messages nodes will buffer internally as part of their
+    // operation. This applies across a range of nodes that operate on message sequences.
+    //  defaults to no limit. A value of 0 also means no limit is applied.
+    //nodeMaxMessageBufferLength: 0,
 
     // To disable the option for using local files for storing keys and certificates in the TLS configuration
     //  node, set this to true
@@ -69,16 +79,17 @@ module.exports = {
     // lost.
     //credentialSecret: "a-secret-key",
 
-    // By default, all user data is stored in the Node-RED install directory. To
-    // use a different location, the following property can be used
+    // By default, all user data is stored in a directory called `.node-red` under
+    // the user's home directory. To use a different location, the following
+    // property can be used
     //userDir: '/home/nol/.node-red/',
 
-    // Node-RED scans the `nodes` directory in the install directory to find nodes.
+    // Node-RED scans the `nodes` directory in the userDir to find local node files.
     // The following property can be used to specify an additional directory to scan.
     //nodesDir: '/home/nol/.node-red/nodes',
 
     // By default, the Node-RED UI is available at http://localhost:1880/
-    // The following property can be used to specifiy a different root path.
+    // The following property can be used to specify a different root path.
     // If set to false, this is disabled.
     //httpAdminRoot: '/admin',
 
@@ -138,7 +149,7 @@ module.exports = {
 
     // The following property can be used to cause insecure HTTP connections to
     // be redirected to HTTPS.
-    //requireHttps: true
+    //requireHttps: true,
 
     // The following property can be used to disable the editor. The admin API
     // is not affected by this option. To disable both the editor and the admin
@@ -171,6 +182,11 @@ module.exports = {
     //    next();
     //},
 
+    // The following property can be used to pass custom options to the Express.js
+    // server used by Node-RED. For a full list of available options, refer
+    // to http://expressjs.com/en/api.html#app.settings.table
+    //httpServerOptions: { },
+
     // The following property can be used to verify websocket connection attempts.
     // This allows, for example, the HTTP request headers to be checked to ensure
     // they include valid authentication information.
@@ -190,19 +206,38 @@ module.exports = {
     //    //   - reason: if result is false, the HTTP reason string to return
     //},
 
-    // Anything in this hash is globally available to all functions.
-    // It is accessed as context.global.
-    // eg:
+    // The following property can be used to seed Global Context with predefined
+    // values. This allows extra node modules to be made available with the
+    // Function node.
+    // For example,
     //    functionGlobalContext: { os:require('os') }
     // can be accessed in a function block as:
-    //    context.global.os
-
+    //    global.get("os")
     functionGlobalContext: {
         // os:require('os'),
-        // octalbonescript:require('octalbonescript'),
         // jfive:require("johnny-five"),
         // j5board:require("johnny-five").Board({repl:false})
     },
+    // `global.keys()` returns a list of all properties set in global context.
+    // This allows them to be displayed in the Context Sidebar within the editor.
+    // In some circumstances it is not desirable to expose them to the editor. The
+    // following property can be used to hide any property set in `functionGlobalContext`
+    // from being list by `global.keys()`.
+    // By default, the property is set to false to avoid accidental exposure of
+    // their values. Setting this to true will cause the keys to be listed.
+    exportGlobalContextKeys: false,
+
+
+    // Context Storage
+    // The following property can be used to enable context storage. The configuration
+    // provided here will enable file-based context that flushes to disk every 30 seconds.
+    // Refer to the documentation for further options: https://nodered.org/docs/api/context/
+    //
+    //contextStorage: {
+    //    default: {
+    //        module:"localfilesystem"
+    //    },
+    //},
 
     // The following property can be used to order the categories in the editor
     // palette. If a node's category is not in the list, the category will get
@@ -227,6 +262,18 @@ module.exports = {
             metrics: false,
             // Whether or not to include audit events in the log output
             audit: false
+        }
+    },
+
+    // Customising the editor
+    editorTheme: {
+        menu: { "menu-item-help": {
+            label: "Node-RED Pi Website",
+            url: "http://nodered.org/docs/hardware/raspberrypi.html"
+        } },
+        projects: {
+            // To enable the Projects feature, set this value to true
+            enabled: false
         }
     }
 }
