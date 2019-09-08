@@ -1,3 +1,4 @@
 screen -d -m node-red ./flows_Radio.json & #nicht mehr sudo systemctl enable nodered.service
 zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 sleep 3; aconnect 'Keystation 61':0 'ZynAddSubFX' &
+#sleep 30; sudo hostapd -dd /etc/hostapd/hostapd.conf &

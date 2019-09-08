@@ -5909,7 +5909,7 @@
         "id": "30e558.70cfbaa8",
         "type": "link in",
         "z": "a49d08e2.c6bc28",
-        "name": "zum rvlc",
+        "name": "rvlc",
         "links": [
             "4f8bdcbe.08de84"
         ],
@@ -6171,7 +6171,7 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 1140,
+        "x": 1090,
         "y": 1980,
         "wires": []
     },
@@ -6250,6 +6250,66 @@
         "wires": [
             [
                 "ea6a9bbc.fbe728"
+            ]
+        ]
+    },
+    {
+        "id": "cb4b3287.30be",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "volume +10",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 970,
+        "y": 1880,
+        "wires": [
+            [
+                "2dfc3d90.da7212"
+            ]
+        ]
+    },
+    {
+        "id": "8c92f8d0.6bfbe8",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "volume -10",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 920,
+        "y": 1820,
+        "wires": [
+            [
+                "2dfc3d90.da7212"
+            ]
+        ]
+    },
+    {
+        "id": "39db0952.d67886",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 870,
+        "y": 1860,
+        "wires": [
+            [
+                "2dfc3d90.da7212"
             ]
         ]
     }
