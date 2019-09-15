@@ -3057,7 +3057,8 @@
         "y": 3440,
         "wires": [
             [
-                "ae44dfbd.84151"
+                "ae44dfbd.84151",
+                "a7820fed.1f07f"
             ]
         ]
     },
@@ -3136,7 +3137,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var m=msg.payload;\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
+        "func": "var m=msg.payload;\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 450,
@@ -3220,11 +3221,14 @@
         "id": "d85c4080.b627",
         "type": "debug",
         "z": "df2ae089.27e66",
-        "name": "",
+        "name": "subscribe2 mqtt",
         "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 670,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 680,
         "y": 3640,
         "wires": []
     },
@@ -3245,22 +3249,6 @@
         "wires": [
             [
                 "a37608eb.f5e428"
-            ]
-        ]
-    },
-    {
-        "id": "37b83e76.603fa2",
-        "type": "mqtt in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "Test",
-        "qos": "2",
-        "broker": "eb3038de.87b1f8",
-        "x": 150,
-        "y": 3700,
-        "wires": [
-            [
-                "d85c4080.b627"
             ]
         ]
     },
@@ -6312,5 +6300,20 @@
                 "2dfc3d90.da7212"
             ]
         ]
+    },
+    {
+        "id": "a7820fed.1f07f",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "subscribe mqtt",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 300,
+        "y": 3480,
+        "wires": []
     }
 ]

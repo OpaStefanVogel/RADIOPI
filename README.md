@@ -15,6 +15,15 @@ ssh-keygen
 nano .ssh/authorized_keys
 sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
+sudo apt-get install florence at-spi2-core
+sudo apt-get install mosquitto mosquitto-clients
+mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
+mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an"
+
+
+
+
+
 
 
 
