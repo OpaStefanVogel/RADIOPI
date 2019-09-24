@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><title>Heizung</title></head>
+
+<style>
+button {font-size:1.3em}
+.nicht_verbunden {color:darkred}
+.versuche_zu_verbinden {
+  color:orange;
+  animation: textflimmern 500ms infinite alternate;
+  border-radius:15px;
+  padding:5px;
+  }
+.verbunden {color:green}
+.c {text-align:center}
+.Hilfetext{color:grey;font-style:italic;font-size:85%}
+
+@keyframes textflimmern {
+  0% {background-color:lightgreen}
+  50% {background-color:yellow}
+  100% {background-color:pink}
+  }
+
+  </style>
+	
+<script id="scr" type="application/ecmascript">
+function websocket_verbinden() {
+  websocket = new WebSocket("ws://Radio:1880/ws/Touchscreen","fiktiv");
+  websocket.onerror=function(event) {
+    };
+  websocket.onmessage = function(event) {
+    var w=event.data;
+    //alert(w);
+    document.getElementById("Ferien").firstChild.nodeValue=w;
+    };
+  websocket.onopen = function() {
+    websocket.send('Aktualisieren');
+    //restart_GAP();
+    //alert("open");
+    }; 
+  websocket.onclose = function() {
+    //alert(77);
+    websocket.send("close");
+    };
+  //alert(8);
+  document.getElementById("fullscreen").requestFullscreen();
+  //alert(9);
+  }
+
+function websocket_verbunden() {
+  if (websocket!=0) {
+    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING","OPEN","CLOSING","CLOSED"])[websocket.readyState];
+    var elm=document.getElementById("Raspberry Pi")
+    elm.firstChild.nodeValue=(["wird verbunden","Verbindung ist hergestellt","Verbindung wird getrennt","nicht verbunden (Seite neu laden für neuen Versuch)"])[websocket.readyState];
+    elm.setAttribute("class",(["versuche_zu_verbinden","verbunden","Verbindung_wird_getrennt","nicht_verbunden"])[websocket.readyState]);
+    }
+  }
+//setInterval(websocket_verbunden,1000);
+
+</script>
+<body onload="websocket_verbinden()">
+<div><button>Halla</button></div>pups
+<div id="fullscreen" onclick="event.target.requestFullscreen()" style="border:solid red; background-color:white; ">Hallo</div>Halli
+  </body>
+  </html>
