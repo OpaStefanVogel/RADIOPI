@@ -1,6 +1,18 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"/><title>Heizung</title></head>
+<html><head><meta charset="utf-8"/><title>Radio</title></head>
 
+  <style type="text/css">
+h { display: flex; flex-direction: row; align-items: flex-start;  background-color: LightGreen; border: solid green 1px; margin: 8px; flex-wrap: wrap;}
+v { display: flex; flex-direction: column; align-items: flex-start;  background-color: Bisque; border:solid orange; border-radius: 10px; margin: 8px; min-width: 100px; min-height: 100px;}
+e { display: flex; white-space: pre; }
+e:active { background-color: green; }
+.selected { background-color: aquamarine; }
+uu {position:fixed;
+  top: 0em;
+  left:50em;
+  }
+
+    </style>
 <style>
 button {font-size:1.3em}
 .nicht_verbunden {color:darkred}
@@ -42,7 +54,7 @@ function websocket_verbinden() {
     websocket.send("close");
     };
   //alert(8);
-  document.getElementById("fullscreen").requestFullscreen();
+  //setTimeout(function() {alert(8);document.getElementById("fullscreen").click();alert(9)},3000);
   //alert(9);
   }
 
@@ -57,8 +69,14 @@ function websocket_verbunden() {
 //setInterval(websocket_verbunden,1000);
 
 </script>
-<body onload="websocket_verbinden()">
-<div><button>Halla</button></div>pups
-<div id="fullscreen" onclick="event.target.requestFullscreen()" style="border:solid red; background-color:white; ">Hallo</div>Halli
+<body onload="websocket_verbinden()" onclick="">
+<h id="fullscreen" onclick="if (event.target.getAttribute('id')=='fullscreen') event.target.requestFullscreen();" style="background-color: white">
+  <v style="">Radio<h><v>an</v><v>aus</v></h></v>
+  <v style="">Bus31</v>
+  <v style="">Bus62</v>
+  <v style="">Wetter</v>
+  <v style="">Kartoffelpreis</v>
+
+  </h>
   </body>
   </html>
