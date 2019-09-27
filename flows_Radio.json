@@ -20,6 +20,13 @@
         "info": ""
     },
     {
+        "id": "8b708117.11fb9",
+        "type": "tab",
+        "label": "Touchscreen",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "8eb9dc44.78f74",
         "type": "tab",
         "label": "Sheet 8"
@@ -176,6 +183,13 @@
         "type": "websocket-listener",
         "z": "",
         "path": "/ws/gatttool2",
+        "wholemsg": "false"
+    },
+    {
+        "id": "480ca6ad.fcab78",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/Touchscreen",
         "wholemsg": "false"
     },
     {
@@ -1533,8 +1547,8 @@
         "format": "handlebars",
         "syntax": "mustache",
         "template": "volume -10",
-        "x": 373.49693298339844,
-        "y": 1425.1411743164062,
+        "x": 370,
+        "y": 1420,
         "wires": [
             [
                 "2a8ff6b2.2bff2a"
@@ -1861,7 +1875,8 @@
         "wires": [
             [
                 "fe68c44a.89dab8",
-                "d9c132d5.ffbdf"
+                "d9c132d5.ffbdf",
+                "ac12f36e.59153"
             ]
         ]
     },
@@ -3504,9 +3519,10 @@
         "id": "9ca9ab70.18aaf8",
         "type": "link in",
         "z": "df2ae089.27e66",
-        "name": "",
+        "name": "Bus31",
         "links": [
-            "92963650.708088"
+            "92963650.708088",
+            "f2282f55.89eab"
         ],
         "x": 215,
         "y": 3900,
@@ -3773,9 +3789,7 @@
         "x": 130,
         "y": 3940,
         "wires": [
-            [
-                "8bf7b61.e77d348"
-            ]
+            []
         ]
     },
     {
@@ -3858,9 +3872,10 @@
         "id": "b20de8cf.366038",
         "type": "link in",
         "z": "df2ae089.27e66",
-        "name": "",
+        "name": "Bus62",
         "links": [
-            "92963650.708088"
+            "92963650.708088",
+            "594549b0.0c9538"
         ],
         "x": 220,
         "y": 4092,
@@ -5899,7 +5914,8 @@
         "z": "a49d08e2.c6bc28",
         "name": "rvlc",
         "links": [
-            "4f8bdcbe.08de84"
+            "4f8bdcbe.08de84",
+            "b603bcb5.bce84"
         ],
         "x": 295,
         "y": 600,
@@ -6314,6 +6330,213 @@
         "targetType": "msg",
         "x": 300,
         "y": 3480,
+        "wires": []
+    },
+    {
+        "id": "9848b237.267d6",
+        "type": "websocket in",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "server": "480ca6ad.fcab78",
+        "client": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "ca5fdbf3.eb07f8",
+                "6da7d173.0aa7b"
+            ]
+        ]
+    },
+    {
+        "id": "7b144fd6.fc349",
+        "type": "websocket out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "server": "480ca6ad.fcab78",
+        "client": "",
+        "x": 560,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "ca5fdbf3.eb07f8",
+        "type": "debug",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 420,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6da7d173.0aa7b",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "\"Radio an\" --> \"play\"...",
+        "func": "var m=msg.payload;\nvar mout=[];\nif (m==\"Radio an\") mout[0]={payload:\"play\"};\nif (m==\"Radio aus\") mout[0]={payload:\"stop\"};\nif (m==\"Radio leiser\") mout[0]={payload:\"volume -10\"};\nif (m==\"Radio lauter\") mout[0]={payload:\"volume +10\"};\nif (m==\"Bus31\") mout[1]={payload:\"on 36,\"};\nif (m==\"Bus62\") mout[2]={payload:\"on 37,\"};\nif (m==\"Wetter\") mout[3]={payload:\" \"};\nif (m==\"Kartoffelpreis\") mout[4]={payload:\" \"};\nreturn mout;\n",
+        "outputs": 10,
+        "noerr": 0,
+        "x": 260,
+        "y": 340,
+        "wires": [
+            [
+                "b603bcb5.bce84"
+            ],
+            [
+                "f2282f55.89eab"
+            ],
+            [
+                "594549b0.0c9538"
+            ],
+            [
+                "df2528e8.b11238"
+            ],
+            [
+                "785134f.383f6cc"
+            ],
+            [
+                "c5d9637e.9e509"
+            ],
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b603bcb5.bce84",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [
+            "30e558.70cfbaa8"
+        ],
+        "x": 475,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f2282f55.89eab",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [
+            "9ca9ab70.18aaf8"
+        ],
+        "x": 535,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "594549b0.0c9538",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [
+            "b20de8cf.366038"
+        ],
+        "x": 595,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "df2528e8.b11238",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [
+            "d3f2bf0f.ccc82"
+        ],
+        "x": 475,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "785134f.383f6cc",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [
+            "2c391691.47512a"
+        ],
+        "x": 535,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c5d9637e.9e509",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [],
+        "x": 595,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2c391691.47512a",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "Kartoffelpreis",
+        "links": [
+            "785134f.383f6cc"
+        ],
+        "x": 375,
+        "y": 3000,
+        "wires": [
+            [
+                "b3b8326c.014a"
+            ]
+        ]
+    },
+    {
+        "id": "d3f2bf0f.ccc82",
+        "type": "link in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Wetter",
+        "links": [
+            "df2528e8.b11238"
+        ],
+        "x": 155,
+        "y": 220,
+        "wires": [
+            [
+                "a3760dc6.7bce2"
+            ]
+        ]
+    },
+    {
+        "id": "a44246ab.86fd38",
+        "type": "link in",
+        "z": "8b708117.11fb9",
+        "name": "Touchscreen",
+        "links": [
+            "ac12f36e.59153"
+        ],
+        "x": 375,
+        "y": 480,
+        "wires": [
+            [
+                "7b144fd6.fc349"
+            ]
+        ]
+    },
+    {
+        "id": "ac12f36e.59153",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "a44246ab.86fd38"
+        ],
+        "x": 315,
+        "y": 2100,
         "wires": []
     }
 ]
