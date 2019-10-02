@@ -12,8 +12,12 @@ uu {position:fixed;
   left:50em;
   }
 
-:fullscreen countdown {background-color:green; font-size.300%}
+Abfahrtszeit {background-color: Bisque}
+spaeter {color:red; font-style:italic; font-size:80%}
+countdown {color:grey}
 
+:fullscreen countdown {background-color:yellow; font-size:300%;}
+:fullscreen ::backdrop {background-color:green;} //geht nicht
     </style>
 <style>
 button {font-size:1.3em}
@@ -80,6 +84,7 @@ function websocket_verbunden() {
 <script id="scr" type="application/ecmascript">
 var x_m_l=new DOMParser();
 var xm=new XMLSerializer();
+var Liste_countdown=[];
 
 function Bus(id,geplante_Abfahrtszeit,aktuelle_Abfahrtszeit) {
   //alert(1);
@@ -90,24 +95,31 @@ function Bus(id,geplante_Abfahrtszeit,aktuelle_Abfahrtszeit) {
   var Verspaetung=100000;
   if (aktuelle_Abfahrtszeit) Verspaetung=aktuelle_Abfahrtszeit-geplante_Abfahrtszeit; else aktuelle_Abfahrtszeit=Abfahrtszeit+Verspaetung;
   //alert(Abfahrtszeit);
-  Bus.firstChild.nodeValue=(new Date(Abfahrtszeit)).toLocaleTimeString();
+  var NDA=new Date(Abfahrtszeit);
+  Bus.firstChild.nodeValue=NDA.getHours()+":"+NDA.getMinutes();
   Bus.firstChild.nextSibling.firstChild.nodeValue="+"+Math.floor(Verspaetung/1000/60)
-  var Wartezeit=Bus.nextElementSibling;
+  var Wartezeit=Bus.lastChild;
   Wartezeit.setAttribute("Zeitpunkt",aktuelle_Abfahrtszeit);
-  countdown(Wartezeit);
-  //alert(8);
+  Liste_countdown=document.getElementById("fullscreen").getElementsByTagName("countdown");
+  countdown();
   }
 
-function countdown(elm) {
-  //alert(elm);
+function countdown() {
   var jetzt=Date.now();
-  var dann=elm.getAttribute("Zeitpunkt")*1;
-  var diff=new Date(dann-jetzt);
-  var sec=diff.getUTCSeconds();
-  if (sec<10) sec="0"+sec;
-  elm.firstChild.nodeValue=diff.getUTCMinutes()+":"+sec;
-  setTimeout(countdown,1000,elm);
+  for (var i=0;i<Liste_countdown.length;i++) {
+    var elm=Liste_countdown[i];
+    var dann=elm.getAttribute("Zeitpunkt")*1;
+    var diff=dann-jetzt;
+    if (diff>0) {
+      var diff=new Date(dann-jetzt);
+      var sec=diff.getUTCSeconds();
+      if (sec<10) sec="0"+sec;
+      elm.firstChild.nodeValue=diff.getUTCMinutes()+":"+sec;
+      }
+    }
   }
+
+setInterval(countdown,1000);
 
   </script>
 <body onload="websocket_verbinden()" onclick="">
@@ -122,11 +134,13 @@ function countdown(elm) {
       <v onclick="wsend('Radio lauter')">lauter</v>
       </h>
     </v>
-  <v style="" onclick="wsend('Bus31');Bus('Bus31')">Bus31<Abfahrtszeit id="Bus31">?<spaeter style="color:red">+0</spaeter></Abfahrtszeit><countdown id="countdown_Bus31">0:00</countdown></v>
-  <v style="" onclick="wsend('Bus62');Bus('Bus62')">Bus62<Abfahrtszeit id="Bus62">?<spaeter style="color:red">+0</spaeter></Abfahrtszeit><countdown id="countdown_Bus62">0:00</countdown></v>
+  <v style="" onclick="wsend('Bus31');Bus('Bus31')">Bus31<Abfahrtszeit id="Bus31">xx:xx<spaeter>+0</spaeter> <countdown id="countdown_Bus31" onclick="event.target.parentNode.requestFullscreen();">0:00</countdown></Abfahrtszeit></v>
+  <v style="" onclick="wsend('Bus62');Bus('Bus62')">Bus62<Abfahrtszeit id="Bus62">xx:xx<spaeter>+0</spaeter> <countdown id="countdown_Bus62">0:00</countdown></Abfahrtszeit></v>
   <v style="" onclick="wsend('Wetter')">Wetter</v>
   <v style="" onclick="wsend('Kartoffelpreis')">Kartoffelpreis</v>
   <span id="Antwort">...</span>
   </h>
-  <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>  </body>
+  <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
+  ESC<kbd>ESC</kbd>ESC 
+  </body>
   </html>
