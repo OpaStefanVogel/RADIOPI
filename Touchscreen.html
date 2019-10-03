@@ -7,9 +7,11 @@ v { display: flex; flex-direction: column; align-items: flex-center;  background
 e { display: flex; white-space: pre; }
 e:active { background-color: green; }
 .selected { background-color: aquamarine; }
-uu {position:fixed;
-  top: 0em;
-  left:50em;
+uu, countdow {position:absolute;
+  top: 0.5em;
+  left:0.5em;
+  font-size: 1200%;
+  background-color: snow;
   }
 
 Abfahrtszeit {background-color: Bisque}
@@ -41,6 +43,7 @@ button {font-size:1.3em}
   </style>
 	
 <script id="scr" type="application/ecmascript">
+var websocket;
 function websocket_verbinden() {
   websocket = new WebSocket("ws://Radio:1880/ws/Touchscreen","fiktiv");
   websocket.onerror=function(event) {
@@ -59,9 +62,6 @@ function websocket_verbinden() {
     //alert(77);
     websocket.send("close");
     };
-  //alert(8);
-  //setTimeout(function() {alert(8);document.getElementById("fullscreen").click();alert(9)},3000);
-  //alert(9);
   }
 
 function wsend(text) {
@@ -73,12 +73,9 @@ function wsend(text) {
 function websocket_verbunden() {
   if (websocket!=0) {
     document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING","OPEN","CLOSING","CLOSED"])[websocket.readyState];
-    var elm=document.getElementById("Raspberry Pi")
-    elm.firstChild.nodeValue=(["wird verbunden","Verbindung ist hergestellt","Verbindung wird getrennt","nicht verbunden (Seite neu laden für neuen Versuch)"])[websocket.readyState];
-    elm.setAttribute("class",(["versuche_zu_verbinden","verbunden","Verbindung_wird_getrennt","nicht_verbunden"])[websocket.readyState]);
     }
   }
-//setInterval(websocket_verbunden,1000);
+setInterval(websocket_verbunden,1000);
   </script>
 
 <script id="scr" type="application/ecmascript">
@@ -141,6 +138,6 @@ setInterval(countdown,1000);
   <span id="Antwort">...</span>
   </h>
   <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
-  ESC<kbd>ESC</kbd>ESC 
+  Websocket <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> ESC<kbd>ESC</kbd>ESC 
   </body>
   </html>
