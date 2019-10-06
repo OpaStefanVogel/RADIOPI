@@ -51,7 +51,7 @@ function websocket_verbinden() {
   websocket.onmessage = function(event) {
     var w=event.data;
     //alert(w);
-    document.getElementById("Antwort").firstChild.nodeValue=w;
+    Antwort_auswerten(w);
     };
   websocket.onopen = function() {
     //websocket.send('Aktualisieren');
@@ -118,6 +118,20 @@ function countdown() {
 
 setInterval(countdown,1000);
 
+function Antwort_auswerten(w) {
+  document.getElementById("Antwort").firstChild.nodeValue=w;
+  var msg=JSON.parse(w);
+  document.getElementById("Ansage").firstChild.nodeValue=msg.payload;
+  alert(msg.Frage_vom_Touchscreen);
+  switch (msg.Frage_vom_Touchscreen) {
+    case "Bus31": alert(1+w); return;
+    case "Bus62": alert(2+w); return;
+    case "Wetter": alert(3+w); return;
+    case "Kartoffelpreis": alert(4+w); return;
+    default: alert(5+w); return;
+    }
+  }
+
   </script>
 <body onload="websocket_verbinden()" onclick="">
 <h id="fullscreen" onclick="if (event.target.getAttribute('id')=='fullscreen') event.target.requestFullscreen();" style="background-color: white">
@@ -135,9 +149,15 @@ setInterval(countdown,1000);
   <v style="" onclick="wsend('Bus62');Bus('Bus62')">Bus62<Abfahrtszeit id="Bus62">xx:xx<spaeter>+0</spaeter> <countdown id="countdown_Bus62">0:00</countdown></Abfahrtszeit></v>
   <v style="" onclick="wsend('Wetter')">Wetter</v>
   <v style="" onclick="wsend('Kartoffelpreis')">Kartoffelpreis</v>
-  <span id="Antwort">...</span>
+<br/>
   </h>
+  <h id="Ansage">...</h>
   <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
   Websocket <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> ESC<kbd>ESC</kbd>ESC 
+  <div id="Antwort">...</div>
+  {"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus62","_event":"node:ac12f36e.59153","payload":"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße fährt in 8 Minuten und 57 Sekunden.","filename":"/home/pi/CAG-194","Touchscreen":1570403040000}
+  {"payload":"Die aktuelle Chemnitztemperatur beträgt 4.65 Grad Celsius","_msgid":"953dcfd8.c183c","Frage_vom_Touchscreen":"Wetter","_event":"node:ac12f36e.59153","statusCode":200,"headers":{"server":"openresty","date":"Sun, 06 Oct 2019 22:56:24 GMT","content-type":"application/xml; charset=utf-8","content-length":"796","connection":"close","x-cache-key":"/data/2.5/weather?id=2940132&lang=de&mode=xml&units=metric","access-control-allow-origin":"*","access-control-allow-credentials":"true","access-control-allow-methods":"GET, POST","x-node-red-request-node":"4fbd87bc"},"responseUrl":"http://api.openweathermap.org/data/2.5/weather?id=2940132&units=metric&lang=de&mode=xml&appid=91eb3d05b7334e267c90305acba2c49a","redirectList":[]}
+  {"payload":"Der aktuelle Kartoffelpreis beträgt 13,00","_msgid":"7829b4bb.a23c5c","Frage_vom_Touchscreen":"Kartoffelpreis","_event":"node:ac12f36e.59153","statusCode":200,"headers":{"date":"Sun, 06 Oct 2019 22:57:09 GMT","server":"Apache","cache-control":"no-cache, private, no-cache, private","vary":"Accept-Encoding","content-type":"text/html; charset=UTF-8","set-cookie":["raicomBoersenfensterLastBoerse=eex; expires=Sat, 06-Oct-2029 22:57:09 GMT; Max-Age=315619200; path=/; httponly","raicomBoersenfensterLastProdukt=kartoffeln; expires=Sat, 06-Oct-2029 22:57:09 GMT; Max-Age=315619200; path=/; httponly"],"via":"1.1 www.raiffeisen.com","connection":"close","transfer-encoding":"chunked","x-node-red-request-node":"240bb654"},"responseUrl":"https://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html","redirectList":[{"location":"https://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html"}],"responseCookies":{"raicomBoersenfensterLastBoerse":{"expires":"Sat, 06-Oct-2029 22:57:09 GMT","Max-Age":"315619200","path":"/","value":"eex"},"raicomBoersenfensterLastProdukt":{"expires":"Sat, 06-Oct-2029 22:57:09 GMT","Max-Age":"315619200","path":"/","value":"kartoffeln"}}}
+  {"stops":[{"destination":"Talanger","serviceType":"BUS","hasActualDeparture":true,"actualDeparture":1570403040000,"line":"N17","platform":null},{"destination":"Zentralhaltestelle","serviceType":"BUS","hasActualDeparture":true,"actualDeparture":1570404240000,"line":"N17","platform":null}],"now":1570402502142}
   </body>
   </html>
