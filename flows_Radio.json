@@ -190,7 +190,7 @@
         "type": "websocket-listener",
         "z": "",
         "path": "/ws/Touchscreen",
-        "wholemsg": "false"
+        "wholemsg": "true"
     },
     {
         "id": "8407ad6.d1b085",
@@ -1876,7 +1876,7 @@
             [
                 "fe68c44a.89dab8",
                 "d9c132d5.ffbdf",
-                "ac12f36e.59153"
+                "9132ecf0.0f506"
             ]
         ]
     },
@@ -2697,7 +2697,9 @@
         "active": true,
         "tosidebar": true,
         "console": true,
-        "complete": "payload",
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
         "x": 560,
         "y": 2080,
         "wires": []
@@ -3511,7 +3513,7 @@
         "z": "df2ae089.27e66",
         "name": "nächster Bus",
         "info": "",
-        "x": 70,
+        "x": 90,
         "y": 3900,
         "wires": []
     },
@@ -3521,8 +3523,7 @@
         "z": "df2ae089.27e66",
         "name": "Bus31",
         "links": [
-            "92963650.708088",
-            "f2282f55.89eab"
+            "92963650.708088"
         ],
         "x": 215,
         "y": 3900,
@@ -3646,7 +3647,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 31 fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 31 fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nmsg.Touchscreen=s[j].actualDeparture;\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
         "outputs": 2,
         "noerr": 0,
         "x": 990,
@@ -3874,8 +3875,7 @@
         "z": "df2ae089.27e66",
         "name": "Bus62",
         "links": [
-            "92963650.708088",
-            "594549b0.0c9538"
+            "92963650.708088"
         ],
         "x": 220,
         "y": 4092,
@@ -3943,7 +3943,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Gablenz ü. Weststr.\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Gablenz ü. Weststr.\")>-1) j=i;\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nmsg.Touchscreen=s[j].actualDeparture;\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
         "outputs": 2,
         "noerr": 0,
         "x": 990,
@@ -6344,7 +6344,7 @@
         "wires": [
             [
                 "ca5fdbf3.eb07f8",
-                "6da7d173.0aa7b"
+                "f1a9b6cc.60eec8"
             ]
         ]
     },
@@ -6368,46 +6368,11 @@
         "tosidebar": true,
         "console": true,
         "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 420,
+        "complete": "true",
+        "targetType": "full",
+        "x": 410,
         "y": 100,
         "wires": []
-    },
-    {
-        "id": "6da7d173.0aa7b",
-        "type": "function",
-        "z": "8b708117.11fb9",
-        "name": "\"Radio an\" --> \"play\"...",
-        "func": "var m=msg.payload;\nvar mout=[];\nif (m==\"Radio an\") mout[0]={payload:\"play\"};\nif (m==\"Radio aus\") mout[0]={payload:\"stop\"};\nif (m==\"Radio leiser\") mout[0]={payload:\"volume -10\"};\nif (m==\"Radio lauter\") mout[0]={payload:\"volume +10\"};\nif (m==\"Bus31\") mout[1]={payload:\"on 36,\"};\nif (m==\"Bus62\") mout[2]={payload:\"on 37,\"};\nif (m==\"Wetter\") mout[3]={payload:\" \"};\nif (m==\"Kartoffelpreis\") mout[4]={payload:\" \"};\nreturn mout;\n",
-        "outputs": 10,
-        "noerr": 0,
-        "x": 260,
-        "y": 340,
-        "wires": [
-            [
-                "b603bcb5.bce84"
-            ],
-            [
-                "f2282f55.89eab"
-            ],
-            [
-                "594549b0.0c9538"
-            ],
-            [
-                "df2528e8.b11238"
-            ],
-            [
-                "785134f.383f6cc"
-            ],
-            [
-                "c5d9637e.9e509"
-            ],
-            [],
-            [],
-            [],
-            []
-        ]
     },
     {
         "id": "b603bcb5.bce84",
@@ -6417,8 +6382,8 @@
         "links": [
             "30e558.70cfbaa8"
         ],
-        "x": 475,
-        "y": 280,
+        "x": 595,
+        "y": 220,
         "wires": []
     },
     {
@@ -6427,10 +6392,10 @@
         "z": "8b708117.11fb9",
         "name": "",
         "links": [
-            "9ca9ab70.18aaf8"
+            "3b14d735.a7e928"
         ],
-        "x": 535,
-        "y": 300,
+        "x": 615,
+        "y": 260,
         "wires": []
     },
     {
@@ -6439,10 +6404,10 @@
         "z": "8b708117.11fb9",
         "name": "",
         "links": [
-            "b20de8cf.366038"
+            "40d3f295.2aee1c"
         ],
-        "x": 595,
-        "y": 320,
+        "x": 635,
+        "y": 300,
         "wires": []
     },
     {
@@ -6453,8 +6418,8 @@
         "links": [
             "d3f2bf0f.ccc82"
         ],
-        "x": 475,
-        "y": 320,
+        "x": 655,
+        "y": 340,
         "wires": []
     },
     {
@@ -6465,18 +6430,8 @@
         "links": [
             "2c391691.47512a"
         ],
-        "x": 535,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "c5d9637e.9e509",
-        "type": "link out",
-        "z": "8b708117.11fb9",
-        "name": "",
-        "links": [],
-        "x": 595,
-        "y": 360,
+        "x": 675,
+        "y": 380,
         "wires": []
     },
     {
@@ -6519,11 +6474,11 @@
         "links": [
             "ac12f36e.59153"
         ],
-        "x": 375,
+        "x": 175,
         "y": 480,
         "wires": [
             [
-                "7b144fd6.fc349"
+                "799e27f6.756dc8"
             ]
         ]
     },
@@ -6535,8 +6490,173 @@
         "links": [
             "a44246ab.86fd38"
         ],
-        "x": 315,
-        "y": 2100,
+        "x": 635,
+        "y": 2120,
         "wires": []
+    },
+    {
+        "id": "9132ecf0.0f506",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "msg.payload=msg;",
+        "func": "//msg.payload=JSON.stringify(msg);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 2120,
+        "wires": [
+            [
+                "d9c132d5.ffbdf",
+                "ac12f36e.59153"
+            ]
+        ]
+    },
+    {
+        "id": "f1a9b6cc.60eec8",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "func": "msg.Frage_vom_Touchscreen=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "c209e57.76ea818",
+                "27e57b46.1dc1c4",
+                "cb53952e.be6cd8",
+                "1aae2558.86bf2b",
+                "fa6ec396.8942d"
+            ]
+        ]
+    },
+    {
+        "id": "c209e57.76ea818",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Radio an/aus/leiser/lauter",
+        "func": "var m=msg.payload;\nif (m==\"Radio an\") {msg.payload=\"play\"; return msg}\nif (m==\"Radio aus\") {msg.payload=\"stop\"; return msg}\nif (m==\"Radio leiser\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"Radio lauter\") {msg.payload=\"volume +10\"; return msg}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "b603bcb5.bce84"
+            ]
+        ]
+    },
+    {
+        "id": "27e57b46.1dc1c4",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Bus31",
+        "func": "if (msg.payload==\"Bus31\") return msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "f2282f55.89eab"
+            ]
+        ]
+    },
+    {
+        "id": "3b14d735.a7e928",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "Bus31T",
+        "links": [
+            "f2282f55.89eab"
+        ],
+        "x": 175,
+        "y": 4020,
+        "wires": [
+            [
+                "8bf7b61.e77d348"
+            ]
+        ]
+    },
+    {
+        "id": "799e27f6.756dc8",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "delete msg._session",
+        "func": "delete msg._session;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 480,
+        "wires": [
+            [
+                "7b144fd6.fc349"
+            ]
+        ]
+    },
+    {
+        "id": "cb53952e.be6cd8",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Bus62",
+        "func": "if (msg.payload==\"Bus62\") return msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "594549b0.0c9538"
+            ]
+        ]
+    },
+    {
+        "id": "1aae2558.86bf2b",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Wetter",
+        "func": "if (msg.payload==\"Wetter\") return msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "df2528e8.b11238"
+            ]
+        ]
+    },
+    {
+        "id": "fa6ec396.8942d",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Kartoffelpreis",
+        "func": "if (msg.payload==\"Kartoffelpreis\") return msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [
+                "785134f.383f6cc"
+            ]
+        ]
+    },
+    {
+        "id": "40d3f295.2aee1c",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "Bus62T",
+        "links": [
+            "594549b0.0c9538"
+        ],
+        "x": 175,
+        "y": 4160,
+        "wires": [
+            [
+                "79cc49df.0f6b58"
+            ]
+        ]
     }
 ]
