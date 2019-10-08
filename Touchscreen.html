@@ -14,7 +14,7 @@ uu, countdow {position:absolute;
   background-color: snow;
   }
 
-Abfahrtszeit {background-color: Bisque}
+Abfahrtszeit {background-color: Bisque; text-align:left}
 spaeter {color:red; font-style:italic; font-size:80%}
 countdown {color:grey}
 
@@ -83,20 +83,22 @@ var x_m_l=new DOMParser();
 var xm=new XMLSerializer();
 var Liste_countdown=[];
 
-function Bus(id,geplante_Abfahrtszeit,aktuelle_Abfahrtszeit) {
-  //alert(1);
+function Bus(id,Abfahrtszeiten) {
   var jetzt=Date.now();
   var Abfahrtszeit=0;
   var Bus=document.getElementById(id);
-  if (geplante_Abfahrtszeit) Abfahrtszeit=geplante_Abfahrtszeit; else Abfahrtszeit=jetzt+100000;
-  var Verspaetung=100000;
-  if (aktuelle_Abfahrtszeit) Verspaetung=aktuelle_Abfahrtszeit-geplante_Abfahrtszeit; else aktuelle_Abfahrtszeit=Abfahrtszeit+Verspaetung;
-  //alert(Abfahrtszeit);
-  var NDA=new Date(Abfahrtszeit);
-  Bus.firstChild.nodeValue=NDA.getHours()+":"+NDA.getMinutes();
-  Bus.firstChild.nextSibling.firstChild.nodeValue="+"+Math.floor(Verspaetung/1000/60)
-  var Wartezeit=Bus.lastChild;
-  Wartezeit.setAttribute("Zeitpunkt",aktuelle_Abfahrtszeit);
+  var text=id;
+  if (Abfahrtszeiten) for (var i=0;i<Abfahrtszeiten.length;i++) {
+    Abfahrtszeit=Abfahrtszeiten[i];
+    //alert(Abfahrtszeiten);
+    var NDA=new Date(Abfahrtszeit);
+    var Stunde=NDA.getHours();
+    var Minute=NDA.getMinutes(); if (Minute<10) Minute="0"+Minute;
+    text=text+"\n    <Abfahrtszeit>"+Stunde+":"+Minute+' (<countdown Zeitpunkt="'+Abfahrtszeit+'"> </countdown>)</Abfahrtszeit>';
+    }
+  //alert(text);
+  //Bus.firstChild.nextSibling.firstChild.nodeValue="+"+Math.floor(0);
+  Bus.innerHTML=text;
   Liste_countdown=document.getElementById("fullscreen").getElementsByTagName("countdown");
   countdown();
   }
@@ -105,13 +107,18 @@ function countdown() {
   var jetzt=Date.now();
   for (var i=0;i<Liste_countdown.length;i++) {
     var elm=Liste_countdown[i];
-    var dann=elm.getAttribute("Zeitpunkt")*1;
-    var diff=dann-jetzt;
-    if (diff>0) {
-      var diff=new Date(dann-jetzt);
-      var sec=diff.getUTCSeconds();
+    var Zeitpunkt=elm.getAttribute("Zeitpunkt");
+    if (Zeitpunkt!=null) {
+      var dann=Zeitpunkt*1;
+      var diff=Math.floor((dann-jetzt)/1000);
+      var sgn="";
+      if (diff<0) {diff=-diff; sgn="-"}
+      var min=Math.floor(diff/60);
+      //if (min<10) min="0"+min;
+      var sec=diff-60*min;
+      //var sec=diff.getUTCSeconds();
       if (sec<10) sec="0"+sec;
-      elm.firstChild.nodeValue=diff.getUTCMinutes()+":"+sec;
+      elm.firstChild.nodeValue=sgn+min+":"+sec;
       }
     }
   }
@@ -122,16 +129,18 @@ function Antwort_auswerten(w) {
   document.getElementById("Antwort").firstChild.nodeValue=w;
   var msg=JSON.parse(w);
   document.getElementById("Ansage").firstChild.nodeValue=msg.payload;
-  alert(msg.Frage_vom_Touchscreen);
+  //alert(msg.Frage_vom_Touchscreen);
   switch (msg.Frage_vom_Touchscreen) {
-    case "Bus31": alert(1+w); return;
-    case "Bus62": alert(2+w); return;
+    case "Bus31": Bus("Bus31",msg.Touchscreen); return;
+    case "Bus62": Bus("Bus62",msg.Touchscreen); return;
     case "Wetter": alert(3+w); return;
     case "Kartoffelpreis": alert(4+w); return;
     default: alert(5+w); return;
     }
   }
 
+var TestBus31={"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus31","_event":"node:ac12f36e.59153","payload":"Nächster Bus Linie 31 Richtung Yorkgebiet fährt in 8 Minuten und 57 Sekunden.","filename":"/home/pi/CAG-194","Touchscreen":[Date.now()+10000,Date.now()+400000,Date.now()+500000,Date.now()+1000000]};
+var TestBus62={"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus62","_event":"node:ac12f36e.59153","payload":"Nächster Bus Linie 62 Richtung Gablenz fährt in 17 Minuten und 28 Sekunden.","filename":"/home/pi/CAG-194","Touchscreen":[Date.now()+300000,Date.now()+6000000]};
   </script>
 <body onload="websocket_verbinden()" onclick="">
 <h id="fullscreen" onclick="if (event.target.getAttribute('id')=='fullscreen') event.target.requestFullscreen();" style="background-color: white">
@@ -145,8 +154,8 @@ function Antwort_auswerten(w) {
       <v onclick="wsend('Radio lauter')">lauter</v>
       </h>
     </v>
-  <v style="" onclick="wsend('Bus31');Bus('Bus31')">Bus31<Abfahrtszeit id="Bus31">xx:xx<spaeter>+0</spaeter> <countdown id="countdown_Bus31" onclick="event.target.parentNode.requestFullscreen();">0:00</countdown></Abfahrtszeit></v>
-  <v style="" onclick="wsend('Bus62');Bus('Bus62')">Bus62<Abfahrtszeit id="Bus62">xx:xx<spaeter>+0</spaeter> <countdown id="countdown_Bus62">0:00</countdown></Abfahrtszeit></v>
+  <v style="" onclick="wsend('Bus31');Antwort_auswerten(JSON.stringify(TestBus31))" id="Bus31">Bus31</v>
+  <v style="" onclick="wsend('Bus62');Antwort_auswerten(JSON.stringify(TestBus62))" id="Bus62">Bus62</v>
   <v style="" onclick="wsend('Wetter')">Wetter</v>
   <v style="" onclick="wsend('Kartoffelpreis')">Kartoffelpreis</v>
 <br/>
