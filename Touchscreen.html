@@ -72,7 +72,7 @@ function wsend(text) {
 
 function websocket_verbunden() {
   if (websocket!=0) {
-    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING","OPEN","CLOSING","CLOSED"])[websocket.readyState];
+    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING", "OPEN", "CLOSING", "CLOSED"])[websocket.readyState];
     }
   }
 setInterval(websocket_verbunden,1000);
@@ -133,14 +133,12 @@ function Antwort_auswerten(w) {
   switch (msg.Frage_vom_Touchscreen) {
     case "Bus31": Bus("Bus31",msg.Touchscreen); return;
     case "Bus62": Bus("Bus62",msg.Touchscreen); return;
-    case "Wetter": alert(3+w); return;
-    case "Kartoffelpreis": alert(4+w); return;
+    case "Wetter": document.getElementById("Wetter").firstChild.nodeValue=msg.Antwort_an_Touchscreen; return;
+    case "Kartoffelpreis": document.getElementById("Kartoffelpreis").firstChild.nodeValue=msg.Antwort_an_Touchscreen; return;
     default: alert(5+w); return;
     }
   }
 
-var TestBus31={"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus31","_event":"node:ac12f36e.59153","payload":"Nächster Bus Linie 31 Richtung Yorkgebiet fährt in 8 Minuten und 57 Sekunden.","filename":"/home/pi/CAG-194","Touchscreen":[Date.now()+10000,Date.now()+400000,Date.now()+500000,Date.now()+1000000]};
-var TestBus62={"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus62","_event":"node:ac12f36e.59153","payload":"Nächster Bus Linie 62 Richtung Gablenz fährt in 17 Minuten und 28 Sekunden.","filename":"/home/pi/CAG-194","Touchscreen":[Date.now()+300000,Date.now()+6000000]};
   </script>
 <body onload="websocket_verbinden()" onclick="">
 <h id="fullscreen" onclick="if (event.target.getAttribute('id')=='fullscreen') event.target.requestFullscreen();" style="background-color: white">
@@ -154,19 +152,29 @@ var TestBus62={"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus62","_even
       <v onclick="wsend('Radio lauter')">lauter</v>
       </h>
     </v>
-  <v style="" onclick="wsend('Bus31');Antwort_auswerten(JSON.stringify(TestBus31))" id="Bus31">Bus31</v>
-  <v style="" onclick="wsend('Bus62');Antwort_auswerten(JSON.stringify(TestBus62))" id="Bus62">Bus62</v>
-  <v style="" onclick="wsend('Wetter')">Wetter</v>
-  <v style="" onclick="wsend('Kartoffelpreis')">Kartoffelpreis</v>
+  <v style="" onclick="wsend('Bus31')" id="Bus31">Bus31</v>
+  <v style="" onclick="wsend('Bus62')" id="Bus62">Bus62</v>
+  <v style="" onclick="wsend('Wetter')">Wetter <span id="Wetter"> </span></v>
+  <v style="" onclick="wsend('Kartoffelpreis')">Kartoffelpreis <span id="Kartoffelpreis">.</span></v>
 <br/>
   </h>
   <h id="Ansage">...</h>
   <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
-  Websocket <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> ESC<kbd>ESC</kbd>ESC 
+  Websocket <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> ESC<kbd>ESC</kbd>ESC Test 
+  <button onclick="Antwort_auswerten(JSON.stringify(TestBus31))">Bus31</button>
+  <button onclick="Antwort_auswerten(JSON.stringify(TestBus62))">Bus62</button>
+  <button onclick="Antwort_auswerten(JSON.stringify(TestWetter))">Wetter</button>
+  <button onclick="Antwort_auswerten(JSON.stringify(TestKartoffelpreis))">Kartoffelpreis</button>
   <div id="Antwort">...</div>
-  {"_msgid":"6253b5d1.8d962c","Frage_vom_Touchscreen":"Bus62","_event":"node:ac12f36e.59153","payload":"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße fährt in 8 Minuten und 57 Sekunden.","filename":"/home/pi/CAG-194","Touchscreen":1570403040000}
-  {"payload":"Die aktuelle Chemnitztemperatur beträgt 4.65 Grad Celsius","_msgid":"953dcfd8.c183c","Frage_vom_Touchscreen":"Wetter","_event":"node:ac12f36e.59153","statusCode":200,"headers":{"server":"openresty","date":"Sun, 06 Oct 2019 22:56:24 GMT","content-type":"application/xml; charset=utf-8","content-length":"796","connection":"close","x-cache-key":"/data/2.5/weather?id=2940132&lang=de&mode=xml&units=metric","access-control-allow-origin":"*","access-control-allow-credentials":"true","access-control-allow-methods":"GET, POST","x-node-red-request-node":"4fbd87bc"},"responseUrl":"http://api.openweathermap.org/data/2.5/weather?id=2940132&units=metric&lang=de&mode=xml&appid=91eb3d05b7334e267c90305acba2c49a","redirectList":[]}
-  {"payload":"Der aktuelle Kartoffelpreis beträgt 13,00","_msgid":"7829b4bb.a23c5c","Frage_vom_Touchscreen":"Kartoffelpreis","_event":"node:ac12f36e.59153","statusCode":200,"headers":{"date":"Sun, 06 Oct 2019 22:57:09 GMT","server":"Apache","cache-control":"no-cache, private, no-cache, private","vary":"Accept-Encoding","content-type":"text/html; charset=UTF-8","set-cookie":["raicomBoersenfensterLastBoerse=eex; expires=Sat, 06-Oct-2029 22:57:09 GMT; Max-Age=315619200; path=/; httponly","raicomBoersenfensterLastProdukt=kartoffeln; expires=Sat, 06-Oct-2029 22:57:09 GMT; Max-Age=315619200; path=/; httponly"],"via":"1.1 www.raiffeisen.com","connection":"close","transfer-encoding":"chunked","x-node-red-request-node":"240bb654"},"responseUrl":"https://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html","redirectList":[{"location":"https://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html"}],"responseCookies":{"raicomBoersenfensterLastBoerse":{"expires":"Sat, 06-Oct-2029 22:57:09 GMT","Max-Age":"315619200","path":"/","value":"eex"},"raicomBoersenfensterLastProdukt":{"expires":"Sat, 06-Oct-2029 22:57:09 GMT","Max-Age":"315619200","path":"/","value":"kartoffeln"}}}
-  {"stops":[{"destination":"Talanger","serviceType":"BUS","hasActualDeparture":true,"actualDeparture":1570403040000,"line":"N17","platform":null},{"destination":"Zentralhaltestelle","serviceType":"BUS","hasActualDeparture":true,"actualDeparture":1570404240000,"line":"N17","platform":null}],"now":1570402502142}
   </body>
   </html>
+<script id="scr" type="application/ecmascript">
+var TestBus31={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus31", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 31 Richtung Yorkgebiet fährt in 8 Minuten und 57 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+10000,Date.now()+400000,Date.now()+500000,Date.now()+1000000]};
+var TestBus62={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus62", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 62 Richtung Gablenz fährt in 17 Minuten und 28 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+300000,Date.now()+6000000]};
+var TestWetter={"payload":"Die aktuelle Chemnitztemperatur beträgt 4.65 Grad Celsius", "_msgid":"953dcfd8.c183c", "Frage_vom_Touchscreen":"Wetter", "Antwort_an_Touchscreen": "4,65 °C", "_event":"node:ac12f36e.59153", "statusCode":200,"headers":{"server":"openresty", "date":"Sun, 06 Oct 2019 22:56:24 GMT", "content-type":"application/xml; charset=utf-8", "content-length":"796", "connection":"close", "x-cache-key":"/data/2.5/weather?id=2940132&lang=de&mode=xml&units=metric", "access-control-allow-origin":"*", "access-control-allow-credentials":"true", "access-control-allow-methods":"GET, POST", "x-node-red-request-node":"4fbd87bc"},"responseUrl":"http://api.openweathermap.org/data/2.5/weather?id=2940132&units=metric&lang=de&mode=xml&appid=91eb3d05b7334e267c90305acba2c49a", "redirectList":[]}
+var TestKartoffelpreis={"payload":"Der aktuelle Kartoffelpreis beträgt 13,00", "_msgid":"7829b4bb.a23c5c", "Frage_vom_Touchscreen":"Kartoffelpreis", "Antwort_an_Touchscreen": "13,00", "_event":"node:ac12f36e.59153", "statusCode":200, "headers": {"date":"Sun, 06 Oct 2019 22:57:09 GMT", "server":"Apache", "cache-control":"no-cache, private, no-cache, private", "vary":"Accept-Encoding", "content-type":"text/html; charset=UTF-8", "set-cookie": ["raicomBoersenfensterLastBoerse=eex; expires=Sat, 06-Oct-2029 22:57:09 GMT; Max-Age=315619200; path=/; httponly", "raicomBoersenfensterLastProdukt=kartoffeln; expires=Sat, 06-Oct-2029 22:57:09 GMT; Max-Age=315619200; path=/; httponly"], "via":"1.1 www.raiffeisen.com", "connection":"close", "transfer-encoding":"chunked", "x-node-red-request-node":"240bb654"},"responseUrl":"https://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html", "redirectList":[{"location":"https://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html"}], "responseCookies":{"raicomBoersenfensterLastBoerse":{"expires":"Sat, 06-Oct-2029 22:57:09 GMT", "Max-Age":"315619200", "path":"/", "value":"eex"}, "raicomBoersenfensterLastProdukt":{"expires":"Sat, 06-Oct-2029 22:57:09 GMT", "Max-Age":"315619200", "path":"/", "value":"kartoffeln"}}}
+TestStops={"stops":[
+  {"destination":"Talanger", "serviceType":"BUS", "hasActualDeparture":true,"actualDeparture":1570403040000,"line":"N17", "platform":null}, 
+  {"destination":"Zentralhaltestelle", "serviceType":"BUS", "hasActualDeparture":true, "actualDeparture":1570404240000,"line":"N17", "platform":null}
+  ],"now":1570402502142}
+  </script>
