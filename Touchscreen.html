@@ -122,9 +122,9 @@ function Antwort_auswerten(w) {
   document.getElementById("Antwort").firstChild.nodeValue=w;
   var msg=JSON.parse(w);
   document.getElementById("Ansage").firstChild.nodeValue=msg.payload;
-  alert(msg.Frage_vom_Touchscreen);
+  //alert(msg.Frage_vom_Touchscreen);
   switch (msg.Frage_vom_Touchscreen) {
-    case "Bus31": alert(1+w); return;
+    case "Bus31": return;
     case "Bus62": alert(2+w); return;
     case "Wetter": alert(3+w); return;
     case "Kartoffelpreis": alert(4+w); return;

@@ -1267,18 +1267,6 @@
         "wires": []
     },
     {
-        "id": "51b54fa5.f1b8d",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 356.9590148925781,
-        "y": 1956.1919555664062,
-        "wires": []
-    },
-    {
         "id": "33f32ba6.b874b4",
         "type": "debug",
         "z": "df2ae089.27e66",
@@ -5202,11 +5190,11 @@
         "type": "file in",
         "z": "cc59d9f8.9429c8",
         "name": "",
-        "filename": "/home/pi/Desktop/GIT_CLONE_GITHUB/RADIOPI/Heizung.html",
+        "filename": "Heizung.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 460,
+        "x": 310,
         "y": 40,
         "wires": [
             [
@@ -5221,8 +5209,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 510,
-        "y": 80,
+        "x": 470,
+        "y": 40,
         "wires": []
     },
     {
@@ -6660,5 +6648,50 @@
                 "79cc49df.0f6b58"
             ]
         ]
+    },
+    {
+        "id": "df599f20.f434e",
+        "type": "http in",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "url": "/Touchscreen.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 40,
+        "wires": [
+            [
+                "bd0a56f3.418608"
+            ]
+        ]
+    },
+    {
+        "id": "bd0a56f3.418608",
+        "type": "file in",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "filename": "Touchscreen.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "4e5e4858.cd02c8"
+            ]
+        ]
+    },
+    {
+        "id": "4e5e4858.cd02c8",
+        "type": "http response",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 40,
+        "wires": []
     }
 ]
