@@ -131,11 +131,11 @@ function Antwort_auswerten(w) {
   document.getElementById("Ansage").firstChild.nodeValue=msg.payload;
   //alert(msg.Frage_vom_Touchscreen);
   switch (msg.Frage_vom_Touchscreen) {
-    case "Bus31": Bus("Bus31",msg.Touchscreen); return;
-    case "Bus62": Bus("Bus62",msg.Touchscreen); return;
+    case "Bus31": Bus("Bus31",msg.Antwort_an_Touchscreen); return;
+    case "Bus62": Bus("Bus62",msg.Antwort_an_Touchscreen); return;
     case "Wetter": document.getElementById("Wetter").firstChild.nodeValue=msg.Antwort_an_Touchscreen; return;
     case "Kartoffelpreis": document.getElementById("Kartoffelpreis").firstChild.nodeValue=msg.Antwort_an_Touchscreen; return;
-    default: alert(5+w); return;
+    default: return;
     }
   }
 
