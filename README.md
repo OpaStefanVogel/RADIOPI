@@ -2,36 +2,61 @@
 Konfigurationsfiles für den Radio Raspberry Pi
 
 Start mit neuem Raspberry PI 4:
+#+also erstmal Welcome to Rasoberry Pi durchmachen, dann
 
+df #6152
+#+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
+cd Desktop/GIT_CLONE_GITHUB
+git clone https://github.com/OpaStefanVogel/RADIOPI
+cd RADIO
+
+df #6152
 sudo apt-get install gitk
 sudo apt-get install screen
+sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
+#mit Browser localhost:1880 menu-install dropbox daemon
+#und node email adresse neu einsetzen
 #in .node-red/settings.js setze flowFilePretty: true
-#diverse node-red module installieren dropbox daemon 
-#sudo apt-get install pico2wave #(geht nicht mehr, dafür erstmal espeak)
-sudo apt-get install espeak
+#in Menü Preferences Configuration enable ssh vnc
+node-red flows_RADIO.json #jetzt müsste schon Zeitansage sein
+
+df #6222
+cd
 sudo apt-get install zynaddsubfx
 sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
+
+ßdf #6287
 ssh-keygen
-nano .ssh/authorized_keys
+nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localhost
 sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
-sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
-sudo apt-get install florence at-spi2-core
+#sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
+
+df #6287
+#sudo apt-get install florence at-spi2-core
 sudo apt-get install mosquitto mosquitto-clients
 mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
 mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an"
 
 
-
-
-
-
-
-
-nano .xsessionrc #mit folgendem Inhalt:
+nano .xsessionrc #mit folgendem Inhalt, und ausführbar machen:
 cd ./Desktop/GIT_CLONE_GITHUB/RADIOPI/
-.xsessionrc
+./.xsessionrc
 cd
 
+df #6289
+#jetzt in Menü-Raspberery-Recommended alles abwählen außer node-red vnc
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+df #3396!!!
+
+sudo reboot
+
+sudo apt-get install gap
+df #
+
+
+------nicht:
 # laut https://www.heise.de/newsticker/meldung/Raspberry-Pi-Erste-Fassung-des-64-Bit-Kernels-verfuegbar-4524121.html
 uname -a #Linux Radio 4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
 sudo rpi-update #vorher noch sudo apt update; sudo apt install rpi-eeprom #und reboot
