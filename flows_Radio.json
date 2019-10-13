@@ -1718,7 +1718,7 @@
         "format": "handlebars",
         "syntax": "mustache",
         "template": "-p 30 -s 160 -w lookdave.wav -vde \"{{payload}} over\"; # mplayer lookdave.wav",
-        "x": 410,
+        "x": 540,
         "y": 2040,
         "wires": [
             [
@@ -1737,7 +1737,7 @@
         "timer": "",
         "oldrc": false,
         "name": "espeak (vorher pico2wave)",
-        "x": 680,
+        "x": 780,
         "y": 2040,
         "wires": [
             [
@@ -1858,13 +1858,13 @@
             "d0c1c2d.315384",
             "449f4847.b0f968"
         ],
-        "x": 255,
-        "y": 2040,
+        "x": 175,
+        "y": 2080,
         "wires": [
             [
-                "fe68c44a.89dab8",
                 "d9c132d5.ffbdf",
-                "9132ecf0.0f506"
+                "9132ecf0.0f506",
+                "42a9e426.810d0c"
             ]
         ]
     },
@@ -1981,8 +1981,8 @@
         "active": false,
         "console": "false",
         "complete": "false",
-        "x": 910,
-        "y": 2060,
+        "x": 1090,
+        "y": 2040,
         "wires": []
     },
     {
@@ -6481,7 +6481,7 @@
         "links": [
             "a44246ab.86fd38"
         ],
-        "x": 635,
+        "x": 501,
         "y": 2120,
         "wires": []
     },
@@ -6693,5 +6693,28 @@
         "x": 570,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "42a9e426.810d0c",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 330,
+        "y": 2040,
+        "wires": [
+            [
+                "fe68c44a.89dab8"
+            ]
+        ]
     }
 ]
