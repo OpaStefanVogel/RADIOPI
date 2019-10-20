@@ -4,6 +4,9 @@ Konfigurationsfiles für den Radio Raspberry Pi
 Start mit neuem Raspberry PI 4:
 #+also erstmal Welcome to Rasoberry Pi durchmachen, dann
 
+sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
+sudo reboot
+
 df #6152
 #+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
 cd Desktop/GIT_CLONE_GITHUB
@@ -14,21 +17,20 @@ df #6152
 sudo apt-get install gitk
 sudo apt-get install screen
 sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
+#in Menü Preferences Configuration enable ssh vnc
+node-red ./flows_Radio.json 
+#in .node-red/settings.js setze flowFilePretty: true
 #mit Browser localhost:1880 menu-install dropbox daemon
 #und node email adresse neu einsetzen
-#in .node-red/settings.js setze flowFilePretty: true
-#in Menü Preferences Configuration enable ssh vnc
-node-red flows_RADIO.json #jetzt müsste schon Zeitansage sein
 
 df #6222
 cd
 sudo apt-get install zynaddsubfx
 sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
 
-ßdf #6287
+df #6287
 ssh-keygen
 nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localhost
-sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 #sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
 df #6287
@@ -56,15 +58,70 @@ sudo apt-get install gap
 df #
 
 
-------nicht:
 # laut https://www.heise.de/newsticker/meldung/Raspberry-Pi-Erste-Fassung-des-64-Bit-Kernels-verfuegbar-4524121.html
-uname -a #Linux Radio 4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
+uname -a #Linux Radio     4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
+         #Linux raspberry 4.19.75-v7l+ #1270 SMP Tue Sep 24 18:51:41 BST 2019 armv7l GNU/Linux
+uname -i #unknown
 sudo rpi-update #vorher noch sudo apt update; sudo apt install rpi-eeprom #und reboot
 sudo nano /boot/config.txt #dort die Zeile arm_64bit=1 ergänzen
 sudo reboot
-uname -a #Linux Radio 4.19.73-v8+ #1267 SMP PREEMPT Fri Sep 20 18:14:38 BST 2019 aarch64 GNU/Linux
+uname -a #Linux Radio     4.19.73-v8+ #1267 SMP PREEMPT Fri Sep 20 18:14:38 BST 2019 aarch64 GNU/Linux
+         #Linux raspberry 4.19.79-v8+ #1273 SMP PREEMPT Fri Oct 11 18:35:44 BST 2019 aarch64 GNU/Linux
 
 
+#laut https://www.raspberrypi.org/forums/viewtopic.php?p=1422775
+sudo raspi-config #dort "7 Advanced Options" then "A7 GL Driver" then "G2 GL (Fake KMS) OpenGL desktop driver with fake KMS" und reboot
+file $(which ls) #/bin/ls: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=67a394390830ea3ab4e83b5811c66fea9784ee69, stripped
+cat /etc/os-release #PRETTY_NAME="Raspbian GNU/Linux 10 (buster)"...
+wget -c http://http.us.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2019.1_all.deb #mit aktuellem 19.1 statt 17.5 von http://http.us.debian.org/debian/pool/main/d/debian-archive-keyring
+sudo apt install ./debian-archive-keyring_2019.1_all.deb
+sudo apt-get -y install debootstrap systemd-container pulseaudio zenity
+sudo mkdir -pv /var/lib/machines
+sudo debootstrap --arch=arm64 --include=systemd-container,pulseaudio,zenity buster /var/lib/machines/debian-buster-64 http://deb.debian.org/debian/ 
+#!!!eigentlich buster statt stretch; doch nur stretch ohne error, deshalb weiter mit stretch
+sudo systemd-nspawn --settings=no --directory=/var/lib/machines/debian-stretch-64
+
+root@raspberrypi:~# passwd root
+root@raspberrypi:~# useradd --user-group --groups adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev --create-home --uid 1000 --shell /bin/bash pi
+root@raspberrypi:~# passwd pi
+root@raspberrypi:~# echo -e "127.0.0.1\tdebian-stretch-64" >> /etc/hosts
+root@raspberrypi:~# logout
+sudo systemd-nspawn --settings=no --machine=debian-stretch-64 --boot --bind=/home/pi --bind=/etc/resolv.conf
+
+##vor dem login in einem anderem terminal:
+sudo hostnamectl --machine=debian-stretch-64 set-hostname debian-stretch-64
+sudo machinectl shell root@debian-stretch-64 /bin/bash
+root@debian-stretch-64:~# ps -aux
+
+##noch in einem dritten terminal:
+sudo journalctl --machine=debian-stretch-64
+sudo systemctl --machine=debian-stretch-64
+sudo systemctl --machine=debian-stretch-64 --failed
+
+#jetzt login im ersten terminal aks root, dann:
+apt-get update && apt-get -y upgrade
+apt-get install -y sudo
+
+sudo nano /etc/hostname #Radio
+sudo apt-get install -y file
+file $(which ls)
+logout
+#und login als pi:
+ls
+sudo apt-get install -y locales
+sudo dpkg-reconfigure locales
+locale -a
+sudo dpkg-reconfigure tzdata
+sudo reboot
+journalctl --boot --priority=err #-- No entries -
+sudo poweroff
+
+#und neustart mit:
+sudo systemd-nspawn --settings=no --machine=debian-stretch-64 --boot --bind=/home/pi --bind=/etc/resolv.conf
+sudo machinectl shell root@debian-stretch-64 /bin/bash
+
+
+------nicht:
 #laut https://forums.xilinx.com/t5/Installation-and-Licensing/I-get-quot-ERROR-This-installation-is-not-supported-on-32-bit/td-p/597759https://www.xilinx.com/member/forms/download/xef-vivado.html
 uname -i #unknown
 sudo dpkg-divert --add --rename --divert /bin/uname.orig /bin/uname
