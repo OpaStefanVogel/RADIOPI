@@ -8,6 +8,15 @@ sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 sudo reboot
 
 df #6152
+dd if=/dev/zero of=./largefile bs=1M count=1024 #38,6 MB/s statt 6,4 MB/s
+
+#laut https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/
+sudo apt-get install rpi-eeprom
+sudo nano /etc/default/rpi-eeprom-update #dort "critical" in "beta" umändern
+sudo rpi-eeprom-update # um zu schauen ob aktuell
+sudo rpi-eeprom-update -a #zum aktualisieren wenn nicht aktuell
+sudio reboot #wenn aktualisiert
+
 #+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
 cd Desktop/GIT_CLONE_GITHUB
 git clone https://github.com/OpaStefanVogel/RADIOPI
@@ -54,10 +63,29 @@ df #3396!!!
 
 sudo reboot
 
+#laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
+sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
+# und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
+
+
 sudo apt-get install gap
 df #
 
 
+
+
+#gap64
+sudo apt-get install autoconf gcc g++ make wget
+cd gap64
+./autogen.sh
+./configure
+make bootstrap-pkg-full
+./bin/gap.sh
+
+
+
+
+---nicht mehr:
 # laut https://www.heise.de/newsticker/meldung/Raspberry-Pi-Erste-Fassung-des-64-Bit-Kernels-verfuegbar-4524121.html
 uname -a #Linux Radio     4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
          #Linux raspberry 4.19.75-v7l+ #1270 SMP Tue Sep 24 18:51:41 BST 2019 armv7l GNU/Linux
