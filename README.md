@@ -3,20 +3,41 @@ Konfigurationsfiles für den Radio Raspberry Pi
 
 Start mit neuem Raspberry PI 4:
 #+also erstmal Welcome to Rasoberry Pi durchmachen, dann
+#dann vor dem automatischen updaten 
+#- Desktop...README.md hereinkopieren
+#- Anwendungen alle außer node-red und vnc entfernen
+#dann erst aktualisieren lassen
+df #03551 13%
 
 sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 sudo reboot
 
-df #6152
-dd if=/dev/zero of=./largefile bs=1M count=1024 #38,6 MB/s statt 6,4 MB/s
+df #03551 13%
+dd if=/dev/zero of=./largefile bs=1M count=1024 #43,7 MB/s statt 6,4 MB/s
+rm ./largefile
 
+df #03551 13%
 #laut https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/
-sudo apt-get install rpi-eeprom
-sudo nano /etc/default/rpi-eeprom-update #dort "critical" in "beta" umändern
+#sudo apt-get install rpi-eeprom #nur wenn nicht da
+#sudo nano /etc/default/rpi-eeprom-update #dort "critical" in "beta" umändern
 sudo rpi-eeprom-update # um zu schauen ob aktuell
 sudo rpi-eeprom-update -a #zum aktualisieren wenn nicht aktuell
-sudio reboot #wenn aktualisiert
+sudo reboot #wenn aktualisiert
+#siehe auch https://github.com/raspberrypi/rpi-eeprom/blob/master/firmware/release-notes.md
 
+--Test
+sudo nano /boot/config.txt
+force_turbo=1
+arm_freq=1300 
+#              1x gap          3x gap       
+#        1300  404 s 58 °C     620 s 64 °C
+#        1500  387 s 60 °C     610 s 70 °C
+#        1700
+
+vcgencmd measure_clock arm
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+
+df #05511 20% woher die auf einmal?
 #+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
 cd Desktop/GIT_CLONE_GITHUB
 git clone https://github.com/OpaStefanVogel/RADIOPI
@@ -29,51 +50,71 @@ sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
 #in Menü Preferences Configuration enable ssh vnc
 node-red ./flows_Radio.json 
 #in .node-red/settings.js setze flowFilePretty: true
-#mit Browser localhost:1880 menu-install dropbox daemon
-#und node email adresse neu einsetzen
+#mit Tablet-Browser localhost:1880 menu-install dropbox daemon
+#und schon geht Temperaturansage los
+#inject Radio an#
+#und node email adresse neu einsetzen#da kommt schon die neue Email
 
-df #6222
-cd
-sudo apt-get install zynaddsubfx
+df #05540 20%
 sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
+sudo apt-get install zynaddsubfx #und schon mal mit ./.xsessionrc starten
 
-df #6287
+
+df #05603 20%
 ssh-keygen
 nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localhost
 #sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
-df #6287
+df #05603 20%
 #sudo apt-get install florence at-spi2-core
 sudo apt-get install mosquitto mosquitto-clients
 mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
 mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an"
 
-
+cd
 nano .xsessionrc #mit folgendem Inhalt, und ausführbar machen:
 cd ./Desktop/GIT_CLONE_GITHUB/RADIOPI/
 ./.xsessionrc
 cd
 
-df #6289
-#jetzt in Menü-Raspberery-Recommended alles abwählen außer node-red vnc
+hostnamectl
+hostnamectl set-hostname Radio
+
+
+df #5604 20%
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
-df #3396!!!
+df #5604 20%
 
 sudo reboot
 
+
 #laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
-sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
+speaker-test -t wav -c 2 #und wenn kein Stereo dann folgendes:
+#sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
 # und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
 
 
+
 sudo apt-get install gap
-df #
+gap
+gap> 1/0; 
+brk> quit;
+gap> SaveWorkspace("GAP_WORKSPACE");
+gap> quit;
+df #06496 23%
 
+cd ~/Downloads
+#von vivaldi download die Adresse mit vnc reinkopieren 
+wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
+#dann im Filemanager installieren
+df #06716 24%
 
+sudo apt-get install ghdl gtkwave
+#aber dann der vfp-Fehler...
 
-
+---nicht mehr:
 #gap64
 sudo apt-get install autoconf gcc g++ make wget
 cd gap64
@@ -163,4 +204,6 @@ sudo nano /etc/apt/sources.list # und dort ergänzen deb http://ftp.de.debian.or
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
+
+
 

@@ -1856,7 +1856,8 @@
             "120ff95.633b607",
             "f95e4c0b.0ce5a",
             "d0c1c2d.315384",
-            "449f4847.b0f968"
+            "449f4847.b0f968",
+            "e2e04866.0276d8"
         ],
         "x": 175,
         "y": 2080,
@@ -1891,14 +1892,14 @@
         "id": "4a2fb704.3a98a8",
         "type": "daemon",
         "z": "df2ae089.27e66",
-        "name": "ssh stefan@192.168.1.5 gap -L GAP_WORKSPACE",
+        "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
         "command": "gap",
         "args": "-L GAP_WORKSPACE",
         "autorun": true,
         "cr": true,
         "redo": false,
         "op": "string",
-        "x": 440,
+        "x": 430,
         "y": 2420,
         "wires": [
             [
@@ -2059,7 +2060,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "SIGQUIT",
-        "func": "if (msg.payload==\"QUIT;\") {\n  delete msg.payload;\n  msg.kill=\"\";\n  //msg.start=\"\";\n  }\nreturn msg;",
+        "func": "if (msg.payload==\"QUIT;\") {\n  delete msg.payload;\n  msg.kill=\"SIGQUIT\";\n  //msg.start=\"\";\n  }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 360,
@@ -4475,7 +4476,8 @@
         "wires": [
             [
                 "d41bb1c8.edbe",
-                "a3760dc6.7bce2"
+                "a3760dc6.7bce2",
+                "a8b60de4.d8067"
             ]
         ]
     },
@@ -6714,6 +6716,80 @@
         "wires": [
             [
                 "fe68c44a.89dab8"
+            ]
+        ]
+    },
+    {
+        "id": "a8b60de4.d8067",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "a4a8d729.e87b38"
+            ]
+        ]
+    },
+    {
+        "id": "a4a8d729.e87b38",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Pflaumenkompott",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Im Keller stehen noch 6 Kirsch- und 12 Pflaumenkompott.\n",
+        "output": "str",
+        "x": 590,
+        "y": 340,
+        "wires": [
+            [
+                "e2e04866.0276d8"
+            ]
+        ]
+    },
+    {
+        "id": "e2e04866.0276d8",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 895,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2b526572.a3746a",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "a4a8d729.e87b38"
             ]
         ]
     }
