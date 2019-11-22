@@ -1,4 +1,4 @@
-# RADIOPI
+ RADIOPI
 Konfigurationsfiles für den Radio Raspberry Pi
 
 Start mit neuem Raspberry PI 4:
@@ -27,12 +27,13 @@ sudo reboot #wenn aktualisiert
 
 --Test
 sudo nano /boot/config.txt
-force_turbo=1
+#force_turbo=1
 arm_freq=1300 
 #              1x gap          3x gap       
 #        1300  404 s 58 °C     620 s 64 °C
 #        1500  387 s 60 °C     610 s 70 °C
 #        1700
+arm_freq_min=500 
 
 vcgencmd measure_clock arm
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
@@ -44,6 +45,7 @@ git clone https://github.com/OpaStefanVogel/RADIOPI
 cd RADIO
 
 df #6152
+sudo apt-get remove pulseaudio #bei nspawn64
 sudo apt-get install gitk
 sudo apt-get install screen
 sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
@@ -91,8 +93,8 @@ sudo reboot
 
 
 #laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
-speaker-test -t wav -c 2 #und wenn kein Stereo dann folgendes:
-#sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
+speaker-test -t wav -c 4 #und wenn kein Stereo dann folgendes:
+#wenn kein Stereo sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
 # und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
 
 
@@ -114,6 +116,12 @@ df #06716 24%
 sudo apt-get install ghdl gtkwave
 #aber dann der vfp-Fehler...
 
+file $(which ls) #bin/ls: ELF 32-bit
+ds64-shell #kurz testen ob da
+file $(which ls) #/bin/ls: ELF 64-bit
+top #14 Prozesse
+exit
+
 ---nicht mehr:
 #gap64
 sudo apt-get install autoconf gcc g++ make wget
@@ -126,7 +134,6 @@ make bootstrap-pkg-full
 
 
 
----nicht mehr:
 # laut https://www.heise.de/newsticker/meldung/Raspberry-Pi-Erste-Fassung-des-64-Bit-Kernels-verfuegbar-4524121.html
 uname -a #Linux Radio     4.19.66-v7l+ #1253 SMP Thu Aug 15 12:02:08 BST 2019 armv7l GNU/Linux
          #Linux raspberry 4.19.75-v7l+ #1270 SMP Tue Sep 24 18:51:41 BST 2019 armv7l GNU/Linux
@@ -136,27 +143,35 @@ sudo nano /boot/config.txt #dort die Zeile arm_64bit=1 ergänzen
 sudo reboot
 uname -a #Linux Radio     4.19.73-v8+ #1267 SMP PREEMPT Fri Sep 20 18:14:38 BST 2019 aarch64 GNU/Linux
          #Linux raspberry 4.19.79-v8+ #1273 SMP PREEMPT Fri Oct 11 18:35:44 BST 2019 aarch64 GNU/Linux
+         #Linux Radio 4.19.83-v8+ #1277 SMP PREEMPT Mon Nov 11 16:53:30 GMT 2019 aarch64 GNU/Linux
+df # 07712 27%
 
 
+
+df # 07712 27%
 #laut https://www.raspberrypi.org/forums/viewtopic.php?p=1422775
 sudo raspi-config #dort "7 Advanced Options" then "A7 GL Driver" then "G2 GL (Fake KMS) OpenGL desktop driver with fake KMS" und reboot
 file $(which ls) #/bin/ls: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=67a394390830ea3ab4e83b5811c66fea9784ee69, stripped
 cat /etc/os-release #PRETTY_NAME="Raspbian GNU/Linux 10 (buster)"...
 wget -c http://http.us.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2019.1_all.deb #mit aktuellem 19.1 statt 17.5 von http://http.us.debian.org/debian/pool/main/d/debian-archive-keyring
 sudo apt install ./debian-archive-keyring_2019.1_all.deb
-sudo apt-get -y install debootstrap systemd-container pulseaudio zenity
+sudo apt-get -y install debootstrap systemd-container zenity # pulseaudio #pulseaudio nicht, sonst gehen Keystation61 und VLC nicht gleichzeitig
 sudo mkdir -pv /var/lib/machines
-sudo debootstrap --arch=arm64 --include=systemd-container,pulseaudio,zenity buster /var/lib/machines/debian-buster-64 http://deb.debian.org/debian/ 
-#!!!eigentlich buster statt stretch; doch nur stretch ohne error, deshalb weiter mit stretch
-sudo systemd-nspawn --settings=no --directory=/var/lib/machines/debian-stretch-64
 
+
+sudo debootstrap --arch=arm64 --include=systemd-container,pulseaudio,zenity stretch /var/lib/machines/debian-stretch-64 http://deb.debian.org/debian/ 
+sudo apt purge debian-archive-keyring #entfernen wenn gewünscht
+df #08386 30%
+
+df #08386 30%
+sudo systemd-nspawn --settings=no --directory=/var/lib/machines/debian-stretch-64
 root@raspberrypi:~# passwd root
 root@raspberrypi:~# useradd --user-group --groups adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev --create-home --uid 1000 --shell /bin/bash pi
 root@raspberrypi:~# passwd pi
 root@raspberrypi:~# echo -e "127.0.0.1\tdebian-stretch-64" >> /etc/hosts
 root@raspberrypi:~# logout
-sudo systemd-nspawn --settings=no --machine=debian-stretch-64 --boot --bind=/home/pi --bind=/etc/resolv.conf
 
+sudo systemd-nspawn --settings=no --machine=debian-stretch-64 --boot --bind=/home/pi --bind=/etc/resolv.conf
 ##vor dem login in einem anderem terminal:
 sudo hostnamectl --machine=debian-stretch-64 set-hostname debian-stretch-64
 sudo machinectl shell root@debian-stretch-64 /bin/bash
@@ -170,24 +185,35 @@ sudo systemctl --machine=debian-stretch-64 --failed
 #jetzt login im ersten terminal aks root, dann:
 apt-get update && apt-get -y upgrade
 apt-get install -y sudo
-
-sudo nano /etc/hostname #Radio
-sudo apt-get install -y file
+apt-get install -y file
 file $(which ls)
 logout
+
 #und login als pi:
 ls
 sudo apt-get install -y locales
-sudo dpkg-reconfigure locales
-locale -a
+sudo dpkg-reconfigure locales #dort de.UTF-9 UTF-9 gewählt
+locale -a #C C.UTF POSIX
 sudo dpkg-reconfigure tzdata
 sudo reboot
 journalctl --boot --priority=err #-- No entries -
 sudo poweroff
+#Rest mit X11-apps und Sound weglassen
+df #08481 30%
 
+df #08481 30%
 #und neustart mit:
 sudo systemd-nspawn --settings=no --machine=debian-stretch-64 --boot --bind=/home/pi --bind=/etc/resolv.conf
-sudo machinectl shell root@debian-stretch-64 /bin/bash
+sudo machinectl shell root@debian-stretch-64 /bin/bash #geht nicht???
+sudo apt-get install gtkwave
+cd Desktop/GHDL/
+DISPLAY=:0.0 gtkwave test.ghw view.sav
+sudo apt-get install ghdl #gibts nicht, deshalb alles nochmal mit buster:
+
+
+sudo debootstrap --arch=arm64 --include=systemd-container,pulseaudio,zenity stretch /var/lib/machines/debian-stretch-64 http://deb.debian.org/debian/ 
+df #08386 30%
+sudo systemd-nspawn --settings=no --directory=/var/lib/machines/debian-buster-64
 
 
 ------nicht:

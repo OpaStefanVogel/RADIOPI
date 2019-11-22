@@ -46,12 +46,6 @@
         "wholemsg": "false"
     },
     {
-        "id": "a8c00c93.0b2d9",
-        "type": "dropbox-config",
-        "z": "df2ae089.27e66",
-        "name": ""
-    },
-    {
         "id": "dc774b27.f99cc8",
         "type": "websocket-listener",
         "z": "df2ae089.27e66",
@@ -78,12 +72,6 @@
         "z": "",
         "path": "/ws/gap",
         "wholemsg": "false"
-    },
-    {
-        "id": "541b8a76.cb7e74",
-        "type": "dropbox-config",
-        "z": "",
-        "name": ""
     },
     {
         "id": "37ce9c4.e304964",
@@ -191,6 +179,18 @@
         "z": "",
         "path": "/ws/Touchscreen",
         "wholemsg": "true"
+    },
+    {
+        "id": "a8c00c93.0b2d9",
+        "type": "dropbox-config",
+        "z": "df2ae089.27e66",
+        "name": ""
+    },
+    {
+        "id": "541b8a76.cb7e74",
+        "type": "dropbox-config",
+        "z": 0,
+        "name": ""
     },
     {
         "id": "8407ad6.d1b085",
@@ -499,18 +499,6 @@
         ]
     },
     {
-        "id": "46c190e7.7da43",
-        "type": "dropbox out",
-        "z": "df2ae089.27e66",
-        "dropbox": "541b8a76.cb7e74",
-        "filename": "flows_raspberrypi.json",
-        "localFilename": ".node-red/flows_Radio.json",
-        "name": ".node-red",
-        "x": 377.77734375,
-        "y": 139.5760326385498,
-        "wires": []
-    },
-    {
         "id": "2c5b374d.4fd5c8",
         "type": "inject",
         "z": "df2ae089.27e66",
@@ -558,22 +546,6 @@
         "wires": [
             [
                 "70a3189e.b95ce8"
-            ]
-        ]
-    },
-    {
-        "id": "70a3189e.b95ce8",
-        "type": "dropbox",
-        "z": "df2ae089.27e66",
-        "dropbox": "a8c00c93.0b2d9",
-        "filename": "flows_raspberrypi.json",
-        "name": "Download Dropbox",
-        "x": 490,
-        "y": 180,
-        "wires": [
-            [
-                "c5e6a55f.3288b8",
-                "5d4ef1f.484c91"
             ]
         ]
     },
@@ -1320,14 +1292,14 @@
         "id": "efaf1e11.f655a",
         "type": "exec",
         "z": "a49d08e2.c6bc28",
-        "command": "speaker-test -c2 -t sine -b 1000 -p 1000 -f 45 -l 1 -s 2",
+        "command": "speaker-test -c2 -t sine -f 66 -l 1",
         "addpay": false,
         "append": "",
         "useSpawn": "",
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 640,
+        "x": 570,
         "y": 240,
         "wires": [
             [],
@@ -1857,7 +1829,8 @@
             "f95e4c0b.0ce5a",
             "d0c1c2d.315384",
             "449f4847.b0f968",
-            "e2e04866.0276d8"
+            "e2e04866.0276d8",
+            "cfd0925f.eb69f"
         ],
         "x": 175,
         "y": 2080,
@@ -1885,33 +1858,6 @@
         "wires": [
             [
                 "873166b4.06bca8"
-            ]
-        ]
-    },
-    {
-        "id": "4a2fb704.3a98a8",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
-        "command": "gap",
-        "args": "-L GAP_WORKSPACE",
-        "autorun": true,
-        "cr": true,
-        "redo": false,
-        "op": "string",
-        "x": 430,
-        "y": 2420,
-        "wires": [
-            [
-                "f9eadcfd.417",
-                "abfa0dbe.cd731"
-            ],
-            [
-                "f9eadcfd.417",
-                "abfa0dbe.cd731"
-            ],
-            [
-                "f9eadcfd.417"
             ]
         ]
     },
@@ -3143,7 +3089,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var m=msg.payload;\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload})\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 450,
@@ -3303,27 +3249,6 @@
         "wires": []
     },
     {
-        "id": "d55a78ed.da1038",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "command": "aseqdump",
-        "args": "-p 20:0",
-        "cr": false,
-        "redo": false,
-        "op": "string",
-        "x": 270,
-        "y": 3720,
-        "wires": [
-            [
-                "4df7c63d.e56c28",
-                "a7fa0b97.92ea98"
-            ],
-            [],
-            []
-        ]
-    },
-    {
         "id": "863426bd.c8af98",
         "type": "comment",
         "z": "df2ae089.27e66",
@@ -3334,53 +3259,17 @@
         "wires": []
     },
     {
-        "id": "4df7c63d.e56c28",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "x": 590,
-        "y": 3700,
-        "wires": []
-    },
-    {
-        "id": "467ca11c.37cc3",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "command": "aseqdump",
-        "args": "-p 20:1",
-        "cr": false,
-        "redo": false,
-        "op": "string",
-        "x": 270,
-        "y": 3800,
-        "wires": [
-            [
-                "4df7c63d.e56c28",
-                "e60e1fdb.24ec3"
-            ],
-            [],
-            []
-        ]
-    },
-    {
         "id": "e60e1fdb.24ec3",
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "msg.payload=msg.payload.slice(13,16).trim()+\" \"+msg.payload.slice(39,43).trim();\nreturn msg;",
+        "func": "node.status({text:msg.payload});\nmsg.payload=msg.payload.slice(msg.payload.indexOf(\"Note\"));\nmsg.payload=msg.payload.slice(5,8).trim()+\" \"+msg.payload.slice(31,35).trim();\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 430,
-        "y": 3820,
+        "y": 3800,
         "wires": [
             [
-                "4df7c63d.e56c28",
                 "8de2445b.9372e8"
             ]
         ]
@@ -3393,8 +3282,8 @@
         "links": [
             "1d6debc3.ed7d94"
         ],
-        "x": 540,
-        "y": 3840,
+        "x": 575,
+        "y": 3800,
         "wires": []
     },
     {
@@ -3402,7 +3291,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "Keyboard 20:1 Tasten",
-        "func": "var m=msg.payload;\nif (m==\"on 93,\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"on 96,\") {msg.payload=\"prev\"; return msg}\nif (m==\"on 97,\") {msg.payload=\"next\"; return msg}\nif (m==\"on 98,\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"on 99,\") {msg.payload=\"volume +10\"; return msg}\n",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload});\nif (m==\"on 93,\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"on 96,\") {msg.payload=\"prev\"; return msg}\nif (m==\"on 97,\") {msg.payload=\"next\"; return msg}\nif (m==\"on 98,\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"on 99,\") {msg.payload=\"volume +10\"; return msg}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 240,
@@ -3434,14 +3323,13 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "if (msg.payload.slice(52,55).trim()==\"1\") {\n  msg.payload=msg.payload.slice(13,16).trim()+\" \"+msg.payload.slice(39,43).trim();\n  return msg;\n  }\n",
+        "func": "node.status({text:msg.payload});\nmsg.payload=msg.payload.slice(msg.payload.indexOf(\"Note\"));\nif (msg.payload.slice(44,47).trim()==\"1\") {\n  msg.payload=msg.payload.slice(5,8).trim()+\" \"+msg.payload.slice(31,35).trim();\n  return msg;\n  }\n",
         "outputs": 1,
         "noerr": 0,
         "x": 430,
-        "y": 3680,
+        "y": 3720,
         "wires": [
             [
-                "4df7c63d.e56c28",
                 "92963650.708088"
             ]
         ]
@@ -5216,36 +5104,6 @@
         "wires": []
     },
     {
-        "id": "30d335b1.090c3a",
-        "type": "daemon",
-        "z": "cc59d9f8.9429c8",
-        "name": "gatttool -I --listen",
-        "command": "gatttool",
-        "args": "-I --listen",
-        "autorun": true,
-        "cr": true,
-        "redo": true,
-        "op": "string",
-        "x": 450,
-        "y": 380,
-        "wires": [
-            [
-                "aa5f9303.63dc6",
-                "9d2a1c0f.b0c58",
-                "9043594e.dd5858",
-                "44f52693.f3d558"
-            ],
-            [
-                "d4ed3c00.e165e",
-                "44f52693.f3d558"
-            ],
-            [
-                "d4ed3c00.e165e",
-                "44f52693.f3d558"
-            ]
-        ]
-    },
-    {
         "id": "aa5f9303.63dc6",
         "type": "file",
         "z": "cc59d9f8.9429c8",
@@ -5844,32 +5702,6 @@
         "wires": []
     },
     {
-        "id": "e705cd71.ffdd5",
-        "type": "daemon",
-        "z": "a49d08e2.c6bc28",
-        "name": "",
-        "command": "rvlc",
-        "args": "",
-        "autorun": true,
-        "cr": true,
-        "redo": true,
-        "op": "string",
-        "closer": "SIGKILL",
-        "x": 610,
-        "y": 500,
-        "wires": [
-            [
-                "2149d687.0e48aa"
-            ],
-            [
-                "2149d687.0e48aa"
-            ],
-            [
-                "2149d687.0e48aa"
-            ]
-        ]
-    },
-    {
         "id": "c0b06351.ee919",
         "type": "inject",
         "z": "a49d08e2.c6bc28",
@@ -6129,32 +5961,6 @@
         "wires": [
             [
                 "22a7bd39.67ed92"
-            ]
-        ]
-    },
-    {
-        "id": "2dfc3d90.da7212",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "command": "rvlc",
-        "args": "lookdave.wav",
-        "autorun": true,
-        "cr": true,
-        "redo": true,
-        "op": "string",
-        "closer": "SIGKILL",
-        "x": 890,
-        "y": 1980,
-        "wires": [
-            [
-                "587d607e.4135b"
-            ],
-            [
-                "587d607e.4135b"
-            ],
-            [
-                "587d607e.4135b"
             ]
         ]
     },
@@ -6790,6 +6596,265 @@
         "wires": [
             [
                 "a4a8d729.e87b38"
+            ]
+        ]
+    },
+    {
+        "id": "70a3189e.b95ce8",
+        "type": "dropbox",
+        "z": "df2ae089.27e66",
+        "dropbox": "a8c00c93.0b2d9",
+        "filename": "flows_raspberrypi.json",
+        "name": "Download Dropbox",
+        "x": 490,
+        "y": 180,
+        "wires": [
+            [
+                "c5e6a55f.3288b8",
+                "5d4ef1f.484c91"
+            ]
+        ]
+    },
+    {
+        "id": "46c190e7.7da43",
+        "type": "dropbox out",
+        "z": "df2ae089.27e66",
+        "dropbox": "541b8a76.cb7e74",
+        "filename": "flows_raspberrypi.json",
+        "localFilename": ".node-red/flows_Radio.json",
+        "name": ".node-red",
+        "x": 377.77734375,
+        "y": 139.5760326385498,
+        "wires": []
+    },
+    {
+        "id": "4a2fb704.3a98a8",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
+        "command": "gap",
+        "args": "-L GAP_WORKSPACE",
+        "autorun": true,
+        "cr": true,
+        "redo": false,
+        "op": "string",
+        "x": 430,
+        "y": 2420,
+        "wires": [
+            [
+                "f9eadcfd.417",
+                "abfa0dbe.cd731"
+            ],
+            [
+                "f9eadcfd.417",
+                "abfa0dbe.cd731"
+            ],
+            [
+                "f9eadcfd.417"
+            ]
+        ]
+    },
+    {
+        "id": "d55a78ed.da1038",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "command": "aseqdump",
+        "args": "-p 20:0",
+        "cr": false,
+        "redo": false,
+        "op": "string",
+        "x": 270,
+        "y": 3720,
+        "wires": [
+            [
+                "a7fa0b97.92ea98"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "467ca11c.37cc3",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "command": "aseqdump",
+        "args": "-p 20:1",
+        "cr": false,
+        "redo": false,
+        "op": "string",
+        "x": 270,
+        "y": 3800,
+        "wires": [
+            [
+                "e60e1fdb.24ec3"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "30d335b1.090c3a",
+        "type": "daemon",
+        "z": "cc59d9f8.9429c8",
+        "name": "gatttool -I --listen",
+        "command": "gatttool",
+        "args": "-I --listen",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "x": 450,
+        "y": 380,
+        "wires": [
+            [
+                "aa5f9303.63dc6",
+                "9d2a1c0f.b0c58",
+                "9043594e.dd5858",
+                "44f52693.f3d558"
+            ],
+            [
+                "d4ed3c00.e165e",
+                "44f52693.f3d558"
+            ],
+            [
+                "d4ed3c00.e165e",
+                "44f52693.f3d558"
+            ]
+        ]
+    },
+    {
+        "id": "e705cd71.ffdd5",
+        "type": "daemon",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "command": "rvlc",
+        "args": "",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "closer": "SIGKILL",
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "2149d687.0e48aa"
+            ],
+            [
+                "2149d687.0e48aa"
+            ],
+            [
+                "2149d687.0e48aa"
+            ]
+        ]
+    },
+    {
+        "id": "2dfc3d90.da7212",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "command": "rvlc",
+        "args": "lookdave.wav",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "closer": "SIGKILL",
+        "x": 890,
+        "y": 1980,
+        "wires": [
+            [
+                "587d607e.4135b"
+            ],
+            [
+                "587d607e.4135b"
+            ],
+            [
+                "587d607e.4135b"
+            ]
+        ]
+    },
+    {
+        "id": "ad8c3a3e.be96d8",
+        "type": "comment",
+        "z": "df2ae089.27e66",
+        "name": "ping ob Netzwerk da",
+        "info": "",
+        "x": 250,
+        "y": 4920,
+        "wires": []
+    },
+    {
+        "id": "9271a3e.2387c6",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 4960,
+        "wires": [
+            [
+                "a4c1ac87.8e149"
+            ]
+        ]
+    },
+    {
+        "id": "a4c1ac87.8e149",
+        "type": "exec",
+        "z": "df2ae089.27e66",
+        "command": "ping",
+        "addpay": false,
+        "append": "-c 1 192.168.1.254",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 4960,
+        "wires": [
+            [],
+            [
+                "9c6eda8c.b918a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "cfd0925f.eb69f",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 655,
+        "y": 4960,
+        "wires": []
+    },
+    {
+        "id": "9c6eda8c.b918a8",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Irgendwas mit dem Netzwerkkabel ist nicht in Ordnung.\n",
+        "output": "str",
+        "x": 540,
+        "y": 4960,
+        "wires": [
+            [
+                "cfd0925f.eb69f"
             ]
         ]
     }
