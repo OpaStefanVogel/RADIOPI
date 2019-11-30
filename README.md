@@ -2,17 +2,18 @@
 Konfigurationsfiles für den Radio Raspberry Pi
 
 Start mit neuem Raspberry PI 4:
+df #3735
 #+also erstmal Welcome to Rasoberry Pi durchmachen, dann
-#dann vor dem automatischen updaten 
+# Anwendungen alle außer node-red und vnc entfernen
+df #
+
 #- Desktop...README.md hereinkopieren
-#- Anwendungen alle außer node-red und vnc entfernen
-#dann erst aktualisieren lassen
-df #03551 13%
+df #5403 19%
 
 sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 sudo reboot
 
-df #03551 13%
+df #07357 26%
 dd if=/dev/zero of=./largefile bs=1M count=1024 #43,7 MB/s statt 6,4 MB/s
 rm ./largefile
 
@@ -36,23 +37,33 @@ arm_freq=1200
 arm_freq_min=500
 
 #laut https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
-sudo nano /boot/config.txt #dort quit entfernen damit boot ok messages ausgegeben werden
+sudo nano /boot/cmdline.txt #dort am Ende quit entfernen damit boot ok messages ausgegeben werden
 
 vcgencmd measure_clock arm
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 
 #bei nspawn64:
-ds64-shell
 sudo cp -ax /var/lib/machines/debian-buster-64{,.bak}
+ds64-shell
+sudo apt-get update
+sudo apt-get upgrade
+exit
 
-df #05511 20% woher die auf einmal?
+#Farbe Terminal einstellen
+
+df #09677 34% woher die auf einmal?
 #+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
 cd Desktop/GIT_CLONE_GITHUB
-git clone https://github.com/OpaStefanVogel/RADIOPI
+#git clone https://github.com/OpaStefanVogel/RADIOPI
 cd RADIO
+git pull
 
-df #6152
-sudo apt-get remove pulseaudio #bei nspawn64
+#von vivaldi download die Adresse mit vnc reinkopieren 
+#wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
+#dann im Filemanager installieren
+
+
+#sudo apt-get remove pulseaudio #bei nspawn64, doch erstmal nicht
 sudo apt-get install gitk
 sudo apt-get install screen
 sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
@@ -114,17 +125,17 @@ gap> SaveWorkspace("GAP_WORKSPACE");
 gap> quit;
 df #06496 23%
 
-cd ~/Downloads
-#von vivaldi download die Adresse mit vnc reinkopieren 
-wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
-#dann im Filemanager installieren
 df #06716 24%
 
-sudo apt-get install ghdl gtkwave
+cd Desktop/GHDL
+sudo apt-get install ghdl gtkwave #bzw. ghdl-llvm laut https://github.com/ghdl/ghdl/issues/1028
 #aber dann der vfp-Fehler...
+./ghdl/ghdl_llvm -i simple.vhdl
+./ghdl/ghdl_llvm -m simple
+./simple -disp-time
 
 file $(which ls) #bin/ls: ELF 32-bit
-ds64-shell #kurz testen ob da
+ds64-shell
 file $(which ls) #/bin/ls: ELF 64-bit
 top #14 Prozesse
 exit

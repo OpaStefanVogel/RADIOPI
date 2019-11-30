@@ -146,6 +146,13 @@
         "wholemsg": "true"
     },
     {
+        "id": "9d30c019.5a20e",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/Vorlesen",
+        "wholemsg": "false"
+    },
+    {
         "id": "a8c00c93.0b2d9",
         "type": "dropbox-config",
         "z": "df2ae089.27e66",
@@ -156,13 +163,6 @@
         "type": "dropbox-config",
         "z": 0,
         "name": ""
-    },
-    {
-        "id": "9d30c019.5a20e",
-        "type": "websocket-listener",
-        "z": "",
-        "path": "/ws/Vorlesen",
-        "wholemsg": "false"
     },
     {
         "id": "8407ad6.d1b085",
@@ -1081,8 +1081,8 @@
         "z": "df2ae089.27e66",
         "name": "",
         "scope": null,
-        "x": 122.12300109863281,
-        "y": 269.635009765625,
+        "x": 120,
+        "y": 280,
         "wires": [
             [
                 "740aaf11.22fef"
@@ -1097,8 +1097,8 @@
         "active": false,
         "console": "false",
         "complete": "false",
-        "x": 333.00299072265625,
-        "y": 270.5679931640625,
+        "x": 330,
+        "y": 280,
         "wires": []
     },
     {
@@ -6571,6 +6571,119 @@
         ]
     },
     {
+        "id": "ad8c3a3e.be96d8",
+        "type": "comment",
+        "z": "df2ae089.27e66",
+        "name": "ping ob Netzwerk da",
+        "info": "",
+        "x": 250,
+        "y": 4920,
+        "wires": []
+    },
+    {
+        "id": "9271a3e.2387c6",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 4960,
+        "wires": [
+            [
+                "a4c1ac87.8e149"
+            ]
+        ]
+    },
+    {
+        "id": "a4c1ac87.8e149",
+        "type": "exec",
+        "z": "df2ae089.27e66",
+        "command": "ping",
+        "addpay": false,
+        "append": "-c 1 192.168.1.254",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 4960,
+        "wires": [
+            [],
+            [
+                "9c6eda8c.b918a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "cfd0925f.eb69f",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 655,
+        "y": 4960,
+        "wires": []
+    },
+    {
+        "id": "9c6eda8c.b918a8",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Irgendwas mit dem Netzwerkkabel ist nicht in Ordnung.\n",
+        "output": "str",
+        "x": 540,
+        "y": 4960,
+        "wires": [
+            [
+                "cfd0925f.eb69f"
+            ]
+        ]
+    },
+    {
+        "id": "3e41805.a91948",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "DJ",
+        "links": [
+            "b603bcb5.bce84"
+        ],
+        "x": 315,
+        "y": 3560,
+        "wires": [
+            [
+                "54fa152d.b0d22c"
+            ]
+        ]
+    },
+    {
+        "id": "1e53f7e9.4c6ba8",
+        "type": "websocket in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "server": "9d30c019.5a20e",
+        "client": "",
+        "x": 140,
+        "y": 2000,
+        "wires": [
+            [
+                "fe68c44a.89dab8"
+            ]
+        ]
+    },
+    {
         "id": "70a3189e.b95ce8",
         "type": "dropbox",
         "z": "df2ae089.27e66",
@@ -6744,119 +6857,6 @@
             ],
             [
                 "587d607e.4135b"
-            ]
-        ]
-    },
-    {
-        "id": "ad8c3a3e.be96d8",
-        "type": "comment",
-        "z": "df2ae089.27e66",
-        "name": "ping ob Netzwerk da",
-        "info": "",
-        "x": 250,
-        "y": 4920,
-        "wires": []
-    },
-    {
-        "id": "9271a3e.2387c6",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "60",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 230,
-        "y": 4960,
-        "wires": [
-            [
-                "a4c1ac87.8e149"
-            ]
-        ]
-    },
-    {
-        "id": "a4c1ac87.8e149",
-        "type": "exec",
-        "z": "df2ae089.27e66",
-        "command": "ping",
-        "addpay": false,
-        "append": "-c 1 192.168.1.254",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "",
-        "x": 390,
-        "y": 4960,
-        "wires": [
-            [],
-            [
-                "9c6eda8c.b918a8"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "cfd0925f.eb69f",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "6b533d6.c015cc4"
-        ],
-        "x": 655,
-        "y": 4960,
-        "wires": []
-    },
-    {
-        "id": "9c6eda8c.b918a8",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Irgendwas mit dem Netzwerkkabel ist nicht in Ordnung.\n",
-        "output": "str",
-        "x": 540,
-        "y": 4960,
-        "wires": [
-            [
-                "cfd0925f.eb69f"
-            ]
-        ]
-    },
-    {
-        "id": "3e41805.a91948",
-        "type": "link in",
-        "z": "df2ae089.27e66",
-        "name": "DJ",
-        "links": [
-            "b603bcb5.bce84"
-        ],
-        "x": 315,
-        "y": 3560,
-        "wires": [
-            [
-                "54fa152d.b0d22c"
-            ]
-        ]
-    },
-    {
-        "id": "1e53f7e9.4c6ba8",
-        "type": "websocket in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "server": "9d30c019.5a20e",
-        "client": "",
-        "x": 140,
-        "y": 2000,
-        "wires": [
-            [
-                "fe68c44a.89dab8"
             ]
         ]
     }
