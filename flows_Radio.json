@@ -109,28 +109,6 @@
         "willPayload": ""
     },
     {
-        "id": "194589c3.58d8f6",
-        "type": "mqtt-broker",
-        "z": "",
-        "name": "",
-        "broker": "localhost",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": ""
-    },
-    {
         "id": "47034f6b.a60b4",
         "type": "websocket-listener",
         "z": "",
@@ -144,19 +122,6 @@
         "path": "ws://heizung:1880/ws/Einkaufsliste",
         "tls": "",
         "wholemsg": "false"
-    },
-    {
-        "id": "127208e7.d8c1d7",
-        "type": "tls-config",
-        "z": "",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "",
-        "keyname": "",
-        "caname": "",
-        "verifyservercert": true
     },
     {
         "id": "d159a9ca.8d5218",
@@ -191,6 +156,13 @@
         "type": "dropbox-config",
         "z": 0,
         "name": ""
+    },
+    {
+        "id": "9d30c019.5a20e",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/Vorlesen",
+        "wholemsg": "false"
     },
     {
         "id": "8407ad6.d1b085",
@@ -1689,7 +1661,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-p 30 -s 160 -w lookdave.wav -vde \"{{payload}} over\"; # mplayer lookdave.wav",
+        "template": "-p 30 -s 160 -w lookdave.wav -vde \"{{payload}} \"; # mplayer lookdave.wav",
         "x": 540,
         "y": 2040,
         "wires": [
@@ -3127,7 +3099,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var r=global.get(\"Radio\")||\"aus\";\nif (r==\"an\") return msg;",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 750,
@@ -5580,7 +5552,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value;\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Chemnitztemperatur beträgt \"+Temperatur+\" Grad Celsius\" ;\nreturn msg;\n",
+        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Chemnitztemperatur beträgt \"+Temperatur+\" Grad Celsius\" ;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 895.6067810058594,
@@ -5739,8 +5711,7 @@
         "z": "a49d08e2.c6bc28",
         "name": "rvlc",
         "links": [
-            "4f8bdcbe.08de84",
-            "b603bcb5.bce84"
+            "4f8bdcbe.08de84"
         ],
         "x": 295,
         "y": 600,
@@ -6179,7 +6150,7 @@
         "z": "8b708117.11fb9",
         "name": "",
         "links": [
-            "30e558.70cfbaa8"
+            "3e41805.a91948"
         ],
         "x": 595,
         "y": 220,
@@ -6334,7 +6305,7 @@
         "type": "function",
         "z": "8b708117.11fb9",
         "name": "Radio an/aus/leiser/lauter",
-        "func": "var m=msg.payload;\nif (m==\"Radio an\") {msg.payload=\"play\"; return msg}\nif (m==\"Radio aus\") {msg.payload=\"stop\"; return msg}\nif (m==\"Radio leiser\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"Radio lauter\") {msg.payload=\"volume +10\"; return msg}\n",
+        "func": "var m=msg.payload;\nif (m==\"Radio an\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"Radio aus\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"Radio leiser\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"Radio lauter\") {msg.payload=\"volume +10\"; return msg}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 390,
@@ -6855,6 +6826,37 @@
         "wires": [
             [
                 "cfd0925f.eb69f"
+            ]
+        ]
+    },
+    {
+        "id": "3e41805.a91948",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "DJ",
+        "links": [
+            "b603bcb5.bce84"
+        ],
+        "x": 315,
+        "y": 3560,
+        "wires": [
+            [
+                "54fa152d.b0d22c"
+            ]
+        ]
+    },
+    {
+        "id": "1e53f7e9.4c6ba8",
+        "type": "websocket in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "server": "9d30c019.5a20e",
+        "client": "",
+        "x": 140,
+        "y": 2000,
+        "wires": [
+            [
+                "fe68c44a.89dab8"
             ]
         ]
     }

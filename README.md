@@ -28,15 +28,22 @@ sudo reboot #wenn aktualisiert
 --Test
 sudo nano /boot/config.txt
 #force_turbo=1
-arm_freq=1300 
+arm_freq=1200
 #              1x gap          3x gap       
 #        1300  404 s 58 °C     620 s 64 °C
 #        1500  387 s 60 °C     610 s 70 °C
 #        1700
-arm_freq_min=500 
+arm_freq_min=500
+
+#laut https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
+sudo nano /boot/config.txt #dort quit entfernen damit boot ok messages ausgegeben werden
 
 vcgencmd measure_clock arm
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+
+#bei nspawn64:
+ds64-shell
+sudo cp -ax /var/lib/machines/debian-buster-64{,.bak}
 
 df #05511 20% woher die auf einmal?
 #+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
