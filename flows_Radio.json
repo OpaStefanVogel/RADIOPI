@@ -165,6 +165,13 @@
         "name": ""
     },
     {
+        "id": "126138a7.4cda77",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/gap2",
+        "wholemsg": "false"
+    },
+    {
         "id": "8407ad6.d1b085",
         "type": "inject",
         "z": "df2ae089.27e66",
@@ -1841,8 +1848,8 @@
         "active": true,
         "console": "true",
         "complete": "payload",
-        "x": 560,
-        "y": 2540,
+        "x": 1180,
+        "y": 2500,
         "wires": []
     },
     {
@@ -1856,11 +1863,11 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 130,
-        "y": 2500,
+        "x": 170,
+        "y": 2540,
         "wires": [
             [
-                "4a2fb704.3a98a8"
+                "17d05aaa.072a45"
             ]
         ]
     },
@@ -1871,8 +1878,8 @@
         "name": "",
         "server": "b6945226.08e55",
         "client": "",
-        "x": 110,
-        "y": 2680,
+        "x": 190,
+        "y": 2460,
         "wires": [
             [
                 "17d05aaa.072a45",
@@ -1888,8 +1895,8 @@
         "name": "",
         "server": "b6945226.08e55",
         "client": "",
-        "x": 550,
-        "y": 2500,
+        "x": 1170,
+        "y": 2460,
         "wires": []
     },
     {
@@ -1981,8 +1988,8 @@
         "func": "if (msg.payload==\"QUIT;\") {\n  delete msg.payload;\n  msg.kill=\"SIGQUIT\";\n  //msg.start=\"\";\n  }\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 360,
-        "y": 2700,
+        "x": 440,
+        "y": 2500,
         "wires": [
             [
                 "4a2fb704.3a98a8"
@@ -2000,8 +2007,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 130,
-        "y": 2620,
+        "x": 170,
+        "y": 2500,
         "wires": [
             [
                 "17d05aaa.072a45",
@@ -2177,8 +2184,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 480,
-        "y": 2740,
+        "x": 520,
+        "y": 2540,
         "wires": [
             [
                 "4a2fb704.3a98a8"
@@ -2193,8 +2200,8 @@
         "func": "if (msg.payload==\"QUIT;\") {\n  msg.payload=\"\";\n  msg.start=\"\";\n  return msg;\n  }\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 310,
-        "y": 2740,
+        "x": 370,
+        "y": 2540,
         "wires": [
             [
                 "7e026654.f1e408"
@@ -2205,12 +2212,15 @@
         "id": "a7d62098.918a7",
         "type": "debug",
         "z": "df2ae089.27e66",
-        "name": "tmmok tekcosbew mov saw",
-        "active": true,
-        "console": "true",
+        "name": "was von /ws/gap kommt",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
         "complete": "payload",
-        "x": 380,
-        "y": 2640,
+        "targetType": "msg",
+        "x": 440,
+        "y": 2460,
         "wires": []
     },
     {
@@ -6718,12 +6728,12 @@
         "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
         "command": "gap",
         "args": "-L GAP_WORKSPACE",
-        "autorun": true,
+        "autorun": false,
         "cr": true,
         "redo": false,
         "op": "string",
-        "x": 430,
-        "y": 2420,
+        "x": 830,
+        "y": 2500,
         "wires": [
             [
                 "f9eadcfd.417",
@@ -6859,5 +6869,181 @@
                 "587d607e.4135b"
             ]
         ]
+    },
+    {
+        "id": "b8286196.6568d",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "10^100;",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 170,
+        "y": 2680,
+        "wires": [
+            [
+                "46033a8.20dd3c4"
+            ]
+        ]
+    },
+    {
+        "id": "46033a8.20dd3c4",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "SIGQUIT",
+        "func": "if (msg.payload==\"QUIT;\") {\n  delete msg.payload;\n  msg.kill=\"SIGQUIT\";\n  //msg.start=\"\";\n  }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 2640,
+        "wires": [
+            [
+                "59801e8e.b4762"
+            ]
+        ]
+    },
+    {
+        "id": "1ae6d94e.42c3d7",
+        "type": "websocket in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "server": "126138a7.4cda77",
+        "client": "",
+        "x": 190,
+        "y": 2600,
+        "wires": [
+            [
+                "46033a8.20dd3c4",
+                "659f8ca2.099664",
+                "150d1a39.5ff366"
+            ]
+        ]
+    },
+    {
+        "id": "59801e8e.b4762",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "ssh cocalc",
+        "command": "ssh",
+        "args": "7ad8f9a4c26c4948a2a7b02339dd883e@ssh.cocalc.com gap ",
+        "autorun": false,
+        "cr": true,
+        "redo": false,
+        "op": "string",
+        "x": 710,
+        "y": 2640,
+        "wires": [
+            [
+                "3b1914d8.3d706c",
+                "9765d9d4.11ba98"
+            ],
+            [
+                "3b1914d8.3d706c",
+                "9765d9d4.11ba98"
+            ],
+            [
+                "3b1914d8.3d706c"
+            ]
+        ]
+    },
+    {
+        "id": "6ca81260.31405c",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "QUIT;",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 170,
+        "y": 2640,
+        "wires": [
+            [
+                "46033a8.20dd3c4",
+                "659f8ca2.099664"
+            ]
+        ]
+    },
+    {
+        "id": "659f8ca2.099664",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "start",
+        "func": "if (msg.payload==\"QUIT;\") {\n  msg.payload=\"\";\n  msg.start=\"\";\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 2680,
+        "wires": [
+            [
+                "45a8626b.2ff10c"
+            ]
+        ]
+    },
+    {
+        "id": "150d1a39.5ff366",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "was von /ws/gap kommt",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 440,
+        "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "45a8626b.2ff10c",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 520,
+        "y": 2680,
+        "wires": [
+            [
+                "59801e8e.b4762"
+            ]
+        ]
+    },
+    {
+        "id": "3b1914d8.3d706c",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 1180,
+        "y": 2640,
+        "wires": []
+    },
+    {
+        "id": "9765d9d4.11ba98",
+        "type": "websocket out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "server": "126138a7.4cda77",
+        "client": "",
+        "x": 1180,
+        "y": 2600,
+        "wires": []
     }
 ]
