@@ -76,7 +76,9 @@ node-red ./flows_Radio.json
 #und node email adresse neu einsetzen#da kommt schon die neue Email
 
 df #05540 20%
-sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
+#sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
+sudo nano /boot/cmdline.txt #und dort am Zeilenende nach Leerzeichen consoleblank=0 ergänzen
+
 sudo apt-get install zynaddsubfx #und schon mal mit ./.xsessionrc starten
 
 

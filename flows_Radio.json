@@ -1809,7 +1809,9 @@
             "d0c1c2d.315384",
             "449f4847.b0f968",
             "e2e04866.0276d8",
-            "cfd0925f.eb69f"
+            "cfd0925f.eb69f",
+            "b76dca11.f7ca68",
+            "65333246.6150bc"
         ],
         "x": 175,
         "y": 2080,
@@ -3071,7 +3073,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var m=msg.payload;\nnode.status({text:msg.payload})\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload})\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"Radio Info\") {\n  msg.payload=\"info\";\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 450,
@@ -3273,7 +3275,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "Keyboard 20:1 Tasten",
-        "func": "var m=msg.payload;\nnode.status({text:msg.payload});\nif (m==\"on 93,\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"on 96,\") {msg.payload=\"prev\"; return msg}\nif (m==\"on 97,\") {msg.payload=\"next\"; return msg}\nif (m==\"on 98,\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"on 99,\") {msg.payload=\"volume +10\"; return msg}\n",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload});\nif (m==\"on 93,\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"on 95,\") {msg.payload=\"Radio Info\"; return msg}\nif (m==\"on 96,\") {msg.payload=\"prev\"; return msg}\nif (m==\"on 97,\") {msg.payload=\"next\"; return msg}\nif (m==\"on 98,\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"on 99,\") {msg.payload=\"volume +10\"; return msg}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 240,
@@ -4929,36 +4931,21 @@
         "id": "36a7d0c1.28ccf",
         "type": "exec",
         "z": "4c1f2825.5c8bc8",
-        "command": "exec vcgencmd measure_temp",
+        "command": "vcgencmd measure_temp; vcgencmd measure_clock arm",
         "addpay": false,
         "append": "",
         "useSpawn": "",
+        "timer": "",
         "name": "Raspi CPU Temperatur messen",
         "x": 650,
         "y": 880,
         "wires": [
             [
-                "fb8be9a.186bd18",
                 "592fba1c.5bc8d4"
             ],
             [],
             []
         ]
-    },
-    {
-        "id": "fb8be9a.186bd18",
-        "type": "debug",
-        "z": "4c1f2825.5c8bc8",
-        "name": "Raspi CPU Temp.",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 930,
-        "y": 940,
-        "wires": []
     },
     {
         "id": "120ff95.633b607",
@@ -5000,7 +4987,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "var a=msg.payload;\nmsg.payload=\"Die aktuelle CPU-Temperatur beträgt \"+a.slice(5,9).replace(/\\./g,\",\")+\" Grad Celsius\";\nreturn msg;\n",
+        "func": "var a=msg.payload.split(\"\\n\");\nnode.status({text:a});\nmsg.payload=\"Die aktuelle C P U Temperatur beträgt \"+a[0].slice(5,9).replace(/\\./g,\",\")+\" Grad Celsius bei einer C P U Frequenz von \"+(Math.floor((a[1].split(\"=\")[1]/1000000))+\" Mega Herrz\");\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 910,
@@ -6525,7 +6512,8 @@
         "y": 340,
         "wires": [
             [
-                "a4a8d729.e87b38"
+                "a4a8d729.e87b38",
+                "56003fa4.23e2b"
             ]
         ]
     },
@@ -6834,7 +6822,8 @@
         "y": 500,
         "wires": [
             [
-                "2149d687.0e48aa"
+                "2149d687.0e48aa",
+                "e202780b.850308"
             ],
             [
                 "2149d687.0e48aa"
@@ -7044,6 +7033,170 @@
         "client": "",
         "x": 1180,
         "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "3efd4d59.dd1472",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "Radio Info",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 3660,
+        "wires": [
+            [
+                "54fa152d.b0d22c"
+            ]
+        ]
+    },
+    {
+        "id": "e202780b.850308",
+        "type": "function",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "func": "var m=msg.payload;\nvar i=m.indexOf(\"now_playing:\");\nnode.status({\"text\":i})\nif (i>-1) {\n  var j=m.indexOf(\"\\n\",i);\n  var r=m.slice(i+13,j).trim();\n  node.status({\"text\":r})\n  msg.payload=r;\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 860,
+        "y": 560,
+        "wires": [
+            [
+                "b76dca11.f7ca68",
+                "e136ed07.696b3"
+            ]
+        ]
+    },
+    {
+        "id": "b76dca11.f7ca68",
+        "type": "link out",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 1015,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "95bb27b9.c1b588",
+        "type": "file",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "filename": "srf-virus.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1110,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e136ed07.696b3",
+        "type": "rbe",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 950,
+        "y": 620,
+        "wires": [
+            [
+                "95bb27b9.c1b588"
+            ]
+        ]
+    },
+    {
+        "id": "56003fa4.23e2b",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "45",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 400,
+        "y": 1000,
+        "wires": [
+            [
+                "52095a5f.1a26c4"
+            ]
+        ]
+    },
+    {
+        "id": "aed36157.7cf6f",
+        "type": "comment",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Mondphase",
+        "info": "",
+        "x": 190,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "52095a5f.1a26c4",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "//aus SONNE_UND_MOND.xml\n  var t = new Date();\n  var tn = new Date(2015,9,13);//irgendein nahegelegener Neumond\n  var phi = (t.valueOf() % 31556952000)/31556952000*2*Math.PI+0.19191919;\n  var sonnex = Math.sin(phi)*150+400;\n  var sonney = Math.cos(phi)*150+200;\n  var kw = ((t.valueOf()-tn.valueOf()) % 2551392000) / 2551392000;\n  var mphi=kw*2*Math.PI+phi;\n  var mmphi = -mphi*180/Math.PI;\n  var mondx = Math.sin(mphi)*150+400;\n  var mondy = Math.cos(mphi)*150+200;\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cx\", sonnex);\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cy\", sonney);\n  //evt.target.getElementById(\"mond\").setAttribute(\"transform\", \"translate(400,200) rotate(\"+mmphi+\")\");\n  var Zenitstand=new Date(kw*86400000+43200000);\n  msg.payload=\"Deer Moond steht im Zenit um \"+Zenitstand.getHours()+\" Uhr und \"+Zenitstand.getMinutes()+\" Minuten\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 1000,
+        "wires": [
+            [
+                "65333246.6150bc"
+            ]
+        ]
+    },
+    {
+        "id": "fdcf02e6.8a5fe",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 1040,
+        "wires": [
+            [
+                "52095a5f.1a26c4"
+            ]
+        ]
+    },
+    {
+        "id": "65333246.6150bc",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 695,
+        "y": 1000,
         "wires": []
     }
 ]
