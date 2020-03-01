@@ -1811,7 +1811,8 @@
             "e2e04866.0276d8",
             "cfd0925f.eb69f",
             "b76dca11.f7ca68",
-            "65333246.6150bc"
+            "65333246.6150bc",
+            "3dbd7d64.be3ff2"
         ],
         "x": 175,
         "y": 2080,
@@ -5547,7 +5548,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Chemnitztemperatur beträgt \"+Temperatur+\" Grad Celsius\" ;\nreturn msg;\n",
+        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Chemnitztemperatur beträgt \"+Temperatur+\" Grad Celsius. Gemessen von open Wetter Mapp Punkt Org\" ;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 895.6067810058594,
@@ -7135,7 +7136,8 @@
         "y": 1000,
         "wires": [
             [
-                "52095a5f.1a26c4"
+                "52095a5f.1a26c4",
+                "7a0aeed3.fa35"
             ]
         ]
     },
@@ -7196,5 +7198,216 @@
         "x": 695,
         "y": 1000,
         "wires": []
+    },
+    {
+        "id": "7a0aeed3.fa35",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "45",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 400,
+        "y": 1100,
+        "wires": [
+            [
+                "87546d88.64bc9"
+            ]
+        ]
+    },
+    {
+        "id": "beff25af.39f9b8",
+        "type": "comment",
+        "z": "4c1f2825.5c8bc8",
+        "name": "COVID-19",
+        "info": "",
+        "x": 180,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "8cca236.22c2be",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 1140,
+        "wires": [
+            [
+                "87546d88.64bc9"
+            ]
+        ]
+    },
+    {
+        "id": "bd7e587a.a63ac8",
+        "type": "file in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 230,
+        "y": 1200,
+        "wires": [
+            [
+                "4b7a87.aa5b5578"
+            ]
+        ]
+    },
+    {
+        "id": "87546d88.64bc9",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var t=new Date(Date.now()-24*3600*1000);\nvar ts=t.toISOString();\nnode.status({\"text\":ts});\nmsg.filename=\"/home/pi/Desktop/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/\"+ts.slice(5,10)+\"-2020.csv\";\n//node.status({\"text\":msg.filename});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 1140,
+        "wires": [
+            [
+                "bd7e587a.a63ac8"
+            ]
+        ]
+    },
+    {
+        "id": "62bb9ff2.6f9c4",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 690,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "4b7a87.aa5b5578",
+        "type": "csv",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "sep": ",",
+        "hdrin": false,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "x": 370,
+        "y": 1200,
+        "wires": [
+            [
+                "247214cf.76c05c"
+            ]
+        ]
+    },
+    {
+        "id": "247214cf.76c05c",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "if (msg.payload.col2==\"Germany\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 1200,
+        "wires": [
+            [
+                "62bb9ff2.6f9c4",
+                "66e1114b.737c4"
+            ]
+        ]
+    },
+    {
+        "id": "66e1114b.737c4",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "COVID neunzehn Confirmed in Germany {{payload.col4}} !",
+        "output": "str",
+        "x": 640,
+        "y": 1200,
+        "wires": [
+            [
+                "3dbd7d64.be3ff2"
+            ]
+        ]
+    },
+    {
+        "id": "3dbd7d64.be3ff2",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 755,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "df7fa8ef.7b4f68",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "0 0-23 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 330,
+        "y": 1280,
+        "wires": [
+            [
+                "658546d8.a075e8"
+            ]
+        ]
+    },
+    {
+        "id": "658546d8.a075e8",
+        "type": "exec",
+        "z": "4c1f2825.5c8bc8",
+        "command": "git",
+        "addpay": false,
+        "append": "-C /home/pi/Desktop/COVID-19/ pull",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 490,
+        "y": 1280,
+        "wires": [
+            [
+                "62bb9ff2.6f9c4"
+            ],
+            [],
+            []
+        ]
     }
 ]
