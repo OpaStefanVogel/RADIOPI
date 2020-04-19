@@ -39,6 +39,13 @@
         "info": ""
     },
     {
+        "id": "5117498b.878128",
+        "type": "tab",
+        "label": "Einkaufsliste",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "e75c6a5b.990f98",
         "type": "websocket-client",
         "z": "",
@@ -169,6 +176,13 @@
         "type": "websocket-listener",
         "z": "",
         "path": "/ws/gap2",
+        "wholemsg": "false"
+    },
+    {
+        "id": "380e9f13.927a9",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/Einkaufsliste",
         "wholemsg": "false"
     },
     {
@@ -2085,7 +2099,8 @@
         "y": 2980,
         "wires": [
             [
-                "ef0fe027.695f6"
+                "ef0fe027.695f6",
+                "b385837f.343af"
             ]
         ]
     },
@@ -7409,5 +7424,219 @@
             [],
             []
         ]
+    },
+    {
+        "id": "b385837f.343af",
+        "type": "html",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "[class=\"row cursor-pointer background-light-green\"]",
+        "ret": "html",
+        "as": "single",
+        "x": 710,
+        "y": 3020,
+        "wires": [
+            [
+                "8ba06121.b9285"
+            ]
+        ]
+    },
+    {
+        "id": "8ba06121.b9285",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 930,
+        "y": 3100,
+        "wires": []
+    },
+    {
+        "id": "9a15bfe6.7ea63",
+        "type": "websocket in",
+        "z": "5117498b.878128",
+        "name": "",
+        "server": "380e9f13.927a9",
+        "client": "",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "86fb51c4.1a6f1",
+                "3f6ecc2.b2e5334"
+            ]
+        ]
+    },
+    {
+        "id": "fd3e68be.4cf458",
+        "type": "websocket out",
+        "z": "5117498b.878128",
+        "name": "",
+        "server": "380e9f13.927a9",
+        "client": "",
+        "x": 880,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "86fb51c4.1a6f1",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "node.status({text:0});\nvar EL=global.get(\"Einkaufsliste\")||[[0,\"Eis\\n\",\"\",1,1]];\nnode.status({text:EL});\nvar NL=msg.payload;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3]+1;\nnode.status({text:nr});\nif (NL!=\"?\") EL.unshift([TL,NL,MI,nr,nr]);\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\nglobal.set(\"Einkaufsliste\",EL);\nmsg.payload=EL;\ndelete msg._session;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ca1b6d63.f2b84",
+        "type": "inject",
+        "z": "5117498b.878128",
+        "name": "",
+        "topic": "",
+        "payload": "?",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "86fb51c4.1a6f1",
+                "3f6ecc2.b2e5334"
+            ]
+        ]
+    },
+    {
+        "id": "cf401307.70d3b",
+        "type": "http in",
+        "z": "5117498b.878128",
+        "name": "",
+        "url": "/Einkaufsliste.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "65421359.76477c"
+            ]
+        ]
+    },
+    {
+        "id": "66fa007.634a5",
+        "type": "http response",
+        "z": "5117498b.878128",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "65421359.76477c",
+        "type": "file in",
+        "z": "5117498b.878128",
+        "name": "",
+        "filename": "/home/pi/Desktop/GIT_CLONE_GITHUB/RADIOPI/Einkaufsliste.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "66fa007.634a5"
+            ]
+        ]
+    },
+    {
+        "id": "3f6ecc2.b2e5334",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "msg.payload2=msg.payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 120,
+        "wires": [
+            [
+                "da0e8b79.9a80e8"
+            ]
+        ]
+    },
+    {
+        "id": "da0e8b79.9a80e8",
+        "type": "file in",
+        "z": "5117498b.878128",
+        "name": "",
+        "filename": "/home/pi/Einkaufsliste.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "24b93969.cb7146"
+            ]
+        ]
+    },
+    {
+        "id": "4acfef27.24f8b",
+        "type": "file",
+        "z": "5117498b.878128",
+        "name": "",
+        "filename": "/home/pi/Einkaufsliste.txt",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "x": 890,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24b93969.cb7146",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3]+1;\nnode.status({text:nr});\nif (NL!=\"?\") EL.unshift([TL,NL,MI,nr,nr]);\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\nglobal.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 100,
+        "wires": [
+            [
+                "4acfef27.24f8b",
+                "fd3e68be.4cf458"
+            ]
+        ]
+    },
+    {
+        "id": "3c3b75f0.27658a",
+        "type": "comment",
+        "z": "5117498b.878128",
+        "name": "Anleitung zum neu Starten: siehe Info zu diesem Node",
+        "info": "Bei Neustart ein File Einkaufsliste.txt anlegen mit folgendem Inhalt:\n\n[[10000,\"\",\"\",1,1]]\n\n",
+        "x": 280,
+        "y": 200,
+        "wires": []
     }
 ]
