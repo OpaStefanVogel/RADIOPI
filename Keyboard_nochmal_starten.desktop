@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=lxterminal -e '/home/pi/Desktop/RADIOPI/Keyboard_nochmal_starten;bash'
+Exec=/home/pi/Desktop/RADIOPI/Keyboard_nochmal_starten
+Type=Application
+Path=/home/pi/Desktop/RADIOPI
+Terminal=false
+StartupNotify=true

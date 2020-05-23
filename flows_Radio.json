@@ -46,6 +46,13 @@
         "info": ""
     },
     {
+        "id": "ca718d9f.a1a43",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "e75c6a5b.990f98",
         "type": "websocket-client",
         "z": "",
@@ -7638,5 +7645,100 @@
         "x": 280,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "1b45d94f.0ed787",
+        "type": "http in",
+        "z": "ca718d9f.a1a43",
+        "name": "",
+        "url": "/poch.xml",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 60,
+        "wires": [
+            [
+                "e82ff4df.569498",
+                "652155f2.674d7c"
+            ]
+        ]
+    },
+    {
+        "id": "c31c2f2f.4f2d3",
+        "type": "http response",
+        "z": "ca718d9f.a1a43",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e82ff4df.569498",
+        "type": "file in",
+        "z": "ca718d9f.a1a43",
+        "name": "",
+        "filename": "/home/pi/Downloads/pochpoch.xml",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "c31c2f2f.4f2d3",
+                "b2cde832.0e33c8"
+            ]
+        ]
+    },
+    {
+        "id": "652155f2.674d7c",
+        "type": "debug",
+        "z": "ca718d9f.a1a43",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 230,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b2cde832.0e33c8",
+        "type": "debug",
+        "z": "ca718d9f.a1a43",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 490,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "45214fc0.572f5",
+        "type": "http in",
+        "z": "ca718d9f.a1a43",
+        "name": "",
+        "url": "/pochpoch.xsl",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "652155f2.674d7c"
+            ]
+        ]
     }
 ]
