@@ -3,21 +3,36 @@ Konfigurationsfiles für den Radio Raspberry Pi
 
 Start mit neuem Raspberry PI 4:
 df #3735
-#+also erstmal Welcome to Rasoberry Pi durchmachen, dann
-# Anwendungen alle außer node-red und vnc entfernen
+#++copy von /media/..../.... Desktop Downloads
+
+#+also erstmal Welcome to Rasoberry Pi durchmachen und nochmal
+sudo apt update
+sudo apt full-upgrade
+
+#laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
+speaker-test -t wav -c 4 #und wenn kein Stereo dann folgendes:
+#wenn kein Stereo sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
+# und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
+#wenn gar nicht geht
+#sudo apt purge pulseaudio
+
+#dann Anwendungen alle außer node-red und vnc entfernen oder diese hinzufügen
+#und vnc * ssh erlauben in Configuration und gleich mit Hostname Radio setzen
+#und screenblanking disablen
 df #
 
+#im Dateimanager Einstellungen: single Klick, Remove, no ask
 #- Desktop...README.md hereinkopieren
 df #5403 19%
+
 
 sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 sudo reboot
 
-df #07357 26%
+df #6227 22%
 dd if=/dev/zero of=./largefile bs=1M count=1024 #43,7 MB/s statt 6,4 MB/s
 rm ./largefile
 
-df #03551 13%
 #laut https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/
 #sudo apt-get install rpi-eeprom #nur wenn nicht da
 #sudo nano /etc/default/rpi-eeprom-update #dort "critical" in "beta" umändern
@@ -34,7 +49,7 @@ arm_freq=1200
 #        1300  404 s 58 °C     620 s 64 °C
 #        1500  387 s 60 °C     610 s 70 °C
 #        1700
-arm_freq_min=500
+arm_freq_min=600 #500 geht nicht
 
 #laut https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
 sudo nano /boot/cmdline.txt #dort am Ende quit entfernen damit boot ok messages ausgegeben werden
@@ -43,51 +58,55 @@ vcgencmd measure_clock arm
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 
 #bei nspawn64:
-sudo cp -ax /var/lib/machines/debian-buster-64{,.bak}
-ds64-shell
-sudo apt-get update
-sudo apt-get upgrade
-exit
+#sudo cp -ax /var/lib/machines/debian-buster-64{,.bak}
+#ds64-shell
+#sudo apt-get update
+#sudo apt-get upgrade
+#exit
+#neu:
+sudo apt install -y raspbian-nspawn-64
+sudo apt purge pulseaudio
 
 #Farbe Terminal einstellen
 
-df #09677 34% woher die auf einmal?
+df #7438 26% woher die auf einmal?
 #+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
 cd Desktop/GIT_CLONE_GITHUB
 #git clone https://github.com/OpaStefanVogel/RADIOPI
 cd RADIO
 git pull
 
-#von vivaldi download die Adresse mit vnc reinkopieren 
+#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
 #wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
-#dann im Filemanager installieren
-
+#wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_armhf.deb
+#dann im Filemanager installieren und starten und 
+df #7673 #27%
 
 #sudo apt-get remove pulseaudio #bei nspawn64, doch erstmal nicht
 sudo apt-get install gitk
 sudo apt-get install screen
 sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
-#in Menü Preferences Configuration enable ssh vnc
 node-red ./flows_Radio.json 
 #in .node-red/settings.js setze flowFilePretty: true
 #mit Tablet-Browser localhost:1880 menu-install dropbox daemon
-#und schon geht Temperaturansage los
-#inject Radio an#
-#und node email adresse neu einsetzen#da kommt schon die neue Email
+#und schon geht Temperaturansage von alleine los
+#inject Radio an#oder besser über Touchscreen.html
+#und node email adresse neu einsetzen#dann kommt schon die neue Email
 
-df #05540 20%
+df #7796 28%
 #sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
-sudo nano /boot/cmdline.txt #und dort am Zeilenende nach Leerzeichen consoleblank=0 ergänzen
+#nicht mehr nötig
+#sudo nano /boot/cmdline.txt #und dort am Zeilenende nach Leerzeichen consoleblank=0 ergänzen
 
-sudo apt-get install zynaddsubfx #und schon mal mit ./.xsessionrc starten
+sudo apt-get install zynaddsubfx #und schon mal mit ./.xsessionrc starten:
+zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 
 
-df #05603 20%
+df #7848 28%
 ssh-keygen
 nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localhost
 #sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
-df #05603 20%
 #sudo apt-get install florence at-spi2-core
 sudo apt-get install mosquitto mosquitto-clients
 mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
@@ -100,23 +119,7 @@ cd ./Desktop/GIT_CLONE_GITHUB/RADIOPI/
 cd
 
 hostnamectl
-hostnamectl set-hostname Radio
-
-
-df #5604 20%
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
-df #5604 20%
-
-sudo reboot
-
-
-#laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
-speaker-test -t wav -c 4 #und wenn kein Stereo dann folgendes:
-#wenn kein Stereo sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
-# und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
-
+#hostnamectl set-hostname Radio #wenn noch nicht eingestellt
 
 
 sudo apt-get install gap
@@ -125,9 +128,7 @@ gap> 1/0;
 brk> quit;
 gap> SaveWorkspace("GAP_WORKSPACE");
 gap> quit;
-df #06496 23%
-
-df #06716 24%
+df #8743 31%
 
 cd Desktop/GHDL
 sudo apt-get install ghdl gtkwave #bzw. ghdl-llvm laut https://github.com/ghdl/ghdl/issues/1028
@@ -140,9 +141,29 @@ file $(which ls) #bin/ls: ELF 32-bit
 ds64-shell
 file $(which ls) #/bin/ls: ELF 64-bit
 top #14 Prozesse
+sudo apt update
+sudo apt upgrade
+#dann nochmal ghdl von oben wiederholen, mit gcc:
+sudo apt-get install ghdl gtkwave gcc
+ghdl-gcc -i simple.vhdl
+ghdl-gcc -m simple
+./simple --disp-time
+gtkwave test.ghw view.sav
 exit
+df #9086 32%
 
----nicht mehr:
+
+#dann noch RaspAP, aber heute nicht
+
+#wenn README.md geschafft:
+cd
+cd Desktop/GIT_CLONE_GITHUB/RADIOPI
+gitk --all &
+git commit -a -m "neuinstalliert20200601"
+git push
+
+
+---alles folgende nicht mehr weil kein Unterschied oder nicht mehr nötig:
 #gap64
 sudo apt-get install autoconf gcc g++ make wget
 cd gap64

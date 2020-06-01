@@ -5925,8 +5925,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 380,
-        "y": 780,
+        "x": 420,
+        "y": 800,
         "wires": [
             [
                 "22a7bd39.67ed92"
@@ -6731,156 +6731,6 @@
         "wires": []
     },
     {
-        "id": "4a2fb704.3a98a8",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
-        "command": "gap",
-        "args": "-L GAP_WORKSPACE",
-        "autorun": false,
-        "cr": true,
-        "redo": false,
-        "op": "string",
-        "x": 830,
-        "y": 2500,
-        "wires": [
-            [
-                "f9eadcfd.417",
-                "abfa0dbe.cd731"
-            ],
-            [
-                "f9eadcfd.417",
-                "abfa0dbe.cd731"
-            ],
-            [
-                "f9eadcfd.417"
-            ]
-        ]
-    },
-    {
-        "id": "d55a78ed.da1038",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "command": "aseqdump",
-        "args": "-p 20:0",
-        "cr": false,
-        "redo": false,
-        "op": "string",
-        "x": 270,
-        "y": 3720,
-        "wires": [
-            [
-                "a7fa0b97.92ea98"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "467ca11c.37cc3",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "command": "aseqdump",
-        "args": "-p 20:1",
-        "cr": false,
-        "redo": false,
-        "op": "string",
-        "x": 270,
-        "y": 3800,
-        "wires": [
-            [
-                "e60e1fdb.24ec3"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "30d335b1.090c3a",
-        "type": "daemon",
-        "z": "cc59d9f8.9429c8",
-        "name": "gatttool -I --listen",
-        "command": "gatttool",
-        "args": "-I --listen",
-        "autorun": true,
-        "cr": true,
-        "redo": true,
-        "op": "string",
-        "x": 450,
-        "y": 380,
-        "wires": [
-            [
-                "aa5f9303.63dc6",
-                "9d2a1c0f.b0c58",
-                "9043594e.dd5858",
-                "44f52693.f3d558"
-            ],
-            [
-                "d4ed3c00.e165e",
-                "44f52693.f3d558"
-            ],
-            [
-                "d4ed3c00.e165e",
-                "44f52693.f3d558"
-            ]
-        ]
-    },
-    {
-        "id": "e705cd71.ffdd5",
-        "type": "daemon",
-        "z": "a49d08e2.c6bc28",
-        "name": "",
-        "command": "rvlc",
-        "args": "",
-        "autorun": true,
-        "cr": true,
-        "redo": true,
-        "op": "string",
-        "closer": "SIGKILL",
-        "x": 610,
-        "y": 500,
-        "wires": [
-            [
-                "2149d687.0e48aa",
-                "e202780b.850308"
-            ],
-            [
-                "2149d687.0e48aa"
-            ],
-            [
-                "2149d687.0e48aa"
-            ]
-        ]
-    },
-    {
-        "id": "2dfc3d90.da7212",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "command": "rvlc",
-        "args": "lookdave.wav",
-        "autorun": true,
-        "cr": true,
-        "redo": true,
-        "op": "string",
-        "closer": "SIGKILL",
-        "x": 890,
-        "y": 1980,
-        "wires": [
-            [
-                "587d607e.4135b"
-            ],
-            [
-                "587d607e.4135b"
-            ],
-            [
-                "587d607e.4135b"
-            ]
-        ]
-    },
-    {
         "id": "b8286196.6568d",
         "type": "inject",
         "z": "df2ae089.27e66",
@@ -6929,33 +6779,6 @@
                 "46033a8.20dd3c4",
                 "659f8ca2.099664",
                 "150d1a39.5ff366"
-            ]
-        ]
-    },
-    {
-        "id": "59801e8e.b4762",
-        "type": "daemon",
-        "z": "df2ae089.27e66",
-        "name": "ssh cocalc",
-        "command": "ssh",
-        "args": "7ad8f9a4c26c4948a2a7b02339dd883e@ssh.cocalc.com gap ",
-        "autorun": false,
-        "cr": true,
-        "redo": false,
-        "op": "string",
-        "x": 710,
-        "y": 2640,
-        "wires": [
-            [
-                "3b1914d8.3d706c",
-                "9765d9d4.11ba98"
-            ],
-            [
-                "3b1914d8.3d706c",
-                "9765d9d4.11ba98"
-            ],
-            [
-                "3b1914d8.3d706c"
             ]
         ]
     },
@@ -7526,6 +7349,183 @@
         "wires": [
             [
                 "652155f2.674d7c"
+            ]
+        ]
+    },
+    {
+        "id": "4a2fb704.3a98a8",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
+        "command": "gap",
+        "args": "-L GAP_WORKSPACE",
+        "autorun": false,
+        "cr": true,
+        "redo": false,
+        "op": "string",
+        "x": 830,
+        "y": 2500,
+        "wires": [
+            [
+                "f9eadcfd.417",
+                "abfa0dbe.cd731"
+            ],
+            [
+                "f9eadcfd.417",
+                "abfa0dbe.cd731"
+            ],
+            [
+                "f9eadcfd.417"
+            ]
+        ]
+    },
+    {
+        "id": "d55a78ed.da1038",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "command": "aseqdump",
+        "args": "-p 20:0",
+        "cr": false,
+        "redo": false,
+        "op": "string",
+        "x": 270,
+        "y": 3720,
+        "wires": [
+            [
+                "a7fa0b97.92ea98"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "467ca11c.37cc3",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "command": "aseqdump",
+        "args": "-p 20:1",
+        "cr": false,
+        "redo": false,
+        "op": "string",
+        "x": 270,
+        "y": 3800,
+        "wires": [
+            [
+                "e60e1fdb.24ec3"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "30d335b1.090c3a",
+        "type": "daemon",
+        "z": "cc59d9f8.9429c8",
+        "name": "gatttool -I --listen",
+        "command": "gatttool",
+        "args": "-I --listen",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "x": 450,
+        "y": 380,
+        "wires": [
+            [
+                "aa5f9303.63dc6",
+                "9d2a1c0f.b0c58",
+                "9043594e.dd5858",
+                "44f52693.f3d558"
+            ],
+            [
+                "d4ed3c00.e165e",
+                "44f52693.f3d558"
+            ],
+            [
+                "d4ed3c00.e165e",
+                "44f52693.f3d558"
+            ]
+        ]
+    },
+    {
+        "id": "e705cd71.ffdd5",
+        "type": "daemon",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "command": "rvlc",
+        "args": "",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "closer": "SIGKILL",
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "2149d687.0e48aa",
+                "e202780b.850308"
+            ],
+            [
+                "2149d687.0e48aa"
+            ],
+            [
+                "2149d687.0e48aa"
+            ]
+        ]
+    },
+    {
+        "id": "2dfc3d90.da7212",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "command": "rvlc",
+        "args": "lookdave.wav",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "closer": "SIGKILL",
+        "x": 890,
+        "y": 1980,
+        "wires": [
+            [
+                "587d607e.4135b"
+            ],
+            [
+                "587d607e.4135b"
+            ],
+            [
+                "587d607e.4135b"
+            ]
+        ]
+    },
+    {
+        "id": "59801e8e.b4762",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "ssh cocalc",
+        "command": "ssh",
+        "args": "7ad8f9a4c26c4948a2a7b02339dd883e@ssh.cocalc.com gap ",
+        "autorun": false,
+        "cr": true,
+        "redo": false,
+        "op": "string",
+        "x": 710,
+        "y": 2640,
+        "wires": [
+            [
+                "3b1914d8.3d706c",
+                "9765d9d4.11ba98"
+            ],
+            [
+                "3b1914d8.3d706c",
+                "9765d9d4.11ba98"
+            ],
+            [
+                "3b1914d8.3d706c"
             ]
         ]
     }
