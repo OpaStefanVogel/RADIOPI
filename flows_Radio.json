@@ -1689,7 +1689,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-p 30 -s 160 -w lookdave.wav -vde \"{{payload}} \"; # mplayer lookdave.wav",
+        "template": "-p 30 -s 160 -w /home/pi/lookdave.wav -vde \"{{payload}} \"; # mplayer lookdave.wav",
         "x": 540,
         "y": 2040,
         "wires": [
@@ -1714,7 +1714,7 @@
         "wires": [
             [
                 "9745c99a.683bc8",
-                "3ac0a08.4fb3a6"
+                "ddf7014b.f7ec5"
             ],
             [
                 "9745c99a.683bc8"
@@ -1833,7 +1833,8 @@
             "cfd0925f.eb69f",
             "b76dca11.f7ca68",
             "65333246.6150bc",
-            "3dbd7d64.be3ff2"
+            "3dbd7d64.be3ff2",
+            "7acc88f8.260048"
         ],
         "x": 175,
         "y": 2080,
@@ -2144,7 +2145,8 @@
                 "7589b540.6a44cc",
                 "3030cdfd.5e49c2",
                 "891aaa5b.bb2ad8",
-                "46acdb9f.a87904"
+                "46acdb9f.a87904",
+                "87976cb0.754a6"
             ]
         ]
     },
@@ -2580,7 +2582,8 @@
         "wires": [
             [
                 "60769817.8f9678",
-                "3030cdfd.5e49c2"
+                "3030cdfd.5e49c2",
+                "3a8f2885.3c4278"
             ]
         ]
     },
@@ -5639,7 +5642,8 @@
         "y": 508.9986572265625,
         "wires": [
             [
-                "e705cd71.ffdd5"
+                "e705cd71.ffdd5",
+                "72b35b9a.035214"
             ]
         ]
     },
@@ -5958,7 +5962,7 @@
         "type": "debug",
         "z": "df2ae089.27e66",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -7170,7 +7174,7 @@
         "type": "file in",
         "z": "5117498b.878128",
         "name": "",
-        "filename": "/home/pi/Desktop/GIT_CLONE_GITHUB/RADIOPI/Einkaufsliste.html",
+        "filename": "/home/pi/Desktop/CLONE/RADIOPI/Einkaufsliste.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -7203,11 +7207,11 @@
         "type": "file in",
         "z": "5117498b.878128",
         "name": "",
-        "filename": "/home/pi/Einkaufsliste.txt",
+        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 430,
+        "x": 460,
         "y": 160,
         "wires": [
             [
@@ -7220,11 +7224,11 @@
         "type": "file",
         "z": "5117498b.878128",
         "name": "",
-        "filename": "/home/pi/Einkaufsliste.txt",
+        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
         "appendNewline": false,
         "createDir": true,
         "overwriteFile": "true",
-        "x": 890,
+        "x": 920,
         "y": 120,
         "wires": [
             []
@@ -7482,7 +7486,7 @@
         "z": "df2ae089.27e66",
         "name": "",
         "command": "rvlc",
-        "args": "lookdave.wav",
+        "args": "/home/pi/lookdave.wav",
         "autorun": true,
         "cr": true,
         "redo": true,
@@ -7528,5 +7532,198 @@
                 "3b1914d8.3d706c"
             ]
         ]
+    },
+    {
+        "id": "35399081.7fe8",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "kurze Radiopause",
+        "output": "str",
+        "x": 780,
+        "y": 2740,
+        "wires": [
+            [
+                "7acc88f8.260048"
+            ]
+        ]
+    },
+    {
+        "id": "87976cb0.754a6",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 620,
+        "y": 2740,
+        "wires": [
+            [
+                "35399081.7fe8"
+            ]
+        ]
+    },
+    {
+        "id": "3a8f2885.3c4278",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 620,
+        "y": 2780,
+        "wires": [
+            [
+                "a35e35dd.fd9f28"
+            ]
+        ]
+    },
+    {
+        "id": "a35e35dd.fd9f28",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "kurze Radiopause",
+        "output": "str",
+        "x": 780,
+        "y": 2780,
+        "wires": [
+            [
+                "7acc88f8.260048"
+            ]
+        ]
+    },
+    {
+        "id": "7acc88f8.260048",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 915,
+        "y": 2780,
+        "wires": []
+    },
+    {
+        "id": "ddf7014b.f7ec5",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 850,
+        "y": 2120,
+        "wires": [
+            [
+                "3ac0a08.4fb3a6"
+            ]
+        ]
+    },
+    {
+        "id": "ce2fdd31.10ff1",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "33 03 * * 1",
+        "once": false,
+        "onceDelay": "",
+        "x": 70,
+        "y": 460,
+        "wires": [
+            [
+                "22a7bd39.67ed92"
+            ]
+        ]
+    },
+    {
+        "id": "52c46957.10a9d8",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "33 04 * * 1",
+        "once": false,
+        "onceDelay": "",
+        "x": 70,
+        "y": 500,
+        "wires": [
+            [
+                "22a7bd39.67ed92"
+            ]
+        ]
+    },
+    {
+        "id": "648b770.7ed4c88",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "03 05 * * 1",
+        "once": false,
+        "onceDelay": "",
+        "x": 70,
+        "y": 540,
+        "wires": [
+            [
+                "22a7bd39.67ed92"
+            ]
+        ]
+    },
+    {
+        "id": "72b35b9a.035214",
+        "type": "debug",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 620,
+        "y": 580,
+        "wires": []
     }
 ]

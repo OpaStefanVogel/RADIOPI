@@ -10,6 +10,8 @@ sudo apt update
 sudo apt full-upgrade
 
 #laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
+sudo /etc/init.d/alsa-utils reset
+aplay /usr/share/sounds/alsa/Noise.wav
 speaker-test -t wav -c 4 #und wenn kein Stereo dann folgendes:
 #wenn kein Stereo sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
 # und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
@@ -27,7 +29,17 @@ df #5403 19%
 
 
 sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
+#aus haydenjames.io/raspberry-pi-performance-add-zram-kernel-parameters/
+sudo apt install zram-tools
+sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96
+sudo nano /etc/sysctl.conf #dort ergänzen:
+vm.vfs_cache_pressure=100
+vm.swappiness=10
+vm.dirty_background_ratio=10
+vm.dirty_ratio=50
+
 sudo reboot
+sudo watch cat /proc/swaps
 
 df #6227 22%
 dd if=/dev/zero of=./largefile bs=1M count=1024 #43,7 MB/s statt 6,4 MB/s
@@ -52,7 +64,7 @@ arm_freq=1200
 arm_freq_min=600 #500 geht nicht
 
 #laut https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
-sudo nano /boot/cmdline.txt #dort am Ende quit entfernen damit boot ok messages ausgegeben werden
+sudo nano /boot/cmdline.txt #dort am Ende oder aktuell nach roozwait quit entfernen damit boot ok messages ausgegeben werden
 
 vcgencmd measure_clock arm
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
@@ -70,8 +82,8 @@ sudo apt purge pulseaudio
 #Farbe Terminal einstellen
 
 df #7438 26% woher die auf einmal?
-#+neues Verzeichnis Desktop/GIT_CLONE_GITHUB
-cd Desktop/GIT_CLONE_GITHUB
+#+neues Verzeichnis Desktop/CLONE
+cd Desktop/CLONE
 #git clone https://github.com/OpaStefanVogel/RADIOPI
 cd RADIO
 git pull
@@ -112,11 +124,16 @@ sudo apt-get install mosquitto mosquitto-clients
 mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
 mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an"
 
+#cd
+#nano .xsessionrc #mit folgendem Inhalt, und ausführbar machen:
+#cd ./Desktop/GIT_CLONE_GITHUB/RADIOPI/
+#./.xsessionrc
+#cd
+#oder neuerdings nur
 cd
-nano .xsessionrc #mit folgendem Inhalt, und ausführbar machen:
-cd ./Desktop/GIT_CLONE_GITHUB/RADIOPI/
-./.xsessionrc
-cd
+ln -s ./Desktop/GIT_CLONE_GITHUB/RADIOPI/.xsessionrc .xsessionrc
+
+#Hintergrundbild einstellen
 
 hostnamectl
 #hostnamectl set-hostname Radio #wenn noch nicht eingestellt
@@ -161,6 +178,14 @@ cd Desktop/GIT_CLONE_GITHUB/RADIOPI
 gitk --all &
 git commit -a -m "neuinstalliert20200601"
 git push
+
+#aktuell laut https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/downloads.html
+sudo apt-get install gcc-arm-none-eabi
+
+
+
+
+
 
 
 ---alles folgende nicht mehr weil kein Unterschied oder nicht mehr nötig:
@@ -271,6 +296,5 @@ sudo nano /etc/apt/sources.list # und dort ergänzen deb http://ftp.de.debian.or
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
-
 
 
