@@ -110,11 +110,37 @@ function Uhrzeit_aktualisieren() {
 
 </script>
 
-<body onload="websocket_verbinden()">
+<script id="scr" type="application/ecmascript">
+function alte_Einkaufslisten_hervorholen() {
+  var txt=document.getElementById("Einkaufsliste"+".txt").firstChild.nodeValue;
+  //alert(txt);
+  var w=JSON.parse(txt);
+  var wl=w.length;
+  //alert(w+"####");
+  var textarea=document.getElementById("Websocket-Antwort");
+  var LL=w[0].slice();
+  textarea.value=LL[1]; //firstChild.nodeValue+=w;
+  textarea.scrollTop = textarea.scrollHeight;
+  if (session=0) session=LL[2];
+  if (ZF==0) ZF=LL[3]+1; else if (session==LL[2]) ZF=LL[4];
+  document.getElementById("Websocket-Antwort").setAttribute("style","font-size:100%; white-space:pre; background-color:"+Zettelfarbe[ZF%10]);
+  var sessionids=[];
+  w.forEach(function(x,i,z){
+    sessionids.push(x[2]);
+    var d=(new Date(x[0]));
+    var Tag=(["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Sonnabend"])[d.getDay()];
+    z[i]=Tag+" "+d.toLocaleString()
+      //+", msg._session.id="+x[2]+" lfd.Nr.="+x[3]+" "+x[4]+" "+ZF
+      +"<br/><span class='Einkaufsliste'; style='background-color:"
+      +Zettelfarbe[x[4]%10]+"'>"+x[1]+"</span>";
+    });
+  document.getElementById("bisherige Einkaufslisten").innerHTML=w.join("<hr/>");
+  }
+
+</script>
+
+<body onload="alte_Einkaufslisten_hervorholen()">
 <div>Quelle: <a href="https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html">https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html</a></div>
-
-Verbindung zu websocket /ws/Einkaufsliste: <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> <span id="Raspberry Pi" class="nicht_verbunden">nicht verbunden (Seite nochmal laden)</span>
-
 
 <form method="post">
     <!--label class="h2" form="person">Namenseingabe</label>
@@ -134,10 +160,11 @@ Verbindung zu websocket /ws/Einkaufsliste: <a href="http://www.w3.org/TR/2012/CR
 <div id="bisherige Einkaufslisten" style="white-space:pre-wrap"> </div>
 <p style="white-space:pre-wrap; font-family:Courier,monospace; font-size:80%">Was alles nicht funktioniert:
 ok Hinweis durch Zettelfarbe, wenn zwischendurch jemand von wo anders her was speichern tut.
+.. damit Lesen und Speichern von auẞerhalb geht, nicht mehr mit Websocket sondern mit http-POST
 .. wenn zwischendurch jemand anderes was speichert, wird das aktuell eingegebene damit auch ersetzt
 .. Button "nochmal verbinden", dann bleibt das Eingegebene erhalten
   </p>
 
-<span style="font-size:10%" id="Einkaufsliste.txt"></span>
+<span style="font-size:10%; color:orange" id="Einkaufsliste.txt"></span>
   </body>
   </html>

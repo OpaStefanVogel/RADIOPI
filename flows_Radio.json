@@ -7838,13 +7838,15 @@
         "type": "function",
         "z": "5117498b.878128",
         "name": "",
-        "func": "msg.payload=msg.payload.Liste;\nreturn msg;",
+        "func": "msg.payload2=msg.payload.Liste;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 310,
         "y": 540,
         "wires": [
-            []
+            [
+                "c32db0b1.b865f"
+            ]
         ]
     },
     {
@@ -7973,5 +7975,55 @@
         "x": 340,
         "y": 840,
         "wires": []
+    },
+    {
+        "id": "c32db0b1.b865f",
+        "type": "file in",
+        "z": "5117498b.878128",
+        "name": "",
+        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 520,
+        "y": 540,
+        "wires": [
+            [
+                "ea8a4b5.1fb19b8"
+            ]
+        ]
+    },
+    {
+        "id": "ea8a4b5.1fb19b8",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3];\nif (NL!=\"?\") {nr=nr+1;EL.unshift([TL,NL,MI,nr,nr])}\nnode.status({text:nr});\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\n//global.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 600,
+        "wires": [
+            [
+                "177373b6.d48f6c"
+            ]
+        ]
+    },
+    {
+        "id": "177373b6.d48f6c",
+        "type": "file",
+        "z": "5117498b.878128",
+        "name": "",
+        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "x": 520,
+        "y": 600,
+        "wires": [
+            [
+                "65421359.76477c"
+            ]
+        ]
     }
 ]
