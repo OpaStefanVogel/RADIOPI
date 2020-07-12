@@ -7080,53 +7080,6 @@
         "wires": []
     },
     {
-        "id": "9a15bfe6.7ea63",
-        "type": "websocket in",
-        "z": "5117498b.878128",
-        "name": "",
-        "server": "380e9f13.927a9",
-        "client": "",
-        "x": 100,
-        "y": 60,
-        "wires": [
-            [
-                "3f6ecc2.b2e5334",
-                "f0a232a1.92eba"
-            ]
-        ]
-    },
-    {
-        "id": "fd3e68be.4cf458",
-        "type": "websocket out",
-        "z": "5117498b.878128",
-        "name": "",
-        "server": "380e9f13.927a9",
-        "client": "",
-        "x": 600,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "ca1b6d63.f2b84",
-        "type": "inject",
-        "z": "5117498b.878128",
-        "name": "",
-        "topic": "",
-        "payload": "?",
-        "payloadType": "str",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 130,
-        "y": 120,
-        "wires": [
-            [
-                "3f6ecc2.b2e5334"
-            ]
-        ]
-    },
-    {
         "id": "cf401307.70d3b",
         "type": "http in",
         "z": "5117498b.878128",
@@ -7135,12 +7088,11 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 100,
-        "y": 260,
+        "x": 180,
+        "y": 300,
         "wires": [
             [
                 "65421359.76477c",
-                "e30be57f.d76bf8",
                 "4b4adb29.c33334"
             ]
         ]
@@ -7149,24 +7101,24 @@
         "id": "66fa007.634a5",
         "type": "http response",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "an http zurückschicken",
         "statusCode": "",
         "headers": {},
-        "x": 530,
-        "y": 780,
+        "x": 560,
+        "y": 520,
         "wires": []
     },
     {
         "id": "65421359.76477c",
         "type": "file in",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "html-Datei holen",
         "filename": "/home/pi/Desktop/CLONE/RADIOPI/Einkaufsliste.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 320,
-        "y": 640,
+        "x": 240,
+        "y": 400,
         "wires": [
             [
                 "ebd4cee3.1ccc7"
@@ -7174,79 +7126,13 @@
         ]
     },
     {
-        "id": "3f6ecc2.b2e5334",
-        "type": "function",
-        "z": "5117498b.878128",
-        "name": "",
-        "func": "msg.payload2=msg.payload\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 310,
-        "y": 60,
-        "wires": [
-            [
-                "da0e8b79.9a80e8"
-            ]
-        ]
-    },
-    {
-        "id": "da0e8b79.9a80e8",
-        "type": "file in",
-        "z": "5117498b.878128",
-        "name": "",
-        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "x": 520,
-        "y": 60,
-        "wires": [
-            [
-                "24b93969.cb7146"
-            ]
-        ]
-    },
-    {
-        "id": "4acfef27.24f8b",
-        "type": "file",
-        "z": "5117498b.878128",
-        "name": "",
-        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "x": 520,
-        "y": 120,
-        "wires": [
-            [
-                "fd3e68be.4cf458"
-            ]
-        ]
-    },
-    {
-        "id": "24b93969.cb7146",
-        "type": "function",
-        "z": "5117498b.878128",
-        "name": "",
-        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3];\nif (NL!=\"?\") {nr=nr+1;EL.unshift([TL,NL,MI,nr,nr])}\nnode.status({text:nr});\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\n//global.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 310,
-        "y": 120,
-        "wires": [
-            [
-                "4acfef27.24f8b"
-            ]
-        ]
-    },
-    {
         "id": "3c3b75f0.27658a",
         "type": "comment",
         "z": "5117498b.878128",
-        "name": "Anleitung zum neu Starten: siehe Info zu diesem Node",
-        "info": "Bei Neustart ein File Einkaufsliste.txt anlegen mit folgendem Inhalt:\n\n[[10000,\"\",\"\",1,1]]\n\n",
-        "x": 280,
-        "y": 200,
+        "name": "Anleitung zum neu Starten: siehe Info zu diesem Kommentar-Node",
+        "info": "Bei Neustart ein File ~/Desktop/Einkaufsliste.txt anlegen mit folgendem Inhalt:\n\n[[10000,\"\",\"\",1,1]]\n\n",
+        "x": 320,
+        "y": 20,
         "wires": []
     },
     {
@@ -7715,21 +7601,6 @@
         "wires": []
     },
     {
-        "id": "e30be57f.d76bf8",
-        "type": "debug",
-        "z": "5117498b.878128",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 400,
-        "y": 280,
-        "wires": []
-    },
-    {
         "id": "fc84e7a8.951158",
         "type": "http in",
         "z": "5117498b.878128",
@@ -7738,31 +7609,15 @@
         "method": "post",
         "upload": true,
         "swaggerDoc": "",
-        "x": 110,
-        "y": 480,
+        "x": 190,
+        "y": 120,
         "wires": [
             [
-                "6c072aa4.795444",
                 "d3e050e9.a3309",
                 "60963191.82299",
                 "9226f688.1384e8"
             ]
         ]
-    },
-    {
-        "id": "6c072aa4.795444",
-        "type": "debug",
-        "z": "5117498b.878128",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 420,
-        "y": 440,
-        "wires": []
     },
     {
         "id": "4c710d40.116884",
@@ -7795,31 +7650,11 @@
         "syntax": "mustache",
         "template": "neue Einkaufsliste da",
         "output": "str",
-        "x": 460,
-        "y": 380,
+        "x": 440,
+        "y": 60,
         "wires": [
             [
                 "a39b201f.42d9a"
-            ]
-        ]
-    },
-    {
-        "id": "b9a1dfaa.a4dbc",
-        "type": "inject",
-        "z": "5117498b.878128",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 220,
-        "y": 380,
-        "wires": [
-            [
-                "d3e050e9.a3309"
             ]
         ]
     },
@@ -7829,20 +7664,20 @@
         "z": "5117498b.878128",
         "name": "",
         "voice": "4",
-        "x": 610,
-        "y": 420,
+        "x": 630,
+        "y": 60,
         "wires": []
     },
     {
         "id": "60963191.82299",
         "type": "function",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "neue Einkaufsliste hernehmen",
         "func": "msg.payload2=msg.payload.Liste;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 310,
-        "y": 540,
+        "x": 290,
+        "y": 180,
         "wires": [
             [
                 "c32db0b1.b865f"
@@ -7864,8 +7699,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 350,
-        "y": 240,
+        "x": 450,
+        "y": 300,
         "wires": [
             []
         ]
@@ -7885,29 +7720,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 370,
-        "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f0a232a1.92eba",
-        "type": "delay",
-        "z": "5117498b.878128",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "10",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 350,
-        "y": 20,
+        "x": 450,
+        "y": 120,
         "wires": [
             []
         ]
@@ -7916,12 +7730,12 @@
         "id": "ebd4cee3.1ccc7",
         "type": "function",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "als payload2 zwischenspeichern",
         "func": "msg.payload2=msg.payload\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 170,
-        "y": 720,
+        "x": 490,
+        "y": 400,
         "wires": [
             [
                 "87a60f9c.a3967"
@@ -7932,13 +7746,13 @@
         "id": "87a60f9c.a3967",
         "type": "file in",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "Einkaufslisten dazuholen",
         "filename": "/home/pi/Desktop/Einkaufsliste.txt",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 380,
-        "y": 720,
+        "x": 270,
+        "y": 460,
         "wires": [
             [
                 "a17de19a.7cb01"
@@ -7949,44 +7763,29 @@
         "id": "a17de19a.7cb01",
         "type": "function",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "zusammensetzen",
         "func": "var ind=msg.payload2.indexOf(\"Einkaufsliste.txt\")+19;\nmsg.payload=msg.payload2.slice(0,ind)+msg.payload+msg.payload2.slice(ind);\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 170,
-        "y": 780,
+        "x": 510,
+        "y": 460,
         "wires": [
             [
-                "66fa007.634a5",
-                "50832ca9.be8764"
+                "66fa007.634a5"
             ]
         ]
-    },
-    {
-        "id": "50832ca9.be8764",
-        "type": "debug",
-        "z": "5117498b.878128",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 340,
-        "y": 840,
-        "wires": []
     },
     {
         "id": "c32db0b1.b865f",
         "type": "file in",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "alte Einkaufslisten dazuholen",
         "filename": "/home/pi/Desktop/Einkaufsliste.txt",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 520,
-        "y": 540,
+        "x": 560,
+        "y": 180,
         "wires": [
             [
                 "ea8a4b5.1fb19b8"
@@ -7997,12 +7796,12 @@
         "id": "ea8a4b5.1fb19b8",
         "type": "function",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "zusammenfügen",
         "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3];\nif (NL!=\"?\") {nr=nr+1;EL.unshift([TL,NL,MI,nr,nr])}\nnode.status({text:nr});\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\n//global.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 310,
-        "y": 600,
+        "x": 250,
+        "y": 240,
         "wires": [
             [
                 "177373b6.d48f6c"
@@ -8013,13 +7812,13 @@
         "id": "177373b6.d48f6c",
         "type": "file",
         "z": "5117498b.878128",
-        "name": "",
+        "name": "und wieder abspeichern",
         "filename": "/home/pi/Desktop/Einkaufsliste.txt",
         "appendNewline": false,
         "createDir": true,
         "overwriteFile": "true",
-        "x": 520,
-        "y": 600,
+        "x": 490,
+        "y": 240,
         "wires": [
             [
                 "65421359.76477c"
