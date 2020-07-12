@@ -8,6 +8,8 @@ df #3735
 #+also erstmal Welcome to Rasoberry Pi durchmachen und nochmal
 sudo apt update
 sudo apt full-upgrade
+cat /proc/cpuinfo #revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
+cat /sys/firmware/devicetree/base/model
 
 #laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
 sudo /etc/init.d/alsa-utils reset
@@ -298,3 +300,10 @@ sudo apt-get upgrade
 sudo apt-get dist-upgrade
 
 
+
+
+
+###ttyS0 in Raspberyy Konfiguration erlauben. Dann
+stty -F /dev/ttyS0 115200 raw -cstopb -parenb -crtscts -echo ixon -ixoff
+stty raw -echo opost quit ^C isig ixon -ixoff #hiernach ist es finster!!!
+cp /dev/ttyS0 /dev/tty & cp /dev/tty /dev/ttyS0

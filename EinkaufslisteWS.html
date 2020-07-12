@@ -114,21 +114,8 @@ function Uhrzeit_aktualisieren() {
 <div>Quelle: <a href="https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html">https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html</a></div>
 
 Verbindung zu websocket /ws/Einkaufsliste: <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> <span id="Raspberry Pi" class="nicht_verbunden">nicht verbunden (Seite nochmal laden)</span>
-
-
-<form method="post">
-    <!--label class="h2" form="person">Namenseingabe</label>
-    <label for="vorname">Vorname</label> 
-    <input type="text" name="vorname" id="vorname" maxlength="30">
- 
-    <label for="zuname">Zuname</label>  
-    <input type="text" name="zuname" id="zuname" maxlength="40">
-    <button type="reset">Eingaben zurücksetzen</button-->
-<div><span id="Websocket_Display"><textarea name="Liste" id="Websocket-Antwort" cols="80" rows="15" style="font-size:100%; white-space:pre; background-color:Aliceblue"></textarea></span><button onclick="websocket.send(document.getElementById('Websocket-Antwort').value)">Speichern</button>
+<div><span id="Websocket_Display"><textarea id="Websocket-Antwort" cols="80" rows="15" style="font-size:100%; white-space:pre; background-color:Aliceblue"></textarea></span><button onclick="websocket.send(document.getElementById('Websocket-Antwort').value)">Speichern</button>
 </div>
-    <button type="submit">Eingaben absenden</button>
-  </form>
-
 <div style="display:none">document.baseURI=<span id="baseURI"> </span></div>
 <hr/>
 <div id="bisherige Einkaufslisten" style="white-space:pre-wrap"> </div>
@@ -138,6 +125,5 @@ ok Hinweis durch Zettelfarbe, wenn zwischendurch jemand von wo anders her was sp
 .. Button "nochmal verbinden", dann bleibt das Eingegebene erhalten
   </p>
 
-<span style="font-size:10%" id="Einkaufsliste.txt"></span>
   </body>
   </html>

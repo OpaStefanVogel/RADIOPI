@@ -5621,7 +5621,7 @@
         "crontab": "",
         "once": false,
         "x": 250,
-        "y": 480,
+        "y": 500,
         "wires": [
             [
                 "22a7bd39.67ed92"
@@ -5658,8 +5658,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 249.11898803710938,
-        "y": 554.1186676025391,
+        "x": 250,
+        "y": 580,
         "wires": [
             [
                 "22a7bd39.67ed92"
@@ -5677,8 +5677,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 251.2459716796875,
-        "y": 516.4956207275391,
+        "x": 250,
+        "y": 540,
         "wires": [
             [
                 "22a7bd39.67ed92"
@@ -7090,8 +7090,8 @@
         "y": 60,
         "wires": [
             [
-                "86fb51c4.1a6f1",
-                "3f6ecc2.b2e5334"
+                "3f6ecc2.b2e5334",
+                "f0a232a1.92eba"
             ]
         ]
     },
@@ -7102,23 +7102,9 @@
         "name": "",
         "server": "380e9f13.927a9",
         "client": "",
-        "x": 880,
-        "y": 60,
+        "x": 600,
+        "y": 180,
         "wires": []
-    },
-    {
-        "id": "86fb51c4.1a6f1",
-        "type": "function",
-        "z": "5117498b.878128",
-        "name": "",
-        "func": "node.status({text:0});\nvar EL=global.get(\"Einkaufsliste\")||[[0,\"Eis\\n\",\"\",1,1]];\nnode.status({text:EL});\nvar NL=msg.payload;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3]+1;\nnode.status({text:nr});\nif (NL!=\"?\") EL.unshift([TL,NL,MI,nr,nr]);\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\nglobal.set(\"Einkaufsliste\",EL);\nmsg.payload=EL;\ndelete msg._session;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 310,
-        "y": 60,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "ca1b6d63.f2b84",
@@ -7136,7 +7122,6 @@
         "y": 120,
         "wires": [
             [
-                "86fb51c4.1a6f1",
                 "3f6ecc2.b2e5334"
             ]
         ]
@@ -7150,11 +7135,13 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 120,
+        "x": 100,
         "y": 260,
         "wires": [
             [
-                "65421359.76477c"
+                "65421359.76477c",
+                "e30be57f.d76bf8",
+                "4b4adb29.c33334"
             ]
         ]
     },
@@ -7165,8 +7152,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 630,
-        "y": 260,
+        "x": 530,
+        "y": 780,
         "wires": []
     },
     {
@@ -7178,11 +7165,11 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 390,
-        "y": 340,
+        "x": 320,
+        "y": 640,
         "wires": [
             [
-                "66fa007.634a5"
+                "ebd4cee3.1ccc7"
             ]
         ]
     },
@@ -7195,7 +7182,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 310,
-        "y": 120,
+        "y": 60,
         "wires": [
             [
                 "da0e8b79.9a80e8"
@@ -7211,8 +7198,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 460,
-        "y": 160,
+        "x": 520,
+        "y": 60,
         "wires": [
             [
                 "24b93969.cb7146"
@@ -7228,10 +7215,12 @@
         "appendNewline": false,
         "createDir": true,
         "overwriteFile": "true",
-        "x": 920,
+        "x": 520,
         "y": 120,
         "wires": [
-            []
+            [
+                "fd3e68be.4cf458"
+            ]
         ]
     },
     {
@@ -7239,15 +7228,14 @@
         "type": "function",
         "z": "5117498b.878128",
         "name": "",
-        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3]+1;\nnode.status({text:nr});\nif (NL!=\"?\") EL.unshift([TL,NL,MI,nr,nr]);\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\nglobal.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
+        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3];\nif (NL!=\"?\") {nr=nr+1;EL.unshift([TL,NL,MI,nr,nr])}\nnode.status({text:nr});\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\n//global.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
-        "y": 100,
+        "x": 310,
+        "y": 120,
         "wires": [
             [
-                "4acfef27.24f8b",
-                "fd3e68be.4cf458"
+                "4acfef27.24f8b"
             ]
         ]
     },
@@ -7724,6 +7712,266 @@
         "complete": "false",
         "x": 620,
         "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e30be57f.d76bf8",
+        "type": "debug",
+        "z": "5117498b.878128",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 400,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fc84e7a8.951158",
+        "type": "http in",
+        "z": "5117498b.878128",
+        "name": "",
+        "url": "/Einkaufsliste.html",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 480,
+        "wires": [
+            [
+                "6c072aa4.795444",
+                "d3e050e9.a3309",
+                "60963191.82299",
+                "9226f688.1384e8"
+            ]
+        ]
+    },
+    {
+        "id": "6c072aa4.795444",
+        "type": "debug",
+        "z": "5117498b.878128",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 420,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "4c710d40.116884",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "add http://www.uzic.ch/tek.m3u",
+        "topic": "",
+        "payload": "add http://www.uzic.ch/tek.m3u",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 310,
+        "y": 460,
+        "wires": [
+            [
+                "e705cd71.ffdd5"
+            ]
+        ]
+    },
+    {
+        "id": "d3e050e9.a3309",
+        "type": "template",
+        "z": "5117498b.878128",
+        "name": "neue Einkaufsliste da",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "neue Einkaufsliste da",
+        "output": "str",
+        "x": 460,
+        "y": 380,
+        "wires": [
+            [
+                "a39b201f.42d9a"
+            ]
+        ]
+    },
+    {
+        "id": "b9a1dfaa.a4dbc",
+        "type": "inject",
+        "z": "5117498b.878128",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 380,
+        "wires": [
+            [
+                "d3e050e9.a3309"
+            ]
+        ]
+    },
+    {
+        "id": "a39b201f.42d9a",
+        "type": "play audio",
+        "z": "5117498b.878128",
+        "name": "",
+        "voice": "4",
+        "x": 610,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "60963191.82299",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "msg.payload=msg.payload.Liste;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4b4adb29.c33334",
+        "type": "delay",
+        "z": "5117498b.878128",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 350,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9226f688.1384e8",
+        "type": "delay",
+        "z": "5117498b.878128",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 370,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0a232a1.92eba",
+        "type": "delay",
+        "z": "5117498b.878128",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 350,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ebd4cee3.1ccc7",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "msg.payload2=msg.payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 720,
+        "wires": [
+            [
+                "87a60f9c.a3967"
+            ]
+        ]
+    },
+    {
+        "id": "87a60f9c.a3967",
+        "type": "file in",
+        "z": "5117498b.878128",
+        "name": "",
+        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 380,
+        "y": 720,
+        "wires": [
+            [
+                "a17de19a.7cb01"
+            ]
+        ]
+    },
+    {
+        "id": "a17de19a.7cb01",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "var ind=msg.payload2.indexOf(\"Einkaufsliste.txt\")+19;\nmsg.payload=msg.payload2.slice(0,ind)+msg.payload+msg.payload2.slice(ind);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 780,
+        "wires": [
+            [
+                "66fa007.634a5",
+                "50832ca9.be8764"
+            ]
+        ]
+    },
+    {
+        "id": "50832ca9.be8764",
+        "type": "debug",
+        "z": "5117498b.878128",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 340,
+        "y": 840,
         "wires": []
     }
 ]
