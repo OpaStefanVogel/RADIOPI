@@ -46,71 +46,6 @@ var Zettelfarbe=[
   "LightSteelBlue"
   ];
 
-
-
-
-var websocket=0;
-function websocket_verbinden(URL) {
-  var Basisadresse=document.baseURI;
-  var Websocketadresse=URL;
-  if (Basisadresse.indexOf(":188")>-1&&URL==undefined)
-    Websocketadresse="ws"+Basisadresse.slice(4,Basisadresse.indexOf(":188")+5)+"/ws/Einkaufsliste";
-  //document.getElementById("baseURI").firstChild.nodeValue=Basisadresse+" "+Websocketadresse;
-  if (websocket!=0) websocket.close();
-  var Adresse=Websocketadresse;
-  if (Adresse==undefined) Adresse="ws://heizung:1880/ws/Einkaufsliste";
-  websocket = new WebSocket(Adresse,"fiktiv");
-  websocket.onerror=function(event) {websocket_verbinden("ws://modellbahnpult:1880/ws/Einkaufsliste")};
-  websocket.onmessage = function(event) {
-    var w=eval(event.data);
-    var wl=w.length;
-    //alert(w+"####");
-    var textarea=document.getElementById("Websocket-Antwort");
-    var LL=w[0].slice();
-    textarea.value=LL[1]; //firstChild.nodeValue+=w;
-    textarea.scrollTop = textarea.scrollHeight;
-    if (session=0) session=LL[2];
-    if (ZF==0) ZF=LL[3]+1; else if (session==LL[2]) ZF=LL[4];
-    document.getElementById("Websocket-Antwort").setAttribute("style","font-size:100%; white-space:pre; background-color:"+Zettelfarbe[ZF%10]);
-    var sessionids=[];
-    w.forEach(function(x,i,z){
-      sessionids.push(x[2]);
-      var d=(new Date(x[0]));
-      var Tag=(["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Sonnabend"])[d.getDay()];
-      z[i]=Tag+" "+d.toLocaleString()
-        //+", msg._session.id="+x[2]+" lfd.Nr.="+x[3]+" "+x[4]+" "+ZF
-        +"<br/><span class='Einkaufsliste'; style='background-color:"
-        +Zettelfarbe[x[4]%10]+"'>"+x[1]+"</span>";
-      });
-    document.getElementById("bisherige Einkaufslisten").innerHTML=w.join("<hr/>");
-    };
-  websocket.onopen = function() {
-    websocket.send('?');
-    //restart_GAP();
-    //alert("open");
-    }; 
-  websocket.onclose = function() {
-    //alert(77);
-    //websocket.send("close");
-    };
-  }
-function websocket_verbunden() {
-  if (websocket!=0) {
-    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING","OPEN","CLOSING","CLOSED"])[websocket.readyState];
-    var elm=document.getElementById("Raspberry Pi")
-    elm.firstChild.nodeValue=(["wird verbunden","Verbindung ist hergestellt","Verbindung wird getrennt","nicht verbunden (Seite neu laden für neuen Versuch)"])[websocket.readyState];
-    elm.setAttribute("class",(["versuche_zu_verbinden","verbunden","Verbindung_wird_getrennt","nicht_verbunden"])[websocket.readyState]);
-    }
-  }
-setInterval(websocket_verbunden,1000);
-
-function Uhrzeit_aktualisieren() {
-  websocket.send('Exec("date; sudo date -s @'+(Date.now()/1000)+'");');
-  }
-
-</script>
-
-<script id="scr" type="application/ecmascript">
 function alte_Einkaufslisten_hervorholen() {
   var txt=document.getElementById("Einkaufsliste"+".txt").firstChild.nodeValue;
   //alert(txt);
@@ -143,24 +78,17 @@ function alte_Einkaufslisten_hervorholen() {
 <div>Quelle: <a href="https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html">https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html</a></div>
 
 <form method="post">
-    <!--label class="h2" form="person">Namenseingabe</label>
-    <label for="vorname">Vorname</label> 
-    <input type="text" name="vorname" id="vorname" maxlength="30">
- 
-    <label for="zuname">Zuname</label>  
-    <input type="text" name="zuname" id="zuname" maxlength="40">
-    <button type="reset">Eingaben zurücksetzen</button-->
-<div><span id="Websocket_Display"><textarea name="Liste" id="Websocket-Antwort" cols="80" rows="15" style="font-size:100%; white-space:pre; background-color:Aliceblue"></textarea></span><button onclick="websocket.send(document.getElementById('Websocket-Antwort').value)">Speichern</button>
+<div><span id="Websocket_Display"><textarea name="Liste" id="Websocket-Antwort" cols="80" rows="15" style="font-size:100%; white-space:pre; background-color:Aliceblue"></textarea></span><button type="submit">zum Speichern absenden</button>
 </div>
-    <button type="submit">Eingaben absenden</button>
+    
   </form>
 
 <div style="display:none">document.baseURI=<span id="baseURI"> </span></div>
 <hr/>
 <div id="bisherige Einkaufslisten" style="white-space:pre-wrap"> </div>
-<p style="white-space:pre-wrap; font-family:Courier,monospace; font-size:80%">Was alles nicht funktioniert:
+<p style="white-space:pre-wrap; font-family:Courier,monospace; font-size:70%">Was alles nicht funktioniert:
 ok Hinweis durch Zettelfarbe, wenn zwischendurch jemand von wo anders her was speichern tut.
-.. damit Lesen und Speichern von auẞerhalb geht, nicht mehr mit Websocket sondern mit http-POST
+ok damit Lesen und Speichern von außerhalb geht, nicht mehr mit Websocket sondern mit http-POST übertragen
 .. wenn zwischendurch jemand anderes was speichert, wird das aktuell eingegebene damit auch ersetzt
 .. Button "nochmal verbinden", dann bleibt das Eingegebene erhalten
   </p>
