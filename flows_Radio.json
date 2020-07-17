@@ -186,13 +186,6 @@
         "wholemsg": "false"
     },
     {
-        "id": "380e9f13.927a9",
-        "type": "websocket-listener",
-        "z": "",
-        "path": "/ws/Einkaufsliste",
-        "wholemsg": "false"
-    },
-    {
         "id": "8407ad6.d1b085",
         "type": "inject",
         "z": "df2ae089.27e66",
@@ -7092,8 +7085,8 @@
         "y": 300,
         "wires": [
             [
-                "65421359.76477c",
-                "4b4adb29.c33334"
+                "4b4adb29.c33334",
+                "c9e07784.b81c28"
             ]
         ]
     },
@@ -7673,7 +7666,7 @@
         "type": "function",
         "z": "5117498b.878128",
         "name": "neue Einkaufsliste hernehmen",
-        "func": "msg.payload2=msg.payload.Liste;\nreturn msg;",
+        "func": "msg.payload2=msg.payload.Liste;\nnode.status({text:msg.payload.session_id});\nmsg.session_id=msg.payload.session_id;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 290,
@@ -7764,7 +7757,7 @@
         "type": "function",
         "z": "5117498b.878128",
         "name": "zusammensetzen",
-        "func": "var ind=msg.payload2.indexOf(\"Einkaufsliste.txt\")+19;\nmsg.payload=msg.payload2.slice(0,ind)+msg.payload+msg.payload2.slice(ind);\nreturn msg;\n",
+        "func": "var ind=msg.payload2.indexOf(\"Einkaufsliste.txt\")+19;\nmsg.payload=msg.payload2.slice(0,ind)+\"[\"+msg.session_id+\",\"+msg.payload+\"]\"+msg.payload2.slice(ind);\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
@@ -7797,7 +7790,7 @@
         "type": "function",
         "z": "5117498b.878128",
         "name": "zusammenfügen",
-        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=111111;\nif (msg._session) MI=msg._session.id;\nnode.status({text:MI});\nvar nr=EL[0][3];\nif (NL!=\"?\") {nr=nr+1;EL.unshift([TL,NL,MI,nr,nr])}\nnode.status({text:nr});\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\n//global.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\ndelete msg._session;\nreturn msg;",
+        "func": "var EL=JSON.parse(msg.payload);\nnode.status({text:EL});\nvar NL=msg.payload2;\nnode.status({text:NL});\nvar TL=Date.now();\nnode.status({text:TL});\nvar MI=msg.session_id;\nnode.status({text:MI});\nvar nr=EL[0][3];\nif (NL!=\"?\") {nr=nr+1;EL.unshift([TL,NL,MI,nr,nr])}\nnode.status({text:nr});\nfor (var i=0;i<EL.length;i++) if (MI==EL[i][2]) EL[0][4]=EL[i][4];\nwhile (EL.length>10) EL.pop();\nif (NL==\"delete\") EL=[[TL,\"\",\"\",1,1]];\n//global.set(\"Einkaufsliste\",EL);\nmsg.payload=JSON.stringify(EL);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 250,
@@ -7819,6 +7812,22 @@
         "overwriteFile": "true",
         "x": 490,
         "y": 240,
+        "wires": [
+            [
+                "65421359.76477c"
+            ]
+        ]
+    },
+    {
+        "id": "c9e07784.b81c28",
+        "type": "function",
+        "z": "5117498b.878128",
+        "name": "",
+        "func": "msg.session_id=Date.now();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 340,
         "wires": [
             [
                 "65421359.76477c"

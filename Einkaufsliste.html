@@ -47,16 +47,20 @@ var Zettelfarbe=[
   ];
 
 function alte_Einkaufslisten_hervorholen() {
+  //alert("hallo");
   var txt=document.getElementById("Einkaufsliste"+".txt").firstChild.nodeValue;
   //alert(txt);
-  var w=JSON.parse(txt);
+  var u=JSON.parse(txt);
+  //alert(u);
+  var w=u[1];
+  //alert(w);
   var wl=w.length;
   //alert(w+"####");
   var textarea=document.getElementById("Websocket-Antwort");
   var LL=w[0].slice();
   textarea.value=LL[1]; //firstChild.nodeValue+=w;
   textarea.scrollTop = textarea.scrollHeight;
-  if (session=0) session=LL[2];
+  if (session==0) session=LL[2];
   if (ZF==0) ZF=LL[3]+1; else if (session==LL[2]) ZF=LL[4];
   document.getElementById("Websocket-Antwort").setAttribute("style","font-size:100%; white-space:pre; background-color:"+Zettelfarbe[ZF%10]);
   var sessionids=[];
@@ -69,6 +73,7 @@ function alte_Einkaufslisten_hervorholen() {
       +"<br/><span class='Einkaufsliste'; style='background-color:"
       +Zettelfarbe[x[4]%10]+"'>"+x[1]+"</span>";
     });
+  document.getElementById("session_id").value=u[0];
   document.getElementById("bisherige Einkaufslisten").innerHTML=w.join("<hr/>");
   }
 
@@ -78,6 +83,7 @@ function alte_Einkaufslisten_hervorholen() {
 <div>Quelle: <a href="https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html">https://github.com/OpaStefanVogel/RADIOPI/blob/master/Einkaufsliste.html</a></div>
 
 <form method="post">
+<input name="session_id" id="session_id" value="7777"/>
 <div><span id="Websocket_Display"><textarea name="Liste" id="Websocket-Antwort" cols="80" rows="15" style="font-size:100%; white-space:pre; background-color:Aliceblue"></textarea></span><button type="submit">zum Speichern absenden</button>
 </div>
     
