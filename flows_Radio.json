@@ -5431,7 +5431,7 @@
         "fetch": "auto",
         "inputs": 0,
         "x": 210,
-        "y": 4820,
+        "y": 4780,
         "wires": [
             [
                 "d2a92b1e.1145d8",
@@ -5446,7 +5446,7 @@
         "name": "neue Email da",
         "info": "",
         "x": 230,
-        "y": 4780,
+        "y": 4740,
         "wires": []
     },
     {
@@ -5459,8 +5459,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 430,
-        "y": 4820,
+        "x": 450,
+        "y": 4740,
         "wires": []
     },
     {
@@ -5474,11 +5474,12 @@
         "syntax": "mustache",
         "template": "Neue Email für backebackekuchen16 add gmail Punkt comm.\n",
         "output": "str",
-        "x": 460,
-        "y": 4860,
+        "x": 480,
+        "y": 4780,
         "wires": [
             [
-                "f95e4c0b.0ce5a"
+                "f95e4c0b.0ce5a",
+                "4c7ecada.f14ef4"
             ]
         ]
     },
@@ -5490,8 +5491,8 @@
         "links": [
             "6b533d6.c015cc4"
         ],
-        "x": 615,
-        "y": 4860,
+        "x": 655,
+        "y": 4780,
         "wires": []
     },
     {
@@ -6608,7 +6609,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 230,
+        "x": 250,
         "y": 4960,
         "wires": [
             [
@@ -6627,7 +6628,7 @@
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 390,
+        "x": 410,
         "y": 4960,
         "wires": [
             [],
@@ -6645,7 +6646,7 @@
         "links": [
             "6b533d6.c015cc4"
         ],
-        "x": 655,
+        "x": 675,
         "y": 4960,
         "wires": []
     },
@@ -6660,7 +6661,7 @@
         "syntax": "mustache",
         "template": "Irgendwas mit dem Netzwerkkabel ist nicht in Ordnung.\n",
         "output": "str",
-        "x": 540,
+        "x": 560,
         "y": 4960,
         "wires": [
             [
@@ -7831,6 +7832,122 @@
         "wires": [
             [
                 "65421359.76477c"
+            ]
+        ]
+    },
+    {
+        "id": "2a46292a.f80786",
+        "type": "rpi-gpio out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pin": "3",
+        "set": false,
+        "level": "1",
+        "freq": "1",
+        "out": "pwm",
+        "x": 700,
+        "y": 4860,
+        "wires": []
+    },
+    {
+        "id": "b70f3b32.810258",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "Email-LED aus",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 4860,
+        "wires": [
+            [
+                "1d45a6d0.292e19"
+            ]
+        ]
+    },
+    {
+        "id": "7c8721d3.9f166",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "Email-LED an",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 4820,
+        "wires": [
+            [
+                "4c7ecada.f14ef4"
+            ]
+        ]
+    },
+    {
+        "id": "4c7ecada.f14ef4",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "90",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "90",
+        "output": "str",
+        "x": 430,
+        "y": 4820,
+        "wires": [
+            [
+                "2a46292a.f80786",
+                "2156c459.c747fc"
+            ]
+        ]
+    },
+    {
+        "id": "1d45a6d0.292e19",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "100",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "100",
+        "output": "str",
+        "x": 430,
+        "y": 4860,
+        "wires": [
+            [
+                "2a46292a.f80786"
+            ]
+        ]
+    },
+    {
+        "id": "2156c459.c747fc",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "55",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 730,
+        "y": 4820,
+        "wires": [
+            [
+                "1d45a6d0.292e19"
             ]
         ]
     }
