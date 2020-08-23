@@ -7859,7 +7859,7 @@
         "payloadType": "date",
         "repeat": "",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "x": 260,
         "y": 4860,
@@ -7950,5 +7950,59 @@
                 "1d45a6d0.292e19"
             ]
         ]
+    },
+    {
+        "id": "a7ef5cce.fb5d9",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 4460,
+        "wires": [
+            [
+                "cb3c01d.11f9e"
+            ]
+        ]
+    },
+    {
+        "id": "a553cb77.c4a118",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 4520,
+        "wires": [
+            [
+                "cb3c01d.11f9e"
+            ]
+        ]
+    },
+    {
+        "id": "cb3c01d.11f9e",
+        "type": "rpi-gpio out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pin": "18",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "x": 630,
+        "y": 4460,
+        "wires": []
     }
 ]

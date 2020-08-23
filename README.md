@@ -34,11 +34,12 @@ sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 #aus haydenjames.io/raspberry-pi-performance-add-zram-kernel-parameters/
 sudo apt install zram-tools
 sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96
+  #zuletzt CORES=4, ALLOCATION=500, PRIORITY=5, #geht bisjetzt am flüssigsten
 sudo nano /etc/sysctl.conf #dort ergänzen:
-vm.vfs_cache_pressure=100
-vm.swappiness=10
-vm.dirty_background_ratio=10
-vm.dirty_ratio=50
+vm.vfs_cache_pressure=100             #zuletzt 500
+vm.swappiness=10                      #100
+vm.dirty_background_ratio=10          #1
+vm.dirty_ratio=50                     #50
 
 sudo reboot
 sudo watch cat /proc/swaps
@@ -118,6 +119,7 @@ zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 
 df #7848 28%
 ssh-keygen
+ssh-copy-id pi@localhost #pi@KEYSTATION_61 #und weitere
 nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localhost
 #sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
@@ -183,6 +185,28 @@ git push
 
 #aktuell laut https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/downloads.html
 sudo apt-get install gcc-arm-none-eabi
+
+
+#Hotspot laut
+#https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md
+#und
+#https://www.raspberrypi.org/forums/viewtopic.php?f=36&t=279500&p=1692756&hilit=https%3A%2F%2Fwww.raspberrypi.org%2Fdocumentation%2Fconfiguration%2Fwireless%2Faccess+point+routed.md#p1692756
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
