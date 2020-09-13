@@ -6474,7 +6474,8 @@
         "y": 40,
         "wires": [
             [
-                "4e5e4858.cd02c8"
+                "4e5e4858.cd02c8",
+                "ae1de0a5.4bc07"
             ]
         ]
     },
@@ -8003,6 +8004,21 @@
         "out": "out",
         "x": 630,
         "y": 4460,
+        "wires": []
+    },
+    {
+        "id": "ae1de0a5.4bc07",
+        "type": "debug",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 560,
+        "y": 100,
         "wires": []
     }
 ]
