@@ -328,6 +328,11 @@ sudo apt-get dist-upgrade
 
 
 ###ttyS0 in Raspberyy Konfiguration erlauben. Dann
-stty -F /dev/ttyS0 115200 raw -cstopb -parenb -crtscts -echo ixon -ixoff
+stty -F /dev/ttyS0 115200 cs8 -cstopb -parenb -crtscts -echo ixon -ixoff
 stty raw -echo opost quit ^C isig ixon -ixoff #hiernach ist es finster!!!
 cp /dev/ttyS0 /dev/tty & cp /dev/tty /dev/ttyS0
+
+#nur speichern:
+stty -F /dev/ttyS0 115200 raw cs8 -crtscts -cstopb -parenb 
+cp /dev/ttyS0 Test.txt
+

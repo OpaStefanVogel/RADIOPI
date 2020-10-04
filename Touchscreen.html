@@ -145,6 +145,7 @@ function Antwort_auswerten(w) {
 
   </script>
 <body onload="websocket_verbinden()" onclick="" style="xwidth:35px">
+<div style="display:none">
     <x onclick="wsend('Radio an')">E</x>
     <x onclick="wsend('Radio aus')">A</x>
     <x onclick="wsend('Radio lauter')">+</x>
@@ -163,6 +164,7 @@ function Antwort_auswerten(w) {
     <x onclick="wsend('')">.</x>
     <x onclick="wsend('')">.</x>
     <x onclick="wsend('')">.</x>
+  </div>
 <h id="fullscreen" onclick="if (event.target.getAttribute('id')=='fullscreen') event.target.requestFullscreen();" style="background-color: white">
   <v style="">Radio
     <h>
@@ -188,8 +190,6 @@ function Antwort_auswerten(w) {
   <button onclick="Antwort_auswerten(JSON.stringify(TestWetter))">Wetter</button>
   <button onclick="Antwort_auswerten(JSON.stringify(TestKartoffelpreis))">Kartoffelpreis</button>
   <div id="Antwort">...</div>
-  </body>
-  </html>
 <script id="scr" type="application/ecmascript">
 var TestBus31={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus31", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 31 Richtung Yorkgebiet fährt in 8 Minuten und 57 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+10000,Date.now()+400000,Date.now()+500000,Date.now()+1000000]};
 var TestBus62={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus62", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 62 Richtung Gablenz fährt in 17 Minuten und 28 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+300000,Date.now()+6000000]};
@@ -200,3 +200,6 @@ TestStops={"stops":[
   {"destination":"Zentralhaltestelle", "serviceType":"BUS", "hasActualDeparture":true, "actualDeparture":1570404240000,"line":"N17", "platform":null}
   ],"now":1570402502142}
   </script>
+  </body>
+  </html>
+

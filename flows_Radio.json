@@ -53,6 +53,13 @@
         "info": ""
     },
     {
+        "id": "474e306c.0c45c",
+        "type": "tab",
+        "label": "Baumkuchen",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "e75c6a5b.990f98",
         "type": "websocket-client",
         "z": "",
@@ -8011,7 +8018,7 @@
         "type": "debug",
         "z": "8b708117.11fb9",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8020,5 +8027,180 @@
         "x": 560,
         "y": 100,
         "wires": []
+    },
+    {
+        "id": "f14ba5d6.c98ac8",
+        "type": "http request",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Nachthimmel",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/SetTime",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 1200,
+        "wires": [
+            [
+                "333af745.8ea618"
+            ]
+        ]
+    },
+    {
+        "id": "f9a40074.f982d",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 1200,
+        "wires": [
+            [
+                "f14ba5d6.c98ac8"
+            ]
+        ]
+    },
+    {
+        "id": "333af745.8ea618",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 680,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "7186bda2.b94a34",
+        "type": "comment",
+        "z": "474e306c.0c45c",
+        "name": "",
+        "info": "",
+        "x": 200,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8ce683a6.f29d3",
+        "type": "inject",
+        "z": "474e306c.0c45c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "beb5bf0f.f0438"
+            ]
+        ]
+    },
+    {
+        "id": "b5845c92.12b3a",
+        "type": "debug",
+        "z": "474e306c.0c45c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 510,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "beb5bf0f.f0438",
+        "type": "exec",
+        "z": "474e306c.0c45c",
+        "command": "xinput",
+        "addpay": false,
+        "append": "--query-state 7",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "b117644a.2679f8"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b117644a.2679f8",
+        "type": "function",
+        "z": "474e306c.0c45c",
+        "name": "",
+        "func": "var valuator=[];\nvar start=msg.payload.indexOf(\"valuator[0]\");\neval(msg.payload.slice(start));\nmsg.payload=\"print (get_pixel_colour(\"+valuator[0]+\",\"+valuator[1]+\"));\";\nnode.status({text:valuator});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "8c9e8def.4b585"
+            ]
+        ]
+    },
+    {
+        "id": "8c9e8def.4b585",
+        "type": "daemon",
+        "z": "474e306c.0c45c",
+        "name": "",
+        "command": "python",
+        "args": "-i Pixelcolor.py",
+        "autorun": true,
+        "cr": true,
+        "redo": true,
+        "op": "lines",
+        "closer": "SIGKILL",
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "b455f10a.83975"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b455f10a.83975",
+        "type": "function",
+        "z": "474e306c.0c45c",
+        "name": "",
+        "func": "node.status({text:msg.payload});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "b5845c92.12b3a"
+            ]
+        ]
     }
 ]
