@@ -1,5 +1,12 @@
 [
     {
+        "id": "474e306c.0c45c",
+        "type": "tab",
+        "label": "Baumkuchen",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "df2ae089.27e66",
         "type": "tab",
         "label": "Sheet 1",
@@ -49,13 +56,6 @@
         "id": "ca718d9f.a1a43",
         "type": "tab",
         "label": "Flow 1",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "474e306c.0c45c",
-        "type": "tab",
-        "label": "Baumkuchen",
         "disabled": false,
         "info": ""
     },
@@ -1834,7 +1834,8 @@
             "b76dca11.f7ca68",
             "65333246.6150bc",
             "3dbd7d64.be3ff2",
-            "7acc88f8.260048"
+            "7acc88f8.260048",
+            "78a2a961.d6d0e8"
         ],
         "x": 175,
         "y": 2080,
@@ -6987,7 +6988,8 @@
         "y": 1000,
         "wires": [
             [
-                "52095a5f.1a26c4"
+                "52095a5f.1a26c4",
+                "620c025a.1fd70c"
             ]
         ]
     },
@@ -8029,27 +8031,6 @@
         "wires": []
     },
     {
-        "id": "f14ba5d6.c98ac8",
-        "type": "http request",
-        "z": "4c1f2825.5c8bc8",
-        "name": "Nachthimmel",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": false,
-        "url": "https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/SetTime",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "",
-        "x": 450,
-        "y": 1200,
-        "wires": [
-            [
-                "333af745.8ea618"
-            ]
-        ]
-    },
-    {
         "id": "f9a40074.f982d",
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
@@ -8058,14 +8039,14 @@
         "payload": "",
         "payloadType": "date",
         "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 260,
-        "y": 1200,
+        "crontab": "0 0-1 * * *",
+        "once": true,
+        "onceDelay": "30",
+        "x": 247,
+        "y": 1160,
         "wires": [
             [
-                "f14ba5d6.c98ac8"
+                "85e9ed71.a4104"
             ]
         ]
     },
@@ -8080,8 +8061,8 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 680,
-        "y": 1200,
+        "x": 657,
+        "y": 1160,
         "wires": []
     },
     {
@@ -8200,6 +8181,208 @@
         "wires": [
             [
                 "b5845c92.12b3a"
+            ]
+        ]
+    },
+    {
+        "id": "eb072625.f32408",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 1100,
+        "wires": [
+            [
+                "154d8b3a.bd1d85"
+            ]
+        ]
+    },
+    {
+        "id": "154d8b3a.bd1d85",
+        "type": "http request",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/MaximalAltitudeTime",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 420,
+        "y": 1100,
+        "wires": [
+            [
+                "fde488a0.ea3b58"
+            ]
+        ]
+    },
+    {
+        "id": "fde488a0.ea3b58",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 640,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "85e9ed71.a4104",
+        "type": "exec",
+        "z": "4c1f2825.5c8bc8",
+        "command": "wget",
+        "addpay": false,
+        "append": "-r https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/MaximalAltitudeTime",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 427,
+        "y": 1160,
+        "wires": [
+            [
+                "333af745.8ea618"
+            ],
+            [
+                "333af745.8ea618"
+            ],
+            [
+                "333af745.8ea618"
+            ]
+        ]
+    },
+    {
+        "id": "308c97c6.c71558",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 630,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "95293cca.32305",
+        "type": "file in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "filename": "/home/pi/MaximalAltitudeTime",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 490,
+        "y": 1280,
+        "wires": [
+            [
+                "656d5afe.90bf64"
+            ]
+        ]
+    },
+    {
+        "id": "dd111e74.83811",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 1280,
+        "wires": [
+            [
+                "95293cca.32305"
+            ]
+        ]
+    },
+    {
+        "id": "656d5afe.90bf64",
+        "type": "xml",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 310,
+        "y": 1340,
+        "wires": [
+            [
+                "cb4f4e29.38113",
+                "308c97c6.c71558"
+            ]
+        ]
+    },
+    {
+        "id": "cb4f4e29.38113",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var m=msg.payload;\nvar a=m.Expression.Function[0].Function;\nvar sonne=a[0].Function[0].Function[0].Number;\nvar ret=\"Zenitschtand Sohne \"+sonne[3]+\" Uhr \"+sonne[4]+\",\";\nvar mond=a[1].Function[0].Function[0].Number;\nret=ret+\" Moond \"+mond[3]+\" Uhr \"+mond[4]+\",\";\nvar name=a[2].Function[0].Function;\nvar planet=a[3].Function[0].Function;\nfor (var i=0;i<8;i++) if (i!=2) {\n  var n=name[i].String[1];\n  var t=planet[i].Function[0].Number;\n  ret=ret+\" \"+n+\" \"+t[3]+\" Uhr \"+t[4]+\",\";\n  }\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1380,
+        "wires": [
+            [
+                "308c97c6.c71558",
+                "78a2a961.d6d0e8"
+            ]
+        ]
+    },
+    {
+        "id": "78a2a961.d6d0e8",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 595,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "620c025a.1fd70c",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "40",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 390,
+        "y": 1220,
+        "wires": [
+            [
+                "95293cca.32305"
             ]
         ]
     }

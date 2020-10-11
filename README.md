@@ -88,6 +88,8 @@ df #7438 26% woher die auf einmal?
 #+neues Verzeichnis Desktop/CLONE
 cd Desktop/CLONE
 #git clone https://github.com/OpaStefanVogel/RADIOPI
+#und mehr
+cp -s /*/.*.desktop .
 cd RADIO
 git pull
 
