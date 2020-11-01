@@ -137,7 +137,12 @@ mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an
 #cd
 #oder neuerdings nur
 cd
-ln -s ./Desktop/GIT_CLONE_GITHUB/RADIOPI/.xsessionrc .xsessionrc
+ln -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
+
+#Desktop füllen
+cd Desktop
+ln -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
+cd
 
 #Hintergrundbild einstellen
 
