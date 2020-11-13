@@ -55,7 +55,14 @@
     {
         "id": "ca718d9f.a1a43",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "pochpoch",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c82fd5f1.38c628",
+        "type": "tab",
+        "label": "Corona",
         "disabled": false,
         "info": ""
     },
@@ -1835,7 +1842,8 @@
             "65333246.6150bc",
             "3dbd7d64.be3ff2",
             "7acc88f8.260048",
-            "78a2a961.d6d0e8"
+            "78a2a961.d6d0e8",
+            "18d99c8e.b3f043"
         ],
         "x": 175,
         "y": 2080,
@@ -5062,7 +5070,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 40,
+        "y": 120,
         "wires": [
             [
                 "f3c400c7.dca26"
@@ -5079,7 +5087,7 @@
         "chunk": false,
         "sendError": false,
         "x": 310,
-        "y": 40,
+        "y": 120,
         "wires": [
             [
                 "1b0baeae.42cbb1"
@@ -5094,7 +5102,7 @@
         "statusCode": "",
         "headers": {},
         "x": 470,
-        "y": 40,
+        "y": 120,
         "wires": []
     },
     {
@@ -8385,5 +8393,213 @@
                 "95293cca.32305"
             ]
         ]
+    },
+    {
+        "id": "a80b39b1.e7b198",
+        "type": "http in",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "url": "/Corona.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "6c79c019.4dbf"
+            ]
+        ]
+    },
+    {
+        "id": "6c79c019.4dbf",
+        "type": "file in",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "filename": "Corona.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "6b01435f.7cb05c",
+                "3a1140a.af88bc"
+            ]
+        ]
+    },
+    {
+        "id": "6b01435f.7cb05c",
+        "type": "http response",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3a1140a.af88bc",
+        "type": "debug",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 570,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ad8afb7a.f98e38",
+        "type": "http in",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "url": "/Corona-Antwort.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "9676da5e.f05cd8",
+                "bfebae1e.ceda1"
+            ]
+        ]
+    },
+    {
+        "id": "9676da5e.f05cd8",
+        "type": "file in",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "filename": "Corona-Antwort.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "b5287d1d.f35b4",
+                "a9c7e115.88e7c"
+            ]
+        ]
+    },
+    {
+        "id": "b5287d1d.f35b4",
+        "type": "http response",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a9c7e115.88e7c",
+        "type": "debug",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "bfebae1e.ceda1",
+        "type": "template",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Lieber Stefan, wenn es Dir nichts ausmacht, und weil Du so darauf bestehst, die Quarantäne bis 23.11.2020 einzuhalten, \nalso es wäre jetzt schön, wenn Du vorübergehend die Stube kurz lüften und dann uns und Besuchern überlassen könntest. Danke und Grüße vom Absender dieser Mitteilung.",
+        "output": "str",
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "18d99c8e.b3f043",
+                "237ff7c5.78a928"
+            ]
+        ]
+    },
+    {
+        "id": "18d99c8e.b3f043",
+        "type": "link out",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 515,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3c2a39b4.a62226",
+        "type": "inject",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "bfebae1e.ceda1"
+            ]
+        ]
+    },
+    {
+        "id": "237ff7c5.78a928",
+        "type": "delay",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "55",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 370,
+        "y": 520,
+        "wires": [
+            [
+                "bfebae1e.ceda1"
+            ]
+        ]
+    },
+    {
+        "id": "a23e3496.d29b78",
+        "type": "comment",
+        "z": "cc59d9f8.9429c8",
+        "name": "Schon lange nicht mehr in Aktion",
+        "info": "weil HEIZUNGSPI nicht an.",
+        "x": 310,
+        "y": 40,
+        "wires": []
     }
 ]
