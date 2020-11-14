@@ -198,7 +198,10 @@ sudo apt-get install gcc-arm-none-eabi
 #https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md
 #und
 #https://www.raspberrypi.org/forums/viewtopic.php?f=36&t=279500&p=1692756&hilit=https%3A%2F%2Fwww.raspberrypi.org%2Fdocumentation%2Fconfiguration%2Fwireless%2Faccess+point+routed.md#p1692756
-
+#aber in
+sudo nano /etc/dnsmasq.conf
+#mit der Zeile
+address=/RADIO.wlan/192.168.4.1
 
 
 
