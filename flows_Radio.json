@@ -5999,7 +5999,7 @@
         "type": "function",
         "z": "8b708117.11fb9",
         "name": "",
-        "func": "msg.Frage_vom_Touchscreen=msg.payload;\nreturn msg;",
+        "func": "msg.payload=msg.payload.trim();\nmsg.Frage_vom_Touchscreen=msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 130,
@@ -8755,6 +8755,54 @@
             [
                 "51192ca1.67bb74",
                 "f82e85f2.a50ed8"
+            ]
+        ]
+    },
+    {
+        "id": "62592d0c.0fb9f4",
+        "type": "watch",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "files": "tcl_an_nodered.txt",
+        "recursive": "",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "c2604e89.ab3e3"
+            ]
+        ]
+    },
+    {
+        "id": "a54f8eeb.7ffc4",
+        "type": "debug",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 300,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "c2604e89.ab3e3",
+        "type": "file in",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "filename": "tcl_an_nodered.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "a54f8eeb.7ffc4",
+                "f1a9b6cc.60eec8"
             ]
         ]
     }
