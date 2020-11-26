@@ -1261,14 +1261,14 @@
         "id": "d20e7f60.be461",
         "type": "exec",
         "z": "df2ae089.27e66",
-        "command": "speaker-test -c2 -t sine -b 1000 -p 1000 -f 40 -l 1 -s 2",
+        "command": "speaker-test -c2 -t sine -f 99 -b 1000 -p 1000 -f 40 -l 1 -s 2",
         "addpay": false,
         "append": "",
         "useSpawn": "",
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 1210,
+        "x": 1220,
         "y": 740,
         "wires": [
             [],
@@ -1843,7 +1843,8 @@
             "3dbd7d64.be3ff2",
             "7acc88f8.260048",
             "78a2a961.d6d0e8",
-            "18d99c8e.b3f043"
+            "18d99c8e.b3f043",
+            "af9dc596.ff09c8"
         ],
         "x": 175,
         "y": 2080,
@@ -3367,7 +3368,8 @@
             "a7b023e4.1a3fb",
             "6664f61.a403808",
             "fb67929c.cce7a",
-            "a7ca9652.382d78"
+            "a7ca9652.382d78",
+            "eaaa905e.7c05d"
         ],
         "x": 535,
         "y": 3660,
@@ -4408,7 +4410,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 220,
+        "x": 240,
         "y": 280,
         "wires": [
             [
@@ -4528,336 +4530,14 @@
         ]
     },
     {
-        "id": "a7ca9652.382d78",
-        "type": "link in",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "links": [
-            "92963650.708088"
-        ],
-        "x": 155,
-        "y": 440,
-        "wires": [
-            [
-                "de82324a.87bd9"
-            ]
-        ]
-    },
-    {
         "id": "5c7bc636.1ae7f8",
         "type": "comment",
         "z": "4c1f2825.5c8bc8",
         "name": "Eieruhr",
         "info": "",
-        "x": 170,
-        "y": 360,
+        "x": 190,
+        "y": 1560,
         "wires": []
-    },
-    {
-        "id": "de82324a.87bd9",
-        "type": "function",
-        "z": "4c1f2825.5c8bc8",
-        "name": "Keyboard 45,",
-        "func": "if (msg.payload==\"on 45,\") {\n  return msg;\n  }",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 270,
-        "y": 440,
-        "wires": [
-            [
-                "c96e495f.9fe948"
-            ]
-        ]
-    },
-    {
-        "id": "b2791061.4ed19",
-        "type": "link out",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "links": [
-            "6b533d6.c015cc4"
-        ],
-        "x": 695,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "43a5525f.78e6ec",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Start Eieruhr noch 5 Minuten, denk auch an die Brötchen.",
-        "output": "str",
-        "x": 560,
-        "y": 500,
-        "wires": [
-            [
-                "b2791061.4ed19"
-            ]
-        ]
-    },
-    {
-        "id": "257f83aa.21f34c",
-        "type": "inject",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 220,
-        "y": 400,
-        "wires": [
-            [
-                "d8919469.27bfa8",
-                "43a5525f.78e6ec"
-            ]
-        ]
-    },
-    {
-        "id": "c96e495f.9fe948",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 500,
-        "wires": [
-            [
-                "43a5525f.78e6ec",
-                "d8919469.27bfa8"
-            ]
-        ]
-    },
-    {
-        "id": "d8919469.27bfa8",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "60",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 560,
-        "wires": [
-            [
-                "e8c45bf2.8e57b8",
-                "9d1aa29d.98ab5"
-            ]
-        ]
-    },
-    {
-        "id": "e8c45bf2.8e57b8",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "60",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 620,
-        "wires": [
-            [
-                "6b2a18b7.947458",
-                "968d1468.a33cb8"
-            ]
-        ]
-    },
-    {
-        "id": "6b2a18b7.947458",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "60",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 680,
-        "wires": [
-            [
-                "ec0b2adf.de45b8",
-                "a5b0115c.a9947"
-            ]
-        ]
-    },
-    {
-        "id": "ec0b2adf.de45b8",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "60",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 740,
-        "wires": [
-            [
-                "3f8b0372.155a5c",
-                "c956165e.7cc378"
-            ]
-        ]
-    },
-    {
-        "id": "3f8b0372.155a5c",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "60",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 800,
-        "wires": [
-            [
-                "43c578e2.ad0348"
-            ]
-        ]
-    },
-    {
-        "id": "9d1aa29d.98ab5",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Eieruhr noch 4 Minuten, denk auch an die Brötchen.\n",
-        "output": "str",
-        "x": 560,
-        "y": 560,
-        "wires": [
-            [
-                "b2791061.4ed19"
-            ]
-        ]
-    },
-    {
-        "id": "968d1468.a33cb8",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Eieruhr noch 3 Minuten, denk auch an die Brötchen und den Tee.\n",
-        "output": "str",
-        "x": 560,
-        "y": 620,
-        "wires": [
-            [
-                "b2791061.4ed19"
-            ]
-        ]
-    },
-    {
-        "id": "a5b0115c.a9947",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Eieruhr noch 2 Minuten, denk auch an die Brötchen.\n",
-        "output": "str",
-        "x": 560,
-        "y": 680,
-        "wires": [
-            [
-                "b2791061.4ed19"
-            ]
-        ]
-    },
-    {
-        "id": "43c578e2.ad0348",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Eier sind fertig gekocht.",
-        "output": "str",
-        "x": 560,
-        "y": 800,
-        "wires": [
-            [
-                "b2791061.4ed19"
-            ]
-        ]
-    },
-    {
-        "id": "c956165e.7cc378",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Eieruhr noch eine Minute, denk auch an die Brötchen.\n",
-        "output": "str",
-        "x": 560,
-        "y": 740,
-        "wires": [
-            [
-                "b2791061.4ed19"
-            ]
-        ]
     },
     {
         "id": "d66a30ba.1bccc",
@@ -5528,7 +5208,8 @@
         "wires": [
             [
                 "7eb923c7.25e81c",
-                "5fb66e3f.c504e"
+                "5fb66e3f.c504e",
+                "5e59ed62.878c84"
             ]
         ]
     },
@@ -5539,8 +5220,8 @@
         "name": "",
         "attr": "",
         "chr": "",
-        "x": 714.4666137695312,
-        "y": 280.33952236175537,
+        "x": 770,
+        "y": 300,
         "wires": [
             [
                 "c93347d0.af0228",
@@ -5559,8 +5240,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 803.452205657959,
-        "y": 339.371609210968,
+        "x": 770,
+        "y": 260,
         "wires": []
     },
     {
@@ -5574,7 +5255,7 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 890,
+        "x": 930,
         "y": 260,
         "wires": []
     },
@@ -5586,8 +5267,8 @@
         "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Chemnitztemperatur beträgt \"+Temperatur+\" Grad Celsius. Gemessen von open Wetter Mapp Punkt Org\" ;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 895.6067810058594,
-        "y": 280.18922328948975,
+        "x": 930,
+        "y": 300,
         "wires": [
             [
                 "bd1bdd5d.f0d7a",
@@ -5615,8 +5296,8 @@
         "links": [
             "6b533d6.c015cc4"
         ],
-        "x": 1079.5422325134277,
-        "y": 221.6506314277649,
+        "x": 1095,
+        "y": 340,
         "wires": []
     },
     {
@@ -5743,7 +5424,8 @@
         "z": "a49d08e2.c6bc28",
         "name": "rvlc",
         "links": [
-            "4f8bdcbe.08de84"
+            "4f8bdcbe.08de84",
+            "8bd56f66.48157"
         ],
         "x": 295,
         "y": 600,
@@ -6012,7 +5694,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 540,
+        "x": 560,
         "y": 1980,
         "wires": [
             [
@@ -6521,8 +6203,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 330,
-        "y": 2040,
+        "x": 350,
+        "y": 1980,
         "wires": [
             [
                 "fe68c44a.89dab8"
@@ -6544,8 +6226,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 350,
-        "y": 340,
+        "x": 290,
+        "y": 460,
         "wires": [
             [
                 "a4a8d729.e87b38",
@@ -6564,8 +6246,8 @@
         "syntax": "mustache",
         "template": "Im Keller stehen noch 6 Kirsch- und 12 Pflaumenkompott.\n",
         "output": "str",
-        "x": 590,
-        "y": 340,
+        "x": 610,
+        "y": 440,
         "wires": [
             [
                 "e2e04866.0276d8"
@@ -6580,8 +6262,8 @@
         "links": [
             "6b533d6.c015cc4"
         ],
-        "x": 895,
-        "y": 380,
+        "x": 835,
+        "y": 440,
         "wires": []
     },
     {
@@ -6596,8 +6278,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 160,
-        "y": 320,
+        "x": 240,
+        "y": 380,
         "wires": [
             [
                 "a4a8d729.e87b38"
@@ -7019,7 +6701,7 @@
         "func": "//aus SONNE_UND_MOND.xml\n  var t = new Date();\n  var tn = new Date(2015,9,13);//irgendein nahegelegener Neumond\n  var phi = (t.valueOf() % 31556952000)/31556952000*2*Math.PI+0.19191919;\n  var sonnex = Math.sin(phi)*150+400;\n  var sonney = Math.cos(phi)*150+200;\n  var kw = ((t.valueOf()-tn.valueOf()) % 2551392000) / 2551392000;\n  var mphi=kw*2*Math.PI+phi;\n  var mmphi = -mphi*180/Math.PI;\n  var mondx = Math.sin(mphi)*150+400;\n  var mondy = Math.cos(mphi)*150+200;\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cx\", sonnex);\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cy\", sonney);\n  //evt.target.getElementById(\"mond\").setAttribute(\"transform\", \"translate(400,200) rotate(\"+mmphi+\")\");\n  var Zenitstand=new Date(kw*86400000+43200000);\n  msg.payload=\"Deer Moond steht im Zenit um \"+Zenitstand.getHours()+\" Uhr und \"+Zenitstand.getMinutes()+\" Minuten\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 570,
+        "x": 610,
         "y": 1000,
         "wires": [
             [
@@ -7055,7 +6737,7 @@
         "links": [
             "6b533d6.c015cc4"
         ],
-        "x": 695,
+        "x": 735,
         "y": 1000,
         "wires": []
     },
@@ -8091,7 +7773,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "10",
+        "repeat": "59",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -8253,7 +7935,7 @@
         "z": "4c1f2825.5c8bc8",
         "command": "wget",
         "addpay": false,
-        "append": "-r https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/MaximalAltitudeTime",
+        "append": "-r https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/MaximalAltitudeTime.xml",
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
@@ -8283,7 +7965,7 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 630,
+        "x": 750,
         "y": 1340,
         "wires": []
     },
@@ -8292,16 +7974,17 @@
         "type": "file in",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "filename": "/home/pi/MaximalAltitudeTime",
+        "filename": "/home/pi/MaximalAltitudeTime.xml",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
-        "x": 490,
+        "x": 500,
         "y": 1280,
         "wires": [
             [
-                "656d5afe.90bf64"
+                "656d5afe.90bf64",
+                "308c97c6.c71558"
             ]
         ]
     },
@@ -8347,7 +8030,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "var m=msg.payload;\nvar a=m.Expression.Function[0].Function;\nvar sonne=a[0].Function[0].Function[0].Number;\nvar ret=\"Zenitschtand Sohne \"+sonne[3]+\" Uhr \"+sonne[4]+\",\";\nvar mond=a[1].Function[0].Function[0].Number;\nret=ret+\" Moond \"+mond[3]+\" Uhr \"+mond[4]+\",\";\nvar name=a[2].Function[0].Function;\nvar planet=a[3].Function[0].Function;\nfor (var i=0;i<8;i++) if (i!=2) {\n  var n=name[i].String[1];\n  var t=planet[i].Function[0].Number;\n  ret=ret+\" \"+n+\" \"+t[3]+\" Uhr \"+t[4]+\",\";\n  }\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
+        "func": "var m=msg.payload;\nvar a=m.Expression.Function[0].Function;\nvar sonne=a[0].Function[0].Function[0].Number;\nvar ret=\"Zenitschtand Sonne \"+sonne[3]+\" Uhr \"+sonne[4]+\",\";\nvar mond=a[1].Function[0].Function[0].Number;\nret=ret+\" Mohnd \"+mond[3]+\" Uhr \"+mond[4]+\",\";\nvar name=a[2].Function[0].Function;\nvar planet=a[3].Function[0].Function;\nfor (var i=0;i<8;i++) if (i!=2) {\n  var n=name[i].String[1];\n  var t=planet[i].Function[0].Number;\n  ret=ret+\" Planeet \"+n+\" \"+t[3]+\" Uhr \"+t[4]+\",\";\n  }\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 470,
@@ -8533,7 +8216,9 @@
         "wires": [
             [
                 "18d99c8e.b3f043",
-                "237ff7c5.78a928"
+                "21d72d41.25d012",
+                "237ff7c5.78a928",
+                "2000e038.0815a"
             ]
         ]
     },
@@ -8587,9 +8272,7 @@
         "x": 370,
         "y": 520,
         "wires": [
-            [
-                "bfebae1e.ceda1"
-            ]
+            []
         ]
     },
     {
@@ -8601,5 +8284,478 @@
         "x": 310,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "21d72d41.25d012",
+        "type": "template",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "volume 60",
+        "output": "str",
+        "x": 520,
+        "y": 420,
+        "wires": [
+            [
+                "8bd56f66.48157"
+            ]
+        ]
+    },
+    {
+        "id": "8bd56f66.48157",
+        "type": "link out",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "links": [
+            "30e558.70cfbaa8"
+        ],
+        "x": 500,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "79012fa0.fd97c",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "Email-LED an",
+        "links": [
+            "2000e038.0815a"
+        ],
+        "x": 295,
+        "y": 4840,
+        "wires": [
+            [
+                "4c7ecada.f14ef4"
+            ]
+        ]
+    },
+    {
+        "id": "2000e038.0815a",
+        "type": "link out",
+        "z": "c82fd5f1.38c628",
+        "name": "",
+        "links": [
+            "79012fa0.fd97c"
+        ],
+        "x": 515,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "534eb753.4c4558",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "volume 270",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 790,
+        "y": 2220,
+        "wires": [
+            [
+                "2dfc3d90.da7212"
+            ]
+        ]
+    },
+    {
+        "id": "5915c9f8.4a0158",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 770,
+        "y": 2280,
+        "wires": [
+            [
+                "2dfc3d90.da7212"
+            ]
+        ]
+    },
+    {
+        "id": "5e59ed62.878c84",
+        "type": "http request",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Wetter Chemnitz",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "api.openweathermap.org/data/2.5/weather?id=6548527&units=metric&lang=de&mode=xml&appid=91eb3d05b7334e267c90305acba2c49a",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 340,
+        "wires": [
+            [
+                "43a9cc6f.554b64"
+            ]
+        ]
+    },
+    {
+        "id": "43a9cc6f.554b64",
+        "type": "xml",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "attr": "",
+        "chr": "",
+        "x": 770,
+        "y": 360,
+        "wires": [
+            [
+                "ced03b3a.cc5d48"
+            ]
+        ]
+    },
+    {
+        "id": "ced03b3a.cc5d48",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Luft Temperatur in Raun beträgt \"+Temperatur+\" Grad Celsius.\" ;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 930,
+        "y": 360,
+        "wires": [
+            [
+                "449f4847.b0f968"
+            ]
+        ]
+    },
+    {
+        "id": "a30a3739.a14d18",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Keyboard 45,",
+        "func": "if (msg.payload==\"on 45,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 1660,
+        "wires": [
+            [
+                "fc12416b.69738"
+            ]
+        ]
+    },
+    {
+        "id": "eaaa905e.7c05d",
+        "type": "link in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "92963650.708088"
+        ],
+        "x": 195,
+        "y": 1660,
+        "wires": [
+            [
+                "a30a3739.a14d18"
+            ]
+        ]
+    },
+    {
+        "id": "fc12416b.69738",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 1720,
+        "wires": [
+            [
+                "8e725d32.069c6",
+                "eab8f931.c6fff8"
+            ]
+        ]
+    },
+    {
+        "id": "8e725d32.069c6",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Start Eieruhr noch 5 Minuten, denk auch an die Brötchen.",
+        "output": "str",
+        "x": 600,
+        "y": 1720,
+        "wires": [
+            [
+                "af9dc596.ff09c8"
+            ]
+        ]
+    },
+    {
+        "id": "eab8f931.c6fff8",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 1780,
+        "wires": [
+            [
+                "6cf9cf8c.eb6a1",
+                "2f9b9e8d.247ae2"
+            ]
+        ]
+    },
+    {
+        "id": "af9dc596.ff09c8",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 735,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "5486e81.d598c18",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 1620,
+        "wires": [
+            [
+                "eab8f931.c6fff8",
+                "8e725d32.069c6"
+            ]
+        ]
+    },
+    {
+        "id": "6cf9cf8c.eb6a1",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 1840,
+        "wires": [
+            [
+                "f96bc398.bcf68",
+                "f5c6176d.530988"
+            ]
+        ]
+    },
+    {
+        "id": "2f9b9e8d.247ae2",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch 4 Minuten, denk auch an die Brötchen.\n",
+        "output": "str",
+        "x": 600,
+        "y": 1780,
+        "wires": [
+            [
+                "af9dc596.ff09c8"
+            ]
+        ]
+    },
+    {
+        "id": "f5c6176d.530988",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch 3 Minuten, denk auch an die Brötchen und den Tee.\n",
+        "output": "str",
+        "x": 600,
+        "y": 1840,
+        "wires": [
+            [
+                "af9dc596.ff09c8"
+            ]
+        ]
+    },
+    {
+        "id": "cc7e762c.7aa738",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch 2 Minuten, denk auch an die Brötchen.\n",
+        "output": "str",
+        "x": 600,
+        "y": 1900,
+        "wires": [
+            [
+                "af9dc596.ff09c8"
+            ]
+        ]
+    },
+    {
+        "id": "cd1e6de9.7f021",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eier sind fertig gekocht.",
+        "output": "str",
+        "x": 600,
+        "y": 2020,
+        "wires": [
+            [
+                "af9dc596.ff09c8"
+            ]
+        ]
+    },
+    {
+        "id": "f82e85f2.a50ed8",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Eieruhr noch eine Minute, denk auch an die Brötchen.\n",
+        "output": "str",
+        "x": 600,
+        "y": 1960,
+        "wires": [
+            [
+                "af9dc596.ff09c8"
+            ]
+        ]
+    },
+    {
+        "id": "f96bc398.bcf68",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 1900,
+        "wires": [
+            [
+                "f3e280b7.2c94c",
+                "cc7e762c.7aa738"
+            ]
+        ]
+    },
+    {
+        "id": "51192ca1.67bb74",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 2020,
+        "wires": [
+            [
+                "cd1e6de9.7f021"
+            ]
+        ]
+    },
+    {
+        "id": "f3e280b7.2c94c",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 1960,
+        "wires": [
+            [
+                "51192ca1.67bb74",
+                "f82e85f2.a50ed8"
+            ]
+        ]
     }
 ]
