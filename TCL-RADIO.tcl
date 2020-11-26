@@ -1,21 +1,15 @@
-wm geometry . +200+200
-wm title . "Feet to Meters"
+wm geometry . +00+300
+wm title . "Radio"
 grid [ttk::frame .c -padding "3 3 12 12"] -column 0 -row 0 -sticky nwes
 grid columnconfigure . 0 -weight 1; grid rowconfigure . 0 -weight 1
 
-grid [ttk::entry .c.feet -width 7 -textvariable feet] -column 2 -row 1 -sticky we
-grid [ttk::label .c.meters -textvariable meters] -column 2 -row 2 -sticky we
-grid [ttk::button .c.calc -text "Calculate" -command calculate] -column 3 -row 3 -sticky w
-grid [ttk::button .c.radioaus -text "Radio aus" -command RadioAus] -column 2 -row 3 -sticky w
-grid [ttk::button .c.radioan  -text "Radio an " -command RadioAn ] -column 1 -row 3 -sticky w
+grid [ttk::button .c.radioan  -text "Radio an " -command RadioAn ] -column 1 -row 2 -sticky w
+grid [ttk::button .c.radioaus -text "Radio aus" -command RadioAus] -column 1 -row 3 -sticky w
+grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 4 -sticky w
 
-grid [ttk::label .c.flbl -text "feet"] -column 3 -row 1 -sticky w
-grid [ttk::label .c.islbl -text "is equivalent to"] -column 1 -row 2 -sticky e
-grid [ttk::label .c.mlbl -text "meters"] -column 3 -row 2 -sticky w
 
-foreach w [winfo children .c] {grid configure $w -padx 5 -pady 5}
+foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
 
-focus .c.feet
 bind . <Return> {calculate}
 
 proc RadioAus {} {  
@@ -32,16 +26,9 @@ close $outfile
 
 }
 
-proc calculate {} {  
-   if {[catch {
-       set ::meters [expr {round($::feet*0.3048*10000.0)/10000.0}]
-   }]!=0} {
-       set ::meters ""
-   }
-set outfile [open "TCL-OUTPUT" w]
-puts $outfile "Radio aus"
-close $outfile
+proc RPIB {} {
+  exec lxterminal -e "stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; cp /dev/ttyS0 /dev/tty & cp /dev/tty /dev/ttyS0" &
+  }
 
-}
 vwait forever
 
