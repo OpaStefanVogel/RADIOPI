@@ -1,5 +1,5 @@
 speaker-test -c 2 -t wave -l 1
-cd 
+lxterminal -e "sudo watch cat /proc/swaps" &
 cd Desktop/CLONE/RADIOPI/
 screen -d -m node-red ./flows_Radio.json & #nicht mehr sudo systemctl enable nodered.service
 wish TCL-RADIO.tcl &

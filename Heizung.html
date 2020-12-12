@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><title>Heizung</title></head>
+
+<style>
+button {font-size:1.3em}
+.nicht_verbunden {color:darkred}
+.versuche_zu_verbinden {
+  color:orange;
+  animation: textflimmern 500ms infinite alternate;
+  border-radius:15px;
+  padding:5px;
+  }
+.verbunden {color:green}
+.c {text-align:center}
+.Hilfetext{color:grey;font-style:italic;font-size:85%}
+
+@keyframes textflimmern {
+  0% {background-color:lightgreen}
+  50% {background-color:yellow}
+  100% {background-color:pink}
+  }
+
+  </style>
+
+<script id="scr" type="application/ecmascript">
+var Attempting_to_connect=0;
+var Attempting_to_connect_mem=-1;
+var No_route_to_host=0;
+var No_route_to_host_mem=-1;
+var Connection_successful=0;
+var Connection_successful_mem=-1;
+var Thermostat_connected=0;//von -10 bis 1
+var Disconnected=0;
+var Disconnected_mem=-1;
+var Notification_handle=0;
+var Notification_handle_mem=-1;
+var Characteristic_value_was_written_successful=0;
+var Characteristic_value_was_written_successful_mem=0;
+var connect=0;
+var connect_mem=-1;
+var char_write_req=0;
+var char_write_req_mem=-1;
+var disconnect=0;
+var disconnect_mem=-1;
+var Test="";
+
+var websocket=0;
+var wgesamt="";
+var CodeArray=[];
+var websocket2=0;
+var websocket3=0;
+function websocket_verbinden(URL) {
+  var Basisadresse=document.baseURI;
+  var Websocketadresse=URL;
+  if (Basisadresse.indexOf(":188")>-1&&URL==undefined)
+    Websocketadresse="ws"+Basisadresse.slice(4,Basisadresse.indexOf(":188")+5)+"/ws/gatttool2";
+  document.getElementById("baseURI").firstChild.nodeValue=Basisadresse+" "+Websocketadresse;
+  if (websocket!=0) websocket.close();
+  var Adresse=Websocketadresse;
+  if (Adresse==undefined) Adresse=document.getElementById("Websocket_Adresse").value;
+  websocket = new WebSocket(Adresse,"fiktiv");
+  websocket.onerror=function(event) {websocket_verbinden("ws://modellbahnpult:1880/ws/gatttool")};
+  websocket.onmessage = function(event) {
+    var w=event.data;
+    //alert(w+"####");
+    var textarea=document.getElementById("Websocket-Antwort");
+    textarea.value+=w; //firstChild.nodeValue+=w;
+    textarea.scrollTop = textarea.scrollHeight;
+    if ((w.slice(-2)=="> ")||(w.slice(-4)=="gap>")) {
+//      if (noch_nicht_gesendet>0) {
+      if (false) {
+        //alert(noch_nicht_gesendet);
+        //alert(CodeArray[CodeArray.length-noch_nicht_gesendet]);
+        //textarea.value+=CodeArray[CodeArray.length-noch_nicht_gesendet]+"\n";
+        //textarea.scrollTop = textarea.scrollHeight;
+        document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Noch zu rechnen "+noch_nicht_gesendet+" Zeilen, bisher "+textarea.value.length+" Zeichen empfangen.";
+        if (CodeArray[CodeArray.length-noch_nicht_gesendet].length>0)
+          websocket.send(CodeArray[CodeArray.length-noch_nicht_gesendet]);
+        noch_nicht_gesendet=noch_nicht_gesendet-1;
+        } else {
+          document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Fertig.";
+          }          
+      } else {
+        document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Noch zu rechnen "+noch_nicht_gesendet+" Zeilen, bisher "+textarea.value.length+" Zeichen empfangen.";
+        }
+    
+    var Thermostat=document.getElementById("Thermostat");
+    var tav=textarea.value;
+    
+    Attempting_to_connect=tav.indexOf("Attempting to connect",Attempting_to_connect_mem);
+    if (Attempting_to_connect>Attempting_to_connect_mem) {
+      Thermostat.firstChild.nodeValue="Attempting to connect";
+      Thermostat.setAttribute("class","versuche_zu_verbinden");
+      Attempting_to_connect_mem=Attempting_to_connect+1;
+      }
+
+    No_route_to_host=tav.indexOf("No route to host",No_route_to_host_mem);
+    if (No_route_to_host>No_route_to_host_mem) {
+      Thermostat.firstChild.nodeValue="No route to host";
+      Thermostat.setAttribute("class","nicht_verbunden");
+      No_route_to_host_mem=No_route_to_host+1;
+      }
+    
+    Connection_successful=tav.indexOf("Connection successful",Connection_successful_mem);
+    if (Connection_successful>Connection_successful_mem) {
+      Thermostat.firstChild.nodeValue="Connection successful";
+      Thermostat.setAttribute("class","verbunden");
+      document.getElementById("t01").firstChild.nodeValue="Connection successful";
+      document.getElementById("t0").setAttribute("class","verbunden");
+      Connection_successful_mem=Connection_successful+1;
+      Thermostat_connected=1;
+//      CodeArray=document.getElementById("Ausgabe").lastChild.nodeValue.trim().split("\n");
+      document.getElementById("Ausgabe").lastChild.nodeValue="";
+      noch_nicht_gesendet=CodeArray.length-2;
+      document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Noch zu senden: "+noch_nicht_gesendet+" Zeilen";
+      if (CodeArray[1].length>0) versuche_zu_uebertragen(CodeArray[1],10,1);
+      }
+
+    Characteristic_value_was_written_successful=tav.indexOf(
+      "Characteristic value was written successful"
+      ,Characteristic_value_was_written_successful_mem);
+    if (Characteristic_value_was_written_successful>
+      Characteristic_value_was_written_successful_mem&&Thermostat_connected>0) {
+      //Thermostat.firstChild.nodeValue="Characteristic value was written successful";
+      //Thermostat.setAttribute("class","verbunden");
+      document.getElementById("Sendetext").firstChild.nodeValue="Übertragung beendet"
+      document.getElementById("Übertragung").firstChild.nodeValue="ok";
+      document.getElementById("t"+Thermostat_connected+"1").firstChild.nodeValue=
+        "Characteristic value was written successful";
+      document.getElementById("t"+Thermostat_connected).setAttribute("class","verbunden");
+      Characteristic_value_was_written_successful_mem=
+        Characteristic_value_was_written_successful+1;
+      Thermostat_connected=Thermostat_connected+1;
+      if (noch_nicht_gesendet>0) {
+        //alert(noch_nicht_gesendet);
+        //alert(CodeArray[CodeArray.length-noch_nicht_gesendet]);
+        //textarea.value+=CodeArray[CodeArray.length-noch_nicht_gesendet]+"\n";
+        //textarea.scrollTop = textarea.scrollHeight;
+        document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Noch zu rechnen "+noch_nicht_gesendet+" Zeilen, bisher "+textarea.value.length+" Zeichen empfangen.";
+        if (CodeArray[CodeArray.length-noch_nicht_gesendet].length>0) {
+          //Thermostat_connected=Thermostat_connected+1;
+          versuche_zu_uebertragen(CodeArray[CodeArray.length-noch_nicht_gesendet],10,        Thermostat_connected);
+//          websocket.send(CodeArray[CodeArray.length-noch_nicht_gesendet]);
+          }
+        noch_nicht_gesendet=noch_nicht_gesendet-1;
+        } else {
+          document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Fertig.";
+          //setTimeout(function () {websocket.send('disconnect')},3000);
+          }
+      }       
+ 
+    Notification_handle=tav.indexOf("Notification handle",Notification_handle_mem);
+    if (Notification_handle>Notification_handle_mem) {
+      var hand=tav.slice(Notification_handle+36,Notification_handle+41);
+      var temp=tav.slice(Notification_handle+51,Notification_handle+53);
+      if (hand=="02 01"&&temp.length==2) {
+        temp=eval("0x"+temp)/2;
+        document.getElementById("Temperatur").firstChild.nodeValue=temp;
+        document.getElementById("Temperatur").setAttribute("class","verbunden");
+        var modus=tav.slice(Notification_handle+43,Notification_handle+44);
+        if (modus%8==0) modus="auto";
+        if (modus%8==1) modus="manu";
+        document.getElementById("Modus").firstChild.nodeValue=modus;
+        document.getElementById("Modus").setAttribute("class","verbunden");
+        var ventil=tav.slice(Notification_handle+45,Notification_handle+47);
+        ventil=Math.round(eval("0x"+ventil)/256*100);
+        document.getElementById("Ventil").firstChild.nodeValue=ventil;
+        document.getElementById("Ventil").setAttribute("class","verbunden");
+        var batt=tav.slice(Notification_handle+42,Notification_handle+43);
+        if (batt>7) batt="low"; else batt="ok";
+        document.getElementById("Batterie").firstChild.nodeValue=batt;
+        document.getElementById("Batterie").setAttribute("class","verbunden");
+        Notification_handle_mem=Notification_handle+1;
+        }
+      if (tav.indexOf("\n",Notification_handle)>-1) Notification_handle_mem=Notification_handle+1;
+      }
+    
+    Disconnected=textarea.value.indexOf("disconnect\n[",Disconnected_mem);
+    if (Disconnected>Disconnected_mem) {
+      Thermostat.firstChild.nodeValue="disconnected";
+      Thermostat.setAttribute("class","nicht_verbunden");
+      document.getElementById("t"+Thermostat_connected+"1").firstChild.nodeValue=
+        "Disconnected";
+      document.getElementById("t"+Thermostat_connected).setAttribute("class","verbunden");
+      document.getElementById('Testbutton').innerHTML="&nbsp;";
+      Disconnected_mem=Disconnected+1;
+      Thermostat_connected=0;
+      }
+
+    connect=textarea.value.indexOf("> connect",connect_mem);
+    if (connect>connect_mem) {
+      document.getElementById("t00").setAttribute("class","verbunden");
+      connect_mem=connect+1;
+      }
+    
+    char_write_req=textarea.value.indexOf("> "+Test+"char-write-req",char_write_req_mem);
+    if (char_write_req>char_write_req_mem) {
+      document.getElementById("t"+Thermostat_connected+"0").setAttribute("class","verbunden");
+      char_write_req_mem=char_write_req+1;
+      }
+
+    disconnect=textarea.value.indexOf("> "+Test+"disconnect",disconnect_mem);
+    if (disconnect>disconnect_mem) {
+      document.getElementById("t"+Thermostat_connected+"0").setAttribute("class","verbunden");
+      disconnect_mem=disconnect+1;
+      }
+
+    };
+  websocket.onopen = function() {
+    websocket.send('disconnect');
+    //restart_GAP();
+    //alert("open");
+    }; 
+  websocket.onclose = function() {
+    //alert(77);
+    //websocket.send("close");
+    };
+
+  //alert(Adresse);
+  if (Adresse=="ws://modellbahnpult:1880/ws/gatttool") {
+    websocket2 = new WebSocket("ws://modellbahnpult:1880/ws/Wetter","fiktiv");
+    } else {
+      websocket2 = new WebSocket(Adresse.replace("gatttool2","Wetter"),"fiktiv");
+      }
+  websocket2.onerror=function(event) {
+    };
+  websocket2.onmessage = function(event) {
+    var w=event.data;
+    document.getElementById("aktuelle_Chemnitz_Temperatur").firstChild.nodeValue=w;
+    };
+  websocket2.onopen = function() {
+    websocket2.send('Wetter');
+    //restart_GAP();
+    //alert("open");
+    }; 
+  websocket2.onclose = function() {
+    //alert(77);
+    //websocket.send("close");
+    }
+
+  if (Adresse=="ws://modellbahnpult:1880/ws/gatttool") {
+    websocket3 = new WebSocket("ws://modellbahnpult:1880/ws/Ferien","fiktiv");
+    } else {
+      websocket3 = new WebSocket(Adresse.replace("gatttool2","Ferien"),"fiktiv");
+      }
+  websocket3.onerror=function(event) {
+    };
+  websocket3.onmessage = function(event) {
+    var w=event.data;
+    //alert(w);
+    document.getElementById("Ferien").firstChild.nodeValue=w;
+    };
+  websocket3.onopen = function() {
+    websocket3.send('Wetter');
+    //restart_GAP();
+    //alert("open");
+    }; 
+  websocket3.onclose = function() {
+    //alert(77);
+    //websocket.send("close");
+    };
+  }
+
+function websocket_verbunden() {
+  if (websocket!=0) {
+    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING","OPEN","CLOSING","CLOSED"])[websocket.readyState];
+    var elm=document.getElementById("Raspberry Pi")
+    elm.firstChild.nodeValue=(["wird verbunden","Verbindung ist hergestellt","Verbindung wird getrennt","nicht verbunden (Seite neu laden für neuen Versuch)"])[websocket.readyState];
+    elm.setAttribute("class",(["versuche_zu_verbinden","verbunden","Verbindung_wird_getrennt","nicht_verbunden"])[websocket.readyState]);
+    }
+  }
+setInterval(websocket_verbunden,1000);
+
+var noch_nicht_gesendet=0;
+var CodeArray=[];
+function ueber_websocket_ausrechnen(event) {
+  markiere_Button(event,zuletzt_GAP_angeklickt);
+  CodeArray=document.getElementById("Ausgabe").lastChild.nodeValue.split("\n");
+  //alert(CodeArray);
+  var textarea=document.getElementById("Websocket-Antwort");
+  //textarea.value="gap> "+CodeArray[0]+"\n";PLOT1=0;PLOT2=0;
+  //textarea.scrollTop = textarea.scrollHeight;
+  noch_nicht_gesendet=CodeArray.length-1;
+  document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Noch zu rechnen "+noch_nicht_gesendet+" Zeilen.";
+  websocket.send(CodeArray[0]);
+  }
+
+function ueber_websocket_testen(event,Testinput) {
+  //markiere_Button(event,zuletzt_GAP_angeklickt);
+  CodeArray=document.getElementById(Testinput).value.split("\n");
+  //alert(CodeArray);
+  //var textarea=document.getElementById("Websocket-Antwort");
+  //textarea.value+=CodeArray[0]+"\n";//PLOT1=0;PLOT2=0;
+  //textarea.scrollTop = textarea.scrollHeight;
+  noch_nicht_gesendet=CodeArray.length-1;
+  document.getElementById("noch_zu_rechnen").firstChild.nodeValue="Noch zu rechnen: "+noch_nicht_gesendet+" Zeilen";
+  websocket.send(CodeArray[0]);
+  }
+
+function restart_GAP(event) {
+  markiere_Button(event,zuletzt_GAP_angeklickt);
+  noch_nicht_gesendet=0;
+  document.getElementById("Websocket-Antwort").value="";
+  document.getElementById("Beweglichkeit").firstChild.nodeValue="";
+  document.getElementById("Einsetzkanten").firstChild.nodeValue="";
+  document.getElementById("noch_zu_rechnen").firstChild.nodeValue="GAP wird neu gestartet, dauert etwas...(bis 20 Sek.)";
+  websocket.send("QUIT;");
+  }
+
+function Websocket_Display_aus_ein() {
+  var Display=document.getElementById("Websocket_Display");
+  if (Display.getAttribute("style")!=undefined) {
+    Display.removeAttribute("style");
+    var textarea=document.getElementById("Websocket-Antwort")
+    //textarea.value+="";
+    textarea.scrollTop = textarea.scrollHeight;
+    } else {
+      Display.setAttribute("style","display:none");
+      }
+  }
+
+function Uhrzeit_aktualisieren() {
+  websocket.send('Exec("date; sudo date -s @'+(Date.now()/1000)+'");');
+  }
+
+</script>
+<script id="scr" type="application/ecmascript">
+function number_to_hex(dauer) {
+  var thex=Math.round(dauer).toString(16);
+  if (thex.length==1) thex="0"+thex;
+  return thex;
+  }
+
+function temp_to_hex(temp) {
+  var thex=((temp.replace(",","."))*2).toString(16);
+  if (thex.length==1) thex="0"+thex;
+  return thex;
+  }
+
+function time_to_hex(time) {
+  var tim=time.split(":");
+  tim=(tim[0]*6+Math.floor(tim[1]/10)).toString(16);
+  if (tim.length==1) tim="0"+tim;
+  return tim;
+  }
+
+function req(text) {
+  if (document.getElementById("Websocket_Adresse").value.indexOf("modellbahnpult")>0) Test="#"; else Test="";
+  document.getElementById("Ausgabe").lastChild.nodeValue=text;
+  CodeArray=("connect "+document.getElementById("Thermostatadresse").value+"\n"+text.trim()+"\ndisconnect").split("\n");
+  for (var i=0;i<10;i++) {
+    document.getElementById("t"+i+"0").firstChild.nodeValue=" ";
+    document.getElementById("t"+i+"1").firstChild.nodeValue=" ";
+    document.getElementById("t"+i+"2").firstChild.nodeValue=" ";
+    document.getElementById("t"+i).setAttribute("class","nicht_verbunden");
+    document.getElementById("t"+i+"0").removeAttribute("class");
+    if (i<CodeArray.length) {
+      document.getElementById("t"+i+"0").firstChild.nodeValue=CodeArray[i].trim(); 
+      if (CodeArray[i]=="connect") document.getElementById("t"+i+"1").firstChild.nodeValue="Connection successful";
+      if (CodeArray[i].slice(0,4)=="char") document.getElementById("t"+i+"1").firstChild.nodeValue="Characteristic value was written successful";
+      if (CodeArray[i]=="disconnect") document.getElementById("t"+i+"1").firstChild.nodeValue="Disconnected";
+      document.getElementById("t"+i+"2").firstChild.nodeValue="0";
+      }
+    }
+  Thermostat_connected=-10;
+  document.getElementById('Testbutton').firstChild.nodeValue="Connection successful";
+  versuche_zu_verbinden();
+  //alert("connect\n"+text+"disconnect");
+  }
+
+function versuche_zu_verbinden() {
+  var tt=document.getElementById("Verbindung").firstChild;
+  if (Thermostat_connected<0) {
+    tt.nodeValue="noch "+(-Thermostat_connected)+" Versuche im 3 s Abstand";
+    document.getElementById("t02").firstChild.nodeValue=11+Thermostat_connected;
+    document.getElementById("t0").setAttribute("class","versuche_zu_verbinden");
+    Thermostat_connected=Thermostat_connected+1;
+    setTimeout(versuche_zu_verbinden,3000);
+    websocket.send("connect "+document.getElementById("Thermostatadresse").value);
+    } else if (Thermostat_connected==0) tt.nodeValue="hab leider keine Verbindung geschafft";
+      else tt.nodeValue="ok"; 
+  }
+
+function versuche_zu_uebertragen(text,num,stat) {
+  var st=document.getElementById("Sendetext").firstChild;
+  var tt=document.getElementById("Übertragung").firstChild;
+  //alert(Thermostat_connected+" "+stat);
+  if (Thermostat_connected==stat) {
+    st.nodeValue=text;
+    tt.nodeValue="noch "+num+" Versuche im Abstand 3 s";
+    document.getElementById("t"+Thermostat_connected+"2").firstChild.nodeValue=11-num;
+    document.getElementById("t"+Thermostat_connected).setAttribute("class","versuche_zu_verbinden");
+    //Thermostat_connected=Thermostat_connected+1;
+    if (text=="disconnect") document.getElementById('Testbutton').firstChild.nodeValue="Disconnected"; else document.getElementById('Testbutton').firstChild.nodeValue="Characteristic value was written successful";
+    if (num>1) setTimeout(versuche_zu_uebertragen,3000,text,num-1,stat);
+    //alert(text);
+    if (text=="disconnect")
+      setTimeout(function(){websocket.send(Test+"    "+text)},2000);
+      else websocket.send(Test+"    "+text);
+    } 
+  }
+
+</script>
+<script id="scr" type="application/ecmascript">
+function Status_abfragen() {
+  document.getElementById("Temperatur").firstChild.nodeValue="??";
+  document.getElementById("Temperatur").setAttribute("class","nicht_verbunden");
+  document.getElementById("Modus").firstChild.nodeValue="????";
+  document.getElementById("Modus").setAttribute("class","nicht_verbunden");
+  document.getElementById("Ventil").firstChild.nodeValue="??";
+  document.getElementById("Ventil").setAttribute("class","nicht_verbunden");
+  document.getElementById("Batterie").firstChild.nodeValue="??";
+  document.getElementById("Batterie").setAttribute("class","nicht_verbunden");
+  req("char-write-req 411 8000\n");//Statusabfrage über unlock-Funktion
+  }
+
+function Modus_auto() {
+  req("char-write-req 411 4000\n");
+  }
+
+function Modus_manu() {
+  req("char-write-req 411 4040\n");
+  }
+
+function Solltemperatur_einstellen(temp) {
+  req("char-write-req 411 41"+temp_to_hex(temp)+"\n");
+  }
+
+function Wochentemperatur_programmieren(tagzeit,ttag,nachtzeit,tnacht) {
+  //alert(tagzeit+" "+ttag+" "+nachtzeit+" "+tnacht);
+  var Code="";
+  for (i=0;i<7;i++) {
+    Code=Code+"char-write-req 411 100"+i
+      +temp_to_hex(tnacht)+time_to_hex(tagzeit)
+      +temp_to_hex(ttag)+time_to_hex(nachtzeit)
+      +temp_to_hex(tnacht)+"90\n";
+    }
+  req(Code);
+  }
+
+function Datum_aktualisieren() {
+  var jetzt=new Date();
+//  alert(jetzt);
+  req("char-write-req 411 03"
+    +number_to_hex(jetzt.getFullYear()%100)
+    +"02"
+    +number_to_hex(jetzt.getMonth())
+    +number_to_hex(jetzt.getDate())
+    +number_to_hex(jetzt.getHours())
+    +number_to_hex(jetzt.getMinutes())
+    +number_to_hex(jetzt.getSeconds())
+    +"\n");
+  }
+
+function Fenstermodus_konfigurieren(dauer,temp) {
+  req("char-write-req 411 14"+number_to_hex(dauer/5)+temp_to_hex(temp)+"\n");
+  }
+
+function Start_Boost_mode() {
+  req("char-write-req 411 45FF\n");
+  }
+
+function Stopp_Boost_mode() {
+  req("char-write-req 411 4500\n");
+  }
+
+</script>
+<script id="scr" type="application/ecmascript">
+
+</script>
+
+
+<body onload="websocket_verbinden()">
+Quellen:         <span style="float:right">→<a href="http://biz.no-ip.org/jpg-wx.php">Wetterstation</a> →<a href="Einkaufsliste.html">Einkaufsliste</a></span>
+<div><a href="https://github.com/OpaStefanVogel/HEIZUNGSPI/blob/master/Heizung.html" target="_blank">https://github.com/OpaStefanVogel/HEIZUNGSPI/blob/master/Heizung.html</a>         <span style="float:right; color violet">→<a href="https://www.schulferien.org/Sachsen/sachsen.html"><span id="Ferien" style="color:darkviolet">Ferien</span></a></span></div>
+<div><a href="https://github.com/Heckie75/eQ-3-radiator-thermostat/blob/master/eq-3-radiator-thermostat-api.md" target="_blank">https://github.com/Heckie75/eQ-3-radiator-thermostat/blob/master/eq-3-radiator-thermostat-api.md<a></div>
+
+<ul>
+
+<li>Verbindung zum (Heizungs-) Raspberry Pi: <span id="Raspberry Pi" class="nicht_verbunden">nicht verbunden (Seite nochmal laden)</span>. Aktuelle Chemnitz Temperatur: <a href="http://chzwetter.eu"><span id="aktuelle_Chemnitz_Temperatur">??</span></a> °C.</li>
+
+<li style="display:">Von dort zum Thermostat <input id="Thermostatadresse"  size="12" value="00:1A:22:11:07:08"/>: <span id="Thermostat" class="nicht_verbunden">disconnected</span> (<span id="Verbindung">wird erst bei einer nachfolgenden Eingabe verbunden</span>).</li>
+
+<li style="display:none">Im Thermostat: <span id="Sendetext" class="nicht_verbunden"> </span> (<span id="Übertragung"> </span>).</li>
+
+<li>Aktuellen Status <button onclick="Status_abfragen()">abfragen</button>: Temperatur <span id="Temperatur" class="nicht_verbunden">??</span> °C, Modus <span id="Modus" class="nicht_verbunden">????</span>, Ventil <span id="Ventil" class="nicht_verbunden">??</span>% geöffnet, Batterie <span id="Batterie" class="nicht_verbunden">??</span>. <div style="color:grey"><small><i>Falls nur ??°C trotz erfolgreicher Verbindung, nochmal "abfragen" drücken, denn gelegentlich fehlt die benötigte Antwort "Notification handle".</i></small></div></li>
+
+<li>Aktuelle Solltemperatur auf <input id="aktuelle_Solltemperatur" size="2" value="12"/> °C <button onclick="Solltemperatur_einstellen(document.getElementById('aktuelle_Solltemperatur').value)">einstellen</button> (gilt bis zum nächsten Umschaltzeitpunkt, oder <button onclick="Modus_auto()">auto</button>).
+<div class="Hilfetext">Temperatur als ganze °C oder halbe °C mit Komma 12,5 oder Dezimalpunkt 12.5 eingeben.</div></li>
+
+<li>Wochentemperatur ab <input id="Wochentemperatur_tagzeit" size="3" value="7:00"/> Uhr auf <input id="Wochentemperatur_tagsueber" size="2" value="20"/> °C und ab <input id="Wochentemperatur_nachtzeit" size="3" value="22:00"/> Uhr auf <input id="Wochentemperatur_nachts" size="2" value="17"/> °C <button onclick="Wochentemperatur_programmieren(document.getElementById('Wochentemperatur_tagzeit').value,document.getElementById('Wochentemperatur_tagsueber').value,document.getElementById('Wochentemperatur_nachtzeit').value,document.getElementById('Wochentemperatur_nachts').value)">programmieren</button>.</li>
+
+<li>Modus einstellen: <button onclick="Modus_manu()">manu</button> oder <button onclick="Modus_auto()">auto</button>.</li>
+
+<li><button onclick="Datum_aktualisieren()">Aktualisiere</button> Datum und Uhrzeit.</li>
+
+<li>Modus "Fenster auf" für <input id="Fenster_auf_Dauer" size="2" value="30"/> min auf <input id="Fenster_auf_Temperatur" size="2" value="12"/> °C <button onclick="Fenstermodus_konfigurieren(document.getElementById('Fenster_auf_Dauer').value,document.getElementById('Fenster_auf_Temperatur').value)">konfigurieren</button>.</li>
+
+<li><button onclick="Start_Boost_mode()">Start</button>, <button onclick="Stopp_Boost_mode()">Stopp</button> Boost Mode (5 Minuten)</li>
+
+<!--
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+-->
+
+  </ul>
+  
+<table border="1" style="border-collapse:separate; empty-cells:hide; font-family:Courier monospace; min-width:800px">
+<thead><tr style="text-align:left" class="verbunden"><th>gesendet</th><th>empfangen</th><th>Versuche im Abstand von 3 s</th></tr>
+  </thead>
+<tbody>
+<tr id="t0"><td id="t00"> </td><td id="t01"> </td><td id="t02" class="c"> </td></tr>
+<tr id="t1"><td id="t10"> </td><td id="t11"> </td><td id="t12" class="c"> </td></tr>
+<tr id="t2"><td id="t20"> </td><td id="t21"> </td><td id="t22" class="c"> </td></tr>
+<tr id="t3"><td id="t30"> </td><td id="t31"> </td><td id="t32" class="c"> </td></tr>
+<tr id="t4"><td id="t40"> </td><td id="t41"> </td><td id="t42" class="c"> </td></tr>
+<tr id="t5"><td id="t50"> </td><td id="t51"> </td><td id="t52" class="c"> </td></tr>
+<tr id="t6"><td id="t60"> </td><td id="t61"> </td><td id="t62" class="c"> </td></tr>
+<tr id="t7"><td id="t70"> </td><td id="t71"> </td><td id="t72" class="c"> </td></tr>
+<tr id="t8"><td id="t80"> </td><td id="t81"> </td><td id="t82" class="c"> </td></tr>
+<tr id="t9"><td id="t90"> </td><td id="t91"> </td><td id="t92" class="c"> </td></tr>
+</tbody></table>
+
+<div>gatttool -I</div>
+<div><span id="Websocket_Display"><textarea id="Websocket-Antwort" cols="80" rows="15" style="font-size:100%; white-space:pre; background-color:Aliceblue" readonly="readonly"></textarea></span></div>
+
+<div>zum Testen:
+<button onclick="websocket.send('#Notification handle = 0x0421 value: 02 01 00 10 04 26')">Notification handle</button>
+<button id="Testbutton" style="color:orange" onclick="websocket.send('#'+document.getElementById('Testbutton').firstChild.nodeValue)">&nbsp;</button>
+</div>
+<div style="display:none">document.baseURI=<span id="baseURI"> </span></div>
+<p style="white-space:pre-wrap; font-family:Courier,monospace; font-size:80%">Was alles nicht funktioniert:
+ok Notification handle kommt manchmal nicht zurück ok disconnect erst nach paar Sek.
+ok Heizung.html von außerhalb aus starten über Portumleitung, ok
+ok von außen dann auch Websocket ok wird aus baseURI abgeleitet
+ok Datum und Uhrzeit stimmen immerfort nicht ok inzwischen doch
+.. die Buttons gehen in manch Browser nicht größer zu machen
+ok nach Woche programmieren geht Status lesen nicht ok inzwischen ausgebessert
+ok Hinweis, wie weiter, wenn kein Notification handle kommt
+ok jetzige Umschaltzeiten 7:00 Uhr und 22:00 Uhr (oder ähnlich) einstellbar machen.
+ok animiertes css während Sendeversuch.
+ok halbe °C auch mit Komma statt Dezimalpunkt eingeben.
+.. wenn schon connected, läuft connect ins Leere
+.. wenn Fehler weil gleichzeitig von verschiedenen Stellen geschaltet wird, geht nur wiederholen.
+.. Sommerzeit ja/nein
+ok Außentemperatur und Link zur Wetterstation
+  </p>
+
+<div id="Websocket_Rahmen"><div style="display:none; outline:solid; outline-size: 5px; outline-color: beige;">
+<div>zu <input id="Websocket_Adresse" size="25" value="ws://heizung:1880/ws/gatttool2"/> <button onclick="websocket_verbinden()">Verbindung herstellen</button> <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> (falls nötig <button onclick="restart_GAP(event)">Restart GAP</button>)</div>
+<div><button onclick="Websocket_Display_aus_ein()" style="vertical-align:top">Display aus/ein ("aus" rechnet schneller)</button> <span id="noch_zu_rechnen"> </span> 
+<span id="Beweglichkeit" style="color: darkred; font-style: bold;"> </span>
+<span id="Einsetzkanten" style="color: yellowgreen; font-style: bold;"> </span></div>
+
+<div>1. Direkte Eingaben: <button onclick="websocket.send('connect')">connect</button>
+<button onclick="websocket.send('char-write-req 411 8000')">char-write-req 411 8000</button>
+<button onclick="websocket.send('char-write-req 411 4118')">char-write-req 411 4118</button>
+<button onclick="websocket.send('char-write-req 411 450318')">char-write-req 411 450318</button>
+<button onclick="websocket.send('disconnect')">disconnect</button>
+</div>
+<div>2. erwartete Antworten:
+<button onclick="websocket.send('#Connection successful')">Connection successful</button>
+<button onclick="websocket.send('#Characteristic value was written successful')">Characteristic value was written successful</button>
+<button onclick="websocket.send('#Notification handle = 0x0421 value: 02 01 00 10 04 26')">Notification handle</button>
+<button onclick="websocket.send('#Disconnected')">Disconnected</button>
+</div>
+<div><span style="vertical-align:top">3. Zusatztesteingabe:</span> <textarea id="Testinput1" cols="60" rows="5" style="font-size:100%; white-space:pre;">connect
+</textarea><button onclick="ueber_websocket_testen(event,'Testinput1')" style="vertical-align:bottom">über websocket testen</button></div>
+<div>4. <button onclick="Uhrzeit_aktualisieren()">Uhrzeit aktualisieren</button></div>
+<div>5. <button onclick='Script_heraussuchen(event,"Anfangsprogramm")'>Programmcode heraussuchen</button> und dann <button onclick="ueber_websocket_ausrechnen(event)">über websocket compilieren</button> (einmal im laufenden GAP reicht)</div>
+<div>6. <button onclick='Script_heraussuchen(event,"aktuellesProgrammstück")'>aktuell zu testendes Programmstück heraussuchen</button> und extra <button onclick="ueber_websocket_ausrechnen(event)">über websocket compilieren</button></div>
+
+<!--div><i>Schließlich der zu kopierende und auszuführende Programmcode, wenn nicht über Websocket gerechnet wird:</i></div-->
+
+<div id="AusgabeSVG" style="white-space:wrap;"></div>
+<div id="Ausgabe" style="white-space:pre-wrap; font-family:Courier,monospace; font-size:70%; color:black;"><!--div> <a id="download"> </a><small> (dieser Download erfolgt mit <a href="http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file">&lt;a href=... download=...&gt;</a>)</small></div>
+  </div-->
+  </body>
+  </html>
