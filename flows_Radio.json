@@ -67,6 +67,98 @@
         "info": ""
     },
     {
+        "id": "c0d2b8ff.7a7ce8",
+        "type": "tab",
+        "label": "Heizung",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dcf46aa6.338d68",
+        "type": "subflow",
+        "name": "aktuellen Schlüssel holen",
+        "info": "schreibt den aktuellen Schlüssel hinein in msg.Schluessel",
+        "in": [
+            {
+                "x": 40,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "f4f25af4.dd7ad8"
+                    }
+                ]
+            },
+            {
+                "x": 40,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "f4f25af4.dd7ad8"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1060,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "ccda767.78a9188",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "6c012a7e.f87004",
+        "type": "subflow",
+        "name": "Subflow 1",
+        "info": "",
+        "in": [
+            {
+                "x": 100,
+                "y": 60,
+                "wires": [
+                    {
+                        "id": "94e8042.ef7d5f8"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 580,
+                "y": 340,
+                "wires": [
+                    {
+                        "id": "838d604c.fa536",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 400,
+                "y": 340,
+                "wires": [
+                    {
+                        "id": "7388c41f.5a71dc",
+                        "port": 0
+                    },
+                    {
+                        "id": "854fb3f4.908eb",
+                        "port": 0
+                    },
+                    {
+                        "id": "acfd42b4.c79ef",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "id": "e75c6a5b.990f98",
         "type": "websocket-client",
         "z": "",
@@ -197,6 +289,54 @@
         "type": "websocket-listener",
         "z": "",
         "path": "/ws/gap2",
+        "wholemsg": "false"
+    },
+    {
+        "id": "8f3644c4.b87da8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/gatttool",
+        "wholemsg": "false"
+    },
+    {
+        "id": "bb0c17ea.168be8",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/neue_Email_da",
+        "wholemsg": "true"
+    },
+    {
+        "id": "f4585980.cfc8d8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "a075c1de.a2da8",
+        "type": "websocket-client",
+        "z": "",
+        "path": "ws://radio:1880/ws/mqtt_ersatz",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "2eeeeaf6.57c236",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "/ws/gatttool2",
         "wholemsg": "false"
     },
     {
@@ -8803,6 +8943,3646 @@
             [
                 "a54f8eeb.7ffc4",
                 "f1a9b6cc.60eec8"
+            ]
+        ]
+    },
+    {
+        "id": "f4f25af4.dd7ad8",
+        "type": "function",
+        "z": "dcf46aa6.338d68",
+        "name": "msg.payload merken",
+        "func": "msg.payload2=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "aae734e2.4cec68"
+            ]
+        ]
+    },
+    {
+        "id": "aae734e2.4cec68",
+        "type": "file in",
+        "z": "dcf46aa6.338d68",
+        "name": "aus Schluessel.txt Schluessel holen",
+        "filename": "Schluessel.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [
+                "887cf5ad.4aec38",
+                "ccda767.78a9188"
+            ]
+        ]
+    },
+    {
+        "id": "887cf5ad.4aec38",
+        "type": "debug",
+        "z": "dcf46aa6.338d68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 870,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ccda767.78a9188",
+        "type": "function",
+        "z": "dcf46aa6.338d68",
+        "name": "",
+        "func": "msg.Schluessel=msg.payload.trim();\nmsg.payload=msg.payload2;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 850,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7388c41f.5a71dc",
+        "type": "template",
+        "z": "6c012a7e.f87004",
+        "name": "connect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "connect 00:1A:22:0B:F9:D1 #erster Versuch",
+        "output": "str",
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "761b8ffa.3a39d"
+            ]
+        ]
+    },
+    {
+        "id": "854fb3f4.908eb",
+        "type": "template",
+        "z": "6c012a7e.f87004",
+        "name": "connect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "connect 00:1A:22:0B:F9:D1 #zweiter Versuch",
+        "output": "str",
+        "x": 220,
+        "y": 200,
+        "wires": [
+            [
+                "b006e68b.70e0e8"
+            ]
+        ]
+    },
+    {
+        "id": "acfd42b4.c79ef",
+        "type": "template",
+        "z": "6c012a7e.f87004",
+        "name": "connect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "connect 00:1A:22:0B:F9:D1 #dritter Versuch",
+        "output": "str",
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "2ab39bda.326f74"
+            ]
+        ]
+    },
+    {
+        "id": "94e8042.ef7d5f8",
+        "type": "function",
+        "z": "6c012a7e.f87004",
+        "name": "value=payload",
+        "func": "msg.value=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 60,
+        "wires": [
+            [
+                "7388c41f.5a71dc"
+            ]
+        ]
+    },
+    {
+        "id": "838d604c.fa536",
+        "type": "function",
+        "z": "6c012a7e.f87004",
+        "name": "payload=value",
+        "func": "msg.payload=msg.value;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "761b8ffa.3a39d",
+        "type": "delay",
+        "z": "6c012a7e.f87004",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "5f94218a.e28ef"
+            ]
+        ]
+    },
+    {
+        "id": "b006e68b.70e0e8",
+        "type": "delay",
+        "z": "6c012a7e.f87004",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "e1f3f129.c6f"
+            ]
+        ]
+    },
+    {
+        "id": "2ab39bda.326f74",
+        "type": "delay",
+        "z": "6c012a7e.f87004",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "838d604c.fa536"
+            ]
+        ]
+    },
+    {
+        "id": "5f94218a.e28ef",
+        "type": "function",
+        "z": "6c012a7e.f87004",
+        "name": "Error?",
+        "func": "var stdout=global.get(\"stdout\");\nif (stdout.indexOf(\"[0;94m[\")>-1) {\n  return [msg,null] \n  } else { \n    return [null,msg]\n    }\n  ",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "838d604c.fa536"
+            ],
+            [
+                "854fb3f4.908eb"
+            ]
+        ]
+    },
+    {
+        "id": "e1f3f129.c6f",
+        "type": "function",
+        "z": "6c012a7e.f87004",
+        "name": "Error?",
+        "func": "var stdout=global.get(\"stdout\");\nif (stdout.indexOf(\"[0;94m[\")>-1) {\n  return [msg,null] \n  } else { \n    return [null,msg]\n    }\n  ",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "838d604c.fa536"
+            ],
+            [
+                "acfd42b4.c79ef"
+            ]
+        ]
+    },
+    {
+        "id": "49a43bf0.3dc444",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "stdout gatttool",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1100,
+        "y": 1680,
+        "wires": []
+    },
+    {
+        "id": "44f663d9.ff03dc",
+        "type": "daemon",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "gatttool -I",
+        "command": "gatttool",
+        "args": "-I",
+        "cr": true,
+        "redo": true,
+        "op": "string",
+        "x": 400,
+        "y": 1680,
+        "wires": [
+            [
+                "93f1546f.521a98",
+                "d1bb22ed.1e69",
+                "307ac986.858fc6",
+                "f4add992.4f5568"
+            ],
+            [
+                "49a43bf0.3dc444",
+                "f4add992.4f5568"
+            ],
+            [
+                "49a43bf0.3dc444",
+                "f4add992.4f5568"
+            ]
+        ]
+    },
+    {
+        "id": "1deab822.53e298",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 03",
+        "topic": "",
+        "payload": "char-write-req 0411 03",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 480,
+        "y": 1260,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "8140a7b1.3760d8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect 00:1A:22:0B:F9:D1",
+        "topic": "",
+        "payload": "disconnect 00:1A:22:0B:F9:D1",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 510,
+        "y": 1500,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "b4d9ca51.325d98",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 411d",
+        "topic": "",
+        "payload": "char-write-req 0411 411d",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 490,
+        "y": 1380,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "90dc054a.fa0888",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 4040",
+        "topic": "",
+        "payload": "char-write-req 0411 4040",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 490,
+        "y": 1340,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "87f9fb48.7052f8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 4000",
+        "topic": "",
+        "payload": "char-write-req 0411 4000",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 510,
+        "y": 1460,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "aaaa317b.74df5",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "auto mode",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "char-write-req 0411 4000",
+        "output": "str",
+        "x": 650,
+        "y": 420,
+        "wires": [
+            [
+                "f41ae8a1.31db18",
+                "6fdc72bc.83280c"
+            ]
+        ]
+    },
+    {
+        "id": "ce4397c6.525358",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Test",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 460,
+        "wires": [
+            [
+                "907a0d8b.3b531"
+            ]
+        ]
+    },
+    {
+        "id": "f77c9727.328b18",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "nur \"Re: Heizungsraspberrypi.\"",
+        "func": "if (msg.topic==\"Re: Heizungsraspberrypi.\") {\n  msg.payload=msg.payload+msg.date;\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "51b9d8e0.654708"
+            ]
+        ]
+    },
+    {
+        "id": "53f4d6d6.43a048",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "stdin zu gatttool -I",
+        "links": [
+            "f19f9616.988388",
+            "adf822e.c6b4de",
+            "f41ae8a1.31db18",
+            "aabcb1cb.877c5",
+            "ca0b761a.08d288",
+            "4795ee43.31713",
+            "4160af3f.68314",
+            "8ee65910.974fa8",
+            "74b844e2.c012cc",
+            "2743ad8b.652632",
+            "349ce77c.95dcf8",
+            "9576930d.be29a",
+            "499ee664.f780b8",
+            "efd7c7a8.058e98",
+            "af97d29a.fafa9",
+            "1d240f0f.259b51",
+            "4da46bfc.c0f9d4",
+            "d7886334.d7d66",
+            "169ea3.71ff915e",
+            "296d79b0.a2c556",
+            "a82e6468.a50188",
+            "42c6ab64.1ab064"
+        ],
+        "x": 115,
+        "y": 1680,
+        "wires": [
+            [
+                "bb3f53d2.b0667"
+            ]
+        ]
+    },
+    {
+        "id": "f41ae8a1.31db18",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 795,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e82dae9f.9f589",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Testeingaben laut https://github.com/Heckie75/eQ-3-radiador-thermostat/blob/master/eQ-3-radiator-thermostat-api.m",
+        "info": "",
+        "x": 400,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "adf822e.c6b4de",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 788.333330154419,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "94c696ec.d4cfa8",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "hier wird das \"gatttool -I\" ausgeführt",
+        "info": "",
+        "x": 140,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "8bfab22c.3bd8d",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "verbinden (dauert ca. 3s)",
+        "info": "",
+        "x": 170,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "9baac109.922a2",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Status abfragen",
+        "info": "",
+        "x": 140,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "c9bdabb4.11e388",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Solltemperatur 14,5° einstellen",
+        "info": "",
+        "x": 190,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "396a6cd7.c0f434",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Mode \"manu\"",
+        "info": "",
+        "x": 130,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "4c64cd7a.1a8024",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "(zurück zu Mode \"auto\")",
+        "info": "",
+        "x": 190,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "d07e114b.1096d",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect",
+        "info": "",
+        "x": 120,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "d387aa9f.66e978",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Programm von Dienstag",
+        "info": "",
+        "x": 170,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "6a68fad3.b81894",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 2002",
+        "topic": "",
+        "payload": "char-write-req 0411 2002",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 490,
+        "y": 1300,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "495b83e2.1fc2fc",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Restart gatttool",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 1740,
+        "wires": [
+            [
+                "b3817921.b0a1b8"
+            ]
+        ]
+    },
+    {
+        "id": "b3817921.b0a1b8",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "msg.kill=\"SIGQUIT\";",
+        "func": "delete msg.payload;\nmsg.kill=\"SIGQUIT\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 1740,
+        "wires": [
+            [
+                "f19f9616.988388"
+            ]
+        ]
+    },
+    {
+        "id": "f19f9616.988388",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 575,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "bb293df2.b4bea",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Möglichkeit, alles über Websocket zu steuern",
+        "info": "",
+        "x": 170,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "c0eeaf14.ef545",
+        "type": "websocket in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "server": "8f3644c4.b87da8",
+        "client": "",
+        "x": 160,
+        "y": 1880,
+        "wires": [
+            [
+                "aabcb1cb.877c5"
+            ]
+        ]
+    },
+    {
+        "id": "8fcb25e8.894a88",
+        "type": "websocket out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "server": "8f3644c4.b87da8",
+        "client": "",
+        "x": 520,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "aabcb1cb.877c5",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 295,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "5c6ea42.5d12f5c",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "output von gatttool",
+        "links": [
+            "ee5aec82.53667"
+        ],
+        "x": 375,
+        "y": 1880,
+        "wires": [
+            [
+                "8fcb25e8.894a88"
+            ]
+        ]
+    },
+    {
+        "id": "ee5aec82.53667",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "stdout von gatttool -I0",
+        "links": [
+            "5c6ea42.5d12f5c",
+            "46ca8314.ea64cc"
+        ],
+        "x": 1315,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "4ad8ef43.3e5ff",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "connect 00:1A:22:0B:F9:D1",
+        "topic": "",
+        "payload": "connect 00:1A:22:0B:F9:D1",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 500,
+        "y": 1220,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "93f1546f.521a98",
+        "type": "file",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "logfile.txt",
+        "filename": "logfile.txt",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 720,
+        "y": 1660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5b1549a6.452008",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 1980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "69702451.38adbc",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 670,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "8b0cd373.48428",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "es gibt auch einen fertigen EQ3-Node, habe ich nicht zum Laufen gebracht",
+        "info": "",
+        "x": 270,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "b9293ab6.f24fd8",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "dashboard-Grafik-Oberfläche, aufzurufen als http://....:1880/ui/",
+        "info": "",
+        "x": 230,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "6fdc72bc.83280c",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 840,
+        "y": 420,
+        "wires": [
+            [
+                "a93e08ff.ed1918"
+            ]
+        ]
+    },
+    {
+        "id": "a93e08ff.ed1918",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "disconnect 00:1A:22:0B:F9:D1",
+        "output": "str",
+        "x": 1010,
+        "y": 420,
+        "wires": [
+            [
+                "ca0b761a.08d288",
+                "a79e3c1b.bada5"
+            ]
+        ]
+    },
+    {
+        "id": "ca0b761a.08d288",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 1135,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "2308f681.586a9a",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "manu mode",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "char-write-req 0411 4040",
+        "output": "str",
+        "x": 650,
+        "y": 520,
+        "wires": [
+            [
+                "4160af3f.68314",
+                "ff08b82c.178fb8"
+            ]
+        ]
+    },
+    {
+        "id": "ff08b82c.178fb8",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 840,
+        "y": 520,
+        "wires": [
+            [
+                "8b447a89.fa9208"
+            ]
+        ]
+    },
+    {
+        "id": "99a1e68b.a9ea48",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "disconnect 00:1A:22:0B:F9:D1",
+        "output": "str",
+        "x": 1350,
+        "y": 520,
+        "wires": [
+            [
+                "4795ee43.31713",
+                "a79e3c1b.bada5"
+            ]
+        ]
+    },
+    {
+        "id": "4795ee43.31713",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 1495,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "4160af3f.68314",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 795,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "8ee65910.974fa8",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 595,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "8b447a89.fa9208",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "14,5°",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "char-write-req 0411 411d",
+        "output": "str",
+        "x": 990,
+        "y": 520,
+        "wires": [
+            [
+                "74b844e2.c012cc",
+                "5af25f5.a119ca"
+            ]
+        ]
+    },
+    {
+        "id": "74b844e2.c012cc",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 1135,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "5af25f5.a119ca",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1180,
+        "y": 520,
+        "wires": [
+            [
+                "99a1e68b.a9ea48"
+            ]
+        ]
+    },
+    {
+        "id": "90f0dbc4.3e13d8",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Heizung aus\"",
+        "links": [
+            "81b0bf8f.ac8c2",
+            "b187ef87.c94ca"
+        ],
+        "x": 315,
+        "y": 520,
+        "wires": [
+            [
+                "7023a060.7a9f7"
+            ]
+        ]
+    },
+    {
+        "id": "f711a6c4.a51348",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Heizung aus\"",
+        "info": "",
+        "x": 130,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e937d913.f9cc08",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "8d7032c0.aa987",
+            "84ff3fc9.6fe5f"
+        ],
+        "x": 3195,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "8d7032c0.aa987",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Heizung an\"",
+        "links": [
+            "e937d913.f9cc08",
+            "7c0b40fb.3bb4d"
+        ],
+        "x": 315,
+        "y": 420,
+        "wires": [
+            [
+                "907a0d8b.3b531"
+            ]
+        ]
+    },
+    {
+        "id": "1f11eef7.8d5c51",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Heizung an\"",
+        "info": "",
+        "x": 130,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "75961bd0.798774",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Test",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 560,
+        "wires": [
+            [
+                "7023a060.7a9f7"
+            ]
+        ]
+    },
+    {
+        "id": "e89ba304.502b2",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "40",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2720,
+        "y": 220,
+        "wires": [
+            [
+                "b17c7d4d.36a8e",
+                "4353f4af.65a1ec"
+            ]
+        ]
+    },
+    {
+        "id": "a14fb278.e3386",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Restart wenn gatttool sich verheddert hat",
+        "info": "",
+        "x": 780,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "d9b10b20.f0cc28",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "← diese oder irgendeine andere Eingabe verhunzt das Datum am Thermostat",
+        "info": "",
+        "x": 880,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "269d1abd.a0a236",
+        "type": "tail",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "filetype": "text",
+        "split": true,
+        "filename": "logfile.txt",
+        "inputs": 0,
+        "x": 250,
+        "y": 1800,
+        "wires": [
+            [
+                "bf422c81.1d42d"
+            ]
+        ]
+    },
+    {
+        "id": "bf422c81.1d42d",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 470,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "36531d5f.e27c22",
+        "type": "websocket out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zum Lautsprecher: \"neue_Email_da\"",
+        "server": "bb0c17ea.168be8",
+        "client": "",
+        "x": 730,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3cc6656c.7159fa",
+        "type": "e-mail",
+        "z": "c0d2b8ff.7a7ce8",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "",
+        "dname": "Re: Heizungsraspberrypi.",
+        "x": 3890,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a9fda01.0aaf06",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 3450,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ad5cb936.5cde28",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "msg.to=msg.from ...",
+        "func": "var msgneu={};\nmsgneu.to=msg.from;\nmsgneu.topic=msg.topic;\nmsgneu.payload=\"automatisch erzeugte Email vom Heizungsraspberrypi\\n\\n\";\nvar notifications=global.get(\"notifications\");\nfor (var i=0;i<notifications.length;i++) {\n  var nt=notifications[i];\n  msgneu.payload+=nt+\" (\";\n  if (nt.slice(-10,-9)==\"0\") msgneu.payload+=\"auto \";\n  if (nt.slice(-10,-9)==\"1\") msgneu.payload+=\"manu \";\n  msgneu.payload+=eval(\"0x\"+nt.slice(-2))/2+\" °C)\\n\";\n  }\nmsgneu.payload+=\"\\n\"+\"Antwort auf Email \"+msg.date;\nmsgneu.Test=msg.Test;\nglobal.set(\"Antwort\",msgneu);\nreturn msgneu;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3220,
+        "y": 220,
+        "wires": [
+            [
+                "a9fda01.0aaf06",
+                "91bd6d8b.e75bf",
+                "d4aba80c.b604e8"
+            ]
+        ]
+    },
+    {
+        "id": "d1bb22ed.1e69",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "func": "var t=msg.payload;\nvar notifications=global.get(\"notifications\")||[];\nvar d=new Date();\nvar ind=t.indexOf(\"Notification\");\nvar tneu=d.toString()+\"  \"+t.slice(ind,ind+53);\nif (ind>-1) notifications.push(tneu);\nwhile (notifications.length>8) notifications.shift();\nglobal.set(\"notifications\",notifications);\nif (ind>-1) {\n  msg.payload=tneu;\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 590,
+        "y": 1620,
+        "wires": [
+            [
+                "46040b00.8be824"
+            ]
+        ]
+    },
+    {
+        "id": "85bae9f3.34dde8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Test Notifications.txt",
+        "topic": "",
+        "payload": " Notification Test 14,5 °C",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 1620,
+        "wires": [
+            [
+                "d1bb22ed.1e69"
+            ]
+        ]
+    },
+    {
+        "id": "91bd6d8b.e75bf",
+        "type": "file",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "filename": "Testemail.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 3470,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4353f4af.65a1ec",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 3000,
+        "y": 220,
+        "wires": [
+            [
+                "ad5cb936.5cde28"
+            ]
+        ]
+    },
+    {
+        "id": "d4aba80c.b604e8",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 3460,
+        "y": 220,
+        "wires": [
+            [
+                "2ea0f744.a03738"
+            ]
+        ]
+    },
+    {
+        "id": "9dc81a14.c252d8",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "36531d5f.e27c22"
+            ]
+        ]
+    },
+    {
+        "id": "fdbb6369.b4306",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "ab hier Email beantworten",
+        "info": "",
+        "x": 3050,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c4578348.853ce",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "msg=msg.payload;",
+        "func": "msg.payload.payload=msg.Schluessel+\" \"+msg.payload.payload.slice(11);\nmsg=msg.payload;\nvar t=new Date();\nmsg.date=t.toString();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 180,
+        "wires": [
+            [
+                "23784521.67181a",
+                "51b9d8e0.654708"
+            ]
+        ]
+    },
+    {
+        "id": "46040b00.8be824",
+        "type": "file",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "filename": "Notifications.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 740,
+        "y": 1620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80ffd605.d73d38",
+        "type": "file",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "filename": "empfangeneEmail.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 960,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d1d7842e.869f88",
+        "type": "json",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 750,
+        "y": 340,
+        "wires": [
+            [
+                "80ffd605.d73d38"
+            ]
+        ]
+    },
+    {
+        "id": "bebe0ddf.6e309",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Bei Fehlersuche Email  speichern",
+        "func": "var ret={};\nret.payload={\"payload\":msg.payload.slice(0,20),\"date\":msg.date};\nreturn ret;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 340,
+        "wires": [
+            [
+                "d1d7842e.869f88"
+            ]
+        ]
+    },
+    {
+        "id": "a9b6698e.15f958",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 412b",
+        "topic": "",
+        "payload": "char-write-req 0411 412b",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 490,
+        "y": 1420,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "b17c7d4d.36a8e",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "func": "var p=msg.payload.trim().toLowerCase().replace(/\\n/g,\" \")+\" \";\nvar msg1=null; if (p.slice(0,10)==\"heizung an\") {msg1={}; msg1.payload=\"Heizung an\"}\nvar msg2=null; if (p.slice(0,11)==\"heizung aus\") {msg2={}; msg2.payload=\"Heizung aus\"}\nvar msg3=null; if (p.slice(0,14)==\"heizung status\") {msg3={}; msg3.payload=\"Status\"}\n               if (p.slice(0,13)==\"heizung viele\") {msg3={}; msg3.payload=\"Status\"}\nvar msg4=null; if (p.slice(0,14)==\"heizung reboot\") {msg4={}; msg4.payload=\"Reboot\"}\nvar msg5=null; if (p.slice(0,18)==\"heizung temperatur\") {msg5={}; msg5.payload=p.slice(19,p.indexOf(\" \",19))}\nvar msg6=null; if (p.slice(0,24)==\"heizung wochentemperatur\") {msg6={}; msg6.payload=p.slice(24)}\nreturn [msg1,msg2,msg3,msg4,msg5,msg6];\n",
+        "outputs": 6,
+        "noerr": 0,
+        "x": 2990,
+        "y": 340,
+        "wires": [
+            [
+                "e937d913.f9cc08",
+                "4cdadd3c.f0eba4"
+            ],
+            [
+                "b187ef87.c94ca",
+                "4cdadd3c.f0eba4"
+            ],
+            [
+                "4c3fdae7.2b2684",
+                "4cdadd3c.f0eba4"
+            ],
+            [
+                "c5fd0e6e.677bb",
+                "4cdadd3c.f0eba4"
+            ],
+            [
+                "cbd3e994.ec93d8",
+                "4cdadd3c.f0eba4"
+            ],
+            [
+                "e88cf0ea.0433d",
+                "4cdadd3c.f0eba4"
+            ]
+        ]
+    },
+    {
+        "id": "2351b078.14004",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 3330,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "19124117.66781f",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1710,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "31569816.f99208",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Bei neuer Email mit Topic \"Re: Heizungsraspberrypi.\" soll das Schaltprogramm \"Heizung an\" gestartet werden.",
+        "info": "",
+        "x": 380,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "436c24d7.0e67cc",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Test Email ",
+        "topic": "",
+        "payload": "{\"payload\":\"Schluessel Heizung Temperatur 21\\nAlso bitte nochmal Heizung anschalten.\\n\\nViele Grüße\\n\\nBeate\\n\\nAm 17.02.2018 um 13:45 schrieb Stefan Vogel:\\n> Ach nee, das kann man einstellen, ob die abgerufene Email als gelesen > markiert werden soll. Beim Heizungsraspberrypi habe ich das neu > angelegt und da ist das Anfangseinstellung. Habe ich jetzt sçhnell > umgestellt, bitte bei Gelegenheit noch ein Test, dann müsste im > debug-Tab einmalig die Heizung auf \\\"Heizung ein\\\" gestellt werden, im > Lautsprecher soll aber alle 5 min \\\"Email da\\\" zu hören sein, falls ich > zwischendurch weg bin.\\n>\\n> Am 17.02.2018 13:39 schrieb \\\"Stefan Vogel\\\" > <backebackekuchen16@gmail.com <mailto:backebackekuchen16@gmail.com>>:\\n>\\n>     Heizung ist an und Lautsprecher geht auch. Was mir im Moment noch\\n>     nicht klar ist, warum danach die Email als gelesen markiert ist.\\n>     Früher war es mal so, daß die Email trotz Abfrage ungelesen bleibt\\n>     und deshalb die Durchsage solange wiederholt wird, bis die Email\\n>     im Emailprogramm gelesen ist. Da war es ...\",\"topic\":\"Re: Heizungsraspberrypi.\",\"date\":\"2018-02-17T12:48:35.000Z\",\"Test\":\"true\",\"header\":{\"delivered-to\":\"backebackekuchen16@gmail.com\",\"received\":[\"by 10.12.129.241 with SMTP id 46csp1709545qve; Sat, 17 Feb 2018 04:48:40 -0800 (PST)\",\"from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41]) by mx.google.com with SMTPS id 44sor7384314wrv.36.2018.02.17.04.48.39 for <backebackekuchen16@gmail.com> (Google Transport Security); Sat, 17 Feb 2018 04:48:40 -0800 (PST)\",\"from [192.168.1.58] (p578c5fe3.dip0.t-ipconnect.de. [87.140.95.227]) by smtp.gmail.com with ESMTPSA id 10sm13889551wmj.19.2018.02.17.04.48.37 for <backebackekuchen16@gmail.com> (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128); Sat, 17 Feb 2018 04:48:38 -0800 (PST)\"],\"x-received\":[\"by 10.28.194.2 with SMTP id s2mr6901721wmf.55.1518871720261; Sat, 17 Feb 2018 04:48:40 -0800 (PST)\",\"by 10.223.196.129 with SMTP id m1mr7967315wrf.213.1518871719414; Sat, 17 Feb 2018 04:48:39 -0800 (PST)\"],\"arc-seal\":\"i=1; a=rsa-sha256; t=1518871720; cv=none; d=google.com; s=arc-20160816; b=fP2nc5cFceRE6kfO7WWMQW8M5DM1SWR8AZrcwra1TufHuZGvmdyCYVuClyo2fuOw2i cTSpyqFuoi5MjYfCfSPVX+8F1pLs+GDLYQVhlcxOpX6atRY8TUCRWNQ67Yg3h2advZn1 xBhVkEYIJO+hZ1YMFln/BALhbq+T9vvIDYy5oCs2Ssw4zeyVl5UPJGFkgFaLTwqQZ8Zh WSoxelhzj3tmPC7WgKH2kn9AqwZTqfOHau9k/LaHX7/Cx5ON9e6NtsQbe7nOlBFmLzCX IQNzU9NjTJiIcV95HCY0Y7wf/t5HbvhNlLCZr1Iw6PN3YxmUQc2Rj3xt7hTSkIf8oZng SE5A==\",\"arc-message-signature\":\"i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816; h=content-language:in-reply-to:mime-version:user-agent:date :message-id:from:references:to:subject:dkim-signature :arc-authentication-results; bh=KZeMUnIfi7r7Oe4ya9Ybe05qhBvH81IPssRj+RLCW4A=; b=S6Q5+hz8l/nVDBZu18BV+MDfA3WJVv8+pFtLn+9Qg+l/8+WGaulJq2m8x4+rmjOUAr TS0tpWybEYm3CJSZQXvsMSM/U9PvlA8m4YvvHKR/cpLtpF10HEzVW/APAhAj6WpG5bDc ch0BED/8tESukkB2+q+NgNQArEgaOCoYagW9rbVLb16EeOUMf6BSRJ0qjDUKZmLIPOBC 5QyGZthag79bCojOorzZDrNp4c/kFdD6sE7EzSBnPRRukFMElBqYoGY+NeMh8DknA2py wbrV1fLP2lzNznlLD8qIVMPAvuqUxtwWEW/KKPj9X0Bu2qtuAAIe10fJ+Q9XJ+NoMSRb V7Zw==\",\"arc-authentication-results\":\"i=1; mx.google.com; dkim=pass header.i=@gmail.com header.s=20161025 header.b=ktMs+j5e; spf=pass (google.com: domain of alb6116@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=alb6116@gmail.com; dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com\",\"return-path\":[\"<alb6116@gmail.com>\",\"<alb6116@gmail.com>\"],\"received-spf\":\"pass (google.com: domain of alb6116@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;\",\"authentication-results\":\"mx.google.com; dkim=pass header.i=@gmail.com header.s=20161025 header.b=ktMs+j5e; spf=pass (google.com: domain of alb6116@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=alb6116@gmail.com; dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com\",\"dkim-signature\":\"v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025; h=subject:to:references:from:message-id:date:user-agent:mime-version :in-reply-to:content-language; bh=KZeMUnIfi7r7Oe4ya9Ybe05qhBvH81IPssRj+RLCW4A=; b=ktMs+j5e6/y0r6hW8ofq0EXmDCdFRdbRSbqIFbfWUuswml/YHHFTZyjMRG5dPFeMGE JvC9mOUdbgwpRJlDnH4CvRhU0u27KgNMCpqsNs+0zCwu55TZxfWbcdZITUOZ3YTzEQdC hXCDXu7eR+uYSRfG8Jms+MvWGgBv9cHKf7F0YbfEuHkpyZFbNsfHIGbminUANvi6oNbt HczrHe6XA+XxKk18iq/DEfsEC8auFUceOhQvq3dxji26UTgWdQAsG4OQedgD6TIXlJ83 31jSo9cwEG47DL1mHlAjuYECgmNJn5Khp9gLVj78X1mFYknyGptahYGFtEf9qD8FfgPf vH1Q==\",\"x-google-dkim-signature\":\"v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20161025; h=x-gm-message-state:subject:to:references:from:message-id:date :user-agent:mime-version:in-reply-to:content-language; bh=KZeMUnIfi7r7Oe4ya9Ybe05qhBvH81IPssRj+RLCW4A=; b=ON43764z75Yh9h8mY3VxVog5GZ1GB68WDR2ZYPgsihQljPBNg3mvYO5yUnUHXXm+r1 TZnhGX9rKw2EyMoCOxOL97gvVsA2BshYMumB4Qj/19Fat/gn427+txLIkS01RET3nsWh SMzumTq7GE0LJPF1pQzKhUYA/oRe7xvx3XpLRB2eZIr+FeY6SB0fr2Ne/XmD9oOhQ0v+ 5B5f8rTgHoTtOJjdhNEV03Ox49O9tlDJHP7f2wjrzc5pG5M2bdfDVDY/nELcvSzQoZdF 1wv6Oq7NJ7EKzip6mVpMAJLeffxdAOyRtVWWK4KlmMt0gX11gMeNVpLmZSWlh513x88P TRgA==\",\"x-gm-message-state\":\"APf1xPB4Gydn5iuraL6EIPOeWBD9HHaDFblIu9EHZnXgv0Q2/btBGTDh CtJzXZfNNGMiCKWiUxYRdJ5q/+9f\",\"x-google-smtp-source\":\"AH8x224ZfVgq2kzGX+OoI7+81/PHN8edhr8tGCG0V64fbuO+Hx6d8Psy5k4PAjiw8D5Pxo2uzQtYww==\",\"subject\":\"Re: Heizungsraspberrypi.\",\"to\":\"Stefan Vogel <backebackekuchen16@gmail.com>\",\"references\":\"<CAOVUi5ac9-irwWNohYKTq+MOFzziuvbCDVpvy9oqWa3Q-PSAcg@mail.gmail.com> <CAOVUi5a0i1OhbPkVWS075QPOR20o3D_1oSV2JgX=x69oDeTr-Q@mail.gmail.com> <CAOVUi5ZZ=PD=vkMcd3WwDztykK5phozR9++C8A_FsfSqfz2w2A@mail.gmail.com> <CAOVUi5b-r5_Mamg8uc1ELj-gphdA1d6CaveKv1a7PTQvWyARiQ@mail.gmail.com> <45d67f86-8d1e-07b1-d10a-c01a8754f726@gmail.com> <CAOVUi5bu2_ThhZgTa15sLo0ZnvAKaOYCVTLfP2+6ajBDkQ9z9Q@mail.gmail.com> <5129d2cd-23b5-8a45-f96d-651cd481a259@gmail.com> <CAOVUi5YzU+1P07U4JUQFCRRm1hbSp8qw3iDiRSRS8+qDF_unvA@mail.gmail.com> <CAOVUi5Z1zskgjNNBGXBsBD0QDycYViqZty6RbPAgXUnRxDZp2A@mail.gmail.com> <CAOVUi5YStRDzcj9GgOiKjhO-LRav=6iS-PM9JobWXqTM6-JFow@mail.gmail.com> <62518eb2-7a8f-f593-0a39-1856607c8405@gmail.com> <CAOVUi5bWZNcuMmsANYfXfF8XhooKK+OcGuaeuXDcY7QmFi5yrA@mail.gmail.com> <040f5a29-53e9-3242-2528-9f79d2170e26@gmail.com> <CAOVUi5Ya2D4GdOnW9BjFbi3-2=D_vB7k1ZRCbDdUOj4SmKyEFQ@mail.gmail.com> <CAOVUi5bN=uwS00XibcP0e0GRqod-4ZDCuVb8_NQy8fqQsob0Pw@mail.gmail.com>\",\"from\":\"Beate Lang <alb6116@gmail.com>\",\"message-id\":\"<646e27ce-bb11-db0e-ca93-21f1728c46fe@gmail.com>\",\"date\":\"Sat, 17 Feb 2018 13:48:35 +0100\",\"user-agent\":\"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Thunderbird/52.6.0\",\"mime-version\":\"1.0\",\"in-reply-to\":\"<CAOVUi5bN=uwS00XibcP0e0GRqod-4ZDCuVb8_NQy8fqQsob0Pw@mail.gmail.com>\",\"content-type\":\"multipart/alternative; boundary=\\\"------------D3C1AA8471C00039CE49E5E2\\\"\",\"content-language\":\"en-US\"},\"html\":\"<html>\\n  <head>\\n    <meta http-equiv=\\\"content-type\\\" content=\\\"text/html; charset=utf-8\\\" />\\n  </head>\\n  <body text=\\\"#000000\\\" bgcolor=\\\"#FFFFFF\\\">\\n    <div class=\\\"moz-cite-prefix\\\">Also bitte nochmal Heizung anschalten.<br>\\n      <br>\\n      Viele Grüße<br>\\n      <br>\\n      Beate<br>\\n      <br>\\n      Am 17.02.2018 um 13:45 schrieb Stefan Vogel:<br>\\n    </div>\\n    <blockquote type=\\\"cite\\\"\\ncite=\\\"mid:CAOVUi5bN=uwS00XibcP0e0GRqod-4ZDCuVb8_NQy8fqQsob0Pw@mail.gmail.com\\\">\\n      <div dir=\\\"auto\\\">Ach nee, das kann man einstellen, ob die\\n        abgerufene Email als gelesen markiert werden soll. Beim\\n        Heizungsraspberrypi habe ich das neu angelegt und da ist das\\n        Anfangseinstellung. Habe ich jetzt sçhnell umgestellt, bitte bei\\n        Gelegenheit noch ein Test, dann müsste im debug-Tab einmalig die\\n        Heizung auf \\\"Heizung ein\\\" gestellt werden, im Lautsprecher soll\\n        aber alle 5 min \\\"Email da\\\" zu hören sein, falls ich\\n        zwischendurch weg bin. </div>\\n      <div class=\\\"gmail_ex...\",\"from\":\"alb6116@gmail.com\",\"attachments\":[],\"_msgid\":\"b925388f.3f2e18\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "aec3c7c5.5a90e8"
+            ]
+        ]
+    },
+    {
+        "id": "b187ef87.c94ca",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "90f0dbc4.3e13d8"
+        ],
+        "x": 3195,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c5fd0e6e.677bb",
+        "type": "exec",
+        "z": "c0d2b8ff.7a7ce8",
+        "command": "sudo reboot",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "sudo reboot",
+        "x": 3250,
+        "y": 520,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "de8a5556.029308",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Test",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "x": 270,
+        "y": 660,
+        "wires": [
+            [
+                "cface381.cc325"
+            ]
+        ]
+    },
+    {
+        "id": "8673833a.83379",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Unlock",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "char-write-req 0411 8000",
+        "output": "str",
+        "x": 630,
+        "y": 620,
+        "wires": [
+            [
+                "bd801dcb.364fd",
+                "349ce77c.95dcf8"
+            ]
+        ]
+    },
+    {
+        "id": "bd801dcb.364fd",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 840,
+        "y": 620,
+        "wires": [
+            [
+                "85d43b7c.c99c78"
+            ]
+        ]
+    },
+    {
+        "id": "85d43b7c.c99c78",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "disconnect 00:1A:22:0B:F9:D1",
+        "output": "str",
+        "x": 1010,
+        "y": 620,
+        "wires": [
+            [
+                "9576930d.be29a",
+                "a79e3c1b.bada5"
+            ]
+        ]
+    },
+    {
+        "id": "bad04d05.4e1f2",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Status abfragen\"",
+        "links": [
+            "4c3fdae7.2b2684",
+            "1dde554c.17b38b"
+        ],
+        "x": 315,
+        "y": 620,
+        "wires": [
+            [
+                "cface381.cc325"
+            ]
+        ]
+    },
+    {
+        "id": "4c3fdae7.2b2684",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "2",
+        "links": [
+            "bad04d05.4e1f2"
+        ],
+        "x": 3195,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "ae3a32b1.fd823",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Reset",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 2970,
+        "y": 520,
+        "wires": [
+            [
+                "c5fd0e6e.677bb"
+            ]
+        ]
+    },
+    {
+        "id": "2743ad8b.652632",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 595,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "349ce77c.95dcf8",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 795,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9576930d.be29a",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 1135,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "6d30339a.46fe3c",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Status lesen\"",
+        "info": "",
+        "x": 130,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "9ffd76cf.d75748",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Solltemperatur 22,5° einstellen",
+        "info": "",
+        "x": 190,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "cfc6aa7a.476628",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 3020,
+        "y": 260,
+        "wires": [
+            [
+                "ad5cb936.5cde28"
+            ]
+        ]
+    },
+    {
+        "id": "d05f7b00.f8bfb8",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Heizung an",
+        "info": "",
+        "x": 3310,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "5158489e.31d3e8",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Heizung aus",
+        "info": "",
+        "x": 3310,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "1b3aa135.6069cf",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Status",
+        "info": "",
+        "x": 3290,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "ccbd7b0d.f2b1a8",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zur Fehlersuche Email speichern",
+        "links": [
+            "b405bf65.95768",
+            "6a4464a6.ba70ac"
+        ],
+        "x": 260,
+        "y": 340,
+        "wires": [
+            [
+                "bebe0ddf.6e309"
+            ]
+        ]
+    },
+    {
+        "id": "73334949.f6bdb8",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "aktuellste Email merken",
+        "func": "var letzte_Email=global.get(\"letzte_Email\")||{\"date\":0};\nif (Date.parse(msg.date)>Date.parse(letzte_Email.date)) global.set(\"letzte_Email\",msg);\nnode.status({text:msg.date+\" \"});\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1750,
+        "y": 220,
+        "wires": [
+            [
+                "88c42c6f.0bbfb"
+            ]
+        ]
+    },
+    {
+        "id": "88c42c6f.0bbfb",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2000,
+        "y": 220,
+        "wires": [
+            [
+                "32cfdb93.3eb6f4"
+            ]
+        ]
+    },
+    {
+        "id": "32cfdb93.3eb6f4",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "aktuellste Email ausführen",
+        "func": "msg=global.get(\"letzte_Email\");\nnode.status({text:msg.date+\" \"});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2240,
+        "y": 220,
+        "wires": [
+            [
+                "8758ae7b.1eb06",
+                "565a4121.da1a3"
+            ]
+        ]
+    },
+    {
+        "id": "8758ae7b.1eb06",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 2470,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7038fd8b.ef6c14",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 2000,
+        "y": 140,
+        "wires": [
+            [
+                "be25b692.cd17d8"
+            ]
+        ]
+    },
+    {
+        "id": "be25b692.cd17d8",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "aktuellste Email löschen",
+        "func": "global.set(\"letzte_Email\",{\"date\":0});\nmsg.reset=true;\nmsg.date=0;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2230,
+        "y": 140,
+        "wires": [
+            [
+                "32cfdb93.3eb6f4"
+            ]
+        ]
+    },
+    {
+        "id": "817dd89f.406b68",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm auswählen",
+        "info": "",
+        "x": 2880,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "47bfc0f2.87a32",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 2700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "565a4121.da1a3",
+        "type": "rbe",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 2490,
+        "y": 200,
+        "wires": [
+            [
+                "e89ba304.502b2",
+                "47bfc0f2.87a32"
+            ]
+        ]
+    },
+    {
+        "id": "ca04c7b7.f89838",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 240,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9f1b0606.ec8208",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 460,
+        "y": 300,
+        "wires": [
+            [
+                "36531d5f.e27c22"
+            ]
+        ]
+    },
+    {
+        "id": "907a0d8b.3b531",
+        "type": "subflow:6c012a7e.f87004",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "connect",
+        "x": 440,
+        "y": 420,
+        "wires": [
+            [
+                "aaaa317b.74df5"
+            ],
+            [
+                "499ee664.f780b8"
+            ]
+        ]
+    },
+    {
+        "id": "cface381.cc325",
+        "type": "subflow:6c012a7e.f87004",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "connect",
+        "x": 440,
+        "y": 620,
+        "wires": [
+            [
+                "8673833a.83379"
+            ],
+            [
+                "2743ad8b.652632"
+            ]
+        ]
+    },
+    {
+        "id": "7023a060.7a9f7",
+        "type": "subflow:6c012a7e.f87004",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "connect",
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "2308f681.586a9a"
+            ],
+            [
+                "8ee65910.974fa8"
+            ]
+        ]
+    },
+    {
+        "id": "499ee664.f780b8",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 595,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "bb3f53d2.b0667",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "4",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 240,
+        "y": 1680,
+        "wires": [
+            [
+                "44f663d9.ff03dc",
+                "1c31af2f.ccaff1"
+            ]
+        ]
+    },
+    {
+        "id": "307ac986.858fc6",
+        "type": "join",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "join",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "5",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 900,
+        "y": 1640,
+        "wires": [
+            [
+                "49a43bf0.3dc444",
+                "e77462d5.b7d96"
+            ]
+        ]
+    },
+    {
+        "id": "1c31af2f.ccaff1",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "stdin gatttool",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 410,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "6a30928d.8d936c",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "21.5",
+        "topic": "",
+        "payload": "21,5",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 760,
+        "wires": [
+            [
+                "69a1683f.d73b98"
+            ]
+        ]
+    },
+    {
+        "id": "69a1683f.d73b98",
+        "type": "subflow:6c012a7e.f87004",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "connect",
+        "x": 440,
+        "y": 720,
+        "wires": [
+            [
+                "5adec3e.202c83c"
+            ],
+            [
+                "efd7c7a8.058e98"
+            ]
+        ]
+    },
+    {
+        "id": "558c02ac.e6678c",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Schaltprogramm \"Temperatur einstellen\"",
+        "links": [
+            "cbd3e994.ec93d8",
+            "678922d4.759b8c"
+        ],
+        "x": 315,
+        "y": 720,
+        "wires": [
+            [
+                "69a1683f.d73b98"
+            ]
+        ]
+    },
+    {
+        "id": "efd7c7a8.058e98",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 595,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "d152d6f.9055b28",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Temperatur",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "char-write-req 0411 41{{payload}}",
+        "output": "str",
+        "x": 850,
+        "y": 720,
+        "wires": [
+            [
+                "af97d29a.fafa9",
+                "543cf532.eaaeec"
+            ]
+        ]
+    },
+    {
+        "id": "af97d29a.fafa9",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 995,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "3592cf2e.eb309",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "disconnect 00:1A:22:0B:F9:D1",
+        "output": "str",
+        "x": 1270,
+        "y": 720,
+        "wires": [
+            [
+                "1d240f0f.259b51",
+                "a79e3c1b.bada5"
+            ]
+        ]
+    },
+    {
+        "id": "1d240f0f.259b51",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 1215,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "6c8ab489.0c372c",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "\"Temperatur einstellen\"",
+        "info": "",
+        "x": 100,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "77b5b80c.bec0c8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "22",
+        "topic": "",
+        "payload": "22",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 800,
+        "wires": [
+            [
+                "69a1683f.d73b98"
+            ]
+        ]
+    },
+    {
+        "id": "5adec3e.202c83c",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "hex",
+        "func": "msg.payload=Math.floor(0.5+msg.payload.replace(\",\",\".\")*2).toString(16);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 720,
+        "wires": [
+            [
+                "d152d6f.9055b28",
+                "55b32f91.c6d65"
+            ]
+        ]
+    },
+    {
+        "id": "9890c9d5.78b908",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1030,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "55b32f91.c6d65",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "umgerechnet in",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Input {{value}} umgerechnet in {{payload}} !",
+        "output": "str",
+        "x": 860,
+        "y": 780,
+        "wires": [
+            [
+                "9890c9d5.78b908"
+            ]
+        ]
+    },
+    {
+        "id": "543cf532.eaaeec",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1060,
+        "y": 720,
+        "wires": [
+            [
+                "3592cf2e.eb309"
+            ]
+        ]
+    },
+    {
+        "id": "cbd3e994.ec93d8",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "558c02ac.e6678c"
+        ],
+        "x": 3195,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c7c230b0.93057",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Heizung Temperatur 21,5 °C",
+        "topic": "",
+        "payload": "Heizung Temperatur 21,5 °C",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 2800,
+        "y": 460,
+        "wires": [
+            [
+                "b17c7d4d.36a8e"
+            ]
+        ]
+    },
+    {
+        "id": "2d224e43.3a0062",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Heizung Temperatur 22 °C",
+        "topic": "",
+        "payload": "Heizung Temperatur 22 °C",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 2790,
+        "y": 500,
+        "wires": [
+            [
+                "b17c7d4d.36a8e"
+            ]
+        ]
+    },
+    {
+        "id": "a2659291.68cca",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Heizung Status",
+        "topic": "",
+        "payload": "Status",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 2760,
+        "y": 420,
+        "wires": [
+            [
+                "b17c7d4d.36a8e"
+            ]
+        ]
+    },
+    {
+        "id": "2ea0f744.a03738",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "func": "if (msg.Test!=\"true\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 3630,
+        "y": 220,
+        "wires": [
+            [
+                "db4066af.2f49b8",
+                "3cc6656c.7159fa"
+            ]
+        ]
+    },
+    {
+        "id": "db4066af.2f49b8",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 3840,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c19b0469.364378",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "Antwort",
+        "payloadType": "global",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 3570,
+        "y": 260,
+        "wires": [
+            [
+                "fff943ca.445f6"
+            ]
+        ]
+    },
+    {
+        "id": "fff943ca.445f6",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 3970,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "51b9d8e0.654708",
+        "type": "subflow:dcf46aa6.338d68",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "aktuellen Schluessel holen",
+        "x": 1020,
+        "y": 220,
+        "wires": [
+            [
+                "1dfe9368.5ebfed"
+            ]
+        ]
+    },
+    {
+        "id": "1dfe9368.5ebfed",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "msg.payload ohne dem Schlüssel",
+        "func": "var schl=msg.Schluessel;\nvar schl_length=schl.length;\nif (msg.payload.indexOf(schl)==0) {\n  msg.payload=msg.payload.slice(schl_length,schl_length+80).trim()+\" Status wenn nichts anderes angegeben ist. \"+msg.date;\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1400,
+        "y": 220,
+        "wires": [
+            [
+                "73334949.f6bdb8",
+                "19124117.66781f"
+            ]
+        ]
+    },
+    {
+        "id": "aec3c7c5.5a90e8",
+        "type": "subflow:dcf46aa6.338d68",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "aktuellen Schluessel holen",
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [
+                "c4578348.853ce"
+            ]
+        ]
+    },
+    {
+        "id": "23784521.67181a",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 940,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e77462d5.b7d96",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "als global stdout speichern",
+        "func": "global.set(\"stdout\",msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1140,
+        "y": 1620,
+        "wires": [
+            [
+                "ee5aec82.53667"
+            ]
+        ]
+    },
+    {
+        "id": "381055f9.00100a",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "func": "msg.payload=\"<div style='font-size:50%; font-color:green; border:solid'>\";\nvar notifications=global.get(\"notifications\");\nfor (var i=0;i<notifications.length;i++) {\n  var nt=notifications[i];\n  msg.payload+=nt.slice(0,2)+\" um \"+nt.slice(15,21)+\" Uhr \";\n  if (nt.slice(-1)!=\"m\") {\n    msg.payload+=eval(\"0x\"+nt.slice(-2))/2+\" °C \";\n    if (nt.slice(-10,-9)==\"0\") msg.payload+=\"Automatik\";\n    if (nt.slice(-10,-9)==\"1\") msg.payload+=\"manuell\";\n    } else { msg.payload+=\" Wtag umprog.\" }\n  msg.payload+=\"<br/>\";\n  }\nmsg.payload+=\"</div>\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1450,
+        "y": 840,
+        "wires": [
+            [
+                "923f009b.24711",
+                "fca51b92.0bd6b8"
+            ]
+        ]
+    },
+    {
+        "id": "923f009b.24711",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1620,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a79e3c1b.bada5",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "15",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1420,
+        "y": 640,
+        "wires": [
+            [
+                "381055f9.00100a"
+            ]
+        ]
+    },
+    {
+        "id": "fca51b92.0bd6b8",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "8febab8d.794748",
+            "420a1715.181768"
+        ],
+        "x": 1660,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "5f172208.f9391c",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "notifications",
+        "payloadType": "global",
+        "repeat": "3600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 840,
+        "y": 1500,
+        "wires": [
+            [
+                "d9c50cf5.15043"
+            ]
+        ]
+    },
+    {
+        "id": "d9c50cf5.15043",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "global.notifications",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1060,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "a7ade843.575dd8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "char-write-req 0411 1002...",
+        "topic": "",
+        "payload": "char-write-req 0411 1002222428842290",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 650,
+        "y": 1400,
+        "wires": [
+            [
+                "adf822e.c6b4de"
+            ]
+        ]
+    },
+    {
+        "id": "fdc1ad07.552ba",
+        "type": "subflow:6c012a7e.f87004",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "connect",
+        "x": 440,
+        "y": 840,
+        "wires": [
+            [
+                "241e409d.a1abf"
+            ],
+            [
+                "4da46bfc.c0f9d4"
+            ]
+        ]
+    },
+    {
+        "id": "97bd3d9c.0aee6",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "21",
+        "topic": "",
+        "payload": "21",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 920,
+        "wires": [
+            [
+                "fdc1ad07.552ba"
+            ]
+        ]
+    },
+    {
+        "id": "241e409d.a1abf",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "hex",
+        "func": "var m=msg.payload.trim().split(\" \");\nif (m.length==1) m[1]=\"8\";\nmsg.payload=\n  Math.floor(0.5+m[1].replace(\",\",\".\")*2).toString(16)+\"24\"+\n  Math.floor(0.5+m[0].replace(\",\",\".\")*2).toString(16)+\"84\"+\n  Math.floor(0.5+m[1].replace(\",\",\".\")*2).toString(16)+\"90\"\n  ;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 840,
+        "wires": [
+            [
+                "84cfd31b.9b9d4",
+                "c9103984.2cdbd8"
+            ]
+        ]
+    },
+    {
+        "id": "4da46bfc.c0f9d4",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 595,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "c8a51342.7574c",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "ganze Woche umprogrammieren",
+        "links": [
+            "4c478841.5e3a68",
+            "e88cf0ea.0433d"
+        ],
+        "x": 315,
+        "y": 840,
+        "wires": [
+            [
+                "fdc1ad07.552ba"
+            ]
+        ]
+    },
+    {
+        "id": "c04fd88a.dd7528",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "22",
+        "topic": "",
+        "payload": "22",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 960,
+        "wires": [
+            [
+                "fdc1ad07.552ba"
+            ]
+        ]
+    },
+    {
+        "id": "c9103984.2cdbd8",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Temperatur",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "char-write-req 0411 1001{{payload}}\nchar-write-req 0411 1002{{payload}}\nchar-write-req 0411 1003{{payload}}\nchar-write-req 0411 1004{{payload}}\nchar-write-req 0411 1005{{payload}}\nchar-write-req 0411 1006{{payload}}\nchar-write-req 0411 1007{{payload}}\n",
+        "output": "str",
+        "x": 850,
+        "y": 840,
+        "wires": [
+            [
+                "7e4ba25a.9a2c1c",
+                "d7886334.d7d66"
+            ]
+        ]
+    },
+    {
+        "id": "84cfd31b.9b9d4",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "umgerechnet in",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Input {{value}} umgerechnet in {{payload}} !",
+        "output": "str",
+        "x": 860,
+        "y": 900,
+        "wires": [
+            [
+                "197fd162.5f0a0f"
+            ]
+        ]
+    },
+    {
+        "id": "d7886334.d7d66",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 995,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "7e4ba25a.9a2c1c",
+        "type": "delay",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1060,
+        "y": 840,
+        "wires": [
+            [
+                "48506c5f.800984"
+            ]
+        ]
+    },
+    {
+        "id": "197fd162.5f0a0f",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1030,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "48506c5f.800984",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "disconnect",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "disconnect 00:1A:22:0B:F9:D1",
+        "output": "str",
+        "x": 1270,
+        "y": 840,
+        "wires": [
+            [
+                "169ea3.71ff915e",
+                "a79e3c1b.bada5"
+            ]
+        ]
+    },
+    {
+        "id": "169ea3.71ff915e",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "zu gatttool schicken",
+        "links": [
+            "53f4d6d6.43a048"
+        ],
+        "x": 1215,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "c7fed51f.a808a8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "20",
+        "topic": "",
+        "payload": "20",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 880,
+        "wires": [
+            [
+                "fdc1ad07.552ba"
+            ]
+        ]
+    },
+    {
+        "id": "db04a439.fe13d8",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "ganze Woche umprogrammieren",
+        "info": "",
+        "x": 130,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "83f63f3e.948a6",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 1440,
+        "y": 780,
+        "wires": [
+            [
+                "381055f9.00100a"
+            ]
+        ]
+    },
+    {
+        "id": "c1e82b32.7350a8",
+        "type": "mqtt in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "Testheini78x11/psswd_ha72z",
+        "qos": "2",
+        "broker": "f4585980.cfc8d8",
+        "x": 1920,
+        "y": 340,
+        "wires": [
+            [
+                "1eb060ba.3dfaaf",
+                "52ccf8c2.be03e8",
+                "649df18a.0a84e",
+                "9d5927e0.1d4338"
+            ]
+        ]
+    },
+    {
+        "id": "1eb060ba.3dfaaf",
+        "type": "subflow:dcf46aa6.338d68",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "aktuellen Schluessel holen",
+        "x": 2340,
+        "y": 340,
+        "wires": [
+            [
+                "2d74e9e5.2c2696"
+            ]
+        ]
+    },
+    {
+        "id": "2d74e9e5.2c2696",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "msg.payload ohne dem Schlüssel",
+        "func": "var schl=msg.Schluessel;\nvar schl_length=schl.length;\nif (msg.payload.indexOf(schl)==0) {\n  msg.payload=msg.payload.slice(schl_length,schl_length+80).trim()+\" Status wenn nichts anderes angegeben ist. \"+msg.date;\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2720,
+        "y": 340,
+        "wires": [
+            [
+                "b17c7d4d.36a8e"
+            ]
+        ]
+    },
+    {
+        "id": "52ccf8c2.be03e8",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "? help",
+        "func": "var m=msg.payload;\nif (m==\"?\") {\n  msg.payload=\"Antwort von <a href='https://github.com/OpaStefanVogel/HEIZUNGSPI'>Heizung</a>:<div style='border:solid; border-color: red'><code>(Schluessel) Heizung an</code><br/><code>(Schluessel) Heizung aus</code><br/><code>(Schluessel) Heizung Status</code><br/><code>(Schluessel) Heizung reboot</code><br/><code>(Schluessel) Heizung Temperatur 12</code><br/><code>(Schluessel) Heizung Wochentemperatur 20 17</code> <i>Tagestemperatur Nachttemperatur</i></div>\";\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2150,
+        "y": 400,
+        "wires": [
+            [
+                "8008afff.e0f97"
+            ]
+        ]
+    },
+    {
+        "id": "8008afff.e0f97",
+        "type": "mqtt out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "Testheini78x11/psswd_ha72z",
+        "qos": "",
+        "retain": "",
+        "broker": "f4585980.cfc8d8",
+        "x": 3550,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "4cdadd3c.f0eba4",
+        "type": "template",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Re_Heizung: Zum Ausführen entschlüsselt: {{payload}} .",
+        "output": "str",
+        "x": 3150,
+        "y": 320,
+        "wires": [
+            [
+                "2351b078.14004",
+                "8008afff.e0f97"
+            ]
+        ]
+    },
+    {
+        "id": "46ca8314.ea64cc",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "mqtt out",
+        "links": [
+            "ee5aec82.53667",
+            "6727eee.fdc7d1"
+        ],
+        "x": 3380,
+        "y": 520,
+        "wires": [
+            [
+                "8008afff.e0f97"
+            ]
+        ]
+    },
+    {
+        "id": "e6e0b3d9.faf12",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "https://github.com/Heckie75/eQ-3-radiator-thermostat/blob/master/eq-3-radiator-thermostat-api.md",
+        "info": "",
+        "x": 380,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "649df18a.0a84e",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "was von mqtt empfangen wurde",
+        "links": [
+            "a26407a6.c72ed8"
+        ],
+        "x": 2140,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "45b990d.48d957",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Chat",
+        "info": "",
+        "x": 150,
+        "y": 3260,
+        "wires": []
+    },
+    {
+        "id": "ed53ddb4.39d7f",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "x": 460,
+        "y": 3340,
+        "wires": []
+    },
+    {
+        "id": "4599b5bd.58229c",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "? help",
+        "func": "var m=msg.payload;\nif (m==\"?\") {\n  msg.payload=\"Antwort von <a href='https://github.com/OpaStefanVogel/HEIZUNGSPI'>Chat</a>:<div style='border:solid; border-color: orange'><code>Chat</code> <i>irgendwelcher Text zur Modelleisenbahn</i></div>\";\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 3380,
+        "wires": [
+            [
+                "6727eee.fdc7d1"
+            ]
+        ]
+    },
+    {
+        "id": "b6765e3d.c24e2",
+        "type": "function",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Chat",
+        "func": "var m=msg.payload;\nif (m.slice(0,4)==\"Chat\") {\n  var Chat=global.get(\"Chat\")||[];\n  var msg2={};\n  m=m.slice(5);\n  if (m.length>0) {\n    Chat.push(m);\n    global.set(\"Chat\",Chat);\n    msg2={\"payload\":m};\n    }\n  msg.payload=\"Antwort vom Chat (die letzten 4):<div style='background-color:grey'>\"+Chat.slice(-4).join(\"<br/>\")+\"</div>\";\n  return [msg2,msg];\n  }\n",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 410,
+        "y": 3560,
+        "wires": [
+            [
+                "a82cb8c6.ccb428"
+            ],
+            [
+                "86e7b2a7.d0403",
+                "6727eee.fdc7d1"
+            ]
+        ]
+    },
+    {
+        "id": "7d60f31d.a1618c",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "Chat Test1",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 210,
+        "y": 3560,
+        "wires": [
+            [
+                "b6765e3d.c24e2"
+            ]
+        ]
+    },
+    {
+        "id": "a82cb8c6.ccb428",
+        "type": "file",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "filename": "/home/pi/Chat.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 650,
+        "y": 3500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "86e7b2a7.d0403",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "true",
+        "x": 640,
+        "y": 3460,
+        "wires": []
+    },
+    {
+        "id": "f5a701b6.e2922",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "Chat ",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 3740,
+        "wires": [
+            [
+                "b6765e3d.c24e2"
+            ]
+        ]
+    },
+    {
+        "id": "bfac6f2.689e29",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "Chat Test2",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "6",
+        "x": 210,
+        "y": 3600,
+        "wires": [
+            [
+                "b6765e3d.c24e2"
+            ]
+        ]
+    },
+    {
+        "id": "a244aab8.8fe0f8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "Chat Test3",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "7",
+        "x": 210,
+        "y": 3640,
+        "wires": [
+            [
+                "b6765e3d.c24e2"
+            ]
+        ]
+    },
+    {
+        "id": "d3145cf5.81b43",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "Chat Test4",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "8",
+        "x": 210,
+        "y": 3680,
+        "wires": [
+            [
+                "b6765e3d.c24e2"
+            ]
+        ]
+    },
+    {
+        "id": "a26407a6.c72ed8",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "was zum Chat gehen soll",
+        "links": [
+            "649df18a.0a84e"
+        ],
+        "x": 200,
+        "y": 3440,
+        "wires": [
+            [
+                "ed53ddb4.39d7f",
+                "4599b5bd.58229c",
+                "b6765e3d.c24e2"
+            ]
+        ]
+    },
+    {
+        "id": "6727eee.fdc7d1",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "was vom Chat zurückgeschickt wird",
+        "links": [
+            "46ca8314.ea64cc"
+        ],
+        "x": 655,
+        "y": 3380,
+        "wires": []
+    },
+    {
+        "id": "9a08a07c.a30dd",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "9 9",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 1000,
+        "wires": [
+            [
+                "fdc1ad07.552ba"
+            ]
+        ]
+    },
+    {
+        "id": "e88cf0ea.0433d",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "c8a51342.7574c"
+        ],
+        "x": 3195,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "9d5927e0.1d4338",
+        "type": "websocket out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "server": "",
+        "client": "a075c1de.a2da8",
+        "x": 2250,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a23999b0.36af08",
+        "type": "websocket in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "server": "",
+        "client": "a075c1de.a2da8",
+        "x": 3480,
+        "y": 580,
+        "wires": [
+            [
+                "8008afff.e0f97"
+            ]
+        ]
+    },
+    {
+        "id": "7576d294.b7701c",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "10 10",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 270,
+        "y": 1040,
+        "wires": [
+            [
+                "fdc1ad07.552ba"
+            ]
+        ]
+    },
+    {
+        "id": "df15db6.6f09028",
+        "type": "e-mail in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "repeat": "300",
+        "inputs": 0,
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "f77c9727.328b18",
+                "9dc81a14.c252d8"
+            ]
+        ]
+    },
+    {
+        "id": "9ff4ee3.e7fbb1",
+        "type": "websocket in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "server": "2eeeeaf6.57c236",
+        "client": "",
+        "x": 170,
+        "y": 1920,
+        "wires": [
+            [
+                "47b3ec88.3447b4"
+            ]
+        ]
+    },
+    {
+        "id": "47b3ec88.3447b4",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "40e1ac1e.1970e4"
+        ],
+        "x": 315,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "40e1ac1e.1970e4",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "gatttool ohne delay",
+        "links": [
+            "47b3ec88.3447b4"
+        ],
+        "x": 215,
+        "y": 1720,
+        "wires": [
+            [
+                "1c31af2f.ccaff1",
+                "44f663d9.ff03dc"
+            ]
+        ]
+    },
+    {
+        "id": "7d6e6af4.fae534",
+        "type": "websocket out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "server": "2eeeeaf6.57c236",
+        "client": "",
+        "x": 530,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "f4add992.4f5568",
+        "type": "link out",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "gatttool output ohne join",
+        "links": [
+            "aa464a47.6135a8"
+        ],
+        "x": 535,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "aa464a47.6135a8",
+        "type": "link in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "links": [
+            "f4add992.4f5568"
+        ],
+        "x": 375,
+        "y": 1920,
+        "wires": [
+            [
+                "7d6e6af4.fae534"
+            ]
+        ]
+    },
+    {
+        "id": "d095ab1d.2b9978",
+        "type": "http in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "url": "/Heizung.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 2260,
+        "wires": [
+            [
+                "3a080282.7db4fe"
+            ]
+        ]
+    },
+    {
+        "id": "3a080282.7db4fe",
+        "type": "file in",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "filename": "/home/pi/Heizung.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 310,
+        "y": 2260,
+        "wires": [
+            [
+                "805162d6.192ab"
+            ]
+        ]
+    },
+    {
+        "id": "805162d6.192ab",
+        "type": "http response",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 2260,
+        "wires": []
+    },
+    {
+        "id": "684ea7a4.c6e748",
+        "type": "comment",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "html",
+        "info": "",
+        "x": 60,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "d5d3587b.c3fed8",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "topic": "",
+        "payload": "disconnect",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 2020,
+        "wires": [
+            [
+                "47b3ec88.3447b4"
             ]
         ]
     }
