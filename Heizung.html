@@ -471,6 +471,11 @@ function Stopp_Boost_mode() {
 
 
 <body onload="websocket_verbinden()">
+<div style="position:fixed; top:0px; left:600px;"><span style=" background-color:yellow; border:none;" >
+  <a href="Touchscreen.html">Touchscreen.html</a>
+  <a href="Einkaufsliste.html">Einkaufsliste.html</a>
+  <span style=" color:green; border:none;">Heizung.html</span>
+  </div>
 Quellen:         <span style="float:right">→<a href="http://biz.no-ip.org/jpg-wx.php">Wetterstation</a> →<a href="Einkaufsliste.html">Einkaufsliste</a></span>
 <div><a href="https://github.com/OpaStefanVogel/HEIZUNGSPI/blob/master/Heizung.html" target="_blank">https://github.com/OpaStefanVogel/HEIZUNGSPI/blob/master/Heizung.html</a>         <span style="float:right; color violet">→<a href="https://www.schulferien.org/Sachsen/sachsen.html"><span id="Ferien" style="color:darkviolet">Ferien</span></a></span></div>
 <div><a href="https://github.com/Heckie75/eQ-3-radiator-thermostat/blob/master/eq-3-radiator-thermostat-api.md" target="_blank">https://github.com/Heckie75/eQ-3-radiator-thermostat/blob/master/eq-3-radiator-thermostat-api.md<a></div>
@@ -479,7 +484,7 @@ Quellen:         <span style="float:right">→<a href="http://biz.no-ip.org/jpg-
 
 <li>Verbindung zum (Heizungs-) Raspberry Pi: <span id="Raspberry Pi" class="nicht_verbunden">nicht verbunden (Seite nochmal laden)</span>. Aktuelle Chemnitz Temperatur: <a href="http://chzwetter.eu"><span id="aktuelle_Chemnitz_Temperatur">??</span></a> °C.</li>
 
-<li style="display:">Von dort zum Thermostat <input id="Thermostatadresse"  size="12" value="00:1A:22:11:07:08"/>: <span id="Thermostat" class="nicht_verbunden">disconnected</span> (<span id="Verbindung">wird erst bei einer nachfolgenden Eingabe verbunden</span>).</li>
+<li style="display:">Von dort zum Thermostat <input id="Thermostatadresse"  size="12" value="00:1A:22:0B:F9:D1"/>: <span id="Thermostat" class="nicht_verbunden">disconnected</span> (<span id="Verbindung">wird erst bei einer nachfolgenden Eingabe verbunden</span>).</li>
 
 <li style="display:none">Im Thermostat: <span id="Sendetext" class="nicht_verbunden"> </span> (<span id="Übertragung"> </span>).</li>
 

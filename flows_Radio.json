@@ -299,40 +299,6 @@
         "wholemsg": "false"
     },
     {
-        "id": "bb0c17ea.168be8",
-        "type": "websocket-listener",
-        "z": "",
-        "path": "/ws/neue_Email_da",
-        "wholemsg": "true"
-    },
-    {
-        "id": "f4585980.cfc8d8",
-        "type": "mqtt-broker",
-        "z": "",
-        "name": "",
-        "broker": "test.mosquitto.org",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": ""
-    },
-    {
-        "id": "a075c1de.a2da8",
-        "type": "websocket-client",
-        "z": "",
-        "path": "ws://radio:1880/ws/mqtt_ersatz",
-        "tls": "",
-        "wholemsg": "false"
-    },
-    {
         "id": "2eeeeaf6.57c236",
         "type": "websocket-listener",
         "z": "",
@@ -9386,22 +9352,6 @@
         ]
     },
     {
-        "id": "f77c9727.328b18",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "nur \"Re: Heizungsraspberrypi.\"",
-        "func": "if (msg.topic==\"Re: Heizungsraspberrypi.\") {\n  msg.payload=msg.payload+msg.date;\n  return msg;\n  }\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 490,
-        "y": 220,
-        "wires": [
-            [
-                "51b9d8e0.654708"
-            ]
-        ]
-    },
-    {
         "id": "53f4d6d6.43a048",
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
@@ -9760,7 +9710,7 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 670,
+        "x": 590,
         "y": 1980,
         "wires": []
     },
@@ -10021,19 +9971,6 @@
         "wires": []
     },
     {
-        "id": "e937d913.f9cc08",
-        "type": "link out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "links": [
-            "8d7032c0.aa987",
-            "84ff3fc9.6fe5f"
-        ],
-        "x": 3195,
-        "y": 380,
-        "wires": []
-    },
-    {
         "id": "8d7032c0.aa987",
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
@@ -10081,30 +10018,6 @@
         ]
     },
     {
-        "id": "e89ba304.502b2",
-        "type": "delay",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "40",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 2720,
-        "y": 220,
-        "wires": [
-            [
-                "b17c7d4d.36a8e",
-                "4353f4af.65a1ec"
-            ]
-        ]
-    },
-    {
         "id": "a14fb278.e3386",
         "type": "comment",
         "z": "c0d2b8ff.7a7ce8",
@@ -10146,7 +10059,7 @@
         "type": "debug",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -10154,62 +10067,6 @@
         "x": 470,
         "y": 1800,
         "wires": []
-    },
-    {
-        "id": "36531d5f.e27c22",
-        "type": "websocket out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "zum Lautsprecher: \"neue_Email_da\"",
-        "server": "bb0c17ea.168be8",
-        "client": "",
-        "x": 730,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "3cc6656c.7159fa",
-        "type": "e-mail",
-        "z": "c0d2b8ff.7a7ce8",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "secure": true,
-        "name": "",
-        "dname": "Re: Heizungsraspberrypi.",
-        "x": 3890,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "a9fda01.0aaf06",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 3450,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "ad5cb936.5cde28",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "msg.to=msg.from ...",
-        "func": "var msgneu={};\nmsgneu.to=msg.from;\nmsgneu.topic=msg.topic;\nmsgneu.payload=\"automatisch erzeugte Email vom Heizungsraspberrypi\\n\\n\";\nvar notifications=global.get(\"notifications\");\nfor (var i=0;i<notifications.length;i++) {\n  var nt=notifications[i];\n  msgneu.payload+=nt+\" (\";\n  if (nt.slice(-10,-9)==\"0\") msgneu.payload+=\"auto \";\n  if (nt.slice(-10,-9)==\"1\") msgneu.payload+=\"manu \";\n  msgneu.payload+=eval(\"0x\"+nt.slice(-2))/2+\" °C)\\n\";\n  }\nmsgneu.payload+=\"\\n\"+\"Antwort auf Email \"+msg.date;\nmsgneu.Test=msg.Test;\nglobal.set(\"Antwort\",msgneu);\nreturn msgneu;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 3220,
-        "y": 220,
-        "wires": [
-            [
-                "a9fda01.0aaf06",
-                "91bd6d8b.e75bf",
-                "d4aba80c.b604e8"
-            ]
-        ]
     },
     {
         "id": "d1bb22ed.1e69",
@@ -10248,117 +10105,6 @@
         ]
     },
     {
-        "id": "91bd6d8b.e75bf",
-        "type": "file",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "filename": "Testemail.txt",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "true",
-        "x": 3470,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4353f4af.65a1ec",
-        "type": "delay",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 3000,
-        "y": 220,
-        "wires": [
-            [
-                "ad5cb936.5cde28"
-            ]
-        ]
-    },
-    {
-        "id": "d4aba80c.b604e8",
-        "type": "delay",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 3460,
-        "y": 220,
-        "wires": [
-            [
-                "2ea0f744.a03738"
-            ]
-        ]
-    },
-    {
-        "id": "9dc81a14.c252d8",
-        "type": "delay",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 440,
-        "y": 260,
-        "wires": [
-            [
-                "36531d5f.e27c22"
-            ]
-        ]
-    },
-    {
-        "id": "fdbb6369.b4306",
-        "type": "comment",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "ab hier Email beantworten",
-        "info": "",
-        "x": 3050,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "c4578348.853ce",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "msg=msg.payload;",
-        "func": "msg.payload.payload=msg.Schluessel+\" \"+msg.payload.payload.slice(11);\nmsg=msg.payload;\nvar t=new Date();\nmsg.date=t.toString();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 750,
-        "y": 180,
-        "wires": [
-            [
-                "23784521.67181a",
-                "51b9d8e0.654708"
-            ]
-        ]
-    },
-    {
         "id": "46040b00.8be824",
         "type": "file",
         "z": "c0d2b8ff.7a7ce8",
@@ -10371,53 +10117,6 @@
         "y": 1620,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "80ffd605.d73d38",
-        "type": "file",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "filename": "empfangeneEmail.txt",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "false",
-        "x": 960,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d1d7842e.869f88",
-        "type": "json",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": true,
-        "x": 750,
-        "y": 340,
-        "wires": [
-            [
-                "80ffd605.d73d38"
-            ]
-        ]
-    },
-    {
-        "id": "bebe0ddf.6e309",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Bei Fehlersuche Email  speichern",
-        "func": "var ret={};\nret.payload={\"payload\":msg.payload.slice(0,20),\"date\":msg.date};\nreturn ret;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 500,
-        "y": 340,
-        "wires": [
-            [
-                "d1d7842e.869f88"
-            ]
         ]
     },
     {
@@ -10441,71 +10140,6 @@
         ]
     },
     {
-        "id": "b17c7d4d.36a8e",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "func": "var p=msg.payload.trim().toLowerCase().replace(/\\n/g,\" \")+\" \";\nvar msg1=null; if (p.slice(0,10)==\"heizung an\") {msg1={}; msg1.payload=\"Heizung an\"}\nvar msg2=null; if (p.slice(0,11)==\"heizung aus\") {msg2={}; msg2.payload=\"Heizung aus\"}\nvar msg3=null; if (p.slice(0,14)==\"heizung status\") {msg3={}; msg3.payload=\"Status\"}\n               if (p.slice(0,13)==\"heizung viele\") {msg3={}; msg3.payload=\"Status\"}\nvar msg4=null; if (p.slice(0,14)==\"heizung reboot\") {msg4={}; msg4.payload=\"Reboot\"}\nvar msg5=null; if (p.slice(0,18)==\"heizung temperatur\") {msg5={}; msg5.payload=p.slice(19,p.indexOf(\" \",19))}\nvar msg6=null; if (p.slice(0,24)==\"heizung wochentemperatur\") {msg6={}; msg6.payload=p.slice(24)}\nreturn [msg1,msg2,msg3,msg4,msg5,msg6];\n",
-        "outputs": 6,
-        "noerr": 0,
-        "x": 2990,
-        "y": 340,
-        "wires": [
-            [
-                "e937d913.f9cc08",
-                "4cdadd3c.f0eba4"
-            ],
-            [
-                "b187ef87.c94ca",
-                "4cdadd3c.f0eba4"
-            ],
-            [
-                "4c3fdae7.2b2684",
-                "4cdadd3c.f0eba4"
-            ],
-            [
-                "c5fd0e6e.677bb",
-                "4cdadd3c.f0eba4"
-            ],
-            [
-                "cbd3e994.ec93d8",
-                "4cdadd3c.f0eba4"
-            ],
-            [
-                "e88cf0ea.0433d",
-                "4cdadd3c.f0eba4"
-            ]
-        ]
-    },
-    {
-        "id": "2351b078.14004",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 3330,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "19124117.66781f",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 1710,
-        "y": 160,
-        "wires": []
-    },
-    {
         "id": "31569816.f99208",
         "type": "comment",
         "z": "c0d2b8ff.7a7ce8",
@@ -10514,57 +10148,6 @@
         "x": 380,
         "y": 140,
         "wires": []
-    },
-    {
-        "id": "436c24d7.0e67cc",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Test Email ",
-        "topic": "",
-        "payload": "{\"payload\":\"Schluessel Heizung Temperatur 21\\nAlso bitte nochmal Heizung anschalten.\\n\\nViele Grüße\\n\\nBeate\\n\\nAm 17.02.2018 um 13:45 schrieb Stefan Vogel:\\n> Ach nee, das kann man einstellen, ob die abgerufene Email als gelesen > markiert werden soll. Beim Heizungsraspberrypi habe ich das neu > angelegt und da ist das Anfangseinstellung. Habe ich jetzt sçhnell > umgestellt, bitte bei Gelegenheit noch ein Test, dann müsste im > debug-Tab einmalig die Heizung auf \\\"Heizung ein\\\" gestellt werden, im > Lautsprecher soll aber alle 5 min \\\"Email da\\\" zu hören sein, falls ich > zwischendurch weg bin.\\n>\\n> Am 17.02.2018 13:39 schrieb \\\"Stefan Vogel\\\" > <backebackekuchen16@gmail.com <mailto:backebackekuchen16@gmail.com>>:\\n>\\n>     Heizung ist an und Lautsprecher geht auch. Was mir im Moment noch\\n>     nicht klar ist, warum danach die Email als gelesen markiert ist.\\n>     Früher war es mal so, daß die Email trotz Abfrage ungelesen bleibt\\n>     und deshalb die Durchsage solange wiederholt wird, bis die Email\\n>     im Emailprogramm gelesen ist. Da war es ...\",\"topic\":\"Re: Heizungsraspberrypi.\",\"date\":\"2018-02-17T12:48:35.000Z\",\"Test\":\"true\",\"header\":{\"delivered-to\":\"backebackekuchen16@gmail.com\",\"received\":[\"by 10.12.129.241 with SMTP id 46csp1709545qve; Sat, 17 Feb 2018 04:48:40 -0800 (PST)\",\"from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41]) by mx.google.com with SMTPS id 44sor7384314wrv.36.2018.02.17.04.48.39 for <backebackekuchen16@gmail.com> (Google Transport Security); Sat, 17 Feb 2018 04:48:40 -0800 (PST)\",\"from [192.168.1.58] (p578c5fe3.dip0.t-ipconnect.de. [87.140.95.227]) by smtp.gmail.com with ESMTPSA id 10sm13889551wmj.19.2018.02.17.04.48.37 for <backebackekuchen16@gmail.com> (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128); Sat, 17 Feb 2018 04:48:38 -0800 (PST)\"],\"x-received\":[\"by 10.28.194.2 with SMTP id s2mr6901721wmf.55.1518871720261; Sat, 17 Feb 2018 04:48:40 -0800 (PST)\",\"by 10.223.196.129 with SMTP id m1mr7967315wrf.213.1518871719414; Sat, 17 Feb 2018 04:48:39 -0800 (PST)\"],\"arc-seal\":\"i=1; a=rsa-sha256; t=1518871720; cv=none; d=google.com; s=arc-20160816; b=fP2nc5cFceRE6kfO7WWMQW8M5DM1SWR8AZrcwra1TufHuZGvmdyCYVuClyo2fuOw2i cTSpyqFuoi5MjYfCfSPVX+8F1pLs+GDLYQVhlcxOpX6atRY8TUCRWNQ67Yg3h2advZn1 xBhVkEYIJO+hZ1YMFln/BALhbq+T9vvIDYy5oCs2Ssw4zeyVl5UPJGFkgFaLTwqQZ8Zh WSoxelhzj3tmPC7WgKH2kn9AqwZTqfOHau9k/LaHX7/Cx5ON9e6NtsQbe7nOlBFmLzCX IQNzU9NjTJiIcV95HCY0Y7wf/t5HbvhNlLCZr1Iw6PN3YxmUQc2Rj3xt7hTSkIf8oZng SE5A==\",\"arc-message-signature\":\"i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816; h=content-language:in-reply-to:mime-version:user-agent:date :message-id:from:references:to:subject:dkim-signature :arc-authentication-results; bh=KZeMUnIfi7r7Oe4ya9Ybe05qhBvH81IPssRj+RLCW4A=; b=S6Q5+hz8l/nVDBZu18BV+MDfA3WJVv8+pFtLn+9Qg+l/8+WGaulJq2m8x4+rmjOUAr TS0tpWybEYm3CJSZQXvsMSM/U9PvlA8m4YvvHKR/cpLtpF10HEzVW/APAhAj6WpG5bDc ch0BED/8tESukkB2+q+NgNQArEgaOCoYagW9rbVLb16EeOUMf6BSRJ0qjDUKZmLIPOBC 5QyGZthag79bCojOorzZDrNp4c/kFdD6sE7EzSBnPRRukFMElBqYoGY+NeMh8DknA2py wbrV1fLP2lzNznlLD8qIVMPAvuqUxtwWEW/KKPj9X0Bu2qtuAAIe10fJ+Q9XJ+NoMSRb V7Zw==\",\"arc-authentication-results\":\"i=1; mx.google.com; dkim=pass header.i=@gmail.com header.s=20161025 header.b=ktMs+j5e; spf=pass (google.com: domain of alb6116@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=alb6116@gmail.com; dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com\",\"return-path\":[\"<alb6116@gmail.com>\",\"<alb6116@gmail.com>\"],\"received-spf\":\"pass (google.com: domain of alb6116@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;\",\"authentication-results\":\"mx.google.com; dkim=pass header.i=@gmail.com header.s=20161025 header.b=ktMs+j5e; spf=pass (google.com: domain of alb6116@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=alb6116@gmail.com; dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com\",\"dkim-signature\":\"v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025; h=subject:to:references:from:message-id:date:user-agent:mime-version :in-reply-to:content-language; bh=KZeMUnIfi7r7Oe4ya9Ybe05qhBvH81IPssRj+RLCW4A=; b=ktMs+j5e6/y0r6hW8ofq0EXmDCdFRdbRSbqIFbfWUuswml/YHHFTZyjMRG5dPFeMGE JvC9mOUdbgwpRJlDnH4CvRhU0u27KgNMCpqsNs+0zCwu55TZxfWbcdZITUOZ3YTzEQdC hXCDXu7eR+uYSRfG8Jms+MvWGgBv9cHKf7F0YbfEuHkpyZFbNsfHIGbminUANvi6oNbt HczrHe6XA+XxKk18iq/DEfsEC8auFUceOhQvq3dxji26UTgWdQAsG4OQedgD6TIXlJ83 31jSo9cwEG47DL1mHlAjuYECgmNJn5Khp9gLVj78X1mFYknyGptahYGFtEf9qD8FfgPf vH1Q==\",\"x-google-dkim-signature\":\"v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20161025; h=x-gm-message-state:subject:to:references:from:message-id:date :user-agent:mime-version:in-reply-to:content-language; bh=KZeMUnIfi7r7Oe4ya9Ybe05qhBvH81IPssRj+RLCW4A=; b=ON43764z75Yh9h8mY3VxVog5GZ1GB68WDR2ZYPgsihQljPBNg3mvYO5yUnUHXXm+r1 TZnhGX9rKw2EyMoCOxOL97gvVsA2BshYMumB4Qj/19Fat/gn427+txLIkS01RET3nsWh SMzumTq7GE0LJPF1pQzKhUYA/oRe7xvx3XpLRB2eZIr+FeY6SB0fr2Ne/XmD9oOhQ0v+ 5B5f8rTgHoTtOJjdhNEV03Ox49O9tlDJHP7f2wjrzc5pG5M2bdfDVDY/nELcvSzQoZdF 1wv6Oq7NJ7EKzip6mVpMAJLeffxdAOyRtVWWK4KlmMt0gX11gMeNVpLmZSWlh513x88P TRgA==\",\"x-gm-message-state\":\"APf1xPB4Gydn5iuraL6EIPOeWBD9HHaDFblIu9EHZnXgv0Q2/btBGTDh CtJzXZfNNGMiCKWiUxYRdJ5q/+9f\",\"x-google-smtp-source\":\"AH8x224ZfVgq2kzGX+OoI7+81/PHN8edhr8tGCG0V64fbuO+Hx6d8Psy5k4PAjiw8D5Pxo2uzQtYww==\",\"subject\":\"Re: Heizungsraspberrypi.\",\"to\":\"Stefan Vogel <backebackekuchen16@gmail.com>\",\"references\":\"<CAOVUi5ac9-irwWNohYKTq+MOFzziuvbCDVpvy9oqWa3Q-PSAcg@mail.gmail.com> <CAOVUi5a0i1OhbPkVWS075QPOR20o3D_1oSV2JgX=x69oDeTr-Q@mail.gmail.com> <CAOVUi5ZZ=PD=vkMcd3WwDztykK5phozR9++C8A_FsfSqfz2w2A@mail.gmail.com> <CAOVUi5b-r5_Mamg8uc1ELj-gphdA1d6CaveKv1a7PTQvWyARiQ@mail.gmail.com> <45d67f86-8d1e-07b1-d10a-c01a8754f726@gmail.com> <CAOVUi5bu2_ThhZgTa15sLo0ZnvAKaOYCVTLfP2+6ajBDkQ9z9Q@mail.gmail.com> <5129d2cd-23b5-8a45-f96d-651cd481a259@gmail.com> <CAOVUi5YzU+1P07U4JUQFCRRm1hbSp8qw3iDiRSRS8+qDF_unvA@mail.gmail.com> <CAOVUi5Z1zskgjNNBGXBsBD0QDycYViqZty6RbPAgXUnRxDZp2A@mail.gmail.com> <CAOVUi5YStRDzcj9GgOiKjhO-LRav=6iS-PM9JobWXqTM6-JFow@mail.gmail.com> <62518eb2-7a8f-f593-0a39-1856607c8405@gmail.com> <CAOVUi5bWZNcuMmsANYfXfF8XhooKK+OcGuaeuXDcY7QmFi5yrA@mail.gmail.com> <040f5a29-53e9-3242-2528-9f79d2170e26@gmail.com> <CAOVUi5Ya2D4GdOnW9BjFbi3-2=D_vB7k1ZRCbDdUOj4SmKyEFQ@mail.gmail.com> <CAOVUi5bN=uwS00XibcP0e0GRqod-4ZDCuVb8_NQy8fqQsob0Pw@mail.gmail.com>\",\"from\":\"Beate Lang <alb6116@gmail.com>\",\"message-id\":\"<646e27ce-bb11-db0e-ca93-21f1728c46fe@gmail.com>\",\"date\":\"Sat, 17 Feb 2018 13:48:35 +0100\",\"user-agent\":\"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Thunderbird/52.6.0\",\"mime-version\":\"1.0\",\"in-reply-to\":\"<CAOVUi5bN=uwS00XibcP0e0GRqod-4ZDCuVb8_NQy8fqQsob0Pw@mail.gmail.com>\",\"content-type\":\"multipart/alternative; boundary=\\\"------------D3C1AA8471C00039CE49E5E2\\\"\",\"content-language\":\"en-US\"},\"html\":\"<html>\\n  <head>\\n    <meta http-equiv=\\\"content-type\\\" content=\\\"text/html; charset=utf-8\\\" />\\n  </head>\\n  <body text=\\\"#000000\\\" bgcolor=\\\"#FFFFFF\\\">\\n    <div class=\\\"moz-cite-prefix\\\">Also bitte nochmal Heizung anschalten.<br>\\n      <br>\\n      Viele Grüße<br>\\n      <br>\\n      Beate<br>\\n      <br>\\n      Am 17.02.2018 um 13:45 schrieb Stefan Vogel:<br>\\n    </div>\\n    <blockquote type=\\\"cite\\\"\\ncite=\\\"mid:CAOVUi5bN=uwS00XibcP0e0GRqod-4ZDCuVb8_NQy8fqQsob0Pw@mail.gmail.com\\\">\\n      <div dir=\\\"auto\\\">Ach nee, das kann man einstellen, ob die\\n        abgerufene Email als gelesen markiert werden soll. Beim\\n        Heizungsraspberrypi habe ich das neu angelegt und da ist das\\n        Anfangseinstellung. Habe ich jetzt sçhnell umgestellt, bitte bei\\n        Gelegenheit noch ein Test, dann müsste im debug-Tab einmalig die\\n        Heizung auf \\\"Heizung ein\\\" gestellt werden, im Lautsprecher soll\\n        aber alle 5 min \\\"Email da\\\" zu hören sein, falls ich\\n        zwischendurch weg bin. </div>\\n      <div class=\\\"gmail_ex...\",\"from\":\"alb6116@gmail.com\",\"attachments\":[],\"_msgid\":\"b925388f.3f2e18\"}",
-        "payloadType": "json",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 180,
-        "y": 180,
-        "wires": [
-            [
-                "aec3c7c5.5a90e8"
-            ]
-        ]
-    },
-    {
-        "id": "b187ef87.c94ca",
-        "type": "link out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "links": [
-            "90f0dbc4.3e13d8"
-        ],
-        "x": 3195,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "c5fd0e6e.677bb",
-        "type": "exec",
-        "z": "c0d2b8ff.7a7ce8",
-        "command": "sudo reboot",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "sudo reboot",
-        "x": 3250,
-        "y": 520,
-        "wires": [
-            [],
-            [],
-            []
-        ]
     },
     {
         "id": "de8a5556.029308",
@@ -10667,38 +10250,6 @@
         ]
     },
     {
-        "id": "4c3fdae7.2b2684",
-        "type": "link out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "2",
-        "links": [
-            "bad04d05.4e1f2"
-        ],
-        "x": 3195,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "ae3a32b1.fd823",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Reset",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 2970,
-        "y": 520,
-        "wires": [
-            [
-                "c5fd0e6e.677bb"
-            ]
-        ]
-    },
-    {
         "id": "2743ad8b.652632",
         "type": "link out",
         "z": "c0d2b8ff.7a7ce8",
@@ -10753,256 +10304,6 @@
         "x": 190,
         "y": 1420,
         "wires": []
-    },
-    {
-        "id": "cfc6aa7a.476628",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 3020,
-        "y": 260,
-        "wires": [
-            [
-                "ad5cb936.5cde28"
-            ]
-        ]
-    },
-    {
-        "id": "d05f7b00.f8bfb8",
-        "type": "comment",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Heizung an",
-        "info": "",
-        "x": 3310,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "5158489e.31d3e8",
-        "type": "comment",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Heizung aus",
-        "info": "",
-        "x": 3310,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "1b3aa135.6069cf",
-        "type": "comment",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Status",
-        "info": "",
-        "x": 3290,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "ccbd7b0d.f2b1a8",
-        "type": "link in",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "zur Fehlersuche Email speichern",
-        "links": [
-            "b405bf65.95768",
-            "6a4464a6.ba70ac"
-        ],
-        "x": 260,
-        "y": 340,
-        "wires": [
-            [
-                "bebe0ddf.6e309"
-            ]
-        ]
-    },
-    {
-        "id": "73334949.f6bdb8",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "aktuellste Email merken",
-        "func": "var letzte_Email=global.get(\"letzte_Email\")||{\"date\":0};\nif (Date.parse(msg.date)>Date.parse(letzte_Email.date)) global.set(\"letzte_Email\",msg);\nnode.status({text:msg.date+\" \"});\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1750,
-        "y": 220,
-        "wires": [
-            [
-                "88c42c6f.0bbfb"
-            ]
-        ]
-    },
-    {
-        "id": "88c42c6f.0bbfb",
-        "type": "delay",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "10",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 2000,
-        "y": 220,
-        "wires": [
-            [
-                "32cfdb93.3eb6f4"
-            ]
-        ]
-    },
-    {
-        "id": "32cfdb93.3eb6f4",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "aktuellste Email ausführen",
-        "func": "msg=global.get(\"letzte_Email\");\nnode.status({text:msg.date+\" \"});\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 2240,
-        "y": 220,
-        "wires": [
-            [
-                "8758ae7b.1eb06",
-                "565a4121.da1a3"
-            ]
-        ]
-    },
-    {
-        "id": "8758ae7b.1eb06",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 2470,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "7038fd8b.ef6c14",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 2000,
-        "y": 140,
-        "wires": [
-            [
-                "be25b692.cd17d8"
-            ]
-        ]
-    },
-    {
-        "id": "be25b692.cd17d8",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "aktuellste Email löschen",
-        "func": "global.set(\"letzte_Email\",{\"date\":0});\nmsg.reset=true;\nmsg.date=0;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 2230,
-        "y": 140,
-        "wires": [
-            [
-                "32cfdb93.3eb6f4"
-            ]
-        ]
-    },
-    {
-        "id": "817dd89f.406b68",
-        "type": "comment",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Schaltprogramm auswählen",
-        "info": "",
-        "x": 2880,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "47bfc0f2.87a32",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 2700,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "565a4121.da1a3",
-        "type": "rbe",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "property": "payload",
-        "x": 2490,
-        "y": 200,
-        "wires": [
-            [
-                "e89ba304.502b2",
-                "47bfc0f2.87a32"
-            ]
-        ]
-    },
-    {
-        "id": "ca04c7b7.f89838",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 240,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "9f1b0606.ec8208",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 460,
-        "y": 300,
-        "wires": [
-            [
-                "36531d5f.e27c22"
-            ]
-        ]
     },
     {
         "id": "907a0d8b.3b531",
@@ -11362,207 +10663,6 @@
                 "3592cf2e.eb309"
             ]
         ]
-    },
-    {
-        "id": "cbd3e994.ec93d8",
-        "type": "link out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "links": [
-            "558c02ac.e6678c"
-        ],
-        "x": 3195,
-        "y": 580,
-        "wires": []
-    },
-    {
-        "id": "c7c230b0.93057",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Heizung Temperatur 21,5 °C",
-        "topic": "",
-        "payload": "Heizung Temperatur 21,5 °C",
-        "payloadType": "str",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 2800,
-        "y": 460,
-        "wires": [
-            [
-                "b17c7d4d.36a8e"
-            ]
-        ]
-    },
-    {
-        "id": "2d224e43.3a0062",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Heizung Temperatur 22 °C",
-        "topic": "",
-        "payload": "Heizung Temperatur 22 °C",
-        "payloadType": "str",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 2790,
-        "y": 500,
-        "wires": [
-            [
-                "b17c7d4d.36a8e"
-            ]
-        ]
-    },
-    {
-        "id": "a2659291.68cca",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "Heizung Status",
-        "topic": "",
-        "payload": "Status",
-        "payloadType": "str",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 2760,
-        "y": 420,
-        "wires": [
-            [
-                "b17c7d4d.36a8e"
-            ]
-        ]
-    },
-    {
-        "id": "2ea0f744.a03738",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "func": "if (msg.Test!=\"true\") return msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 3630,
-        "y": 220,
-        "wires": [
-            [
-                "db4066af.2f49b8",
-                "3cc6656c.7159fa"
-            ]
-        ]
-    },
-    {
-        "id": "db4066af.2f49b8",
-        "type": "delay",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 3840,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c19b0469.364378",
-        "type": "inject",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "topic": "",
-        "payload": "Antwort",
-        "payloadType": "global",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 3570,
-        "y": 260,
-        "wires": [
-            [
-                "fff943ca.445f6"
-            ]
-        ]
-    },
-    {
-        "id": "fff943ca.445f6",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 3970,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "51b9d8e0.654708",
-        "type": "subflow:dcf46aa6.338d68",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "aktuellen Schluessel holen",
-        "x": 1020,
-        "y": 220,
-        "wires": [
-            [
-                "1dfe9368.5ebfed"
-            ]
-        ]
-    },
-    {
-        "id": "1dfe9368.5ebfed",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "msg.payload ohne dem Schlüssel",
-        "func": "var schl=msg.Schluessel;\nvar schl_length=schl.length;\nif (msg.payload.indexOf(schl)==0) {\n  msg.payload=msg.payload.slice(schl_length,schl_length+80).trim()+\" Status wenn nichts anderes angegeben ist. \"+msg.date;\n  return msg;\n  }\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1400,
-        "y": 220,
-        "wires": [
-            [
-                "73334949.f6bdb8",
-                "19124117.66781f"
-            ]
-        ]
-    },
-    {
-        "id": "aec3c7c5.5a90e8",
-        "type": "subflow:dcf46aa6.338d68",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "aktuellen Schluessel holen",
-        "x": 500,
-        "y": 180,
-        "wires": [
-            [
-                "c4578348.853ce"
-            ]
-        ]
-    },
-    {
-        "id": "23784521.67181a",
-        "type": "debug",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 940,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "e77462d5.b7d96",
@@ -11974,120 +11074,6 @@
         ]
     },
     {
-        "id": "c1e82b32.7350a8",
-        "type": "mqtt in",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "topic": "Testheini78x11/psswd_ha72z",
-        "qos": "2",
-        "broker": "f4585980.cfc8d8",
-        "x": 1920,
-        "y": 340,
-        "wires": [
-            [
-                "1eb060ba.3dfaaf",
-                "52ccf8c2.be03e8",
-                "649df18a.0a84e",
-                "9d5927e0.1d4338"
-            ]
-        ]
-    },
-    {
-        "id": "1eb060ba.3dfaaf",
-        "type": "subflow:dcf46aa6.338d68",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "aktuellen Schluessel holen",
-        "x": 2340,
-        "y": 340,
-        "wires": [
-            [
-                "2d74e9e5.2c2696"
-            ]
-        ]
-    },
-    {
-        "id": "2d74e9e5.2c2696",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "msg.payload ohne dem Schlüssel",
-        "func": "var schl=msg.Schluessel;\nvar schl_length=schl.length;\nif (msg.payload.indexOf(schl)==0) {\n  msg.payload=msg.payload.slice(schl_length,schl_length+80).trim()+\" Status wenn nichts anderes angegeben ist. \"+msg.date;\n  return msg;\n  }\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 2720,
-        "y": 340,
-        "wires": [
-            [
-                "b17c7d4d.36a8e"
-            ]
-        ]
-    },
-    {
-        "id": "52ccf8c2.be03e8",
-        "type": "function",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "? help",
-        "func": "var m=msg.payload;\nif (m==\"?\") {\n  msg.payload=\"Antwort von <a href='https://github.com/OpaStefanVogel/HEIZUNGSPI'>Heizung</a>:<div style='border:solid; border-color: red'><code>(Schluessel) Heizung an</code><br/><code>(Schluessel) Heizung aus</code><br/><code>(Schluessel) Heizung Status</code><br/><code>(Schluessel) Heizung reboot</code><br/><code>(Schluessel) Heizung Temperatur 12</code><br/><code>(Schluessel) Heizung Wochentemperatur 20 17</code> <i>Tagestemperatur Nachttemperatur</i></div>\";\n  return msg;\n  }\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 2150,
-        "y": 400,
-        "wires": [
-            [
-                "8008afff.e0f97"
-            ]
-        ]
-    },
-    {
-        "id": "8008afff.e0f97",
-        "type": "mqtt out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "topic": "Testheini78x11/psswd_ha72z",
-        "qos": "",
-        "retain": "",
-        "broker": "f4585980.cfc8d8",
-        "x": 3550,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "4cdadd3c.f0eba4",
-        "type": "template",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Re_Heizung: Zum Ausführen entschlüsselt: {{payload}} .",
-        "output": "str",
-        "x": 3150,
-        "y": 320,
-        "wires": [
-            [
-                "2351b078.14004",
-                "8008afff.e0f97"
-            ]
-        ]
-    },
-    {
-        "id": "46ca8314.ea64cc",
-        "type": "link in",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "mqtt out",
-        "links": [
-            "ee5aec82.53667",
-            "6727eee.fdc7d1"
-        ],
-        "x": 3380,
-        "y": 520,
-        "wires": [
-            [
-                "8008afff.e0f97"
-            ]
-        ]
-    },
-    {
         "id": "e6e0b3d9.faf12",
         "type": "comment",
         "z": "c0d2b8ff.7a7ce8",
@@ -12095,18 +11081,6 @@
         "info": "",
         "x": 380,
         "y": 100,
-        "wires": []
-    },
-    {
-        "id": "649df18a.0a84e",
-        "type": "link out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "was von mqtt empfangen wurde",
-        "links": [
-            "a26407a6.c72ed8"
-        ],
-        "x": 2140,
-        "y": 300,
         "wires": []
     },
     {
@@ -12349,44 +11323,6 @@
         ]
     },
     {
-        "id": "e88cf0ea.0433d",
-        "type": "link out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "links": [
-            "c8a51342.7574c"
-        ],
-        "x": 3195,
-        "y": 620,
-        "wires": []
-    },
-    {
-        "id": "9d5927e0.1d4338",
-        "type": "websocket out",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "server": "",
-        "client": "a075c1de.a2da8",
-        "x": 2250,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "a23999b0.36af08",
-        "type": "websocket in",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "server": "",
-        "client": "a075c1de.a2da8",
-        "x": 3480,
-        "y": 580,
-        "wires": [
-            [
-                "8008afff.e0f97"
-            ]
-        ]
-    },
-    {
         "id": "7576d294.b7701c",
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
@@ -12403,28 +11339,6 @@
         "wires": [
             [
                 "fdc1ad07.552ba"
-            ]
-        ]
-    },
-    {
-        "id": "df15db6.6f09028",
-        "type": "e-mail in",
-        "z": "c0d2b8ff.7a7ce8",
-        "name": "",
-        "protocol": "IMAP",
-        "server": "imap.gmail.com",
-        "useSSL": true,
-        "port": "993",
-        "box": "INBOX",
-        "disposition": "None",
-        "repeat": "300",
-        "inputs": 0,
-        "x": 110,
-        "y": 260,
-        "wires": [
-            [
-                "f77c9727.328b18",
-                "9dc81a14.c252d8"
             ]
         ]
     },
@@ -12451,7 +11365,7 @@
         "links": [
             "40e1ac1e.1970e4"
         ],
-        "x": 315,
+        "x": 295,
         "y": 1920,
         "wires": []
     },
