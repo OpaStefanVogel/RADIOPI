@@ -11499,5 +11499,66 @@
                 "47b3ec88.3447b4"
             ]
         ]
+    },
+    {
+        "id": "eb9c530e.160cb",
+        "type": "http in",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "url": "/QUADRO.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "dff2d133.d759b"
+            ]
+        ]
+    },
+    {
+        "id": "dff2d133.d759b",
+        "type": "file in",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "filename": "QUADRO.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 380,
+        "y": 580,
+        "wires": [
+            [
+                "fb5aff9e.6d744",
+                "aeb15314.842e5"
+            ]
+        ]
+    },
+    {
+        "id": "fb5aff9e.6d744",
+        "type": "http response",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "aeb15314.842e5",
+        "type": "debug",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 560,
+        "y": 640,
+        "wires": []
     }
 ]
