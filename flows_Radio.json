@@ -1950,7 +1950,8 @@
             "7acc88f8.260048",
             "78a2a961.d6d0e8",
             "18d99c8e.b3f043",
-            "af9dc596.ff09c8"
+            "af9dc596.ff09c8",
+            "5f21b716.7f4068"
         ],
         "x": 175,
         "y": 2080,
@@ -1958,7 +1959,7 @@
             [
                 "d9c132d5.ffbdf",
                 "9132ecf0.0f506",
-                "42a9e426.810d0c"
+                "a44ac56f.4a71c8"
             ]
         ]
     },
@@ -6116,7 +6117,8 @@
                 "27e57b46.1dc1c4",
                 "cb53952e.be6cd8",
                 "1aae2558.86bf2b",
-                "fa6ec396.8942d"
+                "fa6ec396.8942d",
+                "dd76ae1f.16e4"
             ]
         ]
     },
@@ -8889,8 +8891,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 300,
-        "y": 400,
+        "x": 290,
+        "y": 380,
         "wires": []
     },
     {
@@ -11560,5 +11562,83 @@
         "x": 560,
         "y": 640,
         "wires": []
+    },
+    {
+        "id": "dd76ae1f.16e4",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Ansage an/aus",
+        "func": "var m=msg.payload;\nif (m==\"Ansage an\") {\n  msg.payload=\"Ansage an\";\n  global.set(\"Ansage\",msg.payload);\n  return msg;\n  }\nif (m==\"Ansage aus\") {\n  msg.payload=\"Ansage aus\";\n  global.set(\"Ansage\",msg.payload);\n  return msg;\n  }\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 420,
+        "wires": [
+            [
+                "5f21b716.7f4068"
+            ]
+        ]
+    },
+    {
+        "id": "5f21b716.7f4068",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 695,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "51c9d4f3.6cae4c",
+        "type": "inject",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "386e8926.3c5a66"
+            ]
+        ]
+    },
+    {
+        "id": "386e8926.3c5a66",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "global.set",
+        "func": "global.set(\"Ansage\",\"Ansage an\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a44ac56f.4a71c8",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "func": "var Ansage=global.get(\"Ansage\");\nnode.status({text:Ansage});\nif (Ansage==\"Ansage an\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 2040,
+        "wires": [
+            [
+                "42a9e426.810d0c"
+            ]
+        ]
     }
 ]

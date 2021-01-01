@@ -8,7 +8,7 @@ button {font-size:200%}
 <script>
 var aktuelle_Position=[20,530,0]
 var Stangen=[];
-var Faktor=40; //40=normal, 80=doppekt, 20=mini, 10=Ansatzstück 
+var Faktor=40; //40=normal, 80=doppelt, 20=mini, 10=Ansatzstück 
 var Faktormerk=40;
 function Richtung(dr,dh,dv) {
   var Q=document.getElementById("Quadromännchen");
@@ -58,8 +58,14 @@ function Löschen() {
     var Q=document.getElementById("Quadromännchen");
     Q.setAttribute("cx",aktuelle_Position[0]);
     Q.setAttribute("cy",aktuelle_Position[1]);
-    } else if (document.getElementById("Grafik").lastElementChild.nodeName=="g")
-      document.getElementById("Grafik").lastElementChild.remove();   
+    } else if (document.getElementById("Grafik").lastElementChild.nodeName=="g") {
+      var el=document.getElementById("Grafik").lastElementChild;
+      eval("aktuelle_Position=["+el.getAttribute("aktuell")+"]");
+      el.remove();
+      var Q=document.getElementById("Quadromännchen");
+      Q.setAttribute("cx",aktuelle_Position[0]);
+      Q.setAttribute("cy",aktuelle_Position[1]);
+      }
   was_geloescht_werden_soll=0;
   }
 
@@ -98,11 +104,11 @@ Die Knöpfe verraten es dir.
     </g>
   <circle id="Quadromännchen" fill="aqua" cx="20" cy="530" r="15"/>
   </svg>
-<span style="display:flex; flex-direction:column">
-<button onclick="Faktor=10">7</button>
-<button onclick="Faktor=20">15</button>
-<button onclick="Faktor=40">35</button>
-<button onclick="Faktor=80">75</button>
+<span style="display:flex; flex-direction:column; font-size:200%">
+<div onclick="Faktor=10"><input type="radio" id="L10" name="Laenge" value="10"/><label for="L10">7</label></div>
+<div onclick="Faktor=20"><input type="radio" id="L20" name="Laenge" value="20"/><label for="L20">15</label></div>
+<div onclick="Faktor=40"><input type="radio" id="L40" name="Laenge" value="40" checked="checked"/><label for="L40">35</label></div>
+<div onclick="Faktor=80"><input type="radio" id="L80" name="Laenge" value="80"/><label for="L80">75</label></div>
 </span>
 </div>               
 <div>               
@@ -115,20 +121,20 @@ Die Knöpfe verraten es dir.
 <span id="Log"> </span>
 </div>               
 <div>               
-<button onclick="Faktormerk=Faktor;Faktor=10;Richtung(-(-120+153.1370849898476)/2,0,0);Faktor=Faktormerk;">Mini links</button>
+<button onclick="Faktormerk=Faktor;Faktor=40;Richtung(-(-120+153.1370849898476)/2,0,0);Faktor=Faktormerk;">Mini links</button>
 <button onclick="Richtung(80/Math.sqrt(2),-80/Math.sqrt(2),0)">schräg rechts hoch</button>
 <button onclick="Richtung(80/Math.sqrt(2),80/Math.sqrt(2),0)">schräg rechts runter</button>
 <button onclick="Faktormerk=Faktor;Faktor=10;Richtung(-(-120+153.1370849898476)/2,0,0);Faktor=Faktormerk;">Mini links</button>
 </div>               
 <div>               
-<button onclick="Faktormerk=Faktor;Faktor=10;Richtung((-120+153.1370849898476)/2,0,0);Faktor=Faktormerk;">Mini rechts</button>
+<button onclick="Faktormerk=Faktor;Faktor=40;Richtung((-120+153.1370849898476)/2,0,0);Faktor=Faktormerk;">Mini rechts</button>
 <button onclick="Richtung(-80/Math.sqrt(2),-80/Math.sqrt(2),0)">schräg links hoch</button>
 <button onclick="Richtung(-80/Math.sqrt(2),80/Math.sqrt(2),0)">schräg links runter</button>
 <button onclick="Faktormerk=Faktor;Faktor=10;Richtung((-120+153.1370849898476)/2,0,0);Faktor=Faktormerk;">Mini rechts</button>
 </div>
 <div>               
-<button onclick="Faktormerk=Faktor;Faktor=10;Richtung(0,-(-120+153.1370849898476)/2,0);Faktor=Faktormerk;">Mini hoch</button>
-<button onclick="Faktormerk=Faktor;Faktor=10;Richtung(0,(-120+153.1370849898476)/2,0);Faktor=Faktormerk;">Mini runter</button>
+<button onclick="Faktormerk=Faktor;Faktor=40;Richtung(0,-(-120+153.1370849898476)/2,0);Faktor=Faktormerk;">Mini hoch</button>
+<button onclick="Faktormerk=Faktor;Faktor=40;Richtung(0,(-120+153.1370849898476)/2,0);Faktor=Faktormerk;">Mini runter</button>
 </div>               
   </body>
   </html>
