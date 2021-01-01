@@ -8,3 +8,4 @@ cd
 #sleep 10; aconnect 'Keystation 61':0 'ZynAddSubFX' &
 #sleep 30; sudo hostapd -dd /etc/hostapd/hostapd.conf &
 #florence &
+touch /tmp/RADIO_Ansage.txt

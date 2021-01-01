@@ -1427,7 +1427,7 @@
         "name": "Snooker",
         "info": "speichert Snooker-Ergebnis",
         "x": 60,
-        "y": 2160,
+        "y": 2260,
         "wires": []
     },
     {
@@ -1437,8 +1437,8 @@
         "name": "Snookersocket",
         "server": "dc774b27.f99cc8",
         "client": "",
-        "x": 260,
-        "y": 2160,
+        "x": 240,
+        "y": 2260,
         "wires": [
             [
                 "68fb51fc.f6f76",
@@ -1454,8 +1454,8 @@
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 590,
-        "y": 2160,
+        "x": 570,
+        "y": 2260,
         "wires": []
     },
     {
@@ -1466,8 +1466,8 @@
         "func": "switch (msg.payload) {\n  case \"resetIds\": \n    var ids=[]; \n    break;\n  case \"hallo\": \n    msg.payload=context.get('Spielstand')||{};\n    var ids = context.get('ids')||[];\n    ret=msg; \n    break;\n  default:\n    context.set('Spielstand',msg.payload);\n  var ids = context.get('ids')||[];\n  var ret = [[]];\n  var ind = ids.indexOf(msg._session.id);\n  if (ind==-1) {ids.push(msg._session.id)};\n  if (msg.payload!=\"\") {\n  for (i=0;i<ids.length;i++) {\n    if (i!=ind) {\n      var msg1={\"payload\":msg.payload, \"_session\": { \"type\": \"websocket\", \"id\": ids[i] }}\n      ret[0].push(msg1);\n      }\n    }\n    }\n  }\ncontext.set('ids',ids);\nnode.status({fill:\"green\",shape:\"dot\",text:ids.length});\nreturn ret;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 410,
-        "y": 2220,
+        "x": 390,
+        "y": 2320,
         "wires": [
             [
                 "3241722f.66d90e",
@@ -1482,8 +1482,8 @@
         "name": "Snookersocket",
         "server": "dc774b27.f99cc8",
         "client": "",
-        "x": 600,
-        "y": 2220,
+        "x": 580,
+        "y": 2320,
         "wires": []
     },
     {
@@ -1497,8 +1497,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 260,
-        "y": 2220,
+        "x": 230,
+        "y": 2340,
         "wires": [
             [
                 "4df6bc04.ddfb04",
@@ -1512,8 +1512,8 @@
         "z": "df2ae089.27e66",
         "name": "Graph",
         "info": "Graph",
-        "x": 163.24200439453125,
-        "y": 2283.2818908691406,
+        "x": 50,
+        "y": 2400,
         "wires": []
     },
     {
@@ -1523,8 +1523,8 @@
         "name": "Graph",
         "server": "7dcb9e13.7bfbf",
         "client": "",
-        "x": 134.11199951171875,
-        "y": 2349.040008544922,
+        "x": 190,
+        "y": 2400,
         "wires": [
             [
                 "7dbff28b.00751c"
@@ -1539,8 +1539,8 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 379.2120361328125,
-        "y": 2350.7818603515625,
+        "x": 435.10003662109375,
+        "y": 2401.7418518066406,
         "wires": []
     },
     {
@@ -1803,7 +1803,7 @@
         "format": "handlebars",
         "syntax": "mustache",
         "template": "-p 30 -s 160 -w /home/pi/lookdave.wav -vde \"{{payload}} \"; # mplayer lookdave.wav",
-        "x": 540,
+        "x": 520,
         "y": 2040,
         "wires": [
             [
@@ -1822,7 +1822,7 @@
         "timer": "",
         "oldrc": false,
         "name": "espeak (vorher pico2wave)",
-        "x": 780,
+        "x": 760,
         "y": 2040,
         "wires": [
             [
@@ -1951,15 +1951,16 @@
             "78a2a961.d6d0e8",
             "18d99c8e.b3f043",
             "af9dc596.ff09c8",
-            "5f21b716.7f4068"
+            "5f21b716.7f4068",
+            "b0f419e8.529558"
         ],
-        "x": 175,
+        "x": 135,
         "y": 2080,
         "wires": [
             [
                 "d9c132d5.ffbdf",
-                "9132ecf0.0f506",
-                "a44ac56f.4a71c8"
+                "a44ac56f.4a71c8",
+                "9132ecf0.0f506"
             ]
         ]
     },
@@ -2762,8 +2763,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 560,
-        "y": 2080,
+        "x": 260,
+        "y": 2120,
         "wires": []
     },
     {
@@ -2772,8 +2773,8 @@
         "z": "df2ae089.27e66",
         "name": "Vorlesen",
         "info": "",
-        "x": 64,
-        "y": 2038,
+        "x": 60,
+        "y": 2040,
         "wires": []
     },
     {
@@ -3323,8 +3324,8 @@
         "crontab": "0 10-15 * * 6,0",
         "once": false,
         "onceDelay": 0.1,
-        "x": 90,
-        "y": 1920,
+        "x": 191,
+        "y": 2161,
         "wires": [
             [
                 "a37608eb.f5e428"
@@ -3684,8 +3685,8 @@
         "links": [
             "6b533d6.c015cc4"
         ],
-        "x": 220,
-        "y": 1960,
+        "x": 296,
+        "y": 2161,
         "wires": []
     },
     {
@@ -6081,7 +6082,7 @@
         "links": [
             "a44246ab.86fd38"
         ],
-        "x": 501,
+        "x": 715,
         "y": 2120,
         "wires": []
     },
@@ -6093,7 +6094,7 @@
         "func": "//msg.payload=JSON.stringify(msg);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 350,
+        "x": 510,
         "y": 2120,
         "wires": [
             [
@@ -6311,8 +6312,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 350,
-        "y": 1980,
+        "x": 470,
+        "y": 2080,
         "wires": [
             [
                 "fe68c44a.89dab8"
@@ -6499,8 +6500,8 @@
         "name": "",
         "server": "9d30c019.5a20e",
         "client": "",
-        "x": 140,
-        "y": 2000,
+        "x": 320,
+        "y": 2040,
         "wires": [
             [
                 "fe68c44a.89dab8"
@@ -7320,8 +7321,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 850,
-        "y": 2120,
+        "x": 930,
+        "y": 2100,
         "wires": [
             [
                 "3ac0a08.4fb3a6"
@@ -11633,12 +11634,57 @@
         "func": "var Ansage=global.get(\"Ansage\");\nnode.status({text:Ansage});\nif (Ansage==\"Ansage an\") return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 210,
-        "y": 2040,
+        "x": 250,
+        "y": 2080,
         "wires": [
             [
                 "42a9e426.810d0c"
             ]
         ]
+    },
+    {
+        "id": "8c17140b.82f8a8",
+        "type": "watch",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "files": "/tmp/RADIO_Ansage.txt",
+        "recursive": "",
+        "x": 220,
+        "y": 2200,
+        "wires": [
+            [
+                "cf6da4bc.91eac8"
+            ]
+        ]
+    },
+    {
+        "id": "cf6da4bc.91eac8",
+        "type": "file in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "filename": "/tmp/RADIO_Ansage.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 470,
+        "y": 2200,
+        "wires": [
+            [
+                "b0f419e8.529558"
+            ]
+        ]
+    },
+    {
+        "id": "b0f419e8.529558",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 635,
+        "y": 2200,
+        "wires": []
     }
 ]
