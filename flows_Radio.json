@@ -2438,8 +2438,8 @@
         "y": 3040,
         "wires": [
             [
-                "fb92e9e2.e144a8",
-                "20aee451.d3b3dc"
+                "20aee451.d3b3dc",
+                "7d5d6479.aafc8c"
             ]
         ]
     },
@@ -2452,7 +2452,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "{{payload}} Batterieen wurden an einem Tag resükelt.",
+        "template": "17686 Tonnen Batterieen wurden 2019 resükelt.",
         "output": "str",
         "x": 730,
         "y": 3100,
@@ -5344,7 +5344,7 @@
             [
                 "7eb923c7.25e81c",
                 "5fb66e3f.c504e",
-                "5e59ed62.878c84"
+                "e9b179de.4f2758"
             ]
         ]
     },
@@ -6370,7 +6370,7 @@
         "wires": [
             [
                 "a4a8d729.e87b38",
-                "56003fa4.23e2b"
+                "fce12b9e.908e58"
             ]
         ]
     },
@@ -8550,8 +8550,8 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 570,
-        "y": 340,
+        "x": 550,
+        "y": 360,
         "wires": [
             [
                 "43a9cc6f.554b64"
@@ -8578,7 +8578,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Die aktuelle Luft Temperatur in Raun beträgt \"+Temperatur+\" Grad Celsius.\" ;\nreturn msg;\n",
+        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"In Raun ist die aktuelle Luft Temperatur \"+Temperatur+\" Grad Celsius.\" ;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 930,
@@ -11750,6 +11750,92 @@
         "wires": [
             [
                 "42a9e426.810d0c"
+            ]
+        ]
+    },
+    {
+        "id": "fce12b9e.908e58",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "15",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 290,
+        "y": 580,
+        "wires": [
+            [
+                "56003fa4.23e2b",
+                "1a765ad7.134285"
+            ]
+        ]
+    },
+    {
+        "id": "1a765ad7.134285",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Pflaumenkompott",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Im Kühlraum gibt es ebenfalls noch Kompott und leckeren Apfelsaft.\n",
+        "output": "str",
+        "x": 610,
+        "y": 520,
+        "wires": [
+            [
+                "e2e04866.0276d8"
+            ]
+        ]
+    },
+    {
+        "id": "92aa2c96.a7203",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 500,
+        "wires": [
+            [
+                "1a765ad7.134285"
+            ]
+        ]
+    },
+    {
+        "id": "e9b179de.4f2758",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "5e59ed62.878c84"
             ]
         ]
     }
