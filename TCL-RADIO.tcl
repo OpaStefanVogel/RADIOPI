@@ -12,6 +12,7 @@ grid [ttk::button .c.bus62 -text "Bus 62" -command "mache Bus62"] -column 1 -row
 grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 7 -sticky w
 grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 8 -sticky w
 grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 9 -sticky w
+grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 10 -sticky w
 
 
 foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
@@ -29,6 +30,19 @@ proc mache {text} {
 
 proc RPIB {} {
   exec lxterminal -e "stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; cp /dev/ttyS0 /dev/tty & cp /dev/tty /dev/ttyS0" &
+  }
+
+proc swapoffon {} {
+  exec sudo swapoff /dev/zram0 
+  exec sudo swapon /dev/zram0
+  exec sudo swapoff /dev/zram1
+  exec sudo swapon /dev/zram1
+  exec sudo swapoff /dev/zram2 
+  exec sudo swapon /dev/zram2
+  exec sudo swapoff /dev/zram3 
+  exec sudo swapon /dev/zram3
+  exec sudo swapoff /var/swap
+  exec sudo swapon /var/swap
   }
 
 vwait forever

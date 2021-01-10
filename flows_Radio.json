@@ -3411,7 +3411,8 @@
         "y": 3800,
         "wires": [
             [
-                "8de2445b.9372e8"
+                "8de2445b.9372e8",
+                "f1d68fde.f3ce3"
             ]
         ]
     },
@@ -3470,7 +3471,9 @@
         "x": 430,
         "y": 3720,
         "wires": [
-            []
+            [
+                "92963650.708088"
+            ]
         ]
     },
     {
@@ -7104,7 +7107,8 @@
         "z": "df2ae089.27e66",
         "name": "",
         "command": "aseqdump",
-        "args": "-p 20:0",
+        "args": "-p 24:0",
+        "autorun": true,
         "cr": false,
         "redo": false,
         "op": "string",
@@ -7112,7 +7116,8 @@
         "y": 3720,
         "wires": [
             [
-                "a7fa0b97.92ea98"
+                "a7fa0b97.92ea98",
+                "49788ae7.1ba614"
             ],
             [],
             []
@@ -7124,7 +7129,8 @@
         "z": "df2ae089.27e66",
         "name": "",
         "command": "aseqdump",
-        "args": "-p 20:1",
+        "args": "-p 24:1",
+        "autorun": true,
         "cr": false,
         "redo": false,
         "op": "string",
@@ -11838,5 +11844,33 @@
                 "5e59ed62.878c84"
             ]
         ]
+    },
+    {
+        "id": "49788ae7.1ba614",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 390,
+        "y": 3640,
+        "wires": []
+    },
+    {
+        "id": "f1d68fde.f3ce3",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 600,
+        "y": 3840,
+        "wires": []
     }
 ]
