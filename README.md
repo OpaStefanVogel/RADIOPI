@@ -35,7 +35,8 @@ sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
 sudo apt install zram-tools
 sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96
   #zuletzt CORES=4, ALLOCATION=500, PRIORITY=5, #geht bisjetzt am flüssigsten
-  #zuletzt CORES=1, ALLOCATION=500, PRIORITY=-1, #geht wie?
+  #zuletzt CORES=1, ALLOCATION=500, PRIORITY=-1, #geht wie? bei 380 bleibt swap löschen stecken
+  #zuletzt CORES=4, ALLOCATION=600, PRIORITY=-1, #geht wie?
 sudo nano /etc/sysctl.conf #dort ergänzen:
 vm.vfs_cache_pressure=100             #zuletzt 500#100
 vm.swappiness=10                      #100#10 10=SWAP startet ab 90% gefüllt
@@ -141,9 +142,7 @@ cd
 ln -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
 #Desktop füllen
-cd Desktop
-ln -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
-cd
+ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
 
 #Hintergrundbild einstellen
 

@@ -35,12 +35,12 @@ proc RPIB {} {
 proc swapoffon {} {
   exec sudo swapoff /dev/zram0 
   exec sudo swapon /dev/zram0
-#  exec sudo swapoff /dev/zram1
-#  exec sudo swapon /dev/zram1
-#  exec sudo swapoff /dev/zram2 
-#  exec sudo swapon /dev/zram2
-#  exec sudo swapoff /dev/zram3 
-#  exec sudo swapon /dev/zram3
+  exec sudo swapoff /dev/zram1
+  exec sudo swapon /dev/zram1
+  exec sudo swapoff /dev/zram2 
+  exec sudo swapon /dev/zram2
+  exec sudo swapoff /dev/zram3 
+  exec sudo swapon /dev/zram3
   exec sudo swapoff /var/swap
   exec sudo swapon /var/swap
   }

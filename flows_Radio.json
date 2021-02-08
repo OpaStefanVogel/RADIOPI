@@ -1933,9 +1933,7 @@
             "ea58d61c.834528",
             "b457e8f.091ba18",
             "e2d9e145.519bb",
-            "b7a3004e.f701b",
             "a37608eb.f5e428",
-            "721aa1.9617456",
             "82b83a6d.d972a8",
             "87119ebd.0511d",
             "9301f1b9.5ac26",
@@ -2544,25 +2542,6 @@
         "wires": []
     },
     {
-        "id": "37b822a1.020eee",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 260,
-        "y": 3160,
-        "wires": [
-            [
-                "6ce18c74.210d74"
-            ]
-        ]
-    },
-    {
         "id": "1a6e024e.0c121e",
         "type": "comment",
         "z": "df2ae089.27e66",
@@ -2571,25 +2550,6 @@
         "x": 60,
         "y": 3160,
         "wires": []
-    },
-    {
-        "id": "d41995f3.cb2e48",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 220,
-        "y": 3040,
-        "wires": [
-            [
-                "973b432a.40b4e"
-            ]
-        ]
     },
     {
         "id": "3030cdfd.5e49c2",
@@ -2636,8 +2596,8 @@
         "links": [
             "9ec1e8f6.32c3d8"
         ],
-        "x": 875,
-        "y": 2880,
+        "x": 935,
+        "y": 2860,
         "wires": [],
         "inputLabels": [
             "zum mpc"
@@ -2658,11 +2618,12 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 470,
+        "x": 360,
         "y": 2900,
         "wires": [
             [
-                "e2140167.621a8"
+                "1e396b98.fd77b4",
+                "f35a74a0.c7e148"
             ]
         ]
     },
@@ -2677,7 +2638,7 @@
         "syntax": "mustache",
         "template": "play",
         "output": "str",
-        "x": 610,
+        "x": 710,
         "y": 2900,
         "wires": [
             [
@@ -2860,25 +2821,6 @@
         ]
     },
     {
-        "id": "3e86b5de.7f51aa",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 240,
-        "y": 2980,
-        "wires": [
-            [
-                "b3b8326c.014a"
-            ]
-        ]
-    },
-    {
         "id": "26f9a1cb.b4f38e",
         "type": "websocket in",
         "z": "df2ae089.27e66",
@@ -2890,44 +2832,6 @@
         "wires": [
             [
                 "47952822.5c1c48"
-            ]
-        ]
-    },
-    {
-        "id": "6832bee1.331ac",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 220,
-        "y": 2880,
-        "wires": [
-            [
-                "3030cdfd.5e49c2"
-            ]
-        ]
-    },
-    {
-        "id": "1d7aeaa8.462af5",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 180,
-        "y": 3000,
-        "wires": [
-            [
-                "e2140167.621a8"
             ]
         ]
     },
@@ -3271,7 +3175,7 @@
         "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 750,
+        "x": 830,
         "y": 2900,
         "wires": [
             [
@@ -3679,7 +3583,7 @@
                 "a5230564.46ebf8"
             ],
             [
-                "905aaf7d.33461"
+                "2382b376.30eaec"
             ]
         ]
     },
@@ -3689,9 +3593,7 @@
         "z": "df2ae089.27e66",
         "name": "",
         "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
+            "35b0a1b5.88525e"
         ],
         "x": 1155,
         "y": 3980,
@@ -3803,17 +3705,17 @@
         "type": "delay",
         "z": "df2ae089.27e66",
         "name": "",
-        "pauseType": "delay",
+        "pauseType": "rate",
         "timeout": "30",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "1",
+        "nbRateUnits": "30",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
-        "drop": false,
-        "x": 130,
+        "drop": true,
+        "x": 370,
         "y": 3940,
         "wires": [
             [
@@ -4013,9 +3915,7 @@
         "z": "df2ae089.27e66",
         "name": "",
         "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
+            "35b0a1b5.88525e"
         ],
         "x": 1155,
         "y": 4160,
@@ -11577,11 +11477,11 @@
         "type": "file in",
         "z": "8b708117.11fb9",
         "name": "",
-        "filename": "QUADRO.html",
+        "filename": "../KLETTERN_UND_RUTSCHEN/MIT_QUADRO.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 380,
+        "x": 500,
         "y": 580,
         "wires": [
             [
@@ -11597,7 +11497,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 590,
+        "x": 850,
         "y": 580,
         "wires": []
     },
@@ -11749,7 +11649,11 @@
         "z": "df2ae089.27e66",
         "name": "Vorlesen wichtig",
         "links": [
-            "f95e4c0b.0ce5a"
+            "f95e4c0b.0ce5a",
+            "b7a3004e.f701b",
+            "721aa1.9617456",
+            "721aa1.9617456",
+            "ded618c8.41b098"
         ],
         "x": 175,
         "y": 2040,
@@ -11872,5 +11776,82 @@
         "x": 600,
         "y": 3840,
         "wires": []
+    },
+    {
+        "id": "2382b376.30eaec",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 130,
+        "y": 3940,
+        "wires": [
+            [
+                "905aaf7d.33461"
+            ]
+        ]
+    },
+    {
+        "id": "1e396b98.fd77b4",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Nicht erschreckebn bitte, das Radio spielt gleich weiter mit vollem Karacho.",
+        "output": "str",
+        "x": 580,
+        "y": 2940,
+        "wires": [
+            [
+                "ded618c8.41b098"
+            ]
+        ]
+    },
+    {
+        "id": "ded618c8.41b098",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "35b0a1b5.88525e"
+        ],
+        "x": 695,
+        "y": 2940,
+        "wires": []
+    },
+    {
+        "id": "f35a74a0.c7e148",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 560,
+        "y": 2900,
+        "wires": [
+            [
+                "e2140167.621a8"
+            ]
+        ]
     }
 ]
