@@ -81,8 +81,8 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 #sudo apt-get upgrade
 #exit
 #neu:
-sudo apt install -y raspbian-nspawn-64
-sudo apt purge pulseaudio
+#sudo apt install -y raspbian-nspawn-64
+#sudo apt purge pulseaudio
 
 #Farbe Terminal einstellen
 
@@ -105,6 +105,7 @@ df #7673 #27%
 sudo apt-get install gitk
 sudo apt-get install screen
 sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
+sudo apt install wolframscript
 node-red ./flows_Radio.json 
 #in .node-red/settings.js setze flowFilePretty: true
 #mit Tablet-Browser localhost:1880 menu-install dropbox daemon

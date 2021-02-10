@@ -2241,7 +2241,7 @@
         "complete": "payload",
         "targetType": "msg",
         "x": 990,
-        "y": 2920,
+        "y": 2940,
         "wires": []
     },
     {
@@ -2596,7 +2596,7 @@
         "links": [
             "9ec1e8f6.32c3d8"
         ],
-        "x": 935,
+        "x": 1075,
         "y": 2860,
         "wires": [],
         "inputLabels": [
@@ -2622,8 +2622,7 @@
         "y": 2900,
         "wires": [
             [
-                "1e396b98.fd77b4",
-                "f35a74a0.c7e148"
+                "70ead39a.6dcf0c"
             ]
         ]
     },
@@ -2638,11 +2637,11 @@
         "syntax": "mustache",
         "template": "play",
         "output": "str",
-        "x": 710,
+        "x": 970,
         "y": 2900,
         "wires": [
             [
-                "da3a5bd9.565438"
+                "171ae574.c0135b"
             ]
         ]
     },
@@ -2686,11 +2685,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 640,
-        "y": 2820,
+        "x": 420,
+        "y": 2860,
         "wires": [
             [
-                "e2140167.621a8"
+                "70ead39a.6dcf0c"
             ]
         ]
     },
@@ -3166,22 +3165,6 @@
         "x": 50,
         "y": 3420,
         "wires": []
-    },
-    {
-        "id": "da3a5bd9.565438",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 830,
-        "y": 2900,
-        "wires": [
-            [
-                "171ae574.c0135b"
-            ]
-        ]
     },
     {
         "id": "53adad9f.fe5fb4",
@@ -7988,14 +7971,14 @@
         "id": "85e9ed71.a4104",
         "type": "exec",
         "z": "4c1f2825.5c8bc8",
-        "command": "wget",
+        "command": "wolframscript",
         "addpay": false,
-        "append": "-r https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/MaximalAltitudeTime.xml",
+        "append": "-api https://www.wolframcloud.com/obj/backebackekuchen16/PlanetData/MaximalAltitudeTime.xml >MaximalAltitudeTime.xml",
         "useSpawn": "false",
         "timer": "",
         "oldrc": false,
         "name": "",
-        "x": 427,
+        "x": 447,
         "y": 1160,
         "wires": [
             [
@@ -8029,12 +8012,12 @@
         "type": "file in",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "filename": "/home/pi/MaximalAltitudeTime.xml",
+        "filename": "MaximalAltitudeTime.xml",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
-        "x": 500,
+        "x": 480,
         "y": 1280,
         "wires": [
             [
@@ -11811,7 +11794,7 @@
         "syntax": "mustache",
         "template": "Nicht erschreckebn bitte, das Radio spielt gleich weiter mit vollem Karacho.",
         "output": "str",
-        "x": 580,
+        "x": 740,
         "y": 2940,
         "wires": [
             [
@@ -11827,7 +11810,7 @@
         "links": [
             "35b0a1b5.88525e"
         ],
-        "x": 695,
+        "x": 855,
         "y": 2940,
         "wires": []
     },
@@ -11846,11 +11829,28 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 560,
+        "x": 800,
         "y": 2900,
         "wires": [
             [
                 "e2140167.621a8"
+            ]
+        ]
+    },
+    {
+        "id": "70ead39a.6dcf0c",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 2900,
+        "wires": [
+            [
+                "1e396b98.fd77b4",
+                "f35a74a0.c7e148"
             ]
         ]
     }
