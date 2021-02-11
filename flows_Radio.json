@@ -7,6 +7,13 @@
         "info": ""
     },
     {
+        "id": "2b3797a1.ec9d18",
+        "type": "tab",
+        "label": "KODI",
+        "disabled": true,
+        "info": ""
+    },
+    {
         "id": "df2ae089.27e66",
         "type": "tab",
         "label": "Sheet 1",
@@ -161,7 +168,6 @@
     {
         "id": "e75c6a5b.990f98",
         "type": "websocket-client",
-        "z": "",
         "path": "ws://192.168.1.107:9090/jsonrpc",
         "wholemsg": "false"
     },
@@ -182,35 +188,30 @@
     {
         "id": "d98022f0.9fcde",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/mpd",
         "wholemsg": "false"
     },
     {
         "id": "b6945226.08e55",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/gap",
         "wholemsg": "false"
     },
     {
         "id": "37ce9c4.e304964",
         "type": "websocket-client",
-        "z": "",
         "path": "ws://Heizung:1880/ws/neue_Email_da",
         "wholemsg": "true"
     },
     {
         "id": "fb39d958.c1e8d8",
         "type": "websocket-client",
-        "z": "",
         "path": "ws://Heizung:1880/ws/gatttool",
         "wholemsg": "false"
     },
     {
         "id": "eb3038de.87b1f8",
         "type": "mqtt-broker",
-        "z": "",
         "name": "",
         "broker": "test.mosquitto.org",
         "port": "1883",
@@ -231,14 +232,12 @@
     {
         "id": "47034f6b.a60b4",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/mqtt_ersatz",
         "wholemsg": "false"
     },
     {
         "id": "2604eef1.5e09e2",
         "type": "websocket-client",
-        "z": "",
         "path": "ws://heizung:1880/ws/Einkaufsliste",
         "tls": "",
         "wholemsg": "false"
@@ -246,7 +245,6 @@
     {
         "id": "d159a9ca.8d5218",
         "type": "websocket-client",
-        "z": "",
         "path": "ws://Heizung:1880/ws/Wetter",
         "tls": "",
         "wholemsg": "false"
@@ -254,21 +252,18 @@
     {
         "id": "b3f51ae2.09bfb8",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/gatttool2",
         "wholemsg": "false"
     },
     {
         "id": "480ca6ad.fcab78",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/Touchscreen",
         "wholemsg": "true"
     },
     {
         "id": "9d30c019.5a20e",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/Vorlesen",
         "wholemsg": "false"
     },
@@ -281,27 +276,23 @@
     {
         "id": "541b8a76.cb7e74",
         "type": "dropbox-config",
-        "z": 0,
         "name": ""
     },
     {
         "id": "126138a7.4cda77",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/gap2",
         "wholemsg": "false"
     },
     {
         "id": "8f3644c4.b87da8",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/gatttool",
         "wholemsg": "false"
     },
     {
         "id": "2eeeeaf6.57c236",
         "type": "websocket-listener",
-        "z": "",
         "path": "/ws/gatttool2",
         "wholemsg": "false"
     },
@@ -310,12 +301,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "timestamp",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 200,
         "y": 60,
         "wires": [
@@ -403,12 +394,12 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "tick every 5 min",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "3600",
         "crontab": "",
         "once": true,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 250,
         "y": 180,
         "wires": [
@@ -480,12 +471,12 @@
         "type": "inject",
         "z": "8eb9dc44.78f74",
         "name": "LED  .*.*.*.*",
-        "topic": "",
-        "payload": "55 2D04 ! ( .*.*.*.* )",
-        "payloadType": "string",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "55 2D04 ! ( .*.*.*.* )",
+        "payloadType": "string",
         "x": 121.37301635742188,
         "y": 282,
         "wires": [
@@ -499,12 +490,12 @@
         "type": "inject",
         "z": "8eb9dc44.78f74",
         "name": "LED *.*.*.*. ",
-        "topic": "",
-        "payload": "AA 2D04 ! ( *.*.*.*. )",
-        "payloadType": "string",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "AA 2D04 ! ( *.*.*.*. )",
+        "payloadType": "string",
         "x": 121.37301635742188,
         "y": 327,
         "wires": [
@@ -545,12 +536,12 @@
         "type": "inject",
         "z": "8eb9dc44.78f74",
         "name": "LED alle aus",
-        "topic": "",
-        "payload": "00 2D04 ! ( ........ )",
-        "payloadType": "str",
         "repeat": "420",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "00 2D04 ! ( ........ )",
+        "payloadType": "str",
         "x": 131.37301635742188,
         "y": 373,
         "wires": [
@@ -564,12 +555,12 @@
         "type": "inject",
         "z": "8eb9dc44.78f74",
         "name": "LED alle ein",
-        "topic": "",
-        "payload": "FF 2D04 ! ( ******** )",
-        "payloadType": "str",
         "repeat": "300",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "FF 2D04 ! ( ******** )",
+        "payloadType": "str",
         "x": 126.37301635742188,
         "y": 226,
         "wires": [
@@ -616,12 +607,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "Upload Dropbox",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "Upload Dropbox",
+        "payloadType": "str",
         "x": 180,
         "y": 140,
         "wires": [
@@ -648,12 +639,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "Download Dropbox auslösen",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 220,
         "y": 180,
         "wires": [
@@ -722,12 +713,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "alle 5 Min Sa+So",
-        "topic": "",
-        "payload": "MPLA html request",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "*/5 0-23 * * 6,0",
         "once": false,
+        "topic": "",
+        "payload": "MPLA html request",
+        "payloadType": "str",
         "x": 230,
         "y": 600,
         "wires": [
@@ -786,12 +777,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "string",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "string",
         "x": 204.61587524414062,
         "y": 796.5839824676514,
         "wires": [
@@ -912,8 +903,8 @@
         "z": "df2ae089.27e66",
         "name": "KODI",
         "info": "",
-        "x": 337.08734130859375,
-        "y": 1135.5190410614014,
+        "x": 50,
+        "y": 1140,
         "wires": []
     },
     {
@@ -933,25 +924,6 @@
         ]
     },
     {
-        "id": "6e8816c2.d5f698",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "Reboot",
-        "topic": "",
-        "payload": "{\"jsonrpc\":\"2.0\",\"method\":\"System.Reboot\",\"id\":1}",
-        "payloadType": "string",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 464.3363952636719,
-        "y": 1490.2139282226562,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac"
-            ]
-        ]
-    },
-    {
         "id": "e0a76084.a03",
         "type": "debug",
         "z": "df2ae089.27e66",
@@ -961,35 +933,6 @@
         "complete": "payload",
         "x": 1035.6153564453125,
         "y": 1697.390983581543,
-        "wires": []
-    },
-    {
-        "id": "6a8e93c9.d8b6ac",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "Sammelpunkt ",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 738.5028686523438,
-        "y": 1407.7485046386719,
-        "wires": [
-            [
-                "681c3dc5.02fac4",
-                "e84f4804.6a6278"
-            ]
-        ]
-    },
-    {
-        "id": "681c3dc5.02fac4",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "debug, was zu KODI gesendet wurde",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 1046.9609375,
-        "y": 1407.1084594726562,
         "wires": []
     },
     {
@@ -1036,187 +979,6 @@
         "wires": []
     },
     {
-        "id": "e84f4804.6a6278",
-        "type": "websocket out",
-        "z": "df2ae089.27e66",
-        "name": "ws://192.168.1.118:9090/jsonrpc",
-        "server": "",
-        "client": "e75c6a5b.990f98",
-        "x": 1037.6636352539062,
-        "y": 1293.7777557373047,
-        "wires": []
-    },
-    {
-        "id": "35133c9e.95e264",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "mute",
-        "func": "msg.payload={\"id\":9,\"jsonrpc\":\"2.0\",\"method\":\"Input.ExecuteAction\",\"params\":{\"action\":\"mute\"}};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 347.40478515625,
-        "y": 1614.5814208984375,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac"
-            ]
-        ]
-    },
-    {
-        "id": "1468bd9b.d12132",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 133.84708404541016,
-        "y": 1553.6397342681885,
-        "wires": [
-            [
-                "cd62108.20580f"
-            ]
-        ]
-    },
-    {
-        "id": "cd62108.20580f",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "Shutdown",
-        "func": "msg.payload={\"jsonrpc\":\"2.0\",\"method\":\"System.Shutdown\",\"id\":1};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 351.1056213378906,
-        "y": 1552.3816223144531,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac"
-            ]
-        ]
-    },
-    {
-        "id": "afc9776f.4005d8",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "Stop",
-        "func": "msg.payload={\"id\":8,\"jsonrpc\":\"2.0\",\"method\":\"Player.Stop\",\"params\":{\"playerid\":1}};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 347.6955261230469,
-        "y": 1249.7943115234375,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac"
-            ]
-        ]
-    },
-    {
-        "id": "df7feaf8.e25a78",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "Stop",
-        "topic": "",
-        "payload": "{\"id\":8,\"jsonrpc\":\"2.0\",\"method\":\"Player.Stop\",\"params\":{\"playerid\":1}}",
-        "payloadType": "string",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 150.26485443115234,
-        "y": 1248.2850542068481,
-        "wires": [
-            [
-                "afc9776f.4005d8",
-                "6854cc90.c6eb54"
-            ]
-        ]
-    },
-    {
-        "id": "3b1d6c98.1c7564",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "ZDF",
-        "func": "msg.payload={\"id\":4,\"jsonrpc\":\"2.0\",\"method\": \"Player.Open\", \"params\":{\"item\": {\"file\": \"plugin://plugin.video.zdf_de_lite/?url=1822600&mode=playVideo\" } } };\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 341.2373352050781,
-        "y": 1200.234619140625,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac"
-            ]
-        ]
-    },
-    {
-        "id": "2c266991.5d1516",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "string",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 151.69466018676758,
-        "y": 1198.5247707366943,
-        "wires": [
-            [
-                "3b1d6c98.1c7564"
-            ]
-        ]
-    },
-    {
-        "id": "ba3fb35a.4f3be",
-        "type": "xml",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "attr": "",
-        "chr": "",
-        "x": 442.0517883300781,
-        "y": 1084.1181640625,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4acc3dba.608c64",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "ARD",
-        "func": "msg.payload={\"id\":4,\"jsonrpc\":\"2.0\",\"method\": \"Player.Open\", \"params\":{\"item\": {\"file\": \"plugin://plugin.video.ardmediathek_de/?url=&mode=playLiveARD\" } } };\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 472.7622299194336,
-        "y": 1179.1408824920654,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac"
-            ]
-        ]
-    },
-    {
-        "id": "bf4bc29f.b11c6",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "ARD",
-        "topic": "",
-        "payload": "{\"id\":4  ,\"jsonrpc\":\"2.0\",\"method\": \"Player.Open\", \"params\":{\"item\": {\"file\": \"plugin://plugin.video.live.streams/?url=http://daserste_live-lh.akamaihd.net/i/daserste_de@91204/master.m3u8&mode=12\" } } }",
-        "payloadType": "string",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 211,
-        "y": 1135,
-        "wires": [
-            [
-                "4acc3dba.608c64"
-            ]
-        ]
-    },
-    {
         "id": "430a976d.d71aa8",
         "type": "status",
         "z": "df2ae089.27e66",
@@ -1243,127 +1005,6 @@
         "wires": []
     },
     {
-        "id": "1f351851.4b4248",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "hoch",
-        "func": "msg.payload=\"up\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 327,
-        "y": 1298.6529846191406,
-        "wires": [
-            [
-                "33a49e71.292a62"
-            ]
-        ]
-    },
-    {
-        "id": "2d44288d.ca1078",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "runter",
-        "func": "msg.payload=\"down\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 333,
-        "y": 1351,
-        "wires": [
-            [
-                "33a49e71.292a62"
-            ]
-        ]
-    },
-    {
-        "id": "5470c6cc.af6d78",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "links",
-        "func": "msg.payload=\"left\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 329.3749465942383,
-        "y": 1401.47789478302,
-        "wires": [
-            [
-                "33a49e71.292a62"
-            ]
-        ]
-    },
-    {
-        "id": "39a13c81.f23b54",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "rechts",
-        "func": "msg.payload=\"right\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 328,
-        "y": 1446,
-        "wires": [
-            [
-                "33a49e71.292a62"
-            ]
-        ]
-    },
-    {
-        "id": "322bc0c0.c1ec6",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "select",
-        "func": "msg.payload=\"select\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 323,
-        "y": 1491,
-        "wires": [
-            [
-                "33a49e71.292a62"
-            ]
-        ]
-    },
-    {
-        "id": "33a49e71.292a62",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "action",
-        "func": "msg.payload={\"id\":9,\"jsonrpc\":\"2.0\",\"method\":\"Input.ExecuteAction\",\"params\":{\"action\":msg.payload}};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 552.4987907409668,
-        "y": 1409.393783569336,
-        "wires": [
-            [
-                "6a8e93c9.d8b6ac",
-                "b0b02762.ce4298"
-            ]
-        ]
-    },
-    {
-        "id": "b0b02762.ce4298",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 729.2857142857141,
-        "y": 1354.9999999999998,
-        "wires": []
-    },
-    {
-        "id": "33f32ba6.b874b4",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "console": "true",
-        "complete": "true",
-        "x": 390,
-        "y": 1020,
-        "wires": []
-    },
-    {
         "id": "d20e7f60.be461",
         "type": "exec",
         "z": "df2ae089.27e66",
@@ -1387,12 +1028,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 900,
         "y": 740,
         "wires": [
@@ -1491,12 +1132,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "resetIds",
-        "topic": "",
-        "payload": "resetIds",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "resetIds",
+        "payloadType": "str",
         "x": 230,
         "y": 2340,
         "wires": [
@@ -1558,91 +1199,17 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "Keyboard geht",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "Keyboard geht",
+        "payloadType": "str",
         "x": 170,
         "y": 360,
         "wires": [
             [
                 "78e80229.aae6bc"
-            ]
-        ]
-    },
-    {
-        "id": "2a8ff6b2.2bff2a",
-        "type": "exec",
-        "z": "df2ae089.27e66",
-        "command": "mpc",
-        "addpay": true,
-        "append": "",
-        "useSpawn": "",
-        "timer": "",
-        "name": "",
-        "x": 524.5189819335938,
-        "y": 1344.1829528808594,
-        "wires": [
-            [
-                "b0b02762.ce4298"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "6854cc90.c6eb54",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "Stop",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "stop",
-        "x": 401.3820495605469,
-        "y": 1271.2210540771484,
-        "wires": [
-            [
-                "2a8ff6b2.2bff2a"
-            ]
-        ]
-    },
-    {
-        "id": "3dfaf0ff.05dc6",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "volume -10",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "volume -10",
-        "x": 370,
-        "y": 1420,
-        "wires": [
-            [
-                "2a8ff6b2.2bff2a"
-            ]
-        ]
-    },
-    {
-        "id": "1c94ae93.58db91",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "volume +10",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "volume +10",
-        "x": 371.7123260498047,
-        "y": 1467.896240234375,
-        "wires": [
-            [
-                "2a8ff6b2.2bff2a"
             ]
         ]
     },
@@ -1663,12 +1230,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "pause",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "pause",
+        "payloadType": "str",
         "x": 151.46298217773438,
         "y": 1747.4969635009766,
         "wires": [
@@ -1717,12 +1284,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "stop",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
         "x": 149.33599853515625,
         "y": 1785.1200103759766,
         "wires": [
@@ -1736,12 +1303,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "play",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
         "x": 150.21701049804688,
         "y": 1711.0013427734375,
         "wires": [
@@ -1867,25 +1434,6 @@
         ]
     },
     {
-        "id": "47952822.5c1c48",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "neue Email",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Neue Email für backebackekuchensechzehn gmailpunktkomm",
-        "output": "str",
-        "x": 570,
-        "y": 1060,
-        "wires": [
-            [
-                "4c7e094a.d82148"
-            ]
-        ]
-    },
-    {
         "id": "b490e539.e99f28",
         "type": "template",
         "z": "df2ae089.27e66",
@@ -1999,12 +1547,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "10^100;",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "10^100;",
+        "payloadType": "str",
         "x": 170,
         "y": 2540,
         "wires": [
@@ -2143,12 +1691,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "QUIT;",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "QUIT;",
+        "payloadType": "str",
         "x": 170,
         "y": 2500,
         "wires": [
@@ -2157,16 +1705,6 @@
                 "95c88347.b5873"
             ]
         ]
-    },
-    {
-        "id": "d18f5c97.8c354",
-        "type": "comment",
-        "z": "df2ae089.27e66",
-        "name": "Email",
-        "info": "",
-        "x": 50,
-        "y": 1060,
-        "wires": []
     },
     {
         "id": "95ceb993.caf5e8",
@@ -2249,12 +1787,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "jede vollen Stunde",
-        "topic": "jede volle Stunde",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "0 0-22 * * *",
         "once": false,
+        "topic": "jede volle Stunde",
+        "payload": "",
+        "payloadType": "date",
         "x": 220,
         "y": 2820,
         "wires": [
@@ -2289,12 +1827,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "00 23 * * *",
         "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 210,
         "y": 3100,
         "wires": [
@@ -2694,20 +2232,6 @@
         ]
     },
     {
-        "id": "4c7e094a.d82148",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "zum Vorlesen",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 695,
-        "y": 1060,
-        "wires": []
-    },
-    {
         "id": "ff53dda6.b761f",
         "type": "link out",
         "z": "df2ae089.27e66",
@@ -2757,25 +2281,6 @@
         "wires": []
     },
     {
-        "id": "10893f7.216cdc1",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 200,
-        "y": 1100,
-        "wires": [
-            [
-                "47952822.5c1c48"
-            ]
-        ]
-    },
-    {
         "id": "749d4562.6c1c7c",
         "type": "comment",
         "z": "df2ae089.27e66",
@@ -2816,21 +2321,6 @@
             [
                 "effe2be1.940728",
                 "4dff0f56.61e3a"
-            ]
-        ]
-    },
-    {
-        "id": "26f9a1cb.b4f38e",
-        "type": "websocket in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "server": "",
-        "client": "37ce9c4.e304964",
-        "x": 300,
-        "y": 1060,
-        "wires": [
-            [
-                "47952822.5c1c48"
             ]
         ]
     },
@@ -3094,12 +2584,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "Radio an",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "Radio an",
+        "payloadType": "str",
         "x": 140,
         "y": 3560,
         "wires": [
@@ -3113,13 +2603,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "Radio aus",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "10",
+        "topic": "",
+        "payload": "Radio aus",
+        "payloadType": "str",
         "x": 150,
         "y": 3520,
         "wires": [
@@ -3217,13 +2707,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "Hah",
-        "topic": "",
-        "payload": "Hah hatter gesacht",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "0 10-15 * * 6,0",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hah hatter gesacht",
+        "payloadType": "str",
         "x": 191,
         "y": 2161,
         "wires": [
@@ -3624,13 +3114,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "Test",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "Test",
+        "payload": "",
+        "payloadType": "date",
         "x": 140,
         "y": 3980,
         "wires": [
@@ -3803,13 +3293,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "Test",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "Test",
+        "payload": "",
+        "payloadType": "date",
         "x": 140,
         "y": 4220,
         "wires": [
@@ -4080,13 +3570,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "play 4",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "play 4",
+        "payloadType": "str",
         "x": 210,
         "y": 4320,
         "wires": [
@@ -4119,13 +3609,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "play 2",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "play 2",
+        "payloadType": "str",
         "x": 210,
         "y": 4400,
         "wires": [
@@ -4139,13 +3629,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "play 3",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "play 3",
+        "payloadType": "str",
         "x": 210,
         "y": 4480,
         "wires": [
@@ -4422,13 +3912,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 280,
         "wires": [
@@ -4563,13 +4053,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 140,
         "y": 3300,
         "wires": [
@@ -4615,13 +4105,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "00 06 * * *",
         "once": false,
         "onceDelay": "60",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 230,
         "y": 3220,
         "wires": [
@@ -4645,12 +4135,12 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "alle 15 min",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "*/15 5-23 * * *",
         "once": true,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 230,
         "y": 880,
         "wires": [
@@ -4737,12 +4227,12 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 920,
         "wires": [
@@ -4955,13 +4445,13 @@
         "type": "inject",
         "z": "cc59d9f8.9429c8",
         "name": "Test Notifications.txt",
-        "topic": "",
-        "payload": " Notification Test 14,5 °C",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": " Notification Test 14,5 °C",
+        "payloadType": "str",
         "x": 430,
         "y": 320,
         "wires": [
@@ -5081,13 +4571,13 @@
         "type": "inject",
         "z": "cc59d9f8.9429c8",
         "name": "",
-        "topic": "",
-        "payload": "disconnect",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "disconnect",
+        "payloadType": "str",
         "x": 180,
         "y": 720,
         "wires": [
@@ -5328,12 +4818,12 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "play",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
         "x": 250,
         "y": 500,
         "wires": [
@@ -5366,12 +4856,12 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "stop",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
         "x": 250,
         "y": 580,
         "wires": [
@@ -5385,12 +4875,12 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "pause",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "pause",
+        "payloadType": "str",
         "x": 250,
         "y": 540,
         "wires": [
@@ -5414,13 +4904,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://stream.srg-ssr.ch/m/drsvirus/mp3_128",
-        "topic": "",
-        "payload": "add http://stream.srg-ssr.ch/m/drsvirus/mp3_128",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "4",
+        "topic": "",
+        "payload": "add http://stream.srg-ssr.ch/m/drsvirus/mp3_128",
+        "payloadType": "str",
         "x": 360,
         "y": 420,
         "wires": [
@@ -5463,13 +4953,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "clear",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "clear",
+        "payloadType": "str",
         "x": 230,
         "y": 640,
         "wires": [
@@ -5497,13 +4987,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "playlist",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "playlist",
+        "payloadType": "str",
         "x": 230,
         "y": 680,
         "wires": [
@@ -5517,13 +5007,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "info",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "info",
+        "payloadType": "str",
         "x": 230,
         "y": 720,
         "wires": [
@@ -5537,13 +5027,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://listen.radiomax.technology/penny",
-        "topic": "",
-        "payload": "add http://listen.radiomax.technology/penny",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "2",
+        "topic": "",
+        "payload": "add http://listen.radiomax.technology/penny",
+        "payloadType": "str",
         "x": 350,
         "y": 340,
         "wires": [
@@ -5557,13 +5047,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://streaming.fueralle.org:8000/radiot.mp3",
-        "topic": "",
-        "payload": "add http://streaming.fueralle.org:8000/radiot.mp3",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "3",
+        "topic": "",
+        "payload": "add http://streaming.fueralle.org:8000/radiot.mp3",
+        "payloadType": "str",
         "x": 370,
         "y": 380,
         "wires": [
@@ -5577,13 +5067,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://50.7.9.43:8080, 69.167.190.234:8080",
-        "topic": "",
-        "payload": "add http://192.111.140.11/stream/liveireland.pls?mp=/stream",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
+        "topic": "",
+        "payload": "add http://192.111.140.11/stream/liveireland.pls?mp=/stream",
+        "payloadType": "str",
         "x": 360,
         "y": 300,
         "wires": [
@@ -5597,13 +5087,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "next",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "next",
+        "payloadType": "str",
         "x": 230,
         "y": 780,
         "wires": [
@@ -5617,13 +5107,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "prev",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "prev",
+        "payloadType": "str",
         "x": 230,
         "y": 820,
         "wires": [
@@ -5637,13 +5127,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "volume -10",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "volume -10",
+        "payloadType": "str",
         "x": 420,
         "y": 800,
         "wires": [
@@ -5657,13 +5147,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "volume +10",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "volume +10",
+        "payloadType": "str",
         "x": 430,
         "y": 840,
         "wires": [
@@ -5710,13 +5200,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 560,
         "y": 1980,
         "wires": [
@@ -5749,13 +5239,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 560,
         "y": 1940,
         "wires": [
@@ -5769,13 +5259,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "volume +10",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "volume +10",
+        "payloadType": "str",
         "x": 970,
         "y": 1880,
         "wires": [
@@ -5789,13 +5279,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "volume -10",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "volume -10",
+        "payloadType": "str",
         "x": 920,
         "y": 1820,
         "wires": [
@@ -5809,13 +5299,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "status",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
         "x": 870,
         "y": 1860,
         "wires": [
@@ -6298,13 +5788,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 380,
         "wires": [
@@ -6328,13 +5818,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "60",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 250,
         "y": 4960,
         "wires": [
@@ -6461,12 +5951,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "10^100;",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "10^100;",
+        "payloadType": "str",
         "x": 170,
         "y": 2680,
         "wires": [
@@ -6513,12 +6003,12 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "QUIT;",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
+        "topic": "",
+        "payload": "QUIT;",
+        "payloadType": "str",
         "x": 170,
         "y": 2640,
         "wires": [
@@ -6610,13 +6100,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "Radio Info",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Radio Info",
+        "payloadType": "str",
         "x": 140,
         "y": 3660,
         "wires": [
@@ -6745,13 +6235,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 1040,
         "wires": [
@@ -7263,13 +6753,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "play",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "33 03 * * 1",
         "once": false,
         "onceDelay": "",
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
         "x": 70,
         "y": 460,
         "wires": [
@@ -7283,13 +6773,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "play",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "33 04 * * 1",
         "once": false,
         "onceDelay": "",
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
         "x": 70,
         "y": 500,
         "wires": [
@@ -7303,13 +6793,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "topic": "",
-        "payload": "play",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "03 05 * * 1",
         "once": false,
         "onceDelay": "",
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
         "x": 70,
         "y": 540,
         "wires": [
@@ -7356,13 +6846,13 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://www.uzic.ch/tek.m3u",
-        "topic": "",
-        "payload": "add http://www.uzic.ch/tek.m3u",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "5",
+        "topic": "",
+        "payload": "add http://www.uzic.ch/tek.m3u",
+        "payloadType": "str",
         "x": 310,
         "y": 460,
         "wires": [
@@ -7592,13 +7082,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "Email-LED aus",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 260,
         "y": 4860,
         "wires": [
@@ -7612,13 +7102,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "Email-LED an",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 250,
         "y": 4820,
         "wires": [
@@ -7694,13 +7184,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "1",
-        "payloadType": "num",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
         "x": 410,
         "y": 4460,
         "wires": [
@@ -7714,13 +7204,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "0",
-        "payloadType": "num",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
         "x": 410,
         "y": 4520,
         "wires": [
@@ -7763,13 +7253,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "0 0-1 * * *",
         "once": true,
         "onceDelay": "30",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 247,
         "y": 1160,
         "wires": [
@@ -7808,13 +7298,13 @@
         "type": "inject",
         "z": "474e306c.0c45c",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "59",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 210,
         "y": 200,
         "wires": [
@@ -7917,13 +7407,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 1100,
         "wires": [
@@ -8031,13 +7521,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 1280,
         "wires": [
@@ -8281,13 +7771,13 @@
         "type": "inject",
         "z": "c82fd5f1.38c628",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 180,
         "y": 360,
         "wires": [
@@ -8391,13 +7881,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "volume 270",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "volume 270",
+        "payloadType": "str",
         "x": 790,
         "y": 2220,
         "wires": [
@@ -8411,13 +7901,13 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
-        "topic": "",
-        "payload": "status",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
         "x": 770,
         "y": 2280,
         "wires": [
@@ -8596,13 +8086,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 260,
         "y": 1620,
         "wires": [
@@ -9154,13 +8644,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 03",
-        "topic": "",
-        "payload": "char-write-req 0411 03",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 03",
+        "payloadType": "str",
         "x": 480,
         "y": 1260,
         "wires": [
@@ -9174,13 +8664,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "disconnect 00:1A:22:0B:F9:D1",
-        "topic": "",
-        "payload": "disconnect 00:1A:22:0B:F9:D1",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "disconnect 00:1A:22:0B:F9:D1",
+        "payloadType": "str",
         "x": 510,
         "y": 1500,
         "wires": [
@@ -9194,13 +8684,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 411d",
-        "topic": "",
-        "payload": "char-write-req 0411 411d",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 411d",
+        "payloadType": "str",
         "x": 490,
         "y": 1380,
         "wires": [
@@ -9214,13 +8704,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 4040",
-        "topic": "",
-        "payload": "char-write-req 0411 4040",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 4040",
+        "payloadType": "str",
         "x": 490,
         "y": 1340,
         "wires": [
@@ -9234,13 +8724,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 4000",
-        "topic": "",
-        "payload": "char-write-req 0411 4000",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 4000",
+        "payloadType": "str",
         "x": 510,
         "y": 1460,
         "wires": [
@@ -9274,13 +8764,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Test",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 270,
         "y": 460,
         "wires": [
@@ -9445,13 +8935,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 2002",
-        "topic": "",
-        "payload": "char-write-req 0411 2002",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 2002",
+        "payloadType": "str",
         "x": 490,
         "y": 1300,
         "wires": [
@@ -9465,13 +8955,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Restart gatttool",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 180,
         "y": 1740,
         "wires": [
@@ -9590,13 +9080,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "connect 00:1A:22:0B:F9:D1",
-        "topic": "",
-        "payload": "connect 00:1A:22:0B:F9:D1",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "connect 00:1A:22:0B:F9:D1",
+        "payloadType": "str",
         "x": 500,
         "y": 1220,
         "wires": [
@@ -9625,13 +9115,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 160,
         "y": 1980,
         "wires": [
@@ -9940,13 +9430,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Test",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 270,
         "y": 560,
         "wires": [
@@ -10027,13 +9517,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Test Notifications.txt",
-        "topic": "",
-        "payload": " Notification Test 14,5 °C",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": " Notification Test 14,5 °C",
+        "payloadType": "str",
         "x": 410,
         "y": 1620,
         "wires": [
@@ -10062,13 +9552,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 412b",
-        "topic": "",
-        "payload": "char-write-req 0411 412b",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 412b",
+        "payloadType": "str",
         "x": 490,
         "y": 1420,
         "wires": [
@@ -10092,13 +9582,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Test",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 270,
         "y": 660,
         "wires": [
@@ -10375,13 +9865,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "21.5",
-        "topic": "",
-        "payload": "21,5",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "21,5",
+        "payloadType": "str",
         "x": 270,
         "y": 760,
         "wires": [
@@ -10514,13 +10004,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "22",
-        "topic": "",
-        "payload": "22",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "22",
+        "payloadType": "str",
         "x": 270,
         "y": 800,
         "wires": [
@@ -10690,13 +10180,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "notifications",
-        "payloadType": "global",
         "repeat": "3600",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "notifications",
+        "payloadType": "global",
         "x": 840,
         "y": 1500,
         "wires": [
@@ -10724,13 +10214,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "char-write-req 0411 1002...",
-        "topic": "",
-        "payload": "char-write-req 0411 1002222428842290",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "char-write-req 0411 1002222428842290",
+        "payloadType": "str",
         "x": 650,
         "y": 1400,
         "wires": [
@@ -10760,13 +10250,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "21",
-        "topic": "",
-        "payload": "21",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "21",
+        "payloadType": "str",
         "x": 270,
         "y": 920,
         "wires": [
@@ -10826,13 +10316,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "22",
-        "topic": "",
-        "payload": "22",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "22",
+        "payloadType": "str",
         "x": 270,
         "y": 960,
         "wires": [
@@ -10966,13 +10456,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "20",
-        "topic": "",
-        "payload": "20",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "20",
+        "payloadType": "str",
         "x": 270,
         "y": 880,
         "wires": [
@@ -10996,13 +10486,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 1440,
         "y": 780,
         "wires": [
@@ -11086,13 +10576,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "Chat Test1",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "5",
+        "topic": "",
+        "payload": "Chat Test1",
+        "payloadType": "str",
         "x": 210,
         "y": 3560,
         "wires": [
@@ -11135,13 +10625,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "Chat ",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Chat ",
+        "payloadType": "str",
         "x": 190,
         "y": 3740,
         "wires": [
@@ -11155,13 +10645,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "Chat Test2",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "6",
+        "topic": "",
+        "payload": "Chat Test2",
+        "payloadType": "str",
         "x": 210,
         "y": 3600,
         "wires": [
@@ -11175,13 +10665,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "Chat Test3",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "7",
+        "topic": "",
+        "payload": "Chat Test3",
+        "payloadType": "str",
         "x": 210,
         "y": 3640,
         "wires": [
@@ -11195,13 +10685,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "Chat Test4",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "8",
+        "topic": "",
+        "payload": "Chat Test4",
+        "payloadType": "str",
         "x": 210,
         "y": 3680,
         "wires": [
@@ -11245,13 +10735,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "9 9",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "9 9",
+        "payloadType": "str",
         "x": 270,
         "y": 1000,
         "wires": [
@@ -11265,13 +10755,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "10 10",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10 10",
+        "payloadType": "str",
         "x": 270,
         "y": 1040,
         "wires": [
@@ -11423,13 +10913,13 @@
         "type": "inject",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "topic": "",
-        "payload": "disconnect",
-        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "disconnect",
+        "payloadType": "str",
         "x": 160,
         "y": 2020,
         "wires": [
@@ -11534,13 +11024,13 @@
         "type": "inject",
         "z": "8b708117.11fb9",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 190,
         "y": 420,
         "wires": [
@@ -11694,13 +11184,13 @@
         "type": "inject",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
         "x": 240,
         "y": 500,
         "wires": [
@@ -11853,5 +11343,414 @@
                 "f35a74a0.c7e148"
             ]
         ]
+    },
+    {
+        "id": "4ca25a92.d11cf4",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "ARD",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "{\"id\":4  ,\"jsonrpc\":\"2.0\",\"method\": \"Player.Open\", \"params\":{\"item\": {\"file\": \"plugin://plugin.video.live.streams/?url=http://daserste_live-lh.akamaihd.net/i/daserste_de@91204/master.m3u8&mode=12\" } } }",
+        "payloadType": "string",
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "1909fafe.1efe25"
+            ]
+        ]
+    },
+    {
+        "id": "1909fafe.1efe25",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "ARD",
+        "func": "msg.payload={\"id\":4,\"jsonrpc\":\"2.0\",\"method\": \"Player.Open\", \"params\":{\"item\": {\"file\": \"plugin://plugin.video.ardmediathek_de/?url=&mode=playLiveARD\" } } };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 471.7622299194336,
+        "y": 164.14088249206543,
+        "wires": [
+            [
+                "efeb8174.902c1"
+            ]
+        ]
+    },
+    {
+        "id": "efeb8174.902c1",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "Sammelpunkt ",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 737.5028686523438,
+        "y": 392.7485046386719,
+        "wires": [
+            [
+                "c970b042.77254",
+                "b71df6f3.f53e08"
+            ]
+        ]
+    },
+    {
+        "id": "7bb0fe3.aa633",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "Reboot",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "{\"jsonrpc\":\"2.0\",\"method\":\"System.Reboot\",\"id\":1}",
+        "payloadType": "string",
+        "x": 463.3363952636719,
+        "y": 475.21392822265625,
+        "wires": [
+            [
+                "efeb8174.902c1"
+            ]
+        ]
+    },
+    {
+        "id": "c970b042.77254",
+        "type": "debug",
+        "z": "2b3797a1.ec9d18",
+        "name": "debug, was zu KODI gesendet wurde",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1045.9609375,
+        "y": 392.10845947265625,
+        "wires": []
+    },
+    {
+        "id": "b71df6f3.f53e08",
+        "type": "websocket out",
+        "z": "2b3797a1.ec9d18",
+        "name": "ws://192.168.1.118:9090/jsonrpc",
+        "server": "",
+        "client": "e75c6a5b.990f98",
+        "x": 1036.6636352539062,
+        "y": 278.7777557373047,
+        "wires": []
+    },
+    {
+        "id": "ea77c928.4ae938",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "mute",
+        "func": "msg.payload={\"id\":9,\"jsonrpc\":\"2.0\",\"method\":\"Input.ExecuteAction\",\"params\":{\"action\":\"mute\"}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 346.40478515625,
+        "y": 599.5814208984375,
+        "wires": [
+            [
+                "efeb8174.902c1"
+            ]
+        ]
+    },
+    {
+        "id": "a745a3f4.b81fa",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "Shutdown",
+        "func": "msg.payload={\"jsonrpc\":\"2.0\",\"method\":\"System.Shutdown\",\"id\":1};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350.1056213378906,
+        "y": 537.3816223144531,
+        "wires": [
+            [
+                "efeb8174.902c1"
+            ]
+        ]
+    },
+    {
+        "id": "c6eae117.ea701",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "Stop",
+        "func": "msg.payload={\"id\":8,\"jsonrpc\":\"2.0\",\"method\":\"Player.Stop\",\"params\":{\"playerid\":1}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 346.6955261230469,
+        "y": 234.7943115234375,
+        "wires": [
+            [
+                "efeb8174.902c1"
+            ]
+        ]
+    },
+    {
+        "id": "222db087.e3575",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "ZDF",
+        "func": "msg.payload={\"id\":4,\"jsonrpc\":\"2.0\",\"method\": \"Player.Open\", \"params\":{\"item\": {\"file\": \"plugin://plugin.video.zdf_de_lite/?url=1822600&mode=playVideo\" } } };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340.2373352050781,
+        "y": 185.234619140625,
+        "wires": [
+            [
+                "efeb8174.902c1"
+            ]
+        ]
+    },
+    {
+        "id": "984b84f9.810278",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "action",
+        "func": "msg.payload={\"id\":9,\"jsonrpc\":\"2.0\",\"method\":\"Input.ExecuteAction\",\"params\":{\"action\":msg.payload}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 551.4987907409668,
+        "y": 394.39378356933594,
+        "wires": [
+            [
+                "efeb8174.902c1",
+                "51d2727b.422e8c"
+            ]
+        ]
+    },
+    {
+        "id": "e716e6ba.fa08b8",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 132.84708404541016,
+        "y": 538.6397342681885,
+        "wires": [
+            [
+                "a745a3f4.b81fa"
+            ]
+        ]
+    },
+    {
+        "id": "56cdcf5.5d9563",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "Stop",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "{\"id\":8,\"jsonrpc\":\"2.0\",\"method\":\"Player.Stop\",\"params\":{\"playerid\":1}}",
+        "payloadType": "string",
+        "x": 149.26485443115234,
+        "y": 233.28505420684814,
+        "wires": [
+            [
+                "c6eae117.ea701",
+                "2cfc08d9.8aa758"
+            ]
+        ]
+    },
+    {
+        "id": "b34582a2.cc4e2",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "string",
+        "x": 150.69466018676758,
+        "y": 183.52477073669434,
+        "wires": [
+            [
+                "222db087.e3575"
+            ]
+        ]
+    },
+    {
+        "id": "9af8265a.074e38",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "hoch",
+        "func": "msg.payload=\"up\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 326,
+        "y": 283.6529846191406,
+        "wires": [
+            [
+                "984b84f9.810278"
+            ]
+        ]
+    },
+    {
+        "id": "4936dec1.cda6a",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "runter",
+        "func": "msg.payload=\"down\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 332,
+        "y": 336,
+        "wires": [
+            [
+                "984b84f9.810278"
+            ]
+        ]
+    },
+    {
+        "id": "c5945c2c.f0062",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "links",
+        "func": "msg.payload=\"left\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 328.3749465942383,
+        "y": 386.47789478302,
+        "wires": [
+            [
+                "984b84f9.810278"
+            ]
+        ]
+    },
+    {
+        "id": "7dedcfe3.2029",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "rechts",
+        "func": "msg.payload=\"right\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 327,
+        "y": 431,
+        "wires": [
+            [
+                "984b84f9.810278"
+            ]
+        ]
+    },
+    {
+        "id": "11758b53.0713e5",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "select",
+        "func": "msg.payload=\"select\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 322,
+        "y": 476,
+        "wires": [
+            [
+                "984b84f9.810278"
+            ]
+        ]
+    },
+    {
+        "id": "51d2727b.422e8c",
+        "type": "debug",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 728.2857142857141,
+        "y": 339.9999999999998,
+        "wires": []
+    },
+    {
+        "id": "2cfc08d9.8aa758",
+        "type": "template",
+        "z": "2b3797a1.ec9d18",
+        "name": "Stop",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "stop",
+        "x": 400.3820495605469,
+        "y": 256.22105407714844,
+        "wires": [
+            [
+                "b2875b9f.9fb7e8"
+            ]
+        ]
+    },
+    {
+        "id": "b2875b9f.9fb7e8",
+        "type": "exec",
+        "z": "2b3797a1.ec9d18",
+        "command": "mpc",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "",
+        "x": 523.5189819335938,
+        "y": 329.1829528808594,
+        "wires": [
+            [
+                "51d2727b.422e8c"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "dec0ec81.9920b",
+        "type": "template",
+        "z": "2b3797a1.ec9d18",
+        "name": "volume -10",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "volume -10",
+        "x": 369,
+        "y": 405,
+        "wires": [
+            [
+                "b2875b9f.9fb7e8"
+            ]
+        ]
+    },
+    {
+        "id": "d0bef17a.2221f",
+        "type": "template",
+        "z": "2b3797a1.ec9d18",
+        "name": "volume +10",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "volume +10",
+        "x": 370.7123260498047,
+        "y": 452.896240234375,
+        "wires": [
+            [
+                "b2875b9f.9fb7e8"
+            ]
+        ]
+    },
+    {
+        "id": "46c77892.2bfd48",
+        "type": "comment",
+        "z": "2b3797a1.ec9d18",
+        "name": "KODI",
+        "info": "",
+        "x": 100,
+        "y": 60,
+        "wires": []
     }
 ]
