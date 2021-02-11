@@ -908,77 +908,6 @@
         "wires": []
     },
     {
-        "id": "cc6f4c9f.1bc6d",
-        "type": "http request",
-        "z": "df2ae089.27e66",
-        "name": "http://192.168.1.118/jsonrpc?request={...}",
-        "method": "GET",
-        "ret": "txt",
-        "url": "http://192.168.1.118/jsonrpc?request={{{payload}}}",
-        "x": 800,
-        "y": 1580,
-        "wires": [
-            [
-                "e0a76084.a03"
-            ]
-        ]
-    },
-    {
-        "id": "e0a76084.a03",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "debug, was KODI zurückgesendet hat",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 1035.6153564453125,
-        "y": 1697.390983581543,
-        "wires": []
-    },
-    {
-        "id": "2d055660.02ecaa",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "encodeURIComponent",
-        "func": "msg.payload=encodeURIComponent(msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 482.0913505554199,
-        "y": 1583.3420476913452,
-        "wires": [
-            [
-                "cc6f4c9f.1bc6d"
-            ]
-        ]
-    },
-    {
-        "id": "79df567a.125f68",
-        "type": "websocket in",
-        "z": "df2ae089.27e66",
-        "name": "ws://192.168.1.100:9090/jsonrpc",
-        "server": "",
-        "client": "e75c6a5b.990f98",
-        "x": 390,
-        "y": 1860,
-        "wires": [
-            [
-                "93b9338f.327a8"
-            ]
-        ]
-    },
-    {
-        "id": "93b9338f.327a8",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "was antwortet Websocket KODI",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 690,
-        "y": 1900,
-        "wires": []
-    },
-    {
         "id": "430a976d.d71aa8",
         "type": "status",
         "z": "df2ae089.27e66",
@@ -1214,153 +1143,6 @@
         ]
     },
     {
-        "id": "e6a87f8f.a5ba2",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 750,
-        "y": 1680,
-        "wires": []
-    },
-    {
-        "id": "e48ea43d.7f8158",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "topic": "",
-        "payload": "pause",
-        "payloadType": "str",
-        "x": 151.46298217773438,
-        "y": 1747.4969635009766,
-        "wires": [
-            [
-                "ad1409f5.619a88"
-            ]
-        ]
-    },
-    {
-        "id": "b31dd162.c2fa2",
-        "type": "tcp request",
-        "z": "df2ae089.27e66",
-        "server": "localhost",
-        "port": "6600",
-        "out": "sit",
-        "splitc": "0",
-        "name": "localhost:6600",
-        "x": 540,
-        "y": 1740,
-        "wires": [
-            [
-                "e6a87f8f.a5ba2",
-                "adb09274.4e355",
-                "769c1a73.114984"
-            ]
-        ]
-    },
-    {
-        "id": "ad1409f5.619a88",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "+status",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "command_list_begin\n{{payload}}\ncurrentsong\nplaylistinfo\nstatus\ncommand_list_end\n",
-        "x": 360,
-        "y": 1740,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1d2ce407.2d3a8c",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "topic": "",
-        "payload": "stop",
-        "payloadType": "str",
-        "x": 149.33599853515625,
-        "y": 1785.1200103759766,
-        "wires": [
-            [
-                "ad1409f5.619a88"
-            ]
-        ]
-    },
-    {
-        "id": "7622778c.bf6248",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "topic": "",
-        "payload": "play",
-        "payloadType": "str",
-        "x": 150.21701049804688,
-        "y": 1711.0013427734375,
-        "wires": [
-            [
-                "ad1409f5.619a88"
-            ]
-        ]
-    },
-    {
-        "id": "e26f5d12.e186a",
-        "type": "websocket in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "server": "d98022f0.9fcde",
-        "client": "",
-        "x": 130,
-        "y": 1840,
-        "wires": [
-            [
-                "ad1409f5.619a88"
-            ]
-        ]
-    },
-    {
-        "id": "adb09274.4e355",
-        "type": "websocket out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "server": "d98022f0.9fcde",
-        "client": "",
-        "x": 610,
-        "y": 1820,
-        "wires": []
-    },
-    {
-        "id": "769c1a73.114984",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "aktueller Sender",
-        "func": "var a=msg.payload;\nb=\"\";\nfor (var i=0;i<a.length;i++) {\n  b=b+String.fromCharCode(a[i]);\n  }\nvar c=b.indexOf(\"Name:\");\nvar d=b.indexOf(\"\\n\",c);\nmsg.payload=b.slice(c+6,d);\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 780,
-        "y": 1740,
-        "wires": [
-            [
-                "e0a76084.a03",
-                "ff53dda6.b761f"
-            ]
-        ]
-    },
-    {
         "id": "fe68c44a.89dab8",
         "type": "template",
         "z": "df2ae089.27e66",
@@ -1401,35 +1183,6 @@
             ],
             [
                 "9745c99a.683bc8"
-            ]
-        ]
-    },
-    {
-        "id": "388e1a0a.488f66",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 610,
-        "y": 1620,
-        "wires": []
-    },
-    {
-        "id": "6fcac12b.56071",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": " Miditasten->\"stop,play,...\"",
-        "func": "var a=msg.payload;\nvar b=\"\";\nif (a[1]==127) {\n  if (a[0]==93) b=\"stop\";\n  if (a[0]==94) b=\"play\";\n  if (a[0]==95) b=\"\";\n  if (a[0]==96) b=\"next\";\n  if (a[0]==97) b=\"previous\";\n  if (a[0]==98) b=\"volume -10\";\n  if (a[0]==99) b=\"volume +10\";\n  if (a[0]==100) b=\"pause\";\n  }\nmsg.payload=b;\nif (b!=\"\") return msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 410,
-        "y": 1520,
-        "wires": [
-            [
-                "388e1a0a.488f66",
-                "ad1409f5.619a88"
             ]
         ]
     },
@@ -1499,7 +1252,9 @@
             "18d99c8e.b3f043",
             "af9dc596.ff09c8",
             "5f21b716.7f4068",
-            "b0f419e8.529558"
+            "b0f419e8.529558",
+            "89ded12f.26d2d",
+            "ecba8162.6fd69"
         ],
         "x": 135,
         "y": 2080,
@@ -2109,30 +1864,12 @@
         ]
     },
     {
-        "id": "9ec1e8f6.32c3d8",
-        "type": "link in",
-        "z": "df2ae089.27e66",
-        "name": "mpc (play/play 4/pause/stop/volume 80)",
-        "links": [
-            "171ae574.c0135b",
-            "709cb912.694db8"
-        ],
-        "x": 135,
-        "y": 1660,
-        "wires": [
-            [
-                "ad1409f5.619a88",
-                "4f8bdcbe.08de84"
-            ]
-        ]
-    },
-    {
         "id": "171ae574.c0135b",
         "type": "link out",
         "z": "df2ae089.27e66",
         "name": "",
         "links": [
-            "9ec1e8f6.32c3d8"
+            "30e558.70cfbaa8"
         ],
         "x": 1075,
         "y": 2860,
@@ -2232,20 +1969,6 @@
         ]
     },
     {
-        "id": "ff53dda6.b761f",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "zum Vorlesen",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 943,
-        "y": 1749,
-        "wires": []
-    },
-    {
         "id": "d9c132d5.ffbdf",
         "type": "debug",
         "z": "df2ae089.27e66",
@@ -2267,7 +1990,7 @@
         "name": "Vorlesen",
         "info": "",
         "x": 60,
-        "y": 2040,
+        "y": 1760,
         "wires": []
     },
     {
@@ -2640,7 +2363,7 @@
         "z": "df2ae089.27e66",
         "name": "",
         "links": [
-            "9ec1e8f6.32c3d8"
+            "30e558.70cfbaa8"
         ],
         "x": 675,
         "y": 3520,
@@ -4920,25 +4643,15 @@
         ]
     },
     {
-        "id": "4f8bdcbe.08de84",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "zum rvlc",
-        "links": [
-            "30e558.70cfbaa8"
-        ],
-        "x": 275,
-        "y": 1660,
-        "wires": []
-    },
-    {
         "id": "30e558.70cfbaa8",
         "type": "link in",
         "z": "a49d08e2.c6bc28",
         "name": "rvlc",
         "links": [
             "4f8bdcbe.08de84",
-            "8bd56f66.48157"
+            "8bd56f66.48157",
+            "709cb912.694db8",
+            "171ae574.c0135b"
         ],
         "x": 295,
         "y": 600,
@@ -5172,62 +4885,29 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 1090,
-        "y": 1980,
+        "x": 1030,
+        "y": 1780,
         "wires": []
-    },
-    {
-        "id": "3ac0a08.4fb3a6",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "play",
-        "output": "str",
-        "x": 720,
-        "y": 1980,
-        "wires": [
-            [
-                "2dfc3d90.da7212"
-            ]
-        ]
     },
     {
         "id": "85d4f572.f3f168",
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 560,
-        "y": 1980,
-        "wires": [
-            [
-                "3ac0a08.4fb3a6"
-            ]
-        ]
-    },
-    {
-        "id": "ea6a9bbc.fbe728",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "playlist",
-        "output": "str",
-        "x": 720,
-        "y": 1940,
+        "payload": "play",
+        "payloadType": "str",
+        "x": 430,
+        "y": 1800,
         "wires": [
             [
                 "2dfc3d90.da7212"
@@ -5239,18 +4919,23 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 560,
-        "y": 1940,
+        "payload": "playlist",
+        "payloadType": "str",
+        "x": 430,
+        "y": 1760,
         "wires": [
             [
-                "ea6a9bbc.fbe728"
+                "2dfc3d90.da7212"
             ]
         ]
     },
@@ -5266,8 +4951,8 @@
         "topic": "",
         "payload": "volume +10",
         "payloadType": "str",
-        "x": 970,
-        "y": 1880,
+        "x": 450,
+        "y": 1920,
         "wires": [
             [
                 "2dfc3d90.da7212"
@@ -5286,8 +4971,8 @@
         "topic": "",
         "payload": "volume -10",
         "payloadType": "str",
-        "x": 920,
-        "y": 1820,
+        "x": 440,
+        "y": 1960,
         "wires": [
             [
                 "2dfc3d90.da7212"
@@ -5306,8 +4991,8 @@
         "topic": "",
         "payload": "status",
         "payloadType": "str",
-        "x": 870,
-        "y": 1860,
+        "x": 430,
+        "y": 1840,
         "wires": [
             [
                 "2dfc3d90.da7212"
@@ -5951,6 +5636,18 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "10^100;",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
@@ -5958,7 +5655,7 @@
         "payload": "10^100;",
         "payloadType": "str",
         "x": 170,
-        "y": 2680,
+        "y": 2700,
         "wires": [
             [
                 "46033a8.20dd3c4"
@@ -5974,7 +5671,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 440,
-        "y": 2640,
+        "y": 2660,
         "wires": [
             [
                 "59801e8e.b4762"
@@ -5989,7 +5686,7 @@
         "server": "126138a7.4cda77",
         "client": "",
         "x": 190,
-        "y": 2600,
+        "y": 2620,
         "wires": [
             [
                 "46033a8.20dd3c4",
@@ -6010,7 +5707,7 @@
         "payload": "QUIT;",
         "payloadType": "str",
         "x": 170,
-        "y": 2640,
+        "y": 2660,
         "wires": [
             [
                 "46033a8.20dd3c4",
@@ -6027,7 +5724,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 370,
-        "y": 2680,
+        "y": 2700,
         "wires": [
             [
                 "45a8626b.2ff10c"
@@ -6046,7 +5743,7 @@
         "complete": "payload",
         "targetType": "msg",
         "x": 440,
-        "y": 2600,
+        "y": 2620,
         "wires": []
     },
     {
@@ -6065,7 +5762,7 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 520,
-        "y": 2680,
+        "y": 2700,
         "wires": [
             [
                 "59801e8e.b4762"
@@ -6081,7 +5778,7 @@
         "console": "true",
         "complete": "payload",
         "x": 1180,
-        "y": 2640,
+        "y": 2660,
         "wires": []
     },
     {
@@ -6092,7 +5789,7 @@
         "server": "126138a7.4cda77",
         "client": "",
         "x": 1180,
-        "y": 2600,
+        "y": 2620,
         "wires": []
     },
     {
@@ -6453,7 +6150,7 @@
         "z": "df2ae089.27e66",
         "name": "ssh stefan@localhost gap -L GAP_WORKSPACE",
         "command": "gap",
-        "args": "-L GAP_WORKSPACE",
+        "args": "",
         "autorun": false,
         "cr": true,
         "redo": false,
@@ -6586,8 +6283,8 @@
         "redo": true,
         "op": "string",
         "closer": "SIGKILL",
-        "x": 890,
-        "y": 1980,
+        "x": 810,
+        "y": 1780,
         "wires": [
             [
                 "587d607e.4135b"
@@ -6606,13 +6303,13 @@
         "z": "df2ae089.27e66",
         "name": "ssh cocalc",
         "command": "ssh",
-        "args": "7ad8f9a4c26c4948a2a7b02339dd883e@ssh.cocalc.com gap ",
+        "args": "7ad8f9a4c26c4948a2a7b02339dd883e@ssh.cocalc.com",
         "autorun": false,
         "cr": true,
         "redo": false,
         "op": "string",
         "x": 710,
-        "y": 2640,
+        "y": 2660,
         "wires": [
             [
                 "3b1914d8.3d706c",
@@ -6740,8 +6437,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 930,
-        "y": 2100,
+        "x": 670,
+        "y": 1980,
         "wires": [
             [
                 "3ac0a08.4fb3a6"
@@ -7888,28 +7585,8 @@
         "topic": "",
         "payload": "volume 270",
         "payloadType": "str",
-        "x": 790,
-        "y": 2220,
-        "wires": [
-            [
-                "2dfc3d90.da7212"
-            ]
-        ]
-    },
-    {
-        "id": "5915c9f8.4a0158",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "status",
-        "payloadType": "str",
-        "x": 770,
-        "y": 2280,
+        "x": 450,
+        "y": 1880,
         "wires": [
             [
                 "2dfc3d90.da7212"
@@ -11128,7 +10805,7 @@
             "721aa1.9617456",
             "ded618c8.41b098"
         ],
-        "x": 175,
+        "x": 135,
         "y": 2040,
         "wires": [
             [
@@ -11751,6 +11428,329 @@
         "info": "",
         "x": 100,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "fb225df1.febce",
+        "type": "http request",
+        "z": "2b3797a1.ec9d18",
+        "name": "http://192.168.1.118/jsonrpc?request={...}",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://192.168.1.118/jsonrpc?request={{{payload}}}",
+        "x": 360,
+        "y": 700,
+        "wires": [
+            [
+                "d2e3fb45.592a98"
+            ]
+        ]
+    },
+    {
+        "id": "d2e3fb45.592a98",
+        "type": "debug",
+        "z": "2b3797a1.ec9d18",
+        "name": "debug, was KODI zurückgesendet hat",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1035.6153564453125,
+        "y": 877.390983581543,
+        "wires": []
+    },
+    {
+        "id": "cc657dcb.7d39d",
+        "type": "function",
+        "z": "2b3797a1.ec9d18",
+        "name": "aktueller Sender",
+        "func": "var a=msg.payload;\nb=\"\";\nfor (var i=0;i<a.length;i++) {\n  b=b+String.fromCharCode(a[i]);\n  }\nvar c=b.indexOf(\"Name:\");\nvar d=b.indexOf(\"\\n\",c);\nmsg.payload=b.slice(c+6,d);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 780,
+        "y": 920,
+        "wires": [
+            [
+                "d2e3fb45.592a98",
+                "89ded12f.26d2d"
+            ]
+        ]
+    },
+    {
+        "id": "89ded12f.26d2d",
+        "type": "link out",
+        "z": "2b3797a1.ec9d18",
+        "name": "zum Vorlesen",
+        "links": [
+            "6b533d6.c015cc4",
+            "466e22f5.4036fc",
+            "75e16a7b.0401a4"
+        ],
+        "x": 943,
+        "y": 929,
+        "wires": []
+    },
+    {
+        "id": "aefc05d6.e01b88",
+        "type": "tcp request",
+        "z": "2b3797a1.ec9d18",
+        "server": "localhost",
+        "port": "6600",
+        "out": "sit",
+        "splitc": "0",
+        "name": "localhost:6600",
+        "x": 540,
+        "y": 920,
+        "wires": [
+            [
+                "97c445d.b389eb8",
+                "cc657dcb.7d39d",
+                "a3b10008.be738"
+            ]
+        ]
+    },
+    {
+        "id": "97c445d.b389eb8",
+        "type": "debug",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 750,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "a3b10008.be738",
+        "type": "websocket out",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "server": "d98022f0.9fcde",
+        "client": "",
+        "x": 610,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "1bbfb787.be1da8",
+        "type": "websocket in",
+        "z": "2b3797a1.ec9d18",
+        "name": "ws://192.168.1.100:9090/jsonrpc",
+        "server": "",
+        "client": "e75c6a5b.990f98",
+        "x": 190,
+        "y": 800,
+        "wires": [
+            [
+                "c7eaf41d.e19728"
+            ]
+        ]
+    },
+    {
+        "id": "c7eaf41d.e19728",
+        "type": "debug",
+        "z": "2b3797a1.ec9d18",
+        "name": "was antwortet Websocket KODI",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 490,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "8d5dfca2.84444",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "play",
+        "payloadType": "str",
+        "x": 90,
+        "y": 620,
+        "wires": [
+            [
+                "9521f3bf.989b"
+            ]
+        ]
+    },
+    {
+        "id": "9521f3bf.989b",
+        "type": "template",
+        "z": "2b3797a1.ec9d18",
+        "name": "+status",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "command_list_begin\n{{payload}}\ncurrentsong\nplaylistinfo\nstatus\ncommand_list_end\n",
+        "x": 299.7829895019531,
+        "y": 648.9986572265625,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c324f3b6.eebc7",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "pause",
+        "payloadType": "str",
+        "x": 91.2459716796875,
+        "y": 656.4956207275391,
+        "wires": [
+            [
+                "9521f3bf.989b"
+            ]
+        ]
+    },
+    {
+        "id": "ecd9d575.cd22b8",
+        "type": "inject",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "x": 89.11898803710938,
+        "y": 694.1186676025391,
+        "wires": [
+            [
+                "9521f3bf.989b"
+            ]
+        ]
+    },
+    {
+        "id": "507604ff.c5f5ec",
+        "type": "websocket in",
+        "z": "2b3797a1.ec9d18",
+        "name": "",
+        "server": "d98022f0.9fcde",
+        "client": "",
+        "x": 69.78298950195312,
+        "y": 748.9986572265625,
+        "wires": [
+            [
+                "9521f3bf.989b"
+            ]
+        ]
+    },
+    {
+        "id": "dfec3385.a14b5",
+        "type": "comment",
+        "z": "df2ae089.27e66",
+        "name": "Vorles-rvlc:",
+        "info": "",
+        "x": 240,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "f3c704f9.8a9c28",
+        "type": "comment",
+        "z": "df2ae089.27e66",
+        "name": "erzeuge Lookdave.wav:",
+        "info": "",
+        "x": 220,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "3ac0a08.4fb3a6",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "play",
+        "output": "str",
+        "x": 880,
+        "y": 1980,
+        "wires": [
+            [
+                "2dfc3d90.da7212"
+            ]
+        ]
+    },
+    {
+        "id": "137e8ad2.c73f65",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/ext/bin/gap",
+        "payloadType": "str",
+        "x": 190,
+        "y": 2740,
+        "wires": [
+            [
+                "46033a8.20dd3c4"
+            ]
+        ]
+    },
+    {
+        "id": "cf2f1faf.b7db5",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "quit;",
+        "payloadType": "str",
+        "x": 170,
+        "y": 2780,
+        "wires": [
+            [
+                "46033a8.20dd3c4"
+            ]
+        ]
+    },
+    {
+        "id": "ccd5c7c9.8e7c78",
+        "type": "comment",
+        "z": "df2ae089.27e66",
+        "name": "bei gap2 zuerst im Browser das cocalc Projekt starten, dann QUIT; /ext/bin/gap",
+        "info": "",
+        "x": 390,
+        "y": 2580,
         "wires": []
     }
 ]
