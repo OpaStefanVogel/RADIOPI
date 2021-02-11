@@ -5694,8 +5694,7 @@
         "y": 1280,
         "wires": [
             [
-                "656d5afe.90bf64",
-                "308c97c6.c71558"
+                "656d5afe.90bf64"
             ]
         ]
     },
@@ -5741,9 +5740,11 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "var m=msg.payload;\nvar a=m.Expression.Function[0].Function;\nvar sonne=a[0].Function[0].Function[0].Number;\nvar ret=\"Zenitschtand Sonne \"+sonne[3]+\" Uhr \"+sonne[4]+\",\";\nvar mond=a[1].Function[0].Function[0].Number;\nret=ret+\" Mohnd \"+mond[3]+\" Uhr \"+mond[4]+\",\";\nvar name=a[2].Function[0].Function;\nvar planet=a[3].Function[0].Function;\nret=ret+\" und die Planeten \"\nfor (var i=0;i<8;i++) if (i!=2) {\n  var n=name[i].String[1];\n  var t=planet[i].Function[0].Number;\n  ret=ret+\" \"+n+\" \"+t[3]+\" Uhr \"+t[4]+\",\";\n  }\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
+        "func": "var m=msg.payload;\nvar Ergebnis=[];\nvar a=m.Expression.Function[0].Function;\nvar sonne=a[0].Function[0].Function[0].Number;\nvar ret=\"Zenitschtand Sonne \"+sonne[3]+\" Uhr \"+sonne[4]+\",\";\nErgebnis[0]=[\"Sonne\",sonne[3],sonne[4]];\nvar mond=a[1].Function[0].Function[0].Number;\nret=ret+\" Mohnd \"+mond[3]+\" Uhr \"+mond[4]+\",\";\nErgebnis[1]=[\"Mond\",mond[3],mond[4]];\nvar name=a[2].Function[0].Function;\nvar planet=a[3].Function[0].Function;\nret=ret+\" und die Planeten \"\nfor (var i=0;i<8;i++) if (i!=2) {\n  var n=name[i].String[1];\n  var t=planet[i].Function[0].Number;\n  ret=ret+\" \"+n.replace(\"y\",\"\")+\" \"+t[3]+\" Uhr \"+t[4]+\",\";\n  var j=i+2;\n  if (i>2) j=j-1;\n  Ergebnis[j]=[n.replace(\"y\",\"\"),t[3],t[4]];\n\n  }\nErgebnis.sort(function(x,y) {\n  if (x[1]*1<y[1]*1) return -1;\n  if (x[1]*1>y[1]*1) return 1;\n  if (x[2]*1<y[2]*1) return -1;\n  if (x[2]*1>y[2]*1) return 1;\n  return 0;\n  });\nErgebnis.unshift([\"Mond\",mond[3],mond[4]]);\nErgebnis.unshift([\"Sonne\",sonne[3],sonne[4]]);\n\nnode.status({text:Ergebnis});\nvar ret=\"Zenitschtände \";\nfor (var k=0;k<Ergebnis.length;k++) {\n  ret=ret\n    +Ergebnis[k][0]+\" \"\n    +Ergebnis[k][1]+\" Uhr \"\n    +Ergebnis[k][2]+\", \"\n    ;\n  }\nmsg.payload=ret;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 470,
         "y": 1380,
         "wires": [
@@ -5751,6 +5752,12 @@
                 "308c97c6.c71558",
                 "78a2a961.d6d0e8"
             ]
+        ],
+        "inputLabels": [
+            "x"
+        ],
+        "outputLabels": [
+            "y"
         ]
     },
     {
