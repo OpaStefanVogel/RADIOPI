@@ -1254,7 +1254,37 @@
             "5f21b716.7f4068",
             "b0f419e8.529558",
             "89ded12f.26d2d",
-            "ecba8162.6fd69"
+            "ecba8162.6fd69",
+            "3c2b9afa.c29d76",
+            "2d367de1.f7f692",
+            "150dcd81.2999f2",
+            "a1735dd5.c24ff",
+            "5724873f.0ab7b8",
+            "6e09f4fa.45a1cc",
+            "2572da3d.31d096",
+            "e4c85d82.437b9",
+            "585c8d38.82b854",
+            "4b504247.b677ac",
+            "a3cb1261.11d71",
+            "8075c985.570048",
+            "8727c42e.1d47b8",
+            "7963a087.0b70f",
+            "79b701f6.2456",
+            "197f938e.ca3afc",
+            "b0ec2cca.2b356",
+            "948f1587.ad8e08",
+            "750821c5.7d4bf",
+            "443c2269.a1facc",
+            "4787cef7.225b2",
+            "fc8238e0.cd0338",
+            "1b90b36b.29fd2d",
+            "c4af63f9.d9c66",
+            "4552a6ba.f3b8d8",
+            "b5a05e6f.4249c",
+            "53b9771d.1fa048",
+            "4b98d028.b81e8",
+            "2c2cc807.ca8158",
+            "b58329c1.d50828"
         ],
         "x": 135,
         "y": 2080,
@@ -1462,151 +1492,6 @@
         ]
     },
     {
-        "id": "95ceb993.caf5e8",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "var z=msg.payload;\nvar i=z.indexOf(\"counterInt = Math.round(\");\nvar n=z.slice(i+24,i+31);\nnode.status({text:n});\nmsg.payload=n;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 550,
-        "y": 3100,
-        "wires": [
-            [
-                "7d5d6479.aafc8c"
-            ]
-        ]
-    },
-    {
-        "id": "696d105a.f041a",
-        "type": "comment",
-        "z": "df2ae089.27e66",
-        "name": "Kartoffelpreis",
-        "info": "",
-        "x": 70,
-        "y": 2980,
-        "wires": []
-    },
-    {
-        "id": "ef0fe027.695f6",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "table",
-        "func": "var pos=msg.payload.indexOf(\"boerseTitleKurs\")+42;\nvar pos2=pos+6;\nvar Kartoffelpreis=msg.payload.slice(pos,pos2).trim();\nglobal.set(\"Kartoffelpreis\",Kartoffelpreis);\nnode.status({text:Kartoffelpreis});\nmsg.payload=Kartoffelpreis;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 810,
-        "y": 2980,
-        "wires": [
-            [
-                "d5229189.d63b",
-                "44a20230.e75a0c"
-            ]
-        ]
-    },
-    {
-        "id": "b3b8326c.014a",
-        "type": "http request",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "url": "http://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html",
-        "tls": "",
-        "x": 540,
-        "y": 2980,
-        "wires": [
-            [
-                "ef0fe027.695f6",
-                "b385837f.343af"
-            ]
-        ]
-    },
-    {
-        "id": "44a20230.e75a0c",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 990,
-        "y": 2940,
-        "wires": []
-    },
-    {
-        "id": "4e5e8573.3b3edc",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "jede vollen Stunde",
-        "repeat": "",
-        "crontab": "0 0-22 * * *",
-        "once": false,
-        "topic": "jede volle Stunde",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 2820,
-        "wires": [
-            [
-                "7589b540.6a44cc",
-                "3030cdfd.5e49c2",
-                "891aaa5b.bb2ad8",
-                "46acdb9f.a87904",
-                "87976cb0.754a6"
-            ]
-        ]
-    },
-    {
-        "id": "fb92e9e2.e144a8",
-        "type": "http request",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "url": "http://www.grs-batterien.de",
-        "tls": "",
-        "x": 390,
-        "y": 3100,
-        "wires": [
-            [
-                "95ceb993.caf5e8"
-            ]
-        ]
-    },
-    {
-        "id": "a6b71c27.4f9db",
-        "type": "inject",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "repeat": "",
-        "crontab": "00 23 * * *",
-        "once": false,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 210,
-        "y": 3100,
-        "wires": [
-            [
-                "fb92e9e2.e144a8"
-            ]
-        ]
-    },
-    {
-        "id": "486f59e5.bd8d08",
-        "type": "comment",
-        "z": "df2ae089.27e66",
-        "name": "GRS",
-        "info": "",
-        "x": 50,
-        "y": 3100,
-        "wires": []
-    },
-    {
         "id": "7e026654.f1e408",
         "type": "delay",
         "z": "df2ae089.27e66",
@@ -1678,297 +1563,6 @@
         ]
     },
     {
-        "id": "d5229189.d63b",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Der aktuelle Kartoffelpreis beträgt {{payload}}",
-        "output": "str",
-        "x": 970,
-        "y": 2980,
-        "wires": [
-            [
-                "d6f22b6c.0c4688"
-            ]
-        ]
-    },
-    {
-        "id": "d6f22b6c.0c4688",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "vorlesen",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 1095,
-        "y": 2980,
-        "wires": []
-    },
-    {
-        "id": "973b432a.40b4e",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "50",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 400,
-        "y": 3040,
-        "wires": [
-            [
-                "20aee451.d3b3dc",
-                "7d5d6479.aafc8c"
-            ]
-        ]
-    },
-    {
-        "id": "7d5d6479.aafc8c",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "17686 Tonnen Batterieen wurden 2019 resükelt.",
-        "output": "str",
-        "x": 730,
-        "y": 3100,
-        "wires": [
-            [
-                "d6f22b6c.0c4688"
-            ]
-        ]
-    },
-    {
-        "id": "7589b540.6a44cc",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "9",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 370,
-        "y": 2940,
-        "wires": [
-            [
-                "b3b8326c.014a",
-                "973b432a.40b4e"
-            ]
-        ]
-    },
-    {
-        "id": "20aee451.d3b3dc",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "50",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 440,
-        "y": 3140,
-        "wires": [
-            [
-                "6ce18c74.210d74",
-                "fd128349.8d9e7"
-            ]
-        ]
-    },
-    {
-        "id": "6ce18c74.210d74",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Im Keller ist das Licht an oder auch nicht, schau selber mal nach.",
-        "output": "str",
-        "x": 610,
-        "y": 3160,
-        "wires": [
-            [
-                "b457e8f.091ba18"
-            ]
-        ]
-    },
-    {
-        "id": "b457e8f.091ba18",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 835,
-        "y": 3160,
-        "wires": []
-    },
-    {
-        "id": "1a6e024e.0c121e",
-        "type": "comment",
-        "z": "df2ae089.27e66",
-        "name": "Kellerlicht",
-        "info": "",
-        "x": 60,
-        "y": 3160,
-        "wires": []
-    },
-    {
-        "id": "3030cdfd.5e49c2",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "stop",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "stop",
-        "output": "str",
-        "x": 610,
-        "y": 2860,
-        "wires": [
-            [
-                "171ae574.c0135b"
-            ]
-        ]
-    },
-    {
-        "id": "171ae574.c0135b",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "30e558.70cfbaa8"
-        ],
-        "x": 1075,
-        "y": 2860,
-        "wires": [],
-        "inputLabels": [
-            "zum mpc"
-        ]
-    },
-    {
-        "id": "46acdb9f.a87904",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "7",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 360,
-        "y": 2900,
-        "wires": [
-            [
-                "70ead39a.6dcf0c"
-            ]
-        ]
-    },
-    {
-        "id": "e2140167.621a8",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "play",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "play",
-        "output": "str",
-        "x": 970,
-        "y": 2900,
-        "wires": [
-            [
-                "171ae574.c0135b"
-            ]
-        ]
-    },
-    {
-        "id": "891aaa5b.bb2ad8",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "30",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 450,
-        "y": 2820,
-        "wires": [
-            [
-                "60769817.8f9678",
-                "3030cdfd.5e49c2",
-                "3a8f2885.3c4278"
-            ]
-        ]
-    },
-    {
-        "id": "60769817.8f9678",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 420,
-        "y": 2860,
-        "wires": [
-            [
-                "70ead39a.6dcf0c"
-            ]
-        ]
-    },
-    {
         "id": "d9c132d5.ffbdf",
         "type": "debug",
         "z": "df2ae089.27e66",
@@ -1994,16 +1588,6 @@
         "wires": []
     },
     {
-        "id": "c565e847.ebc5f8",
-        "type": "comment",
-        "z": "df2ae089.27e66",
-        "name": "Nachrichten ausblenden",
-        "info": "",
-        "x": 110,
-        "y": 2900,
-        "wires": []
-    },
-    {
         "id": "749d4562.6c1c7c",
         "type": "comment",
         "z": "df2ae089.27e66",
@@ -2022,30 +1606,6 @@
         "x": 60,
         "y": 3220,
         "wires": []
-    },
-    {
-        "id": "fd128349.8d9e7",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "50",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 420,
-        "y": 3180,
-        "wires": [
-            [
-                "effe2be1.940728",
-                "4dff0f56.61e3a"
-            ]
-        ]
     },
     {
         "id": "26ecbea8.22b3c2",
@@ -2131,125 +1691,6 @@
         "complete": "false",
         "x": 580,
         "y": 3220,
-        "wires": []
-    },
-    {
-        "id": "53974cb7.b894d4",
-        "type": "websocket in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "server": "",
-        "client": "fb39d958.c1e8d8",
-        "x": 260,
-        "y": 3340,
-        "wires": [
-            [
-                "b4bfc102.91791"
-            ]
-        ]
-    },
-    {
-        "id": "b4bfc102.91791",
-        "type": "join",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "mode": "custom",
-        "build": "string",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "",
-        "joinerType": "str",
-        "accumulate": false,
-        "timeout": "25",
-        "count": "",
-        "x": 490,
-        "y": 3360,
-        "wires": [
-            [
-                "7f46070c.8e25c8",
-                "8a19b167.9153e"
-            ]
-        ]
-    },
-    {
-        "id": "4dff0f56.61e3a",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "var Heizungsstatus=global.get(\"Heizungsstatus\");\nvar p=Heizungsstatus[0];//msg.payload;\nvar ind=p.indexOf(\"Notification\");\nif (ind>-1) {\n  var t=p.slice(ind,ind+53);\n  msg.payload=t;\n  return msg;\n  }",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 690,
-        "y": 3340,
-        "wires": [
-            [
-                "c8cf13f5.2336c",
-                "7f46070c.8e25c8"
-            ]
-        ]
-    },
-    {
-        "id": "7f46070c.8e25c8",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "console": "true",
-        "complete": "payload",
-        "x": 760,
-        "y": 3400,
-        "wires": []
-    },
-    {
-        "id": "c8cf13f5.2336c",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "var t=msg.payload.slice(-2);\nvar tt=eval(\"0x\"+t)/2;\nvar b=msg.payload.slice(39,40);\nvar bb=\"Batterie ok\";\nif (b>0) bb=\"Batterie nicht ok\"\nvar ret=bb;\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 810,
-        "y": 3340,
-        "wires": [
-            [
-                "7f46070c.8e25c8",
-                "423259ec.33fb68"
-            ]
-        ]
-    },
-    {
-        "id": "423259ec.33fb68",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Die Testabfrage der Heizung war erfolgreich. {{payload}}.",
-        "output": "str",
-        "x": 970,
-        "y": 3340,
-        "wires": [
-            [
-                "7f46070c.8e25c8",
-                "9b284c24.0f5e5"
-            ]
-        ]
-    },
-    {
-        "id": "9b284c24.0f5e5",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 1095,
-        "y": 3340,
         "wires": []
     },
     {
@@ -2593,7 +2034,19 @@
             "6664f61.a403808",
             "fb67929c.cce7a",
             "a7ca9652.382d78",
-            "eaaa905e.7c05d"
+            "eaaa905e.7c05d",
+            "2fa18ff1.1a246",
+            "696750ea.11e",
+            "8b76e201.d26bb",
+            "308c18f6.4fa238",
+            "84afce23.7bc07",
+            "fa1be655.376d58",
+            "a40957cf.e07218",
+            "54720ed.ed1ccf",
+            "8d6dce31.89e4f",
+            "dce14c92.642f4",
+            "7b275c76.e35b64",
+            "aad8e8d.c6d9618"
         ],
         "x": 535,
         "y": 3660,
@@ -3134,151 +2587,6 @@
         ]
     },
     {
-        "id": "1ab4b512.2a39cb",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "if (msg.payload==\"on 38,\") {\n  return msg;\n  }",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 170,
-        "y": 2940,
-        "wires": [
-            [
-                "f6e46a6e.7f6198"
-            ]
-        ]
-    },
-    {
-        "id": "db6b9ca7.9c8c6",
-        "type": "link in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "92963650.708088"
-        ],
-        "x": 35,
-        "y": 2940,
-        "wires": [
-            [
-                "1ab4b512.2a39cb"
-            ]
-        ]
-    },
-    {
-        "id": "f6e46a6e.7f6198",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 360,
-        "y": 2960,
-        "wires": [
-            [
-                "b3b8326c.014a"
-            ]
-        ]
-    },
-    {
-        "id": "79effea9.464d3",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "if (msg.payload==\"on 39,\") {\n  return msg;\n  }",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 170,
-        "y": 3180,
-        "wires": [
-            [
-                "c7f8e439.f469f8"
-            ]
-        ]
-    },
-    {
-        "id": "a2c9465b.e260b8",
-        "type": "link in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "92963650.708088"
-        ],
-        "x": 75,
-        "y": 3180,
-        "wires": [
-            [
-                "79effea9.464d3"
-            ]
-        ]
-    },
-    {
-        "id": "c7f8e439.f469f8",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 300,
-        "y": 3200,
-        "wires": [
-            [
-                "d3c8444b.9773d8",
-                "effe2be1.940728",
-                "4dff0f56.61e3a"
-            ]
-        ]
-    },
-    {
-        "id": "d3c8444b.9773d8",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Moment, Ansage der Heizungstemperatur erfolgt in 20 Sekunden.",
-        "output": "str",
-        "x": 660,
-        "y": 3200,
-        "wires": [
-            [
-                "82b83a6d.d972a8"
-            ]
-        ]
-    },
-    {
-        "id": "82b83a6d.d972a8",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "vorlesen",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 799,
-        "y": 3211,
-        "wires": []
-    },
-    {
         "id": "cdd8b539.83ee48",
         "type": "comment",
         "z": "df2ae089.27e66",
@@ -3568,24 +2876,18 @@
         ]
     },
     {
-        "id": "1f7210e6.5392af",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "weiter nach Kartoffelpreis und  Heizung",
-        "links": [
-            "a6d13b06.eb2ce8"
-        ],
-        "x": 755,
-        "y": 3180,
-        "wires": []
-    },
-    {
         "id": "a6d13b06.eb2ce8",
         "type": "link in",
         "z": "4c1f2825.5c8bc8",
         "name": "Sheet Ansagen - Wetter Chemnitz",
         "links": [
-            "1f7210e6.5392af"
+            "1f7210e6.5392af",
+            "ee8b90ed.b8d79",
+            "52cdffbf.0c3da",
+            "2cab4965.805ef6",
+            "765dedb0.cf1854",
+            "6935d75e.2cd2d8",
+            "a24c0c99.2bfc2"
         ],
         "x": 155,
         "y": 160,
@@ -3788,38 +3090,6 @@
         "wires": [
             [
                 "8bfd9527.bf99b8"
-            ]
-        ]
-    },
-    {
-        "id": "effe2be1.940728",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "node.status({text:msg.payload});\nmsg.payload=\"Heizungsstatus im Moment außer betrieb\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 580,
-        "y": 3180,
-        "wires": [
-            [
-                "1f7210e6.5392af"
-            ]
-        ]
-    },
-    {
-        "id": "8a19b167.9153e",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "global.set(\"Heizungsstatus\",[msg.payload,Date()]);\nnode.status({text:Date()});\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 570,
-        "y": 3320,
-        "wires": [
-            [
-                "4dff0f56.61e3a"
             ]
         ]
     },
@@ -4651,7 +3921,13 @@
             "4f8bdcbe.08de84",
             "8bd56f66.48157",
             "709cb912.694db8",
-            "171ae574.c0135b"
+            "171ae574.c0135b",
+            "5eb11923.d39d48",
+            "adb7f2bf.73a43",
+            "f41e47f5.0f2ab8",
+            "5d4fdbe2.3824b4",
+            "f13704d8.00fe18",
+            "5dbcc3d7.c2590c"
         ],
         "x": 295,
         "y": 600,
@@ -5110,27 +4386,17 @@
         "z": "8b708117.11fb9",
         "name": "",
         "links": [
-            "2c391691.47512a"
+            "2c391691.47512a",
+            "686d8482.3b83fc",
+            "5ad74454.8f123c",
+            "c6c31322.e6c96",
+            "7d8febe6.ce25a4",
+            "26a54bd8.62fb44",
+            "376625ad.c1929a"
         ],
         "x": 675,
         "y": 380,
         "wires": []
-    },
-    {
-        "id": "2c391691.47512a",
-        "type": "link in",
-        "z": "df2ae089.27e66",
-        "name": "Kartoffelpreis",
-        "links": [
-            "785134f.383f6cc"
-        ],
-        "x": 375,
-        "y": 3000,
-        "wires": [
-            [
-                "b3b8326c.014a"
-            ]
-        ]
     },
     {
         "id": "d3f2bf0f.ccc82",
@@ -5962,38 +5228,6 @@
         "wires": []
     },
     {
-        "id": "b385837f.343af",
-        "type": "html",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "property": "payload",
-        "outproperty": "payload",
-        "tag": "[class=\"row cursor-pointer background-light-green\"]",
-        "ret": "html",
-        "as": "single",
-        "x": 710,
-        "y": 3020,
-        "wires": [
-            [
-                "8ba06121.b9285"
-            ]
-        ]
-    },
-    {
-        "id": "8ba06121.b9285",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 930,
-        "y": 3100,
-        "wires": []
-    },
-    {
         "id": "cf401307.70d3b",
         "type": "http in",
         "z": "5117498b.878128",
@@ -6323,104 +5557,6 @@
                 "3b1914d8.3d706c"
             ]
         ]
-    },
-    {
-        "id": "35399081.7fe8",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "kurze Radiopause",
-        "output": "str",
-        "x": 780,
-        "y": 2740,
-        "wires": [
-            [
-                "7acc88f8.260048"
-            ]
-        ]
-    },
-    {
-        "id": "87976cb0.754a6",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 620,
-        "y": 2740,
-        "wires": [
-            [
-                "35399081.7fe8"
-            ]
-        ]
-    },
-    {
-        "id": "3a8f2885.3c4278",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 620,
-        "y": 2780,
-        "wires": [
-            [
-                "a35e35dd.fd9f28"
-            ]
-        ]
-    },
-    {
-        "id": "a35e35dd.fd9f28",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "kurze Radiopause",
-        "output": "str",
-        "x": 780,
-        "y": 2780,
-        "wires": [
-            [
-                "7acc88f8.260048"
-            ]
-        ]
-    },
-    {
-        "id": "7acc88f8.260048",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
-        ],
-        "x": 915,
-        "y": 2780,
-        "wires": []
     },
     {
         "id": "ddf7014b.f7ec5",
@@ -10803,7 +9939,13 @@
             "b7a3004e.f701b",
             "721aa1.9617456",
             "721aa1.9617456",
-            "ded618c8.41b098"
+            "ded618c8.41b098",
+            "fab37b15.c6fed8",
+            "aeaa8cb5.b17af",
+            "155a7518.17413b",
+            "f3276760.7c13e8",
+            "23dfecd3.a48084",
+            "24be7828.3de4b8"
         ],
         "x": 135,
         "y": 2040,
@@ -10947,77 +10089,6 @@
         "wires": [
             [
                 "905aaf7d.33461"
-            ]
-        ]
-    },
-    {
-        "id": "1e396b98.fd77b4",
-        "type": "template",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "Nicht erschreckebn bitte, das Radio spielt gleich weiter mit vollem Karacho.",
-        "output": "str",
-        "x": 740,
-        "y": 2940,
-        "wires": [
-            [
-                "ded618c8.41b098"
-            ]
-        ]
-    },
-    {
-        "id": "ded618c8.41b098",
-        "type": "link out",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "links": [
-            "35b0a1b5.88525e"
-        ],
-        "x": 855,
-        "y": 2940,
-        "wires": []
-    },
-    {
-        "id": "f35a74a0.c7e148",
-        "type": "delay",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 800,
-        "y": 2900,
-        "wires": [
-            [
-                "e2140167.621a8"
-            ]
-        ]
-    },
-    {
-        "id": "70ead39a.6dcf0c",
-        "type": "function",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 550,
-        "y": 2900,
-        "wires": [
-            [
-                "1e396b98.fd77b4",
-                "f35a74a0.c7e148"
             ]
         ]
     },
@@ -11751,6 +10822,1001 @@
         "info": "",
         "x": 390,
         "y": 2580,
+        "wires": []
+    },
+    {
+        "id": "8ef5cb50.42e1c8",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "jede vollen Stunde",
+        "repeat": "",
+        "crontab": "0 0-22 * * *",
+        "once": false,
+        "topic": "jede volle Stunde",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 2200,
+        "wires": [
+            [
+                "a9498e8d.4c409",
+                "527284ec.4b332c",
+                "6fb80b29.974174",
+                "9b38b14e.49083",
+                "f3a24a0e.5171c8"
+            ]
+        ]
+    },
+    {
+        "id": "a9498e8d.4c409",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "9",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 510,
+        "y": 2320,
+        "wires": [
+            [
+                "2a4a6086.7715",
+                "9c66f28b.8103"
+            ]
+        ]
+    },
+    {
+        "id": "527284ec.4b332c",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "stop",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "stop",
+        "output": "str",
+        "x": 750,
+        "y": 2240,
+        "wires": [
+            [
+                "5dbcc3d7.c2590c"
+            ]
+        ]
+    },
+    {
+        "id": "6fb80b29.974174",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 590,
+        "y": 2200,
+        "wires": [
+            [
+                "eb921e54.a50dc",
+                "527284ec.4b332c",
+                "4b82ebfc.0d57b4"
+            ]
+        ]
+    },
+    {
+        "id": "9b38b14e.49083",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "7",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 500,
+        "y": 2280,
+        "wires": [
+            [
+                "398e7734.041688"
+            ]
+        ]
+    },
+    {
+        "id": "f3a24a0e.5171c8",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 760,
+        "y": 2120,
+        "wires": [
+            [
+                "21124e1.38f11b2"
+            ]
+        ]
+    },
+    {
+        "id": "2a4a6086.7715",
+        "type": "http request",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html",
+        "tls": "",
+        "x": 680,
+        "y": 2360,
+        "wires": [
+            [
+                "2c267e30.4639e2",
+                "566d44f1.5da50c"
+            ]
+        ]
+    },
+    {
+        "id": "9c66f28b.8103",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 2420,
+        "wires": [
+            [
+                "b1365662.9d8648",
+                "c2d8aa89.4e5bd8"
+            ]
+        ]
+    },
+    {
+        "id": "5dbcc3d7.c2590c",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "30e558.70cfbaa8"
+        ],
+        "x": 1215,
+        "y": 2240,
+        "wires": [],
+        "inputLabels": [
+            "zum mpc"
+        ]
+    },
+    {
+        "id": "eb921e54.a50dc",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 560,
+        "y": 2240,
+        "wires": [
+            [
+                "398e7734.041688"
+            ]
+        ]
+    },
+    {
+        "id": "4b82ebfc.0d57b4",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 760,
+        "y": 2160,
+        "wires": [
+            [
+                "85c0f725.62d118"
+            ]
+        ]
+    },
+    {
+        "id": "398e7734.041688",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 2280,
+        "wires": [
+            [
+                "45050a2c.0e8f54",
+                "c7dee00e.6f1c"
+            ]
+        ]
+    },
+    {
+        "id": "21124e1.38f11b2",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "kurze Radiopause",
+        "output": "str",
+        "x": 920,
+        "y": 2120,
+        "wires": [
+            [
+                "b5a05e6f.4249c"
+            ]
+        ]
+    },
+    {
+        "id": "2c267e30.4639e2",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "table",
+        "func": "var pos=msg.payload.indexOf(\"boerseTitleKurs\")+42;\nvar pos2=pos+6;\nvar Kartoffelpreis=msg.payload.slice(pos,pos2).trim();\nglobal.set(\"Kartoffelpreis\",Kartoffelpreis);\nnode.status({text:Kartoffelpreis});\nmsg.payload=Kartoffelpreis;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 950,
+        "y": 2360,
+        "wires": [
+            [
+                "426a1860.e6d408",
+                "e589aa24.a1a608"
+            ]
+        ]
+    },
+    {
+        "id": "566d44f1.5da50c",
+        "type": "html",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "[class=\"row cursor-pointer background-light-green\"]",
+        "ret": "html",
+        "as": "single",
+        "x": 850,
+        "y": 2400,
+        "wires": [
+            [
+                "22ad7f0b.7a8f8"
+            ]
+        ]
+    },
+    {
+        "id": "b7776d9a.c15d7",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 500,
+        "y": 2340,
+        "wires": [
+            [
+                "2a4a6086.7715"
+            ]
+        ]
+    },
+    {
+        "id": "376625ad.c1929a",
+        "type": "link in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Kartoffelpreis",
+        "links": [
+            "785134f.383f6cc"
+        ],
+        "x": 515,
+        "y": 2380,
+        "wires": [
+            [
+                "2a4a6086.7715"
+            ]
+        ]
+    },
+    {
+        "id": "b1365662.9d8648",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 580,
+        "y": 2520,
+        "wires": [
+            [
+                "740e2015.dbacb",
+                "a98e9503.5ea9d8"
+            ]
+        ]
+    },
+    {
+        "id": "c2d8aa89.4e5bd8",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "17686 Tonnen Batterieen wurden 2019 resükelt.",
+        "output": "str",
+        "x": 870,
+        "y": 2480,
+        "wires": [
+            [
+                "53b9771d.1fa048"
+            ]
+        ]
+    },
+    {
+        "id": "d56c1f4d.3048a",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "play",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "play",
+        "output": "str",
+        "x": 1110,
+        "y": 2280,
+        "wires": [
+            [
+                "5dbcc3d7.c2590c"
+            ]
+        ]
+    },
+    {
+        "id": "85c0f725.62d118",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "kurze Radiopause",
+        "output": "str",
+        "x": 920,
+        "y": 2160,
+        "wires": [
+            [
+                "b5a05e6f.4249c"
+            ]
+        ]
+    },
+    {
+        "id": "45050a2c.0e8f54",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Nicht erschreckebn bitte, das Radio spielt gleich weiter mit vollem Karacho.",
+        "output": "str",
+        "x": 880,
+        "y": 2320,
+        "wires": [
+            [
+                "24be7828.3de4b8"
+            ]
+        ]
+    },
+    {
+        "id": "c7dee00e.6f1c",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 940,
+        "y": 2280,
+        "wires": [
+            [
+                "d56c1f4d.3048a"
+            ]
+        ]
+    },
+    {
+        "id": "b5a05e6f.4249c",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4",
+            "466e22f5.4036fc",
+            "75e16a7b.0401a4"
+        ],
+        "x": 1055,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "426a1860.e6d408",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Der aktuelle Kartoffelpreis beträgt {{payload}}",
+        "output": "str",
+        "x": 1110,
+        "y": 2360,
+        "wires": [
+            [
+                "53b9771d.1fa048"
+            ]
+        ]
+    },
+    {
+        "id": "e589aa24.a1a608",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1130,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "22ad7f0b.7a8f8",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1070,
+        "y": 2480,
+        "wires": []
+    },
+    {
+        "id": "5c04bd36.e41244",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "if (msg.payload==\"on 38,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 2320,
+        "wires": [
+            [
+                "b7776d9a.c15d7"
+            ]
+        ]
+    },
+    {
+        "id": "740e2015.dbacb",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Im Keller ist das Licht an oder auch nicht, schau selber mal nach.",
+        "output": "str",
+        "x": 750,
+        "y": 2540,
+        "wires": [
+            [
+                "4b98d028.b81e8"
+            ]
+        ]
+    },
+    {
+        "id": "a98e9503.5ea9d8",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 560,
+        "y": 2560,
+        "wires": [
+            [
+                "30909001.2d779",
+                "7fe9180a.42e238"
+            ]
+        ]
+    },
+    {
+        "id": "53b9771d.1fa048",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "vorlesen",
+        "links": [
+            "6b533d6.c015cc4",
+            "466e22f5.4036fc",
+            "75e16a7b.0401a4"
+        ],
+        "x": 1235,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "64b6453d.9efe0c",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var z=msg.payload;\nvar i=z.indexOf(\"counterInt = Math.round(\");\nvar n=z.slice(i+24,i+31);\nnode.status({text:n});\nmsg.payload=n;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 2480,
+        "wires": [
+            [
+                "c2d8aa89.4e5bd8"
+            ]
+        ]
+    },
+    {
+        "id": "24be7828.3de4b8",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "35b0a1b5.88525e"
+        ],
+        "x": 995,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "7b275c76.e35b64",
+        "type": "link in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "92963650.708088"
+        ],
+        "x": 155,
+        "y": 2320,
+        "wires": [
+            [
+                "5c04bd36.e41244"
+            ]
+        ]
+    },
+    {
+        "id": "4b98d028.b81e8",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4",
+            "466e22f5.4036fc",
+            "75e16a7b.0401a4"
+        ],
+        "x": 975,
+        "y": 2540,
+        "wires": []
+    },
+    {
+        "id": "30909001.2d779",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "node.status({text:msg.payload});\nmsg.payload=\"Heizungsstatus im Moment außer betrieb\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 720,
+        "y": 2560,
+        "wires": [
+            [
+                "a24c0c99.2bfc2"
+            ]
+        ]
+    },
+    {
+        "id": "7fe9180a.42e238",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var Heizungsstatus=global.get(\"Heizungsstatus\");\nvar p=Heizungsstatus[0];//msg.payload;\nvar ind=p.indexOf(\"Notification\");\nif (ind>-1) {\n  var t=p.slice(ind,ind+53);\n  msg.payload=t;\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 830,
+        "y": 2720,
+        "wires": [
+            [
+                "e3c31f37.da416",
+                "c20835f7.742f88"
+            ]
+        ]
+    },
+    {
+        "id": "91c247bd.e60dd8",
+        "type": "http request",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://www.grs-batterien.de",
+        "tls": "",
+        "x": 530,
+        "y": 2480,
+        "wires": [
+            [
+                "64b6453d.9efe0c"
+            ]
+        ]
+    },
+    {
+        "id": "a24c0c99.2bfc2",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "weiter nach Kartoffelpreis und  Heizung",
+        "links": [
+            "a6d13b06.eb2ce8"
+        ],
+        "x": 895,
+        "y": 2560,
+        "wires": []
+    },
+    {
+        "id": "da502dd3.e2ae",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 2580,
+        "wires": [
+            [
+                "3185d09.283833",
+                "30909001.2d779",
+                "7fe9180a.42e238"
+            ]
+        ]
+    },
+    {
+        "id": "e3c31f37.da416",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var t=msg.payload.slice(-2);\nvar tt=eval(\"0x\"+t)/2;\nvar b=msg.payload.slice(39,40);\nvar bb=\"Batterie ok\";\nif (b>0) bb=\"Batterie nicht ok\"\nvar ret=bb;\nnode.status({text:ret});\nmsg.payload=ret;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 950,
+        "y": 2720,
+        "wires": [
+            [
+                "c20835f7.742f88",
+                "79ad6753.2067c8"
+            ]
+        ]
+    },
+    {
+        "id": "c20835f7.742f88",
+        "type": "debug",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 900,
+        "y": 2780,
+        "wires": []
+    },
+    {
+        "id": "1597e069.a41d1",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "global.set(\"Heizungsstatus\",[msg.payload,Date()]);\nnode.status({text:Date()});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 2700,
+        "wires": [
+            [
+                "7fe9180a.42e238"
+            ]
+        ]
+    },
+    {
+        "id": "929a568a.793758",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "repeat": "",
+        "crontab": "00 23 * * *",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 350,
+        "y": 2480,
+        "wires": [
+            [
+                "91c247bd.e60dd8"
+            ]
+        ]
+    },
+    {
+        "id": "3185d09.283833",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Moment, Ansage der Heizungstemperatur erfolgt in 20 Sekunden.",
+        "output": "str",
+        "x": 800,
+        "y": 2580,
+        "wires": [
+            [
+                "2c2cc807.ca8158"
+            ]
+        ]
+    },
+    {
+        "id": "d3f85885.203f28",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "if (msg.payload==\"on 39,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 2560,
+        "wires": [
+            [
+                "da502dd3.e2ae"
+            ]
+        ]
+    },
+    {
+        "id": "79ad6753.2067c8",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Die Testabfrage der Heizung war erfolgreich. {{payload}}.",
+        "output": "str",
+        "x": 1110,
+        "y": 2720,
+        "wires": [
+            [
+                "c20835f7.742f88",
+                "b58329c1.d50828"
+            ]
+        ]
+    },
+    {
+        "id": "56faeffa.080f4",
+        "type": "join",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "25",
+        "count": "",
+        "x": 630,
+        "y": 2740,
+        "wires": [
+            [
+                "c20835f7.742f88",
+                "1597e069.a41d1"
+            ]
+        ]
+    },
+    {
+        "id": "2c2cc807.ca8158",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "vorlesen",
+        "links": [
+            "6b533d6.c015cc4",
+            "466e22f5.4036fc",
+            "75e16a7b.0401a4"
+        ],
+        "x": 939,
+        "y": 2591,
+        "wires": []
+    },
+    {
+        "id": "aad8e8d.c6d9618",
+        "type": "link in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "92963650.708088"
+        ],
+        "x": 215,
+        "y": 2560,
+        "wires": [
+            [
+                "d3f85885.203f28"
+            ]
+        ]
+    },
+    {
+        "id": "b58329c1.d50828",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4",
+            "466e22f5.4036fc",
+            "75e16a7b.0401a4"
+        ],
+        "x": 1235,
+        "y": 2720,
+        "wires": []
+    },
+    {
+        "id": "db9826c9.922448",
+        "type": "websocket in",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "server": "",
+        "client": "fb39d958.c1e8d8",
+        "x": 400,
+        "y": 2720,
+        "wires": [
+            [
+                "56faeffa.080f4"
+            ]
+        ]
+    },
+    {
+        "id": "f36ecca4.b3496",
+        "type": "comment",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Kellerlicht",
+        "info": "",
+        "x": 80,
+        "y": 2560,
+        "wires": []
+    },
+    {
+        "id": "18850d30.9f3da3",
+        "type": "comment",
+        "z": "4c1f2825.5c8bc8",
+        "name": "GRS",
+        "info": "",
+        "x": 70,
+        "y": 2480,
+        "wires": []
+    },
+    {
+        "id": "b9ef36a4.4f1678",
+        "type": "comment",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Kartoffelpreis",
+        "info": "",
+        "x": 90,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "9fbd2a7e.0ec5a8",
+        "type": "comment",
+        "z": "4c1f2825.5c8bc8",
+        "name": "Nachrichten ausblenden",
+        "info": "",
+        "x": 130,
+        "y": 2240,
         "wires": []
     }
 ]
