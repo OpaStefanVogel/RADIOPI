@@ -1717,7 +1717,8 @@
         "wires": [
             [
                 "f1d68fde.f3ce3",
-                "710aa436.5c8a1c"
+                "710aa436.5c8a1c",
+                "8a6c60a3.2bde2"
             ]
         ]
     },
@@ -1726,7 +1727,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "Keyboard 20:1 Tasten",
-        "func": "var m=msg.payload;\nnode.status({text:msg.payload});\nif (m==\"on 93,\") {msg.payload=\"stop\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"play\"; return msg}\nif (m==\"on 95,\") {msg.payload=\"info\"; return msg}\nif (m==\"on 96,\") {msg.payload=\"prev\"; return msg}\nif (m==\"on 97,\") {msg.payload=\"next\"; return msg}\nif (m==\"on 98,\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"on 99,\") {msg.payload=\"volume +10\"; return msg}\nif (m==\"on 100\") {msg.payload=\"volume 200\"; return msg}\n",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload});\nif (m==\"on 96,\") {msg.payload=\"prev\"; return msg}\nif (m==\"on 97,\") {msg.payload=\"next\"; return msg}\nif (m==\"on 98,\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"on 99,\") {msg.payload=\"volume +10\"; return msg}\nif (m==\"on 100\") {msg.payload=\"volume 200\"; return msg}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4212,7 +4213,8 @@
         "z": "df2ae089.27e66",
         "name": "DJ",
         "links": [
-            "b603bcb5.bce84"
+            "b603bcb5.bce84",
+            "2a9b6ac6.228496"
         ],
         "x": 222,
         "y": 3519,
@@ -10192,8 +10194,8 @@
         "topic": "jede volle Stunde",
         "payload": "",
         "payloadType": "date",
-        "x": 360,
-        "y": 2200,
+        "x": 280,
+        "y": 2120,
         "wires": [
             [
                 "a9498e8d.4c409",
@@ -10327,7 +10329,7 @@
         "ret": "txt",
         "url": "http://www.raiffeisen.com/markt/telegramm/produkt/eex/kartoffeln/index.html",
         "tls": "",
-        "x": 680,
+        "x": 710,
         "y": 2360,
         "wires": [
             [
@@ -10484,8 +10486,8 @@
         "tag": "[class=\"row cursor-pointer background-light-green\"]",
         "ret": "html",
         "as": "single",
-        "x": 850,
-        "y": 2400,
+        "x": 930,
+        "y": 2420,
         "wires": [
             [
                 "22ad7f0b.7a8f8"
@@ -10621,7 +10623,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Bitte nicht erschrecken, das Radio spielt gleich weiter mit follem Karacho.",
+        "template": "Bitte nicht erschrecken, das Radio spielt gleich weiter \nmit volem Karacho.\n",
         "output": "str",
         "x": 880,
         "y": 2320,
@@ -11216,5 +11218,35 @@
                 "1597e069.a41d1"
             ]
         ]
+    },
+    {
+        "id": "8a6c60a3.2bde2",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "Keyboard 20:1 Tasten",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload});\nif (m==\"on 93,\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"on 94,\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"on 95,\") {msg.payload=\"Radio info\"; return msg}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 680,
+        "y": 3760,
+        "wires": [
+            [
+                "2a9b6ac6.228496"
+            ]
+        ]
+    },
+    {
+        "id": "2a9b6ac6.228496",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "links": [
+            "3e41805.a91948"
+        ],
+        "x": 875,
+        "y": 3760,
+        "wires": []
     }
 ]

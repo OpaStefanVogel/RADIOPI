@@ -13,6 +13,7 @@ grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 7 -sticky 
 grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 8 -sticky w
 grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 9 -sticky w
 grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 10 -sticky w
+grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row 11 -sticky w
 
 
 foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
@@ -43,6 +44,10 @@ proc swapoffon {} {
   exec sudo swapon /dev/zram3
   exec sudo swapoff /var/swap
   exec sudo swapon /var/swap
+  }
+
+proc sudoreboot {} {
+  exec sudo reboot
   }
 
 vwait forever
