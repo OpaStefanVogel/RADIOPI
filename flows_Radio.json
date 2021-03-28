@@ -1137,12 +1137,12 @@
             "1b90b36b.29fd2d",
             "c4af63f9.d9c66",
             "4552a6ba.f3b8d8",
-            "b5a05e6f.4249c",
             "53b9771d.1fa048",
             "4b98d028.b81e8",
             "2c2cc807.ca8158",
             "b58329c1.d50828",
-            "92963650.708088"
+            "92963650.708088",
+            "6a565369.42817c"
         ],
         "x": 135,
         "y": 2080,
@@ -9304,7 +9304,8 @@
             "155a7518.17413b",
             "f3276760.7c13e8",
             "23dfecd3.a48084",
-            "24be7828.3de4b8"
+            "24be7828.3de4b8",
+            "b5a05e6f.4249c"
         ],
         "x": 135,
         "y": 2040,
@@ -10241,8 +10242,8 @@
         "syntax": "mustache",
         "template": "stop",
         "output": "str",
-        "x": 750,
-        "y": 2240,
+        "x": 1110,
+        "y": 2180,
         "wires": [
             [
                 "5dbcc3d7.c2590c"
@@ -10264,13 +10265,13 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 590,
-        "y": 2200,
+        "x": 550,
+        "y": 2180,
         "wires": [
             [
                 "eb921e54.a50dc",
                 "527284ec.4b332c",
-                "4b82ebfc.0d57b4"
+                "f3a24a0e.5171c8"
             ]
         ]
     },
@@ -10289,7 +10290,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 500,
+        "x": 540,
         "y": 2280,
         "wires": [
             [
@@ -10312,11 +10313,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 760,
+        "x": 640,
         "y": 2120,
         "wires": [
             [
-                "21124e1.38f11b2"
+                "e374a77e.59afb8"
             ]
         ]
     },
@@ -10392,34 +10393,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 560,
-        "y": 2240,
+        "x": 600,
+        "y": 2220,
         "wires": [
             [
                 "398e7734.041688"
-            ]
-        ]
-    },
-    {
-        "id": "4b82ebfc.0d57b4",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 760,
-        "y": 2160,
-        "wires": [
-            [
-                "85c0f725.62d118"
             ]
         ]
     },
@@ -10431,7 +10409,7 @@
         "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 690,
+        "x": 740,
         "y": 2280,
         "wires": [
             [
@@ -10451,7 +10429,7 @@
         "syntax": "mustache",
         "template": "kurze Radiopause",
         "output": "str",
-        "x": 920,
+        "x": 980,
         "y": 2120,
         "wires": [
             [
@@ -10596,25 +10574,6 @@
         ]
     },
     {
-        "id": "85c0f725.62d118",
-        "type": "template",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "kurze Radiopause",
-        "output": "str",
-        "x": 920,
-        "y": 2160,
-        "wires": [
-            [
-                "b5a05e6f.4249c"
-            ]
-        ]
-    },
-    {
         "id": "45050a2c.0e8f54",
         "type": "template",
         "z": "4c1f2825.5c8bc8",
@@ -10625,11 +10584,11 @@
         "syntax": "mustache",
         "template": "Bitte nicht erschrecken, das Radio spielt gleich weiter \nmit volem Karacho.\n",
         "output": "str",
-        "x": 880,
-        "y": 2320,
+        "x": 940,
+        "y": 2220,
         "wires": [
             [
-                "24be7828.3de4b8"
+                "b5a05e6f.4249c"
             ]
         ]
     },
@@ -10662,12 +10621,10 @@
         "z": "4c1f2825.5c8bc8",
         "name": "",
         "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
+            "35b0a1b5.88525e"
         ],
-        "x": 1055,
-        "y": 2160,
+        "x": 1095,
+        "y": 2120,
         "wires": []
     },
     {
@@ -10806,18 +10763,6 @@
                 "c2d8aa89.4e5bd8"
             ]
         ]
-    },
-    {
-        "id": "24be7828.3de4b8",
-        "type": "link out",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "links": [
-            "35b0a1b5.88525e"
-        ],
-        "x": 995,
-        "y": 2320,
-        "wires": []
     },
     {
         "id": "7b275c76.e35b64",
@@ -11248,5 +11193,76 @@
         "x": 875,
         "y": 3760,
         "wires": []
+    },
+    {
+        "id": "e374a77e.59afb8",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nnode.status({text:r});\nif (r==\"an\") return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 820,
+        "y": 2120,
+        "wires": [
+            [
+                "21124e1.38f11b2"
+            ]
+        ]
+    },
+    {
+        "id": "df540540.6800a8",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "\\u025C",
+        "payloadType": "str",
+        "x": 370,
+        "y": 20,
+        "wires": [
+            [
+                "25a802cd.e2513e"
+            ]
+        ]
+    },
+    {
+        "id": "6a565369.42817c",
+        "type": "link out",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "links": [
+            "6b533d6.c015cc4"
+        ],
+        "x": 615,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "25a802cd.e2513e",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "msg.payload=\"\\u025C HALLO \\u0303\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 500,
+        "y": 20,
+        "wires": [
+            [
+                "6a565369.42817c"
+            ]
+        ]
     }
 ]

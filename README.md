@@ -68,8 +68,10 @@ arm_freq=1200
 #        1700
 arm_freq_min=600 #500 geht nicht
 
+dtoverlay=uart5
+
 #laut https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
-sudo nano /boot/cmdline.txt #dort am Ende oder aktuell nach roozwait quit entfernen damit boot ok messages ausgegeben werden
+sudo nano /boot/cmdline.txt #dort am Ende oder aktuell nach rootwait quit entfernen damit boot ok messages ausgegeben werden
 
 vcgencmd measure_clock arm
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq

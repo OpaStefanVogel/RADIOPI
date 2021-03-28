@@ -10,10 +10,11 @@ grid [ttk::button .c.radiolauter -text "leiser" -command "mache {Radio leiser}"]
 grid [ttk::button .c.bus31 -text "Bus 31" -command "mache Bus31"] -column 1 -row 5 -sticky w
 grid [ttk::button .c.bus62 -text "Bus 62" -command "mache Bus62"] -column 1 -row 6 -sticky w
 grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 7 -sticky w
-grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 8 -sticky w
-grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 9 -sticky w
-grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 10 -sticky w
-grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row 11 -sticky w
+grid [ttk::button .c.ttyAMA1 -text "ttyAMA1" -command ttyAMA1] -column 1 -row 8 -sticky w
+grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 9 -sticky w
+grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 10 -sticky w
+grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 11 -sticky w
+grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row 12 -sticky w
 
 
 foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
@@ -33,6 +34,12 @@ proc RPIB {} {
   exec lxterminal -e "stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; cp /dev/ttyS0 /dev/tty & cp /dev/tty /dev/ttyS0" &
   exec echo >/dev/ttyS0 "77 88 M* M."
   exec echo >/dev/ttyS0 "77 88 M* M. F0 EMIT 9D EMIT 84 EMIT 9E EMIT 20 EMIT"
+  }
+
+proc ttyAMA1 {} {
+  exec lxterminal -e "stty -F /dev/ttyAMA1 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; cp /dev/ttyAMA1 /dev/tty & cp /dev/tty /dev/ttyAMA1" &
+  exec echo >/dev/ttyS0 "55 66 77 M* M."
+  exec echo >/dev/ttyS0 "55 66 M* M. F0 EMIT 9D EMIT 84 EMIT 9E EMIT 20 EMIT"
   }
 
 proc swapoffon {} {
