@@ -81,6 +81,13 @@
         "info": ""
     },
     {
+        "id": "2e9a16ae.4294ca",
+        "type": "tab",
+        "label": "Waage",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "dcf46aa6.338d68",
         "type": "subflow",
         "name": "aktuellen Schlüssel holen",
@@ -274,6 +281,12 @@
         "id": "2eeeeaf6.57c236",
         "type": "websocket-listener",
         "path": "/ws/gatttool2",
+        "wholemsg": "false"
+    },
+    {
+        "id": "841d57cb.021f68",
+        "type": "websocket-listener",
+        "path": "/ws/waage",
         "wholemsg": "false"
     },
     {
@@ -11264,5 +11277,108 @@
                 "6a565369.42817c"
             ]
         ]
+    },
+    {
+        "id": "5c2f52e5.84f86c",
+        "type": "tail",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "filetype": "text",
+        "split": "\\n",
+        "filename": "/tmp/ttyS0_RXD",
+        "inputs": 0,
+        "x": 100,
+        "y": 240,
+        "wires": [
+            [
+                "a4959d93.d199d"
+            ]
+        ]
+    },
+    {
+        "id": "749de93.a931618",
+        "type": "debug",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "a4959d93.d199d",
+        "type": "split",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "splt": "T",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": true,
+        "addname": "",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "749de93.a931618",
+                "554d6a3.12f9394"
+            ]
+        ],
+        "outputLabels": [
+            "1"
+        ]
+    },
+    {
+        "id": "554d6a3.12f9394",
+        "type": "function",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "func": "var m=msg.payload.slice(6,14);\nmsg.payload=eval(\"0x\"+m);\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "37948feb.b24ef",
+                "9ebf910f.1bfe7"
+            ]
+        ]
+    },
+    {
+        "id": "37948feb.b24ef",
+        "type": "debug",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9ebf910f.1bfe7",
+        "type": "websocket out",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "server": "480ca6ad.fcab78",
+        "client": "",
+        "x": 270,
+        "y": 480,
+        "wires": []
     }
 ]

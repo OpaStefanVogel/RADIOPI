@@ -129,6 +129,15 @@ function countdown() {
 
 setInterval(countdown,1000);
 
+var Tara0g= 427000;
+var Tara50g=472200;
+var aktuelles_Gewicht=0;
+
+function Waage(payload) {
+  aktuelles_Gewicht=payload;
+  document.getElementById("Waage").firstChild.nodeValue=(payload-Tara0g)/(Tara50g-Tara0g)*50.0;
+  }
+
 function Antwort_auswerten(w) {
   document.getElementById("Antwort").firstChild.nodeValue=w;
   var msg=JSON.parse(w);
@@ -139,6 +148,7 @@ function Antwort_auswerten(w) {
     case "Bus62": Bus("Bus62",msg.Antwort_an_Touchscreen); return;
     case "Wetter": document.getElementById("Wetter").firstChild.nodeValue=msg.Antwort_an_Touchscreen; return;
     case "Kartoffelpreis": document.getElementById("Kartoffelpreis").firstChild.nodeValue=msg.Antwort_an_Touchscreen; return;
+    case "Waage": Waage(msg.payload); return;
     default: return;
     }
   }
@@ -195,6 +205,7 @@ function Antwort_auswerten(w) {
   <button onclick="Antwort_auswerten(JSON.stringify(TestWetter))">Wetter</button>
   <button onclick="Antwort_auswerten(JSON.stringify(TestKartoffelpreis))">Kartoffelpreis</button>
   <div id="Antwort">...</div>
+  <div id="Waage">...</div>
 <script id="scr" type="application/ecmascript">
 var TestBus31={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus31", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 31 Richtung Yorkgebiet fährt in 8 Minuten und 57 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+10000,Date.now()+400000,Date.now()+500000,Date.now()+1000000]};
 var TestBus62={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus62", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 62 Richtung Gablenz fährt in 17 Minuten und 28 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+300000,Date.now()+6000000]};
