@@ -287,7 +287,7 @@
         "id": "841d57cb.021f68",
         "type": "websocket-listener",
         "path": "/ws/waage",
-        "wholemsg": "false"
+        "wholemsg": "true"
     },
     {
         "id": "8407ad6.d1b085",
@@ -11375,10 +11375,71 @@
         "type": "websocket out",
         "z": "2e9a16ae.4294ca",
         "name": "",
-        "server": "480ca6ad.fcab78",
+        "server": "841d57cb.021f68",
         "client": "",
-        "x": 270,
+        "x": 250,
         "y": 480,
+        "wires": []
+    },
+    {
+        "id": "b9227106.d9efc",
+        "type": "file in",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "filename": "Waage.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "c187a370.a5609",
+                "3f8b1e7d.f4c342"
+            ]
+        ]
+    },
+    {
+        "id": "c0969a80.f753f8",
+        "type": "http in",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "url": "/Waage.html",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "b9227106.d9efc"
+            ]
+        ]
+    },
+    {
+        "id": "c187a370.a5609",
+        "type": "http response",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "3f8b1e7d.f4c342",
+        "type": "debug",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 560,
+        "y": 140,
         "wires": []
     }
 ]
