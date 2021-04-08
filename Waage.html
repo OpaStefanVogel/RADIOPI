@@ -62,11 +62,14 @@ function Waage(payload) {
   }
 
 function Kalibrieren(Sollwert) {
-  if (Sollwert==0) Tara0g=aktueller_Messwert; else {
-    Kalibrieren_auf_Xg=Sollwert;
-    TaraXg=aktueller_Messwert;
-    document.getElementById("Kalibrieren").firstChild.nodeValue=Kalibrieren_auf_Xg;
-    }
+  if (Sollwert==0) {
+    TaraXg=TaraXg+aktueller_Messwert-Tara0g;
+    Tara0g=aktueller_Messwert; 
+    } else {
+      Kalibrieren_auf_Xg=Sollwert;
+      TaraXg=aktueller_Messwert;
+      document.getElementById("Kalibrieren").firstChild.nodeValue=Kalibrieren_auf_Xg;
+      }
   document.getElementById("Waage").firstChild.nodeValue=Sollwert.toFixed(0);
   }
 
