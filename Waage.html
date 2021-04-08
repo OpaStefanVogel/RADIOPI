@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><title>Waage</title>
+<link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+</head>
+<style>
+button {display:block; font-size:2em}
+
+  </style>
+	
+<script id="scr" type="application/ecmascript">
+var websocket;
+function websocket_verbinden() {
+  websocket = new WebSocket("ws://Radio:1880/ws/waage","fiktiv");
+  websocket.onerror=function(event) {
+    };
+  websocket.onmessage = function(event) {
+    var w=event.data;
+    //alert(w);
+    Antwort_auswerten(w);
+    };
+  websocket.onopen = function() {
+    //websocket.send('Aktualisieren');
+    //restart_GAP();
+    //alert("open");
+    }; 
+  websocket.onclose = function() {
+    //alert(77);
+    websocket.send("close");
+    };
+  }
+
+function wsend(text) {
+  //alert(text);
+  document.getElementById("Antwort").firstChild.nodeValue=text;
+  websocket.send(text);
+  }
+
+function websocket_verbunden() {
+  if (websocket!=0) {
+    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING", "OPEN", "CLOSING", "CLOSED"])[websocket.readyState];
+    }
+  }
+setInterval(websocket_verbunden,1000);
+  </script>
+
+<script id="scr" type="application/ecmascript">
+var x_m_l=new DOMParser();
+var xm=new XMLSerializer();
+
+var Tara0g=427000;
+var TaraXg=472200;
+var aktuelles_Gewicht=0;
+var aktueller_Messwert=0;
+var Kalibrieren_auf_Xg=50;
+
+function Waage(payload) {
+  aktueller_Messwert=payload;
+  aktuelles_Gewicht=(payload-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;
+  var Anzeige=aktuelles_Gewicht.toFixed(0);
+  if (Anzeige.toString()=="-0") Anzeige=0;
+  document.getElementById("Waage").firstChild.nodeValue=Anzeige;
+  }
+
+function Kalibrieren(Sollwert) {
+  if (Sollwert==0) Tara0g=aktueller_Messwert; else {
+    Kalibrieren_auf_Xg=Sollwert;
+    TaraXg=aktueller_Messwert;
+    document.getElementById("Kalibrieren").firstChild.nodeValue=Kalibrieren_auf_Xg;
+    }
+  document.getElementById("Waage").firstChild.nodeValue=Sollwert.toFixed(0);
+  }
+
+function Antwort_auswerten(w) {
+  document.getElementById("Antwort").firstChild.nodeValue=w;
+  var msg=JSON.parse(w);
+  //document.getElementById("Ansage").firstChild.nodeValue=msg.payload;
+  //alert(msg.Frage_vom_Touchscreen);
+  switch (msg.Frage_vom_Touchscreen) {
+    case "Waage": Waage(msg.payload); return;
+    default: return;
+    }
+  }
+
+  </script>
+<body onload="websocket_verbinden()" onclick="" style="xwidth:35px">
+<div style="position:fixed; top:0px; left:100px;"><span style=" background-color:yellow; border:none;" >
+  <span style=" color:green; border:none;">Waage.html</span>
+  <a href="Touchscreen.html">Touchscreen.html</a>
+  <a href="Einkaufsliste.html">Einkaufsliste.html</a>
+  <a href="Heizung.html">Heizung.html</a>
+  </div>
+<div style="display:none">
+  <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
+  </div>
+  <h3>Waage</h3>
+  <p>Websocket <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> (muss OPEN sein wegen Verbindung zur Waage).</p>
+  <span id="Waage" style="font-size:2000%; font-family:monospace; text-align:right; float:right; min-width:600px; border:solid">...</span>
+  <p>mittels Vergleichsgewicht einstellen (zuletzt für <span id="Kalibrieren">50</span> g):</p> <button onclick="Kalibrieren(0)">0 g</button> <button onclick="Kalibrieren(50)">50 g</button> <button onclick="Kalibrieren(100)">100 g</button> <button onclick="Kalibrieren(200)">200 g</button> <button onclick="Kalibrieren(500)">500 g</button> <button onclick="Kalibrieren(1000)">1000 g</button>
+  <div id="Antwort" style="display:none">...</div>
+  </body>
+  </html>
+

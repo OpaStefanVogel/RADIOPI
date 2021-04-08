@@ -129,13 +129,25 @@ function countdown() {
 
 setInterval(countdown,1000);
 
-var Tara0g= 427000;
-var Tara50g=472200;
+var Tara0g=427000;
+var TaraXg=472200;
 var aktuelles_Gewicht=0;
+var aktueller_Messwert=0;
+var Kalibrieren_auf_Xg=50;
 
 function Waage(payload) {
-  aktuelles_Gewicht=payload;
-  document.getElementById("Waage").firstChild.nodeValue=(payload-Tara0g)/(Tara50g-Tara0g)*50.0;
+  aktueller_Messwert=payload;
+  aktuelles_Gewicht=(payload-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;
+  document.getElementById("Waage").firstChild.nodeValue=aktuelles_Gewicht.toFixed(0);
+  }
+
+function Kalibrieren(Sollwert) {
+  if (Sollwert==0) Tara0g=aktueller_Messwert; else {
+    Kalibrieren_auf_Xg=Sollwert;
+    TaraXg=aktueller_Messwert;
+    document.getElementById("Kalibrieren").firstChild.nodeValue=Kalibrieren_auf_Xg;
+    }
+  document.getElementById("Waage").firstChild.nodeValue=Sollwert.toFixed(0);
   }
 
 function Antwort_auswerten(w) {
@@ -204,8 +216,9 @@ function Antwort_auswerten(w) {
   <button onclick="Antwort_auswerten(JSON.stringify(TestBus62))">Bus62</button>
   <button onclick="Antwort_auswerten(JSON.stringify(TestWetter))">Wetter</button>
   <button onclick="Antwort_auswerten(JSON.stringify(TestKartoffelpreis))">Kartoffelpreis</button>
+  Kalibrieren auf <button onclick="Kalibrieren(0)">0 g</button> <button onclick="Kalibrieren(50)">50 g</button> <button onclick="Kalibrieren(100)">100 g</button> <button onclick="Kalibrieren(200)">200 g</button> <button onclick="Kalibrieren(500)">500 g</button> <button onclick="Kalibrieren(1000)">1000 g</button>, zuletzt auf <span id="Kalibrieren">50</span> g
   <div id="Antwort">...</div>
-  <div id="Waage">...</div>
+  <div id="Waage" style="font-size:400%; border:solid">...</div>
 <script id="scr" type="application/ecmascript">
 var TestBus31={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus31", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 31 Richtung Yorkgebiet fährt in 8 Minuten und 57 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+10000,Date.now()+400000,Date.now()+500000,Date.now()+1000000]};
 var TestBus62={"_msgid":"6253b5d1.8d962c", "Frage_vom_Touchscreen":"Bus62", "_event":"node:ac12f36e.59153", "payload":"Nächster Bus Linie 62 Richtung Gablenz fährt in 17 Minuten und 28 Sekunden.", "filename":"/home/pi/CAG-194", "Touchscreen":[Date.now()+300000,Date.now()+6000000]};
