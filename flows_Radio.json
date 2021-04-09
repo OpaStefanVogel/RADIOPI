@@ -11340,7 +11340,7 @@
         "type": "function",
         "z": "2e9a16ae.4294ca",
         "name": "",
-        "func": "var m=msg.payload.slice(6,14);\nmsg.payload=eval(\"0x\"+m);\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
+        "func": "var m=msg.payload.slice(6,14);\nvar Tara0g=global.get(\"Tara0g\");\nvar TaraXg=global.get(\"TaraXg\");\nvar Kalibrieren_auf_Xg=global.get(\"Kalibrieren_auf_Xg\");\nvar aktueller_Messwert=eval(\"0x\"+m);\nvar aktuelles_Gewicht=(aktueller_Messwert-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;\nglobal.set(\"aktueller_Messwert\",aktueller_Messwert);\nglobal.set(\"aktuelles_Gewicht\",aktuelles_Gewicht);\nmsg.payload=aktuelles_Gewicht;\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -11441,5 +11441,101 @@
         "x": 560,
         "y": 140,
         "wires": []
+    },
+    {
+        "id": "b5ced6fb.4069f8",
+        "type": "websocket in",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "server": "841d57cb.021f68",
+        "client": "",
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "4b8bb32d.bf08ec"
+            ]
+        ]
+    },
+    {
+        "id": "6671131d.44957c",
+        "type": "debug",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "4b8bb32d.bf08ec",
+        "type": "function",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "func": "var m=msg.payload;\nnode.status({\"text\":m});\nvar Tara0g=global.get(\"Tara0g\");\nvar TaraXg=global.get(\"TaraXg\");\nvar Kalibrieren_auf_Xg=global.get(\"Kalibrieren_auf_Xg\");\nvar aktueller_Messwert=global.get(\"aktueller_Messwert\");\nvar aktuelles_Gewicht=global.get(\"aktuelles_Gewicht\");\nif (m==\"0\") {\n  TaraXg=TaraXg+aktueller_Messwert-Tara0g;\n  Tara0g=Tara0g=aktueller_Messwert;\n  } else {\n    \n    }\n\n\nglobal.set(\"aktueller_Messwert\",aktueller_Messwert);\nglobal.set(\"aktuelles_Gewicht\",aktuelles_Gewicht);\nmsg.payload=aktuelles_Gewicht;\n\nmsg.Frage_vom_Touchscreen=\"Waage\";\n\nmsg.payload=global.get(\"aktuelles_Gewicht\");\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "6671131d.44957c",
+                "9ebf910f.1bfe7"
+            ]
+        ]
+    },
+    {
+        "id": "b6141c98.21779",
+        "type": "inject",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "944cad5d.3f24"
+            ]
+        ]
+    },
+    {
+        "id": "944cad5d.3f24",
+        "type": "function",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "func": "global.set(\"Tara0g\",eval(\"0x165CF\"));\nglobal.set(\"TaraXg\",eval(\"0x42950\"));\nglobal.set(\"aktuelles_Gewicht\",0);\nglobal.set(\"aktueller_Messwert\",0);\nglobal.set(\"Kalibrieren_auf_Xg\",200);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 360,
+        "y": 680,
+        "wires": [
+            []
+        ]
     }
 ]
