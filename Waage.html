@@ -3,10 +3,13 @@
 <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 </head>
 <style>
-button {display:block; font-size:2em}
-
+button {font-size:2em}
+spa {display:flex; flex-direction:row; min-width:400px}
+@media (orientation: portrait) {
+  spa {flex-direction:column}
+  }
   </style>
-	
+
 <script id="scr" type="application/ecmascript">
 var websocket;
 function websocket_verbinden() {
@@ -37,7 +40,7 @@ function wsend(text) {
 
 function websocket_verbunden() {
   if (websocket!=0) {
-    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING", "OPEN", "CLOSING", "CLOSED"])[websocket.readyState];
+    document.getElementById("Websocket_Status").firstChild.nodeValue=(["CONNECTING", "OPEN (verbunden)", "CLOSING", "CLOSED (nicht verbunden)"])[websocket.readyState];
     }
   }
 setInterval(websocket_verbunden,1000);
@@ -47,11 +50,11 @@ setInterval(websocket_verbunden,1000);
 var x_m_l=new DOMParser();
 var xm=new XMLSerializer();
 
-var Tara0g=427000;
-var TaraXg=472200;
+var Tara0g=eval("0x165CF"); //427000;
+var TaraXg=eval("0x42950"); //472200;
 var aktuelles_Gewicht=0;
 var aktueller_Messwert=0;
-var Kalibrieren_auf_Xg=50;
+var Kalibrieren_auf_Xg=200;
 
 function Waage(payload) {
   aktueller_Messwert=payload;
@@ -85,7 +88,7 @@ function Antwort_auswerten(w) {
   }
 
   </script>
-<body onload="websocket_verbinden()" onclick="" style="xwidth:35px">
+<body onload="websocket_verbinden()">
 <div style="position:fixed; top:0px; left:100px;"><span style=" background-color:yellow; border:none;" >
   <span style=" color:green; border:none;">Waage.html</span>
   <a href="Touchscreen.html">Touchscreen.html</a>
@@ -96,10 +99,23 @@ function Antwort_auswerten(w) {
   <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
   </div>
   <h3>Waage</h3>
-  <p>Websocket <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED</a> (muss OPEN sein wegen Verbindung zur Waage).</p>
-  <span id="Waage" style="font-size:2000%; font-family:monospace; text-align:right; float:right; min-width:600px; border:solid">...</span>
-  <p>mittels Vergleichsgewicht einstellen (zuletzt für <span id="Kalibrieren">50</span> g):</p> <button onclick="Kalibrieren(0)">0 g</button> <button onclick="Kalibrieren(50)">50 g</button> <button onclick="Kalibrieren(100)">100 g</button> <button onclick="Kalibrieren(200)">200 g</button> <button onclick="Kalibrieren(500)">500 g</button> <button onclick="Kalibrieren(1000)">1000 g</button>
+  <p>1. Zur Waage <button onclick="websocket_verbinden()">verbinden</button> wenn nicht schon verbunden: Aktueller Zustand ist <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED (nicht verbunden)</a>.</p>
+<spa>
+<span style="display:flex; flex-direction:column; min-width:100px">
+  <p>2. Das leere Gefäẞ auf die Waage stellen.</p>
+  <p>3. Display auf <button onclick="Kalibrieren(0)">0 g</button> stellen, wenn nicht schon 0 g.</p>
+  <p>4. Ein bekanntes Vergleichsgewicht 50, 100, 200 oder 500 g zusätzlich draufstellen.</p>
+  <p>5. Display entsprechend auf
+    <button onclick="Kalibrieren(50)">50 g</button>
+    <button onclick="Kalibrieren(100)">100 g</button>
+    <button onclick="Kalibrieren(200)">200 g</button>
+    <button onclick="Kalibrieren(500)">500 g</button>
+    einstellen, falls die Anzeige nicht schon stimmt (zuletzt <span id="Kalibrieren">50</span> g).
+    </p>
+  <p>6. Vergleichsgewicht entfernen und jetzt das Gewünschte abwiegen.</p>
   <div id="Antwort" style="display:none">...</div>
+</span>
+  <span id="Waage" style="font-size:2000%; font-family:; text-align:right; min-width:840px; border:solid">...</span>
+</spa>
   </body>
   </html>
-
