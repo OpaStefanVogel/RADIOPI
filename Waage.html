@@ -56,6 +56,12 @@ function Waage(payload) {
   document.getElementById("Waage").firstChild.nodeValue=Anzeige;
   }
 
+function Spannung(payload) {
+  var Anzeige=payload.toFixed(3);
+  if (Anzeige.toString()=="-0") Anzeige=0;
+  document.getElementById("Batterie").firstChild.nodeValue=Anzeige;
+  }
+
 function Kalibrieren(Sollwert) {
   websocket.send(Sollwert.toString());
   if (Sollwert==0) {
@@ -74,14 +80,25 @@ function Antwort_auswerten(w) {
   var msg=JSON.parse(w);
   //document.getElementById("Ansage").firstChild.nodeValue=msg.payload;
   //alert(msg.Frage_vom_Touchscreen);
+  //alert(msg.payload);
   switch (msg.Frage_vom_Touchscreen) {
-    case "Waage": Waage(msg.payload); return;
-    default: return;
+    case "Waage": Waage(msg.payload); Spannung(msg.Spannung); break;
+    default: break;
+    return;
     }
   }
 
+var Testmessage={"payload":50, "Frage_vom_Touchscreen":"Waage", "Spannung":1.5};
+function Testaufruf() {
+  Testmessage.payload=Testmessage.payload+1;
+  Testmessage.Spannung=Testmessage.Spannung-0.001;
+  Antwort_auswerten(JSON.stringify(Testmessage));
+  }
+
+setInterval(Testaufruf,1000);
+
   </script>
-<body onload="websocket_verbinden()">
+<body onload="websocket_verbinden();Antwort_auswerten(JSON.stringify(Testmessage))">
 <div style="position:fixed; top:0px; left:100px;"><span style=" background-color:yellow; border:none;" >
   <span style=" color:green; border:none;">Waage.html</span>
   <a href="Touchscreen.html">Touchscreen.html</a>
@@ -103,12 +120,18 @@ function Antwort_auswerten(w) {
     <button onclick="Kalibrieren(100)">100 g</button>
     <button onclick="Kalibrieren(200)">200 g</button>
     <button onclick="Kalibrieren(500)">500 g</button>
-    einstellen, falls die Anzeige nicht schon stimmt (zuletzt <span id="Kalibrieren">200</span> g).
+    einstellen, falls die Anzeige nicht schon stimmt (zuletzt <span id="Kalibrieren">50</span> g).
     </p>
   <p>6. Vergleichsgewicht entfernen und jetzt das Gewünschte abwiegen.</p>
   <div id="Antwort" style="display:none">...</div>
 </span>
   <span id="Waage" style="font-size:2000%; font-family:; text-align:right; min-width:840px; border:solid">...</span>
 </spa>
+  <h3>Batterietester</h3>
+  <p>1. wie oben. 2. Batterie ins Batteriefach einlegen und Spannung ablesen: 
+    <span id="Batterie" style="font-size:200%; font-family:; text-align:right; min-width:340px; border:solid">...</span> V
+</p>
+  
+
   </body>
   </html>
