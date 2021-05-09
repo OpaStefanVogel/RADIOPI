@@ -82,7 +82,7 @@ function Antwort_auswerten(w) {
   //alert(msg.Frage_vom_Touchscreen);
   //alert(msg.payload);
   switch (msg.Frage_vom_Touchscreen) {
-    case "Waage": Waage(msg.payload); Spannung(msg.Spannung); break;
+    case "Waage": if (msg.Kanal=="1") Waage(msg.payload); else Spannung((msg.raw-167808)/(366000-167808)*1.5); break;
     default: break;
     return;
     }
@@ -95,7 +95,7 @@ function Testaufruf() {
   Antwort_auswerten(JSON.stringify(Testmessage));
   }
 
-setInterval(Testaufruf,1000);
+//setInterval(Testaufruf,1000);
 
   </script>
 <body onload="websocket_verbinden();Antwort_auswerten(JSON.stringify(Testmessage))">
@@ -128,10 +128,10 @@ setInterval(Testaufruf,1000);
   <span id="Waage" style="font-size:2000%; font-family:; text-align:right; min-width:840px; border:solid">...</span>
 </spa>
   <h3>Batterietester</h3>
-  <p>1. wie oben. 2. Batterie ins Batteriefach einlegen und Spannung ablesen: 
-    <span id="Batterie" style="font-size:200%; font-family:; text-align:right; min-width:340px; border:solid">...</span> V
-</p>
-  
+  <p>1. auf <button onclick='websocket.send("Kanal_Batterie")'>Batteriemessung</button> umschalten.</p>
+  <p>2. Batterie ins Batteriefach einlegen und Spannung ablesen: 
+    <span id="Batterie" style="font-size:200%; font-family:; text-align:right; min-width:340px; border:solid">...</span> V</p>
+  <p>3. auf <button onclick='websocket.send("Kanal_Waage")'>Waage</button> zurückschalten.</p>
 
   </body>
   </html>
