@@ -1562,7 +1562,7 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var m=msg.payload;\nnode.status({text:msg.payload})\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"Radio Info\") {\n  msg.payload=\"info\";\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\n//return msg;\n",
+        "func": "var m=msg.payload;\nnode.status({text:msg.payload})\nif (m==\"Radio an\") {\n  msg.payload=\"play\";\n  global.set(\"Radio\",\"an\");\n  return msg;\n  }\nif (m==\"Radio aus\") {\n  msg.payload=\"stop\";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nif (m==\"Radio Info\") {\n  msg.payload=\"info\";\n  return msg;\n  }\nif (m==\"\") {\n  msg.payload=\" \";\n  global.set(\"Radio\",\"aus\");\n  return msg;\n  }\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3870,6 +3870,8 @@
         "func": "var m=msg.payload;\nif (m==\"Radio an\") {msg.payload=\"Radio an\"; return msg}\nif (m==\"Radio aus\") {msg.payload=\"Radio aus\"; return msg}\nif (m==\"Radio leiser\") {msg.payload=\"volume -10\"; return msg}\nif (m==\"Radio lauter\") {msg.payload=\"volume +10\"; return msg}\n",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 390,
         "y": 220,
         "wires": [
@@ -11339,13 +11341,14 @@
         "id": "554d6a3.12f9394",
         "type": "function",
         "z": "2e9a16ae.4294ca",
-        "name": "",
-        "func": "var m=msg.payload.slice(6,14);\nvar Tara0g=global.get(\"Tara0g\");\nvar TaraXg=global.get(\"TaraXg\");\nvar Kalibrieren_auf_Xg=global.get(\"Kalibrieren_auf_Xg\");\nvar aktueller_Messwert=eval(\"0x\"+m);\nvar aktuelles_Gewicht=(aktueller_Messwert-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;\nglobal.set(\"aktueller_Messwert\",aktueller_Messwert);\nglobal.set(\"aktuelles_Gewicht\",aktuelles_Gewicht);\nnode.status({\"text\":aktuelles_Gewicht});\nmsg.payload=aktuelles_Gewicht;\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
+        "name": "aktuelles_Gewicht",
+        "func": "var m=msg.payload.slice(6,14);\nvar n=msg.payload.slice(15,16);\nvar Tara0g=global.get(\"Tara0g\");\nvar TaraXg=global.get(\"TaraXg\");\nvar Kalibrieren_auf_Xg=global.get(\"Kalibrieren_auf_Xg\");\nvar aktueller_Messwert=eval(\"0x\"+m);\nvar aktuelles_Gewicht=(aktueller_Messwert-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;\nglobal.set(\"aktueller_Messwert\",aktueller_Messwert);\nglobal.set(\"aktuelles_Gewicht\",aktuelles_Gewicht);\nnode.status({\"text\":aktuelles_Gewicht});\nmsg.payload=aktuelles_Gewicht;\nmsg.Kanal=n;\nmsg.raw=aktueller_Messwert;\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 100,
+        "libs": [],
+        "x": 130,
         "y": 320,
         "wires": [
             [
@@ -11363,10 +11366,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 310,
+        "x": 390,
         "y": 320,
         "wires": []
     },
@@ -11449,11 +11453,12 @@
         "name": "",
         "server": "841d57cb.021f68",
         "client": "",
-        "x": 130,
+        "x": 120,
         "y": 580,
         "wires": [
             [
-                "4b8bb32d.bf08ec"
+                "4b8bb32d.bf08ec",
+                "386adced.7ecd44"
             ]
         ]
     },
@@ -11478,7 +11483,7 @@
         "id": "4b8bb32d.bf08ec",
         "type": "function",
         "z": "2e9a16ae.4294ca",
-        "name": "",
+        "name": "Tarieren",
         "func": "var m=msg.payload;\nnode.status({\"text\":m.toString()});\nvar Tara0g=global.get(\"Tara0g\");\nvar TaraXg=global.get(\"TaraXg\");\nvar Kalibrieren_auf_Xg=global.get(\"Kalibrieren_auf_Xg\");\nvar aktueller_Messwert=global.get(\"aktueller_Messwert\");\nvar aktuelles_Gewicht=global.get(\"aktuelles_Gewicht\");\nif (m==\"0\") {\n  TaraXg=TaraXg+aktueller_Messwert-Tara0g;\n  Tara0g=aktueller_Messwert;\n  } else if (m.toString().length<5) {\n    Kalibrieren_auf_Xg=eval(m);\n    TaraXg=aktueller_Messwert;\n    \n    }\n\n\nglobal.set(\"Tara0g\",Tara0g);\nglobal.set(\"TaraXg\",TaraXg);\nglobal.set(\"Kalibrieren_auf_Xg\",Kalibrieren_auf_Xg);\nglobal.set(\"aktueller_Messwert\",aktueller_Messwert);\nglobal.set(\"aktuelles_Gewicht\",aktuelles_Gewicht);\n\naktuelles_Gewicht=(aktueller_Messwert-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;\nmsg.payload=aktuelles_Gewicht;\nmsg.Frage_vom_Touchscreen=\"Waage\";\ndelete msg._session;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
@@ -11536,6 +11541,127 @@
         "y": 680,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "902e651d.ba45d8",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "PWM PIN 3",
+        "links": [
+            "84c9a56e.31fcc8"
+        ],
+        "x": 555,
+        "y": 4740,
+        "wires": [
+            [
+                "2a46292a.f80786"
+            ]
+        ]
+    },
+    {
+        "id": "84c9a56e.31fcc8",
+        "type": "link out",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "links": [
+            "902e651d.ba45d8"
+        ],
+        "x": 275,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1f407024.cce54",
+        "type": "file",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "filename": "/dev/ttyS0",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 610,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d213d327.30c8e",
+        "type": "inject",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 370,
+        "y": 760,
+        "wires": [
+            [
+                "1f407024.cce54"
+            ]
+        ]
+    },
+    {
+        "id": "97e6ebea.2e46e8",
+        "type": "inject",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "2",
+        "payloadType": "str",
+        "x": 370,
+        "y": 800,
+        "wires": [
+            [
+                "1f407024.cce54"
+            ]
+        ]
+    },
+    {
+        "id": "386adced.7ecd44",
+        "type": "function",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "func": "m=msg.payload;\nmsg.payload=\"\";\nif (m==\"Kanal_Waage\") msg.payload=\"1\";\nif (m==\"Kanal_Batterie\") msg.payload=\"2\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 640,
+        "wires": [
+            [
+                "1f407024.cce54"
+            ]
         ]
     }
 ]
