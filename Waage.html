@@ -82,7 +82,7 @@ function Antwort_auswerten(w) {
   //alert(msg.Frage_vom_Touchscreen);
   //alert(msg.payload);
   switch (msg.Frage_vom_Touchscreen) {
-    case "Waage": if (msg.Kanal=="1") Waage(msg.payload); else Spannung((msg.raw-167808)/(366000-167808)*1.5); break;
+    case "Waage": if (msg.Kanal=="1") Waage(msg.payload); else Spannung((msg.raw-167808)/(366000-167808)*1.5/3.3*1.5); break;
     default: break;
     return;
     }
