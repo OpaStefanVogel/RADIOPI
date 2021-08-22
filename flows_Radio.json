@@ -11663,5 +11663,67 @@
                 "1f407024.cce54"
             ]
         ]
+    },
+    {
+        "id": "ec617a3a.28ad48",
+        "type": "youtube-ytdl",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "url": "",
+        "urlType": "str",
+        "path": "/home/pi",
+        "pathType": "str",
+        "x": 420,
+        "y": 960,
+        "wires": [
+            [
+                "2d1f48e6.859b88"
+            ]
+        ]
+    },
+    {
+        "id": "481a7a23.b25d84",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "https://youtu.be/GAUvuzQODTM",
+        "payloadType": "str",
+        "x": 170,
+        "y": 960,
+        "wires": [
+            [
+                "ec617a3a.28ad48"
+            ]
+        ]
+    },
+    {
+        "id": "2d1f48e6.859b88",
+        "type": "debug",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 960,
+        "wires": []
     }
 ]
