@@ -95,6 +95,7 @@ cd Desktop/CLONE
 #und mehr
 cp -s /*/.*.desktop .
 cd RADIO
+git remote set-url origin git@github.com:OpaStefanVogel/RADIO.git #und die anderen auch
 git pull
 
 #von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
