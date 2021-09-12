@@ -10,4 +10,4 @@ cd
 #florence &
 touch /tmp/RADIO_Ansage.txt
 stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff
-cp Desktop/CLONE/BAKINGPI/ok02/INIT41.txt /dev/ttyS0
+#cp Desktop/CLONE/BAKINGPI/ok02/INIT41.txt /dev/ttyS0
