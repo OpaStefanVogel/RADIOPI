@@ -88,6 +88,13 @@
         "info": ""
     },
     {
+        "id": "f5852901.627d08",
+        "type": "tab",
+        "label": "Broadlink SPMini",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "dcf46aa6.338d68",
         "type": "subflow",
         "name": "aktuellen Schlüssel holen",
@@ -288,6 +295,12 @@
         "type": "websocket-listener",
         "path": "/ws/waage",
         "wholemsg": "true"
+    },
+    {
+        "id": "dbabaa45.020408",
+        "type": "sp2device",
+        "mac": "780f7719cc2e",
+        "host": "192.168.1.100"
     },
     {
         "id": "8407ad6.d1b085",
@@ -4567,9 +4580,12 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "//aus SONNE_UND_MOND.xml\n  var t = new Date();\n  var tn = new Date(2015,9,13);//irgendein nahegelegener Neumond\n  var phi = (t.valueOf() % 31556952000)/31556952000*2*Math.PI+0.19191919;\n  var sonnex = Math.sin(phi)*150+400;\n  var sonney = Math.cos(phi)*150+200;\n  var kw = ((t.valueOf()-tn.valueOf()) % 2551392000) / 2551392000;\n  var mphi=kw*2*Math.PI+phi;\n  var mmphi = -mphi*180/Math.PI;\n  var mondx = Math.sin(mphi)*150+400;\n  var mondy = Math.cos(mphi)*150+200;\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cx\", sonnex);\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cy\", sonney);\n  //evt.target.getElementById(\"mond\").setAttribute(\"transform\", \"translate(400,200) rotate(\"+mmphi+\")\");\n  var Zenitstand=new Date(kw*86400000+43200000);\n  msg.payload=\"Deer Moond steht im Zenit um \"+Zenitstand.getHours()+\" Uhr und \"+Zenitstand.getMinutes()+\" Minuten\";\nreturn msg;",
+        "func": "//aus SONNE_UND_MOND.xml\n  var t = new Date();\n  var tn = new Date(2015,9,13);//irgendein nahegelegener Neumond\n  var phi = (t.valueOf() % 31556952000)/31556952000*2*Math.PI+0.19191919;\n  var sonnex = Math.sin(phi)*150+400;\n  var sonney = Math.cos(phi)*150+200;\n  var kw = ((t.valueOf()-tn.valueOf()) % 2551392000) / 2551392000;\n  var mphi=kw*2*Math.PI+phi;\n  var mmphi = -mphi*180/Math.PI;\n  var mondx = Math.sin(mphi)*150+400;\n  var mondy = Math.cos(mphi)*150+200;\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cx\", sonnex);\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cy\", sonney);\n  //evt.target.getElementById(\"mond\").setAttribute(\"transform\", \"translate(400,200) rotate(\"+mmphi+\")\");\n  var Zenitstand=new Date(kw*86400000+43200000);\n  msg.payload=\"Deer Moond steht im Zenit, wenn die Sonne auf \"+Zenitstand.getHours()+\" Uhr und \"+Zenitstand.getMinutes()+\" Minuten steht.\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 610,
         "y": 1000,
         "wires": [
@@ -11724,6 +11740,447 @@
         "statusType": "auto",
         "x": 680,
         "y": 960,
+        "wires": []
+    },
+    {
+        "id": "7d8ab507.04aabc",
+        "type": "Discover",
+        "z": "f5852901.627d08",
+        "name": "",
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "250ce174.23975e"
+            ]
+        ]
+    },
+    {
+        "id": "e122483e.af86e8",
+        "type": "inject",
+        "z": "f5852901.627d08",
+        "name": "Steckdose suchen",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "7d8ab507.04aabc"
+            ]
+        ]
+    },
+    {
+        "id": "250ce174.23975e",
+        "type": "debug",
+        "z": "f5852901.627d08",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 550,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e7f43333.675c5",
+        "type": "SP2",
+        "z": "f5852901.627d08",
+        "name": "SP2 Get state",
+        "device": "dbabaa45.020408",
+        "action": "getState",
+        "state": "true",
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "d5011913.bd5b28"
+            ]
+        ]
+    },
+    {
+        "id": "dc341158.6ae12",
+        "type": "inject",
+        "z": "f5852901.627d08",
+        "name": "Schaltzustand abfragen",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "e7f43333.675c5"
+            ]
+        ]
+    },
+    {
+        "id": "187f5838.273828",
+        "type": "SP2",
+        "z": "f5852901.627d08",
+        "name": "SP2 Switch on",
+        "device": "dbabaa45.020408",
+        "action": "setState",
+        "state": "true",
+        "x": 360,
+        "y": 460,
+        "wires": [
+            [
+                "bbb42d01.f6ec8"
+            ]
+        ]
+    },
+    {
+        "id": "45e072cb.29533c",
+        "type": "SP2",
+        "z": "f5852901.627d08",
+        "name": "SP2 switch off",
+        "device": "dbabaa45.020408",
+        "action": "setState",
+        "state": "false",
+        "x": 360,
+        "y": 520,
+        "wires": [
+            [
+                "f847a12d.ecfcf"
+            ]
+        ]
+    },
+    {
+        "id": "3eca0473.f1e14c",
+        "type": "inject",
+        "z": "f5852901.627d08",
+        "name": "Licht an",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "187f5838.273828"
+            ]
+        ]
+    },
+    {
+        "id": "91ed0a93.76b9f8",
+        "type": "inject",
+        "z": "f5852901.627d08",
+        "name": "Licht aus",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 520,
+        "wires": [
+            [
+                "45e072cb.29533c"
+            ]
+        ]
+    },
+    {
+        "id": "fea34841.8db078",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "1. Broadlink Nodes installieren von  https://flows.nodered.org/node/node-red-contrib-broadlink-control ",
+        "info": "",
+        "x": 360,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "850636b4.bb82a8",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "(geht auch über Menü -> Palette verwalten -> Installation -> node-red-contrib-broadlink-control )",
+        "info": "",
+        "x": 390,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d5011913.bd5b28",
+        "type": "debug",
+        "z": "f5852901.627d08",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 550,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "bbb42d01.f6ec8",
+        "type": "debug",
+        "z": "f5852901.627d08",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 550,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f847a12d.ecfcf",
+        "type": "debug",
+        "z": "f5852901.627d08",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 550,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b0256f2a.fe50e",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "2. Aus der Pallette links den \"Discover\"-node auswählen und die vorhandenen Broadlink Geräte suchen",
+        "info": "",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cb3618d8.21bc68",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "(die vollständigen Daten sind rechts im Debug-Tab ablesbar, sind schon eingetragen)",
+        "info": "",
+        "x": 350,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "10278194.6ff1de",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "3. Dann aus der Palette den SP2-Node holen und die MAC und IP Adressen eintragen (auch schon gemacht)",
+        "info": "",
+        "x": 390,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "565a234f.56016c",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "4. Zum Ein- und Ausschalten je einen weiteren SP2-Node konfigurieren (Doppelklick auf SP2)",
+        "info": "",
+        "x": 340,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "33ca98de.ba89c8",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "und schon kann der Schaltzustand abgefragt werden:",
+        "info": "",
+        "x": 260,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7108b0b1.4dffe",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "5. Ab hier sollen dann noch weitere Schaltmöglichkeiten folgen (Browser-Tab, Websocket, ssh-Tunnel...)",
+        "info": "",
+        "x": 370,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "d5317dc7.484ab",
+        "type": "link in",
+        "z": "f5852901.627d08",
+        "name": "BroadLink Switch on",
+        "links": [
+            "4f9f65a9.a78fcc"
+        ],
+        "x": 215,
+        "y": 480,
+        "wires": [
+            [
+                "187f5838.273828"
+            ]
+        ]
+    },
+    {
+        "id": "3bdce1cb.11bd5e",
+        "type": "link in",
+        "z": "f5852901.627d08",
+        "name": "Broadlink Switch Off",
+        "links": [
+            "75426bcf.599ff4"
+        ],
+        "x": 215,
+        "y": 540,
+        "wires": [
+            [
+                "45e072cb.29533c"
+            ]
+        ]
+    },
+    {
+        "id": "c65a9fa0.4a104",
+        "type": "watch",
+        "z": "f5852901.627d08",
+        "name": "",
+        "files": "/home/pi/broadlink/switch_on",
+        "recursive": "",
+        "x": 420,
+        "y": 680,
+        "wires": [
+            [
+                "4f9f65a9.a78fcc"
+            ]
+        ]
+    },
+    {
+        "id": "fa1459cb.a89e78",
+        "type": "watch",
+        "z": "f5852901.627d08",
+        "name": "",
+        "files": "/home/pi/broadlink/switch_off",
+        "recursive": "",
+        "x": 420,
+        "y": 740,
+        "wires": [
+            [
+                "75426bcf.599ff4"
+            ]
+        ]
+    },
+    {
+        "id": "4f9f65a9.a78fcc",
+        "type": "link out",
+        "z": "f5852901.627d08",
+        "name": "",
+        "links": [
+            "d5317dc7.484ab"
+        ],
+        "x": 595,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "75426bcf.599ff4",
+        "type": "link out",
+        "z": "f5852901.627d08",
+        "name": "",
+        "links": [
+            "3bdce1cb.11bd5e"
+        ],
+        "x": 595,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "fc42b1ae.2161f",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "ssh-tunnel zu pi@RADIO:/home/pi und dann",
+        "info": "",
+        "x": 310,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "337c80e6.f7226",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "touch broadlink/switch_on",
+        "info": "",
+        "x": 170,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "28366aaf.7fa286",
+        "type": "comment",
+        "z": "f5852901.627d08",
+        "name": "touch broadlink/switch_off",
+        "info": "",
+        "x": 170,
+        "y": 740,
         "wires": []
     }
 ]
