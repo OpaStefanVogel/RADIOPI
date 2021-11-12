@@ -56,8 +56,10 @@ git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die and
 
 #Desktop füllen
 cd
+ln -f -r -s ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
+ln -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
 
 sudo apt-get install gitk
@@ -77,7 +79,42 @@ sudo nano /boot/config.txt
 dtoverlay=uart5
 
 
-#-----------------------------------soweit
+#node-red starten
+cd RADIO
+node-red ./flows_Radio.json 
+#in .node-red/settings.js setze flowFilePretty: true
+#mit Tablet-Browser localhost:1880 menu-install dropbox daemon
+#und schon geht Temperaturansage von alleine los
+#inject Radio an#oder besser über Touchscreen.html
+#und node email adresse neu einsetzen#dann kommt schon die neue Email
+
+
+#.history füllen mit
+make;hexdump kernel.img -v -e '1/4 "%08x" "\n"' >/dev/ttyS0;echo -n "MN" >/dev/ttyS0
+ytdl "https://youtu.be/1OxRLXTHqls" | mpv --force-seekable=yes - #Hexer und Medizinmann
+touch broadlink/switch_off
+touch broadlink/switch_on
+wolframscript -cloud -code "10^200-(10^100+1)*(10^100-1)"
+
+
+
+#ganz neu, ein richtiger web-server für Rezepte.xml:
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm
+sudo apt install lighttpd
+sudo systemctl status lighttpd
+sudo groupadd www-data
+sudo usermpod -G www-data -a pi
+sudo usermod -G www-data -a pi
+sudo chown -R www-data:www-data /var/www/html
+sudo chmod -R 775 /var/www/html
+sudo service lighttpd force-reload
+sudo nano /etc/lighttpd/lighttpd.conf
+#dort die Zeile server.document-root umändern auf server.document-root = "/home/pi" 
+sudo reboot
+#Dann http://RADIO/Desktop/CLONE/Rezete.xml
+
+#-----------------------------------soweit Bullseye ---------------------------------------------------
+#------------------------------------------------------------------------------------------------------
 
 
 
@@ -145,12 +182,6 @@ git pull
 df #7673 #27%
 
 #sudo apt-get remove pulseaudio #bei nspawn64, doch erstmal nicht
-node-red ./flows_Radio.json 
-#in .node-red/settings.js setze flowFilePretty: true
-#mit Tablet-Browser localhost:1880 menu-install dropbox daemon
-#und schon geht Temperaturansage von alleine los
-#inject Radio an#oder besser über Touchscreen.html
-#und node email adresse neu einsetzen#dann kommt schon die neue Email
 
 df #7796 28%
 #sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
@@ -170,15 +201,6 @@ nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localh
 sudo apt-get install mosquitto mosquitto-clients
 mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
 mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an"
-
-#cd
-#nano .xsessionrc #mit folgendem Inhalt, und ausführbar machen:
-#cd ./Desktop/GIT_CLONE_GITHUB/RADIOPI/
-#./.xsessionrc
-#cd
-#oder neuerdings nur
-cd
-ln -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
 
 #Hintergrundbild einstellen

@@ -5,16 +5,18 @@ grid columnconfigure . 0 -weight 1; grid rowconfigure . 0 -weight 1
 
 grid [ttk::button .c.radioan  -text "Radio an " -command "mache {Radio an}" ] -column 1 -row 1 -sticky w
 grid [ttk::button .c.radioaus -text "Radio aus" -command "mache {Radio aus}"] -column 1 -row 2 -sticky w
-grid [ttk::button .c.radioleiser -text "lauter" -command "mache {Radio lauter}"] -column 1 -row 3 -sticky w
-grid [ttk::button .c.radiolauter -text "leiser" -command "mache {Radio leiser}"] -column 1 -row 4 -sticky w
-grid [ttk::button .c.bus31 -text "Bus 31" -command "mache Bus31"] -column 1 -row 5 -sticky w
-grid [ttk::button .c.bus62 -text "Bus 62" -command "mache Bus62"] -column 1 -row 6 -sticky w
-grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 7 -sticky w
-grid [ttk::button .c.ttyAMA1 -text "ttyAMA1" -command ttyAMA1] -column 1 -row 8 -sticky w
-grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 9 -sticky w
-grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 10 -sticky w
-grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 11 -sticky w
-grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row 12 -sticky w
+grid [ttk::button .c.lichtan  -text "Licht an " -command LICHT_AN ] -column 1 -row 3 -sticky w
+grid [ttk::button .c.lichtaus -text "Licht aus" -command LICHT_AUS] -column 1 -row 4 -sticky w
+grid [ttk::button .c.radioleiser -text "lauter" -command "mache {Radio lauter}"] -column 1 -row 5 -sticky w
+grid [ttk::button .c.radiolauter -text "leiser" -command "mache {Radio leiser}"] -column 1 -row 6 -sticky w
+grid [ttk::button .c.bus31 -text "Bus 31" -command "mache Bus31"] -column 1 -row 7 -sticky w
+grid [ttk::button .c.bus62 -text "Bus 62" -command "mache Bus62"] -column 1 -row 8 -sticky w
+grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 9 -sticky w
+grid [ttk::button .c.ttyAMA1 -text "ttyAMA1" -command ttyAMA1] -column 1 -row 10 -sticky w
+grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 11 -sticky w
+grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 12 -sticky w
+grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 13 -sticky w
+grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row 14 -sticky w
 
 
 foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
@@ -28,6 +30,14 @@ proc mache {text} {
   set outfile [open "tcl_an_nodered.txt" w]
   puts $outfile $text
   close $outfile
+  }
+
+proc LICHT_AN {} {
+  exec touch /home/pi/broadlink/switch_on
+  }
+
+proc LICHT_AUS {} {
+  exec touch /home/pi/broadlink/switch_off
   }
 
 proc RPIB {} {
