@@ -1,37 +1,87 @@
- RADIOPI
-Konfigurationsfiles für den Radio Raspberry Pi
+RADIOPI
+#Konfigurationsfiles für den Radio Raspberry Pi
+#sc-card mit fdisk formatieren auf W95 FAT32 #http://www.technik-tipps-und-tricks.de/raspberry-pi/raspberry-pi-betriebssystem-installation/raspberry-pi-sd-karte-formatieren/#linux
+rpi-imager
 
-Start mit neuem Raspberry PI 4:
-df #3735
-#++copy von /media/..../.... Desktop Downloads
-
-#+also erstmal Welcome to Rasoberry Pi durchmachen und nochmal
+Start mit neuem Raspberry PI 4 und Bullseye
+#also erstmal Welcome to Rasoberry Pi durchmachen und nochmal
+#und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
 sudo apt update
 sudo apt full-upgrade
+df #25951992  11%
+
 cat /proc/cpuinfo #revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
 cat /sys/firmware/devicetree/base/model
-
-#laut https://www.raspberrypi.org/forums/viewtopic.php?p=1544144#p1557580
-sudo /etc/init.d/alsa-utils reset
 aplay /usr/share/sounds/alsa/Noise.wav
 speaker-test -t wav -c 4 #und wenn kein Stereo dann folgendes:
-#wenn kein Stereo sudo nano /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf 
-# und dort die Zeile ab Mapping analog-mono mit ";" beginnen lassen bis priority=7
-#wenn gar nicht geht
-#sudo apt purge pulseaudio
-
-#dann Anwendungen alle außer node-red und vnc entfernen oder diese hinzufügen
-#und vnc * ssh erlauben in Configuration und gleich mit Hostname Radio setzen
-#und screenblanking disablen
-df #
 
 #im Dateimanager Einstellungen: single Klick, Remove, no ask
-#- Desktop...README.md hereinkopieren
-df #5403 19%
+
+sudo nano /etc/dphys-swapfile # dort statt 100 eine 1024 einsetzen #pimylifeup.com/raspberry-pi-swap-file
+sudo reboot
+
+#Geschwindigkeit testen:
+dd if=/dev/zero of=./largefile bs=1M count=1024 #31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
+rm largefile
+
+#neuen ssh-key für github erzeugen
+ssh-keygen #Enter Enter Enter
+ssh-copy-id pi@localhost #pi@KEYSTATION_61 #und weitere
+#und den aus id_rsa.pub irgendwie zU github schaffen, dann geht
+cd Desktop
+git clone git@github.com:/OpaStefanVogel/OpaStefanVogel.github.io CLONE
+cd CLONE
+git submodule init
+git submodule update
+df #24453852  16%
 
 
-sudo nano /etc/dphys-swapfile # dort statt 100 eine 2000 einsetzen
-#aus haydenjames.io/raspberry-pi-performance-add-zram-kernel-parameters/
+#dann Anwendung node-red hinzuinstallieren aus Menü "Recommended Software"
+#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
+#wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
+#wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_armhf.deb
+#wget https://downloads.vivaldi.com/stable/vivaldi-stable_4.3.2439.65-1_armhf.deb
+#dann im Filemanager installieren und starten und gleich synchronisieren und als Startbrowser einstellen
+
+
+cd KLETTERN_UND_RUTSCHEN
+git submodule init
+git submodule update --depth 1
+df #23483876  20%
+#jetzt sollte schon MIT_KONSTRUK_FF.html gehen
+
+cd ../RADIO
+git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die anderen auch
+
+
+#Desktop füllen
+cd
+ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
+ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
+
+
+sudo apt-get install gitk
+sudo apt-get install screen
+sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
+sudo apt install wolframscript
+
+
+#aus der vorherigen SD rüberkopieren weil nicht comitted:
+#Diagonalen.js
+#ERGS2_2945_20180813.js
+#Download/THULE...jpg
+#BARE/STREICHHOL... und so weiter
+
+#uart5 einschalten:
+sudo nano /boot/config.txt
+dtoverlay=uart5
+
+
+#-----------------------------------soweit
+
+
+
+#bei Bedarf aus haydenjames.io/raspberry-pi-performance-add-zram-kernel-parameters/
 sudo apt install zram-tools
 sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96
   #zuletzt CORES=4, ALLOCATION=500, PRIORITY=5, #geht bisjetzt am flüssigsten
@@ -46,9 +96,7 @@ vm.dirty_ratio=50                     #50
 sudo reboot
 sudo watch cat /proc/swaps
 
-df #6227 22%
-dd if=/dev/zero of=./largefile bs=1M count=1024 #43,7 MB/s statt 6,4 MB/s
-rm ./largefile
+
 
 #laut https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/
 #sudo apt-get install rpi-eeprom #nur wenn nicht da
@@ -67,8 +115,6 @@ arm_freq=1200
 #        1500  387 s 60 °C     610 s 70 °C
 #        1700
 arm_freq_min=600 #500 geht nicht
-
-dtoverlay=uart5
 
 #laut https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
 sudo nano /boot/cmdline.txt #dort am Ende oder aktuell nach rootwait quit entfernen damit boot ok messages ausgegeben werden
@@ -94,21 +140,11 @@ cd Desktop/CLONE
 #git clone https://github.com/OpaStefanVogel/RADIOPI
 #und mehr
 cp -s /*/.*.desktop .
-cd RADIO
-git remote set-url origin git@github.com:OpaStefanVogel/RADIO.git #und die anderen auch
 git pull
 
-#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
-#wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
-#wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_armhf.deb
-#dann im Filemanager installieren und starten und 
 df #7673 #27%
 
 #sudo apt-get remove pulseaudio #bei nspawn64, doch erstmal nicht
-sudo apt-get install gitk
-sudo apt-get install screen
-sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
-sudo apt install wolframscript
 node-red ./flows_Radio.json 
 #in .node-red/settings.js setze flowFilePretty: true
 #mit Tablet-Browser localhost:1880 menu-install dropbox daemon
@@ -127,7 +163,6 @@ zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 
 df #7848 28%
 ssh-keygen
-ssh-copy-id pi@localhost #pi@KEYSTATION_61 #und weitere
 nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localhost
 #sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
@@ -145,8 +180,6 @@ mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an
 cd
 ln -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
-#Desktop füllen
-ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
 
 #Hintergrundbild einstellen
 
