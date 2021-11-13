@@ -1,5 +1,5 @@
 echo "Keyboard nochmal neu starten"
-#zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
-#sleep 5; aconnect 'Keystation 61':0 'ZynAddSubFX' &
-yoshimi -S >/dev/null &
-sleep 5; aconnect 'Keystation 61':0 'yoshimi' &
+zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
+sleep 5; aconnect 'Keystation 61':0 'ZynAddSubFX' &
+#yoshimi -S >/dev/null &
+#sleep 5; aconnect 'Keystation 61':0 'yoshimi' &

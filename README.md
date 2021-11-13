@@ -56,16 +56,17 @@ git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die and
 
 #Desktop füllen
 cd
-ln -f -r -s ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
+ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/README.md ./Desktop/.
+ln -f -r -s ./Desktop/CLONE/Repositories/*/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
+ln -s ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
 
 
 sudo apt-get install gitk
 sudo apt-get install screen
 sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
 sudo apt install wolframscript
+sudo apt install zynaddsubfx #juhuuu geht wieder, jetzt auf aseqdump -p20:0
 
 
 #aus der vorherigen SD rüberkopieren weil nicht comitted:
