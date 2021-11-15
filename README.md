@@ -4,7 +4,11 @@ RADIOPI
 rpi-imager
 
 Start mit neuem Raspberry PI 4 und Bullseye
-#also erstmal Welcome to Rasoberry Pi durchmachen und nochmal
+df #3033540 11%
+dd if=/dev/zero of=./largefile bs=1M count=1024 #31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
+rm largefile
+#also erstmal Welcome to Rasoberry Pi durchmachen
+df #3205592 12%
 #und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
 sudo apt update
 sudo apt full-upgrade
@@ -21,8 +25,6 @@ sudo nano /etc/dphys-swapfile # dort statt 100 eine 1024 einsetzen #pimylifeup.c
 sudo reboot
 
 #Geschwindigkeit testen:
-dd if=/dev/zero of=./largefile bs=1M count=1024 #31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
-rm largefile
 
 #neuen ssh-key für github erzeugen
 ssh-keygen #Enter Enter Enter
@@ -59,7 +61,7 @@ cd
 ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/README.md ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/Repositories/*/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -s ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
+ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
 
 
 sudo apt-get install gitk
