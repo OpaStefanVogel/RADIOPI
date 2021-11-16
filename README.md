@@ -116,8 +116,6 @@ sudo nano /etc/lighttpd/lighttpd.conf
 sudo reboot
 #Dann http://RADIO/Desktop/CLONE/Rezete.xml
 
-#-----------------------------------soweit Bullseye ---------------------------------------------------
-#------------------------------------------------------------------------------------------------------
 
 
 
@@ -127,6 +125,7 @@ sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96
   #zuletzt CORES=4, ALLOCATION=500, PRIORITY=5, #geht bisjetzt am flüssigsten
   #zuletzt CORES=1, ALLOCATION=500, PRIORITY=-1, #geht wie? bei 380 bleibt swap löschen stecken
   #zuletzt CORES=4, ALLOCATION=600, PRIORITY=-1, #geht wie?
+  #zuletzt SIZE=400, PRIORITY=5, #und CORE gibts nicht mehr
 sudo nano /etc/sysctl.conf #dort ergänzen:
 vm.vfs_cache_pressure=100             #zuletzt 500#100
 vm.swappiness=10                      #100#10 10=SWAP startet ab 90% gefüllt
@@ -135,6 +134,11 @@ vm.dirty_ratio=50                     #50
 
 sudo reboot
 sudo watch cat /proc/swaps
+
+
+
+#-----------------------------------soweit Bullseye ---------------------------------------------------
+#------------------------------------------------------------------------------------------------------
 
 
 
