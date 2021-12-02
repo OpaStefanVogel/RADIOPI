@@ -95,6 +95,13 @@
         "info": ""
     },
     {
+        "id": "f6de0de9.ddb1d",
+        "type": "tab",
+        "label": "hostapd",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "dcf46aa6.338d68",
         "type": "subflow",
         "name": "aktuellen Schlüssel holen",
@@ -1800,7 +1807,9 @@
             "fb67929c.cce7a",
             "d3f2bf0f.ccc82",
             "9ca9ab70.18aaf8",
-            "b20de8cf.366038"
+            "b20de8cf.366038",
+            "3fbebbd9.eee5b4",
+            "d6b1e408.a6b568"
         ],
         "x": 595,
         "y": 3720,
@@ -12780,6 +12789,212 @@
         "wires": [
             [
                 "873166b4.06bca8"
+            ]
+        ]
+    },
+    {
+        "id": "abd1e5c8.663208",
+        "type": "function",
+        "z": "f6de0de9.ddb1d",
+        "name": "Keyboard on 91,",
+        "func": "if (msg.payload==\"on 91,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 200,
+        "y": 180,
+        "wires": [
+            [
+                "6176b178.54298"
+            ]
+        ]
+    },
+    {
+        "id": "bd8ed053.5cc62",
+        "type": "function",
+        "z": "f6de0de9.ddb1d",
+        "name": "Keyboard on 90,",
+        "func": "if (msg.payload==\"on 90,\") {\n  return msg;\n  }",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "424ce76.b6d8918"
+            ]
+        ]
+    },
+    {
+        "id": "4bb2662f.233168",
+        "type": "exec",
+        "z": "f6de0de9.ddb1d",
+        "command": "sudo",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 550,
+        "y": 200,
+        "wires": [
+            [
+                "e572dfa5.a55f9"
+            ],
+            [
+                "e572dfa5.a55f9"
+            ],
+            [
+                "e572dfa5.a55f9"
+            ]
+        ]
+    },
+    {
+        "id": "6176b178.54298",
+        "type": "template",
+        "z": "f6de0de9.ddb1d",
+        "name": "start hostapd",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "systemctl start hostapd",
+        "output": "str",
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "4bb2662f.233168"
+            ]
+        ]
+    },
+    {
+        "id": "47eaabb5.2bb544",
+        "type": "inject",
+        "z": "f6de0de9.ddb1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 140,
+        "wires": [
+            [
+                "6176b178.54298"
+            ]
+        ]
+    },
+    {
+        "id": "e572dfa5.a55f9",
+        "type": "debug",
+        "z": "f6de0de9.ddb1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 640,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "424ce76.b6d8918",
+        "type": "template",
+        "z": "f6de0de9.ddb1d",
+        "name": "stop hostapd",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "systemctl stop hostapd",
+        "output": "str",
+        "x": 390,
+        "y": 240,
+        "wires": [
+            [
+                "4bb2662f.233168"
+            ]
+        ]
+    },
+    {
+        "id": "92c63ec0.ea764",
+        "type": "inject",
+        "z": "f6de0de9.ddb1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "424ce76.b6d8918"
+            ]
+        ]
+    },
+    {
+        "id": "3fbebbd9.eee5b4",
+        "type": "link in",
+        "z": "f6de0de9.ddb1d",
+        "name": "start hostapd",
+        "links": [
+            "92963650.708088"
+        ],
+        "x": 55,
+        "y": 180,
+        "wires": [
+            [
+                "abd1e5c8.663208"
+            ]
+        ]
+    },
+    {
+        "id": "d6b1e408.a6b568",
+        "type": "link in",
+        "z": "f6de0de9.ddb1d",
+        "name": "stop hostapd",
+        "links": [
+            "92963650.708088"
+        ],
+        "x": 55,
+        "y": 240,
+        "wires": [
+            [
+                "bd8ed053.5cc62"
             ]
         ]
     }
