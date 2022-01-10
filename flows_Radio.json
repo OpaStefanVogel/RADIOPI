@@ -3128,6 +3128,7 @@
         "type": "link out",
         "z": "df2ae089.27e66",
         "name": "Text neue Email da",
+        "mode": "link",
         "links": [
             "35b0a1b5.88525e"
         ],
@@ -3902,7 +3903,8 @@
             [
                 "2a46292a.f80786",
                 "2156c459.c747fc",
-                "dec684a8.f79f18"
+                "dec684a8.f79f18",
+                "d652a1903fd08a60"
             ]
         ]
     },
@@ -3945,7 +3947,8 @@
         "y": 4660,
         "wires": [
             [
-                "1d45a6d0.292e19"
+                "1d45a6d0.292e19",
+                "a793dda902a56bb6"
             ]
         ]
     },
@@ -4291,7 +4294,7 @@
             "8c847962.257148"
         ],
         "x": 415,
-        "y": 4540,
+        "y": 4580,
         "wires": []
     },
     {
@@ -4590,7 +4593,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "1 1",
+        "template": "default-on 1",
         "output": "str",
         "x": 380,
         "y": 1100,
@@ -4609,7 +4612,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "0 1",
+        "template": "none 1",
         "output": "str",
         "x": 380,
         "y": 1140,
@@ -4638,7 +4641,9 @@
         "type": "link in",
         "z": "df2ae089.27e66",
         "name": "PWR LED aus",
-        "links": [],
+        "links": [
+            "a793dda902a56bb6"
+        ],
         "x": 255,
         "y": 1120,
         "wires": [
@@ -4712,7 +4717,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "1 0",
+        "template": "1 0 brightness",
         "output": "str",
         "x": 380,
         "y": 1200,
@@ -4731,7 +4736,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "0 0",
+        "template": "0 0 brightness",
         "output": "str",
         "x": 380,
         "y": 1240,
@@ -4768,6 +4773,95 @@
                 "d2c589ac97050e9d"
             ]
         ]
+    },
+    {
+        "id": "fc3a3c5bdf761760",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "heartbeat 1",
+        "output": "str",
+        "x": 380,
+        "y": 1300,
+        "wires": [
+            [
+                "61cb9dedec91f64c"
+            ]
+        ]
+    },
+    {
+        "id": "54d50b01a19750a8",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "PWR LED heartbeat",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1300,
+        "wires": [
+            [
+                "fc3a3c5bdf761760"
+            ]
+        ]
+    },
+    {
+        "id": "ee232d46de2f12ee",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "PWR LED heartbeat",
+        "links": [
+            "d652a1903fd08a60"
+        ],
+        "x": 255,
+        "y": 1280,
+        "wires": [
+            [
+                "fc3a3c5bdf761760"
+            ]
+        ]
+    },
+    {
+        "id": "a793dda902a56bb6",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "362a4146e64e2797"
+        ],
+        "x": 795,
+        "y": 4620,
+        "wires": []
+    },
+    {
+        "id": "d652a1903fd08a60",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "ee232d46de2f12ee"
+        ],
+        "x": 795,
+        "y": 4580,
+        "wires": []
     },
     {
         "id": "a6d13b06.eb2ce8",
