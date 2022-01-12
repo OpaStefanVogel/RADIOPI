@@ -102,6 +102,14 @@
         "info": ""
     },
     {
+        "id": "40dd5032dfbd45ba",
+        "type": "tab",
+        "label": "tcl tk",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "dcf46aa6.338d68",
         "type": "subflow",
         "name": "aktuellen Schlüssel holen",
@@ -3958,7 +3966,8 @@
         "z": "df2ae089.27e66",
         "name": "Email-LED an",
         "links": [
-            "2000e038.0815a"
+            "2000e038.0815a",
+            "aae55b34daaecff1"
         ],
         "x": 315,
         "y": 4680,
@@ -4413,8 +4422,8 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var ret=[null,null,null,null];\nif (msg.action==\"down\") {\n  if ((global.get(\"keydown\")==1)&&(msg.payload==42)) ret[0]={};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==54)) ret[1]={};\n  global.set(\"keydown\",msg.payload);\n  node.status({text:msg.payload})\n  return ret;\n  }\n",
-        "outputs": 2,
+        "func": "var ret=[null,null,null,null];\nif (msg.action==\"down\") {\n  if ((global.get(\"keydown\")==1)&&(msg.payload==42)) ret[0]={};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==54)) ret[1]={};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==97)) ret[2]={};\n  global.set(\"keydown\",msg.payload);\n  node.status({text:msg.payload})\n  return ret;\n  }\n",
+        "outputs": 3,
         "noerr": 0,
         "initialize": "global.set(\"keydown\",0);\n",
         "finalize": "",
@@ -4427,6 +4436,9 @@
             ],
             [
                 "322fb80812a437db"
+            ],
+            [
+                "aae55b34daaecff1"
             ]
         ]
     },
@@ -4861,6 +4873,19 @@
         ],
         "x": 795,
         "y": 4580,
+        "wires": []
+    },
+    {
+        "id": "aae55b34daaecff1",
+        "type": "link out",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "79012fa0.fd97c"
+        ],
+        "x": 495,
+        "y": 1000,
         "wires": []
     },
     {
@@ -13624,6 +13649,98 @@
         "statusType": "auto",
         "x": 630,
         "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3e0fa1efe17a921f",
+        "type": "inject",
+        "z": "40dd5032dfbd45ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 700,
+        "wires": [
+            [
+                "7ea32bee1124102b"
+            ]
+        ]
+    },
+    {
+        "id": "58fb1e50f5296076",
+        "type": "debug",
+        "z": "40dd5032dfbd45ba",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 490,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "669646e179159bbc",
+        "type": "tcp request",
+        "z": "40dd5032dfbd45ba",
+        "server": "localhost",
+        "port": "9900",
+        "out": "sit",
+        "ret": "string",
+        "splitc": " ",
+        "name": "",
+        "x": 290,
+        "y": 820,
+        "wires": [
+            [
+                "58fb1e50f5296076"
+            ]
+        ]
+    },
+    {
+        "id": "7ea32bee1124102b",
+        "type": "function",
+        "z": "40dd5032dfbd45ba",
+        "name": "",
+        "func": "msg.payload=msg.payload+\"\\n\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 700,
+        "wires": [
+            [
+                "669646e179159bbc"
+            ]
+        ]
+    },
+    {
+        "id": "551313503e1e5b2a",
+        "type": "comment",
+        "z": "40dd5032dfbd45ba",
+        "name": "dazu der zugehörige TCL Server (im comment node drin)",
+        "info": "proc serverOpen {channel addr port} {\n    global connected\n    set connected 1\n    #fconfigure $channel -blocking 0\n    fileevent $channel readable \"readLine Server $channel\"\n    puts \"OPENED\"\n}\n\nproc readLine {who channel} {\n    global didRead\n    if { [gets $channel line] < 0} {\n\tfileevent $channel readable {}\n\tafter idle \"close $channel;set out 1\"\n    } else {\n\tputs \"READ LINE: $line\"\n\tputs $channel \"Return of $line\"\n\tflush $channel;\n\tset didRead 1\n    }\n}\n\nset connected 0\n# catch {socket -server serverOpen 9900} server\nset server [socket -server serverOpen 9900]\n",
+        "x": 300,
+        "y": 980,
         "wires": []
     }
 ]
