@@ -7,8 +7,8 @@ grid [ttk::button .c.radioan  -text "Radio an " -command "mache {Radio an}" ] -c
 grid [ttk::button .c.radioaus -text "Radio aus" -command "mache {Radio aus}"] -column 1 -row 2 -sticky w
 grid [ttk::button .c.lichtan  -text "Licht an " -command LICHT_AN ] -column 1 -row 3 -sticky w
 grid [ttk::button .c.lichtaus -text "Licht aus" -command LICHT_AUS] -column 1 -row 4 -sticky w
-grid [ttk::button .c.radioleiser -text "lauter" -command "mache {Radio lauter}"] -column 1 -row 5 -sticky w
-grid [ttk::button .c.radiolauter -text "leiser" -command "mache {Radio leiser}"] -column 1 -row 6 -sticky w
+grid [ttk::button .c.radiolauter -text "lauter" -command "mache {Radio lauter}"] -column 1 -row 5 -sticky w
+grid [ttk::button .c.radioleiser -text "leiser" -command "mache {Radio leiser}"] -column 1 -row 6 -sticky w
 grid [ttk::button .c.bus31 -text "Bus 31" -command "mache Bus31"] -column 1 -row 7 -sticky w
 grid [ttk::button .c.bus62 -text "Bus 62" -command "mache Bus62"] -column 1 -row 8 -sticky w
 grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 9 -sticky w
@@ -21,10 +21,11 @@ grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row
 
 foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
 
-bind . <E> {RadioAn}
-bind . <A> {RadioAus}
-bind . <P> {RadioLauter}
-bind . <M> {RadioLeiser}
+bind . <E> {.c.radioan invoke}
+bind . <A> {.c.radioaus invoke}
+bind . <P> {.c.radiolauter invoke}
+bind . <M> {.c.radioleiser invoke}
+bind . <B> {.c.bus31 invoke}
 
 proc mache {text} {  
   set outfile [open "tcl_an_nodered.txt" w]
@@ -68,6 +69,37 @@ proc swapoffon {} {
 proc sudoreboot {} {
   exec sudo reboot
   }
+
+
+
+
+proc serverOpen {channel addr port} {
+    global connected
+    set connected 1
+    #fconfigure $channel -blocking 0
+    fileevent $channel readable "readLine Server $channel"
+    puts "OPENED"
+}
+
+proc readLine {who channel} {
+    global didRead
+    if { [gets $channel line] < 0} {
+	fileevent $channel readable {}
+	after idle "close $channel;set out 1"
+    } else {
+	puts "READ LINE: $line"
+	puts $channel "Return of $line"
+	flush $channel;
+	set didRead 1
+	focus -force .
+    }
+}
+
+set connected 0
+# catch {socket -server serverOpen 9900} server
+set server [socket -server serverOpen 9900]
+
+
 
 vwait forever
 
