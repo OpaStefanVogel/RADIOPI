@@ -1,31 +1,30 @@
 wm geometry . +328+37
 wm title . "Radio"
-grid [ttk::frame .c -padding "3 3 12 12"] -column 0 -row 0 -sticky nwes
-grid columnconfigure . 0 -weight 1; grid rowconfigure . 0 -weight 1
+. configure -background black
+pack [button .radioan  -text "Radio an " -command "mache {Radio an}" ]
+pack [button .radioaus -text "Radio aus" -command "mache {Radio aus}"]
+pack [button .lichtan  -text "Licht an " -command LICHT_AN ]
+pack [button .lichtaus -text "Licht aus" -command LICHT_AUS]
+pack [button .radiolauter -text "lauter" -command "mache {Radio lauter}"] -expand 1
+pack [button .radioleiser -text "leiser" -command "mache {Radio leiser}"]
+pack [button .bus31 -text "Bus 31" -command "mache Bus31"]
+pack [button .bus62 -text "Bus 62" -command "mache Bus62"]
+pack [button .rpib -text "RPI B" -command RPIB]
+pack [button .ttyAMA1 -text "ttyAMA1" -command ttyAMA1]
+pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
+pack [button .ansageaus -text "Ansage aus" -command "mache {Ansage aus}"]
+pack [ttk::button .swapoff -text "swapoff" -command "swapoffon"]
+pack [ttk::button .reboot -text "reboot" -command "sudoreboot"]
 
-grid [ttk::button .c.radioan  -text "Radio an " -command "mache {Radio an}" ] -column 1 -row 1 -sticky w
-grid [ttk::button .c.radioaus -text "Radio aus" -command "mache {Radio aus}"] -column 1 -row 2 -sticky w
-grid [ttk::button .c.lichtan  -text "Licht an " -command LICHT_AN ] -column 1 -row 3 -sticky w
-grid [ttk::button .c.lichtaus -text "Licht aus" -command LICHT_AUS] -column 1 -row 4 -sticky w
-grid [ttk::button .c.radiolauter -text "lauter" -command "mache {Radio lauter}"] -column 1 -row 5 -sticky w
-grid [ttk::button .c.radioleiser -text "leiser" -command "mache {Radio leiser}"] -column 1 -row 6 -sticky w
-grid [ttk::button .c.bus31 -text "Bus 31" -command "mache Bus31"] -column 1 -row 7 -sticky w
-grid [ttk::button .c.bus62 -text "Bus 62" -command "mache Bus62"] -column 1 -row 8 -sticky w
-grid [ttk::button .c.rpib -text "RPI B" -command RPIB] -column 1 -row 9 -sticky w
-grid [ttk::button .c.ttyAMA1 -text "ttyAMA1" -command ttyAMA1] -column 1 -row 10 -sticky w
-grid [ttk::button .c.ansageein -text "Ansage an" -command "mache {Ansage an}"] -column 1 -row 11 -sticky w
-grid [ttk::button .c.ansageaus -text "Ansage aus" -command "mache {Ansage aus}"] -column 1 -row 12 -sticky w
-grid [ttk::button .c.swapoff -text "swapoff" -command "swapoffon"] -column 1 -row 13 -sticky w
-grid [ttk::button .c.reboot -text "reboot" -command "sudoreboot"] -column 1 -row 14 -sticky w
+foreach w [winfo children .] {pack configure $w -fill both -padx 2 -pady 2 -ipady 0}
 
-
-foreach w [winfo children .c] {grid configure $w -padx 2 -pady 2}
-
-bind . <E> {.c.radioan invoke}
-bind . <A> {.c.radioaus invoke}
-bind . <P> {.c.radiolauter invoke}
-bind . <M> {.c.radioleiser invoke}
-bind . <B> {.c.bus31 invoke}
+bind . <E> {.radioan invoke}
+bind . <A> {.radioaus invoke}
+bind . <P> {.radiolauter invoke}
+bind . <M> {.radioleiser invoke}
+bind . <B> {.bus31 invoke}
+bind . <X> {wm attributes . -fullscreen 1}
+bind . <Y> {wm attributes . -fullscreen 0}
 
 proc mache {text} {  
   set outfile [open "tcl_an_nodered.txt" w]
@@ -101,5 +100,5 @@ set server [socket -server serverOpen 9900]
 
 
 
-vwait forever
+#vwait forever
 
