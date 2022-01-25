@@ -13,8 +13,8 @@ pack [button .rpib -text "RPI B" -command RPIB]
 pack [button .ttyAMA1 -text "ttyAMA1" -command ttyAMA1]
 pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
 pack [button .ansageaus -text "Ansage aus" -command "mache {Ansage aus}"]
-pack [ttk::button .swapoff -text "swapoff" -command "swapoffon"]
-pack [ttk::button .reboot -text "reboot" -command "sudoreboot"]
+pack [button .swapoff -text "swapoff" -command "swapoffon"]
+pack [button .reboot -text "reboot" -command "sudoreboot"]
 
 foreach w [winfo children .] {pack configure $w -fill both -padx 2 -pady 2 -ipady 0}
 
@@ -23,8 +23,9 @@ bind . <A> {.radioaus invoke}
 bind . <P> {.radiolauter invoke}
 bind . <M> {.radioleiser invoke}
 bind . <B> {.bus31 invoke}
-bind . <X> {wm attributes . -fullscreen 1}
-bind . <Y> {wm attributes . -fullscreen 0}
+bind . <C> {.bus62 invoke}
+bind . <X> {destroy .c; toplevel .c -background black; wm attributes .c -fullscreen 1;bind .c <X> {destroy .c; focus -force .}}
+set Test 0
 
 proc mache {text} {  
   set outfile [open "tcl_an_nodered.txt" w]
@@ -96,7 +97,7 @@ proc readLine {who channel} {
 
 set connected 0
 # catch {socket -server serverOpen 9900} server
-set server [socket -server serverOpen 9900]
+if {$Test == 0} {set server [socket -server serverOpen 9900]}
 
 
 
