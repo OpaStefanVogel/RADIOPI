@@ -13,6 +13,7 @@ pack [button .rpib -text "RPI B" -command RPIB]
 pack [button .ttyAMA1 -text "ttyAMA1" -command ttyAMA1]
 pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
 pack [button .ansageaus -text "Ansage aus" -command "mache {Ansage aus}"]
+pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black; wm attributes .c -fullscreen 1;bind .c <X> {destroy .c; focus -force .}; bind .c <Button-1> {destroy .c; focus -force .}; "]
 pack [button .swapoff -text "swapoff" -command "swapoffon"]
 pack [button .reboot -text "reboot" -command "sudoreboot"]
 
@@ -24,7 +25,8 @@ bind . <P> {.radiolauter invoke}
 bind . <M> {.radioleiser invoke}
 bind . <B> {.bus31 invoke}
 bind . <C> {.bus62 invoke}
-bind . <X> {destroy .c; toplevel .c -background black; wm attributes .c -fullscreen 1;bind .c <X> {destroy .c; focus -force .}}
+bind . <X> {.bildaus invoke}
+
 set Test 0
 
 proc mache {text} {  
