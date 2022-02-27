@@ -3213,6 +3213,18 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "volume +10",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
@@ -3983,12 +3995,21 @@
         "type": "inject",
         "z": "df2ae089.27e66",
         "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "volume 270",
+        "payload": "volume 100",
         "payloadType": "str",
         "x": 450,
         "y": 1880,
@@ -8048,6 +8069,64 @@
         "wires": []
     },
     {
+        "id": "b72439378600ab42",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
+        "x": 230,
+        "y": 860,
+        "wires": [
+            [
+                "22a7bd39.67ed92"
+            ]
+        ]
+    },
+    {
+        "id": "2b56a7bd2fbd8cee",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "volume 100",
+        "payloadType": "str",
+        "x": 430,
+        "y": 880,
+        "wires": [
+            [
+                "22a7bd39.67ed92"
+            ]
+        ]
+    },
+    {
         "id": "9848b237.267d6",
         "type": "websocket in",
         "z": "8b708117.11fb9",
@@ -9137,10 +9216,11 @@
         "type": "file in",
         "z": "5117498b.878128",
         "name": "html-Datei holen",
-        "filename": "/home/pi/Desktop/CLONE/RADIOPI/Einkaufsliste.html",
+        "filename": "/home/pi/Desktop/CLONE/Repositories/RADIOPI/Einkaufsliste.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
+        "allProps": false,
         "x": 240,
         "y": 400,
         "wires": [
@@ -9292,6 +9372,7 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
+        "allProps": false,
         "x": 270,
         "y": 460,
         "wires": [
