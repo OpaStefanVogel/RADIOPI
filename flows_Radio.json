@@ -3370,12 +3370,11 @@
         "randomUnits": "seconds",
         "drop": false,
         "outputs": 1,
-        "x": 470,
+        "x": 570,
         "y": 2080,
         "wires": [
             [
-                "fe68c44a.89dab8",
-                "f71363c87d5b53b2"
+                "fe68c44a.89dab8"
             ]
         ]
     },
@@ -4026,11 +4025,11 @@
         "func": "var Ansage=global.get(\"Ansage\");\nnode.status({text:Ansage});\nif (Ansage==\"Ansage an\") return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 250,
+        "x": 240,
         "y": 2080,
         "wires": [
             [
-                "42a9e426.810d0c"
+                "6eab6c604f98e465"
             ]
         ]
     },
@@ -4097,7 +4096,7 @@
         "y": 2040,
         "wires": [
             [
-                "42a9e426.810d0c"
+                "6eab6c604f98e465"
             ]
         ]
     },
@@ -4918,8 +4917,8 @@
         "syntax": "mustache",
         "template": "notify '{{payload}}'",
         "output": "str",
-        "x": 780,
-        "y": 2080,
+        "x": 820,
+        "y": 2100,
         "wires": [
             [
                 "fde18a4d6fca6072"
@@ -4956,6 +4955,26 @@
         "y": 2100,
         "wires": [
             [
+                "f71363c87d5b53b2"
+            ]
+        ]
+    },
+    {
+        "id": "6eab6c604f98e465",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 2080,
+        "wires": [
+            [
+                "42a9e426.810d0c",
                 "f71363c87d5b53b2"
             ]
         ]
@@ -13783,6 +13802,36 @@
         "x": 630,
         "y": 360,
         "wires": []
+    },
+    {
+        "id": "3fd3e69d9cc6fec2",
+        "type": "watch",
+        "z": "f6de0de9.ddb1d",
+        "name": "",
+        "files": "tmp/hostapd_start",
+        "recursive": "",
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "6176b178.54298"
+            ]
+        ]
+    },
+    {
+        "id": "c674c1ed626eca12",
+        "type": "watch",
+        "z": "f6de0de9.ddb1d",
+        "name": "",
+        "files": "tmp/hostapd_stop",
+        "recursive": "",
+        "x": 210,
+        "y": 320,
+        "wires": [
+            [
+                "424ce76.b6d8918"
+            ]
+        ]
     },
     {
         "id": "3e0fa1efe17a921f",
