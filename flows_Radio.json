@@ -1880,7 +1880,6 @@
             "449f4847.b0f968",
             "e2e04866.0276d8",
             "cfd0925f.eb69f",
-            "b76dca11.f7ca68",
             "65333246.6150bc",
             "3dbd7d64.be3ff2",
             "7acc88f8.260048",
@@ -3375,7 +3374,8 @@
         "y": 2080,
         "wires": [
             [
-                "fe68c44a.89dab8"
+                "fe68c44a.89dab8",
+                "f71363c87d5b53b2"
             ]
         ]
     },
@@ -3923,7 +3923,6 @@
             [
                 "2a46292a.f80786",
                 "2156c459.c747fc",
-                "dec684a8.f79f18",
                 "d652a1903fd08a60"
             ]
         ]
@@ -4091,7 +4090,8 @@
             "b7a3004e.f701b",
             "f95e4c0b.0ce5a",
             "58c6c558.2e1cfc",
-            "03ac323787131df5"
+            "03ac323787131df5",
+            "b76dca11.f7ca68"
         ],
         "x": 135,
         "y": 2040,
@@ -4380,25 +4380,6 @@
             [
                 "873166b4.06bca8"
             ]
-        ]
-    },
-    {
-        "id": "dec684a8.f79f18",
-        "type": "exec",
-        "z": "df2ae089.27e66",
-        "command": "lxpanelctl",
-        "addpay": false,
-        "append": "notify 'neue Email für backebackekuchen16@gmail.com'",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "",
-        "x": 720,
-        "y": 4760,
-        "wires": [
-            [],
-            [],
-            []
         ]
     },
     {
@@ -4925,6 +4906,59 @@
         "x": 475,
         "y": 840,
         "wires": []
+    },
+    {
+        "id": "f71363c87d5b53b2",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "notify '{{payload}}'",
+        "output": "str",
+        "x": 780,
+        "y": 2080,
+        "wires": [
+            [
+                "fde18a4d6fca6072"
+            ]
+        ]
+    },
+    {
+        "id": "fde18a4d6fca6072",
+        "type": "exec",
+        "z": "df2ae089.27e66",
+        "command": "lxpanelctl",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 960,
+        "y": 2080,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "29db1f3e7d368523",
+        "type": "link in",
+        "z": "df2ae089.27e66",
+        "name": "lxpanelctx notify '{{payload}}'",
+        "links": [],
+        "x": 635,
+        "y": 2100,
+        "wires": [
+            [
+                "f71363c87d5b53b2"
+            ]
+        ]
     },
     {
         "id": "a6d13b06.eb2ce8",
@@ -7808,8 +7842,9 @@
         "type": "link out",
         "z": "a49d08e2.c6bc28",
         "name": "now playing r",
+        "mode": "link",
         "links": [
-            "6b533d6.c015cc4"
+            "35b0a1b5.88525e"
         ],
         "x": 1015,
         "y": 560,
