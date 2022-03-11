@@ -1,4 +1,4 @@
-speaker-test -c 2 -t wave -l 1
+speaker-test -c 8 -t wave -l 1 &
 touch /tmp/ttyS0_RXD
 touch /tmp/RADIO_Ansage.txt
 lxterminal --geometry=100x10 -e "sudo watch cat /proc/swaps" &

@@ -7,6 +7,7 @@ pack [button .lichtan  -text "Licht an " -command LICHT_AN ]
 pack [button .lichtaus -text "Licht aus" -command LICHT_AUS]
 pack [button .radiolauter -text "lauter" -command "mache {Radio lauter}"] -expand 1
 pack [button .radioleiser -text "leiser" -command "mache {Radio leiser}"]
+pack [button .info -text "Info" -command "mache {Radio Info}"]
 pack [button .bus31 -text "Bus 31" -command "mache Bus31"]
 pack [button .bus62 -text "Bus 62" -command "mache Bus62"]
 pack [button .rpib -text "RPI B" -command RPIB]
@@ -15,7 +16,7 @@ pack [button .wlan_ein -text "WLAN ein" -command "exec touch tmp/hostapd_start"]
 pack [button .wlan_aus -text "WLAN aus" -command "exec touch tmp/hostapd_stop"]
 pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
 pack [button .ansageaus -text "Ansage aus" -command "mache {Ansage aus}"]
-pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black; wm attributes .c -fullscreen 1;bind .c <X> {destroy .c; focus -force .}; bind .c <Button-1> {destroy .c; focus -force .}; "]
+pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black -cursor none; wm attributes .c -fullscreen 1;bind .c <X> {destroy .c; focus -force .}; bind .c <Button-1> {destroy .c; focus -force .}; bind .c <I> {.info invoke}; "]
 pack [button .swapoff -text "swapoff" -command "swapoffon"]
 pack [button .reboot -text "reboot" -command "sudoreboot"]
 
@@ -25,6 +26,7 @@ bind . <E> {.radioan invoke}
 bind . <A> {.radioaus invoke}
 bind . <P> {.radiolauter invoke}
 bind . <M> {.radioleiser invoke}
+bind . <I> {.info invoke}
 bind . <B> {.bus31 invoke}
 bind . <C> {.bus62 invoke}
 bind . <X> {.bildaus invoke}
