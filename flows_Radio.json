@@ -1166,11 +1166,11 @@
         "id": "aefc05d6.e01b88",
         "type": "tcp request",
         "z": "2b3797a1.ec9d18",
+        "name": "localhost:6600",
         "server": "localhost",
         "port": "6600",
         "out": "sit",
         "splitc": "0",
-        "name": "localhost:6600",
         "x": 540,
         "y": 920,
         "wires": [
@@ -1550,7 +1550,7 @@
         "y": 660,
         "wires": [
             [
-                "d9a93b5b.eec678"
+                "822a980b63a3606b"
             ]
         ]
     },
@@ -1633,14 +1633,15 @@
         "id": "d20e7f60.be461",
         "type": "exec",
         "z": "df2ae089.27e66",
-        "command": "speaker-test -c2 -t sine -f 99 -b 1000 -p 1000 -f 40 -l 1 -s 2",
+        "command": "speaker-test -c2 -t sine -f 40 -l 1 -s 2",
         "addpay": false,
         "append": "",
         "useSpawn": "",
         "timer": "",
+        "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 1220,
+        "x": 1150,
         "y": 740,
         "wires": [
             [],
@@ -1791,7 +1792,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "hahallihallo",
+        "template": "hallihallo",
         "output": "str",
         "x": 1120,
         "y": 540,
@@ -2361,14 +2362,11 @@
         "name": "Hah",
         "props": [
             {
-                "p": "payload",
-                "v": "Hah hatter gesacht",
-                "vt": "str"
+                "p": "payload"
             },
             {
                 "p": "topic",
-                "v": "",
-                "vt": "string"
+                "vt": "str"
             }
         ],
         "repeat": "",
@@ -3018,31 +3016,6 @@
         "wires": [
             [
                 "721aa1.9617456"
-            ]
-        ]
-    },
-    {
-        "id": "d3e85e6a.76184",
-        "type": "e-mail in",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "protocol": "IMAP",
-        "server": "imap.gmail.com",
-        "useSSL": true,
-        "autotls": "never",
-        "port": "993",
-        "box": "INBOX",
-        "disposition": "None",
-        "criteria": "UNSEEN",
-        "repeat": "60",
-        "fetch": "auto",
-        "inputs": 0,
-        "x": 230,
-        "y": 4620,
-        "wires": [
-            [
-                "2e74388c.f4e468",
-                "adef2cf0.d8d89"
             ]
         ]
     },
@@ -4731,7 +4704,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-p 30 -s 160 -vde \"{{payload}} \"",
+        "template": "-p 30 -s 160 -vde \"{{payload}}.\"",
         "x": 640,
         "y": 1940,
         "wires": [
@@ -4766,12 +4739,62 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-p 80 -s 160 -ven \"{{payload}} \"",
+        "template": "-p 80 -s 160 -ven \"{{payload}}.\"",
         "x": 640,
         "y": 1900,
         "wires": [
             [
                 "e3ca5d6c9598137b"
+            ]
+        ]
+    },
+    {
+        "id": "3bae1161e6ea5a85",
+        "type": "e-mail in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "autotls": "never",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "auto",
+        "inputs": 0,
+        "x": 240,
+        "y": 4580,
+        "wires": [
+            [
+                "adef2cf0.d8d89",
+                "2e74388c.f4e468"
+            ]
+        ]
+    },
+    {
+        "id": "822a980b63a3606b",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 740,
+        "wires": [
+            [
+                "d9a93b5b.eec678"
             ]
         ]
     },
@@ -7238,6 +7261,9 @@
         "z": "a49d08e2.c6bc28",
         "name": "",
         "pin": "4",
+        "set": false,
+        "freq": "",
+        "out": "out",
         "bcm": true,
         "x": 790,
         "y": 120,
@@ -7247,7 +7273,7 @@
         "id": "efaf1e11.f655a",
         "type": "exec",
         "z": "a49d08e2.c6bc28",
-        "command": "speaker-test -c8 -t sine -f 66 -l 1",
+        "command": "speaker-test -c2 -t sine -f 66 -l 1",
         "addpay": false,
         "append": "",
         "useSpawn": "",
@@ -12824,11 +12850,11 @@
         "links": [
             "adef2cf0.d8d89"
         ],
-        "x": 195,
+        "x": 55,
         "y": 840,
         "wires": [
             [
-                "1627172a.2ed459"
+                "eafde52e94cad86d"
             ]
         ]
     },
@@ -13419,6 +13445,31 @@
         "wires": []
     },
     {
+        "id": "eafde52e94cad86d",
+        "type": "delay",
+        "z": "f5852901.627d08",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "3",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 200,
+        "y": 840,
+        "wires": [
+            [
+                "1627172a.2ed459"
+            ]
+        ]
+    },
+    {
         "id": "abd1e5c8.663208",
         "type": "function",
         "z": "f6de0de9.ddb1d",
@@ -13776,12 +13827,12 @@
         "id": "669646e179159bbc",
         "type": "tcp request",
         "z": "40dd5032dfbd45ba",
+        "name": "",
         "server": "localhost",
         "port": "9900",
         "out": "sit",
         "ret": "string",
         "splitc": " ",
-        "name": "",
         "x": 290,
         "y": 820,
         "wires": [

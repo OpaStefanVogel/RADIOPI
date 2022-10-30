@@ -53,6 +53,7 @@ df #23483876  20%
 #jetzt sollte schon MIT_KONSTRUK_FF.html gehen
 
 cd ../RADIO
+git remote emove origin
 git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die anderen auch
 
 

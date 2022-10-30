@@ -16,20 +16,20 @@ pack [button .wlan_ein -text "WLAN ein" -command "exec touch tmp/hostapd_start"]
 pack [button .wlan_aus -text "WLAN aus" -command "exec touch tmp/hostapd_stop"]
 pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
 pack [button .ansageaus -text "Ansage aus" -command "mache {Ansage aus}"]
-pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black -cursor none; wm attributes .c -fullscreen 1;bind .c <X> {destroy .c; focus -force .}; bind .c <Button-1> {destroy .c; focus -force .}; bind .c <I> {.info invoke}; "]
+pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black -cursor none; wm attributes .c -fullscreen 1;bind .c X { focus -force . ; destroy .c}; bind .c <Button-1> {destroy .c ; focus -force .}; bind .c I {.info invoke}; "]
 pack [button .swapoff -text "swapoff" -command "swapoffon"]
 pack [button .reboot -text "reboot" -command "sudoreboot"]
 
 foreach w [winfo children .] {pack configure $w -fill both -padx 2 -pady 2 -ipady 0}
 
-bind . <E> {.radioan invoke}
-bind . <A> {.radioaus invoke}
-bind . <P> {.radiolauter invoke}
-bind . <M> {.radioleiser invoke}
-bind . <I> {.info invoke}
-bind . <B> {.bus31 invoke}
-bind . <C> {.bus62 invoke}
-bind . <X> {.bildaus invoke}
+bind . E {.radioan invoke}
+bind . A {.radioaus invoke}
+bind . P {.radiolauter invoke}
+bind . M {.radioleiser invoke}
+bind . I {.info invoke}
+bind . B {.bus31 invoke}
+bind . C {.bus62 invoke}
+bind . X {.bildaus invoke}
 
 set Test 0
 
