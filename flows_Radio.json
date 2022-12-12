@@ -11977,6 +11977,67 @@
         ]
     },
     {
+        "id": "afb1c0f880328bea",
+        "type": "Eqiva eQ-3",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "Eqiva eQ-3",
+        "mac": "00:1A:22:0B:F9:D1",
+        "interface": "hci0",
+        "topic": "",
+        "x": 310,
+        "y": 240,
+        "wires": [
+            [
+                "30991748fd97dfa5"
+            ]
+        ]
+    },
+    {
+        "id": "f1f740650873a580",
+        "type": "inject",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "sync",
+        "payloadType": "str",
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "afb1c0f880328bea"
+            ]
+        ]
+    },
+    {
+        "id": "30991748fd97dfa5",
+        "type": "debug",
+        "z": "c0d2b8ff.7a7ce8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 240,
+        "wires": []
+    },
+    {
         "id": "749de93.a931618",
         "type": "debug",
         "z": "2e9a16ae.4294ca",

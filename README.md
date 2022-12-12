@@ -59,10 +59,11 @@ git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die and
 
 #Desktop füllen
 cd
-ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/README.md ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/Repositories/*/*.desktop ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
+ln -f -r -s -v ./Desktop/CLONE/Repositories/RADIOPI/README.md ./Desktop/.
+ln -f -r -s -v ./Desktop/CLONE/Repositories/*/*.desktop ./Desktop/.
+ln -f -r -s -v ./Desktop/CLONE/*.desktop ./Desktop/.
+ln -f -r -s -v ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
+ln -f -r -s -v ./Desktop/CLONE/index.html .
 
 
 sudo apt-get install gitk
