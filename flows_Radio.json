@@ -2568,7 +2568,8 @@
         "y": 4040,
         "wires": [
             [
-                "8bf7b61.e77d348"
+                "8bf7b61.e77d348",
+                "073bdc7b4d2d6ec6"
             ]
         ]
     },
@@ -2876,7 +2877,8 @@
         "y": 4220,
         "wires": [
             [
-                "79cc49df.0f6b58"
+                "79cc49df.0f6b58",
+                "073bdc7b4d2d6ec6"
             ]
         ]
     },
@@ -2955,9 +2957,12 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nvar Antwort_an_Touchscreen=[];\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Gablenz ü. Weststr.\")>-1) {\n    j=i;\n    Antwort_an_Touchscreen.unshift(s[j].actualDeparture);\n    }\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nmsg.Antwort_an_Touchscreen=Antwort_an_Touchscreen;\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nvar Antwort_an_Touchscreen=[];\nwhile (i>0) {\n  i=i-1;\n  //if (s[i].destination.indexOf(\"Gablenz ü. Weststr.\")>-1) {\n  if (s[i].line>\"31\") {\n    j=i;\n    Antwort_an_Touchscreen.unshift(s[j].actualDeparture);\n    }\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 62 Richtung Gaah blenz über Weststraße oder Linie 72 fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nmsg.Antwort_an_Touchscreen=Antwort_an_Touchscreen;\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
         "outputs": 2,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 1010,
         "y": 4340,
         "wires": [
@@ -3853,7 +3858,9 @@
         "x": 110,
         "y": 4080,
         "wires": [
-            []
+            [
+                "905aaf7d.33461"
+            ]
         ]
     },
     {
@@ -4795,6 +4802,25 @@
         "wires": [
             [
                 "d9a93b5b.eec678"
+            ]
+        ]
+    },
+    {
+        "id": "073bdc7b4d2d6ec6",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Ding Dong",
+        "output": "str",
+        "x": 580,
+        "y": 4300,
+        "wires": [
+            [
+                "721aa1.9617456"
             ]
         ]
     },

@@ -54,6 +54,7 @@ function Waage(payload) {
   var Anzeige=payload.toFixed(0);
   if (Anzeige.toString()=="-0") Anzeige=0;
   document.getElementById("Waage").firstChild.nodeValue=Anzeige;
+  document.getElementById("Miniscreen").firstChild.nodeValue=Anzeige;
   }
 
 function Spannung(payload) {
@@ -99,7 +100,7 @@ function Testaufruf() {
 
   </script>
 <body onload="websocket_verbinden();Antwort_auswerten(JSON.stringify(Testmessage))">
-<div style="position:fixed; top:0px; left:100px;"><span style=" background-color:yellow; border:none;" >
+<div style="position:fixedd; top:0px; left:200px;"><span style=" background-color:yellow; border:none;" >
   <span style=" color:green; border:none;">Waage.html</span>
   <a href="Touchscreen.html">Touchscreen.html</a>
   <a href="Einkaufsliste.html">Einkaufsliste.html</a>
@@ -108,7 +109,7 @@ function Testaufruf() {
 <div style="display:none">
   <div onclick="event.target.firstChild.nodeValue=xm.serializeToString(document.documentElement,true)" style="white-space:pre-wrap">Seitenquelltext</div>
   </div>
-  <h3>Waage</h3>
+  <h1>Waage <span id="Miniscreen">...</span> g</h1>
   <p>1. Zur Waage <button onclick="websocket_verbinden()">verbinden</button> wenn nicht schon verbunden: Aktueller Zustand ist <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/#the-websocket-interface" id="Websocket_Status">CLOSED (nicht verbunden)</a>.</p>
 <spa>
 <span style="display:flex; flex-direction:column; min-width:100px">
