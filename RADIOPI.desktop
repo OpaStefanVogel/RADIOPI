@@ -1,7 +1,7 @@
 [Desktop Entry]
 Exec=lxterminal -e "ls;git pull;pcmanfm .&mousepad .xsessionrc TCL-RADIO.tcl Touchscreen.html Waage.html Einkaufsliste.html Heizung.html RADIOPI.desktop README.md&(sleep 4 ; gitk --all )&bash"
 Type=Application
-Path=/home/pi/Desktop/CLONE/Repositories/RADIOPI
+Path=/home/pi/Desktop/CLONE/RADIOPI
 Terminal=false
 StartupNotify=true
 Icon=

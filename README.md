@@ -53,16 +53,15 @@ df #23483876  20%
 #jetzt sollte schon MIT_KONSTRUK_FF.html gehen
 
 cd ../RADIO
-git remote emove origin
 git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die anderen auch
 
 
 #Desktop füllen
 cd
-ln -f -r -s -v ./Desktop/CLONE/Repositories/RADIOPI/README.md ./Desktop/.
-ln -f -r -s -v ./Desktop/CLONE/Repositories/*/*.desktop ./Desktop/.
+ln -f -r -s -v ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
+ln -f -r -s -v ./Desktop/CLONE/*/*.desktop ./Desktop/.
 ln -f -r -s -v ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -f -r -s -v ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
+ln -f -r -s -v ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 ln -f -r -s -v ./Desktop/CLONE/index.html .
 
 
