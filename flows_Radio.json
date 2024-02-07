@@ -7815,7 +7815,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "100",
+        "onceDelay": "20",
         "topic": "",
         "payload": "pause",
         "payloadType": "str",
@@ -7961,6 +7961,18 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://listen.radiomax.technology/penny",
+        "props": [
+            {
+                "p": "payload",
+                "v": "add http://listen.radiomax.technology/penny",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": true,
@@ -7979,6 +7991,18 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://streaming.fueralle.org:8000/radiot.mp3",
+        "props": [
+            {
+                "p": "payload",
+                "v": "add http://streaming.fueralle.org:8000/radiot.mp3",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": true,
@@ -7997,6 +8021,18 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "add http://50.7.9.43:8080, 69.167.190.234:8080",
+        "props": [
+            {
+                "p": "payload",
+                "v": "add http://192.111.140.11/stream/liveireland.pls?mp=/stream",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": true,
@@ -8162,7 +8198,7 @@
         "z": "a49d08e2.c6bc28",
         "name": "",
         "command": "rvlc",
-        "args": "/home/pi/Desktop/CLONE/RADIOPI/playlist.xspf",
+        "args": "./playlist.m3u",
         "autorun": true,
         "cr": true,
         "redo": true,
@@ -8522,7 +8558,7 @@
         "id": "9dd744652d869aa9",
         "type": "inject",
         "z": "a49d08e2.c6bc28",
-        "name": "",
+        "name": "SIGINT",
         "props": [
             {
                 "p": "kill",
@@ -8539,7 +8575,7 @@
         "once": true,
         "onceDelay": "3",
         "topic": "",
-        "x": 450,
+        "x": 460,
         "y": 560,
         "wires": [
             [
