@@ -25,6 +25,9 @@ sudo nano /etc/dphys-swapfile # dort statt 100 eine 1024 einsetzen #pimylifeup.c
 sudo reboot
 
 #Geschwindigkeit testen:
+sudo apt install hdparm
+sudo hdparm -t --direct /dev/mmcblk0 #33.06 MB/sec
+
 
 #neuen ssh-key für github erzeugen
 ssh-keygen #Enter Enter Enter

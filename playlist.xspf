@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist xmlns="http://xspf.org/ns/0/" xmlns:vlc="http://www.videolan.org/vlc/playlist/ns/0/" version="1">
+	<title>Playlist</title>
+	<trackList>
+		<track>
+			<location>http://stream03.uzic.ch:9010/</location>
+			<title>UZIC.CH :: TECHNO-MINIMAL</title>
+			<extension application="http://www.videolan.org/vlc/playlist/0">
+				<vlc:id>0</vlc:id>
+				<vlc:option>network-caching=1000</vlc:option>
+			</extension>
+		</track>
+		<track>
+			<location>http://stream.srg-ssr.ch/m/drsvirus/mp3_128</location>
+			<title>/SRF-Virus_Room1</title>
+			<extension application="http://www.videolan.org/vlc/playlist/0">
+				<vlc:id>1</vlc:id>
+				<vlc:option>network-caching=1000</vlc:option>
+			</extension>
+		</track>
+		<track>
+			<location>https://soundcloud.com/sickspud/tyk-tyk-tyk</location>
+			<title>Tyk Tyk Tyk</title>
+			<creator>SickSpud</creator>
+			<annotation>Sick Spud - Tyk Tyk Tyk\nDeep-house,minimal, techno\nRecording @ SceXstudio - Switzerland - 2016\nListen Sick Spud and other techno dj&#39;s on www.uzic.ch\n\n\n</annotation>
+			<info>https://soundcloud.com/sickspud/tyk-tyk-tyk</info>
+			<image>file:///home/pi/.cache/vlc/art/arturl/7beedf98365bb89e3c7834ed5b44d6f9/art</image>
+			<duration>4300206</duration>
+			<extension application="http://www.videolan.org/vlc/playlist/0">
+				<vlc:id>2</vlc:id>
+			</extension>
+		</track>
+	</trackList>
+	<extension application="http://www.videolan.org/vlc/playlist/0">
+		<vlc:item tid="0"/>
+		<vlc:item tid="1"/>
+		<vlc:item tid="2"/>
+	</extension>
+</playlist>

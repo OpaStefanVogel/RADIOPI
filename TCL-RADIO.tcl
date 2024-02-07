@@ -16,7 +16,7 @@ pack [button .wlan_ein -text "WLAN ein" -command "exec touch tmp/hostapd_start"]
 pack [button .wlan_aus -text "WLAN aus" -command "exec touch tmp/hostapd_stop"]
 pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
 pack [button .ansageaus -text "Ansage aus" -command "mache {Ansage aus}"]
-pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black -cursor none; wm attributes .c -fullscreen 1;bind .c X { focus -force . ; destroy .c}; bind .c <Button-1> {destroy .c ; focus -force .}; bind .c I {.info invoke}; "]
+pack [button .bildaus -text "Bild aus" -command "destroy .c; toplevel .c -background black -cursor none; wm attributes .c -fullscreen 1; bind .c X { focus -force . ; destroy .c}; bind .c <Button-1> {destroy .c ; focus -force .}; bind .c E {.radioan invoke}; bind .c A {.radioaus invoke}; bind .c P {.radiolauter invoke}; bind .c M {.radioleiser invoke}; bind .c I {.info invoke}; bind .c B {.bus31 invoke}; bind .c C {.bus62 invoke}; "]
 pack [button .swapoff -text "swapoff" -command "swapoffon"]
 pack [button .reboot -text "reboot" -command "sudoreboot"]
 
@@ -30,6 +30,16 @@ bind . I {.info invoke}
 bind . B {.bus31 invoke}
 bind . C {.bus62 invoke}
 bind . X {.bildaus invoke}
+bind . 1 {mache {rvlc goto 4}}
+bind . 2 {mache {rvlc goto 5}}
+bind . 3 {mache {rvlc goto 6}}
+bind . 4 {mache {rvlc goto 7}}
+bind . 5 {mache {rvlc goto 8}}
+bind . 6 {mache {rvlc goto 9}}
+bind . 7 {mache {rvlc goto 10}}
+bind . 8 {mache {rvlc goto 11}}
+bind . 9 {mache {rvlc goto 12}}
+bind . 0 {mache {rvlc goto 13}}
 
 set Test 0
 
