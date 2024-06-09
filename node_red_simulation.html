@@ -39,10 +39,16 @@ function init() {
 function erzeuge_div_Tabs() {
   let tcode='';
   for (let t=0;t<tabs.length;t++) {
-    tcode=tcode+'<div>Tab '+t+' mit '+tabs[t].rect.length+' nodes: '+tabs[t].quelle.label+'</div>\<div style="display:flex; flex-direction:column; overflow:auto; white-space:nowrap; max-height:420px; max-width:400px; border:solid black 10px">\n  <div id="svg" style="display:flex; flex-direction:row; overflow:auto; white-space:nowrap; width:4200px; height:4200px; border:solid green 10px">\n    <svg id="Grafik" width="10000" height="4200" style="border:solid 10px red" xmlns="http://www.w3.org/2000/svg">\n    <line x1="0" y1="0" x2="2000" y2="10000" stroke="black"/>\n';
-    for (n=0;n<tabs[t].rect.length;n++) {
+    tcode=tcode+'<div>Tab '+t+' mit '+tabs[t].rect.length+' nodes: '+tabs[t].quelle.label+'</div>\<div style="display:flex; flex-direction:column; overflow:auto; white-space:nowrap; max-height:420px; max-width:1000px; border:solid black 10px">\n  <div id="svg" style="display:flex; flex-direction:row; overflow:auto; white-space:nowrap; width:4200px; height:4200px; border:solid green 10px">\n    <svg id="Grafik" width="10000" height="4200" style="border:solid 10px red; font-size:50%" fill="none" stroke="gray" xmlns="http://www.w3.org/2000/svg">\n    <line x1="0" y1="0" x2="2000" y2="10000" stroke="black"/>\n';
+    for (let n=0;n<tabs[t].rect.length;n++) {
       let tn=tabs[t].rect[n];
-      tcode=tcode+'      <text x="'+tn.x+'" y="'+tn.y+'">'+tn.type+' '+tn.name+', </text>\n';
+      let ln0=tn.wires[0];//alert(JSON.stringify(ln0));
+      if (ln0) for (let l=0;l<ln0.length;l++) {
+        nxy=nodes[ln0[l]].quelle;//alert(JSON.stringify(nxy));
+        tcode=tcode+'      <path d="M '+tn.x+','+tn.y+' C '+(tn.x+100)+','+tn.y+' '+(nxy.x-100)+','+nxy.y+' '+nxy.x+','+nxy.y+'"/>\n';
+        }
+      tcode=tcode+'      <circle cx="'+tn.x+'" cy="'+tn.y+'" r="2"/>\n';
+      tcode=tcode+'      <text x="'+tn.x+'" y="'+(tn.y*1+12)+'">'+tn.type+' '+tn.name+'</text>\n';
       }
     tcode=tcode+'</svg></div></div>';
     }
@@ -50,6 +56,15 @@ function erzeuge_div_Tabs() {
   div_Tabs.innerHTML=tcode;
   }
   </script>
+
+        "x": 230,
+        "y": 2340,
+        "wires": [
+            [
+                "4df6bc04.ddfb04",
+                "68fb51fc.f6f76"
+            ]
+        ]
 
 <script>
 flow=[
