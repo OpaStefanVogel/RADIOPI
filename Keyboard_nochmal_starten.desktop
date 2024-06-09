@@ -2,6 +2,6 @@
 Exec=lxterminal -e './Keyboard_nochmal_starten;bash'
 #Exec=./Keyboard_nochmal_starten
 Type=Application
-Path=/home/pi/Desktop/CLONE/Repositories/RADIOPI
+Path=/home/pi/Desktop/CLONE/RADIOPI
 Terminal=false
 StartupNotify=true
