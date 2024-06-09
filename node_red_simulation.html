@@ -3,32 +3,45 @@
   <meta charset='utf-8'/>
   </head>
 <body onload='init()'>
-Hallo Welt
-<code>7<8</code>
+Hallo Welte 7<9
+<code>7<9 <div>xyz</div></code>
 
+<div id="div_Tabs"> </div>
 <style>.code {display:flex; overflow:auto; white-space:pre; font-family:Monospace; border:solid}</style>
 <div id="Logfile" class='code'> </div>
   
   </body>
-  </html>
 
 <script>
-function init() {
   let nodes={};
   let tabs=[];
   let functions=[];
+function init() {
+  nodes={};
+  tabs=[];
+  functions=[];
   for (node of flow) {
     nodes[node.id]={quelle:node};
     //if (node.func) alert(node.func);
-    if (node.type=='tab') tabs.push(node);
+    if (node.type=='tab') tabs.push(nodes[node.id]);
     if (node.type=='function') functions.push(node.func);
     }
   //alert(tabs.length+' tabs');
   //alert(functions.length+' functions');
   Logfile.firstChild.nodeValue='\n\n'+functions.join('\n\n—–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–—\n\n')+'\n';
+  erzeuge_div_Tabs();
   }
   </script>
-  
+
+<script>
+function erzeuge_div_Tabs() {
+  let tcode='';
+  for (let t=0;t<tabs.length;t++) {
+    tcode=tcode+'<div>Tab '+t+': '+tabs[t].quelle.label+'</div>';
+    }//alert(tcode);
+  div_Tabs.innerHTML=tcode;
+  }
+  </script>
 
 <script>
 flow=[
@@ -14554,3 +14567,4 @@ flow=[
 ]
 ;
   </script>
+  </html>
