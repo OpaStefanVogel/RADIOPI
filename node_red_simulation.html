@@ -21,13 +21,15 @@ function init() {
   tabs=[];
   functions=[];
   for (node of flow) {
-    nodes[node.id]={quelle:node};
+    nodes[node.id]={quelle:node,rect:[]};
     //if (node.func) alert(node.func);
     if (node.type=='tab') tabs.push(nodes[node.id]);
     if (node.type=='function') functions.push(node.func);
+    if (node.x) nodes[node.z].rect.push(node);
     }
   //alert(tabs.length+' tabs');
   //alert(functions.length+' functions');
+  //alert(tabs[4].rect.length);
   Logfile.firstChild.nodeValue='\n\n'+functions.join('\n\n—–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–—\n\n')+'\n';
   erzeuge_div_Tabs();
   }
@@ -37,8 +39,14 @@ function init() {
 function erzeuge_div_Tabs() {
   let tcode='';
   for (let t=0;t<tabs.length;t++) {
-    tcode=tcode+'<div>Tab '+t+': '+tabs[t].quelle.label+'</div><div style="display:flex; flex-direction:column; overflow:auto; white-space:nowrap; max-height:420px; max-width:400px; border:solid black 10px"><div id="svg" style="display:flex; flex-direction:row; overflow:auto; white-space:nowrap; width:4200px; height:4200px; border:solid green 10px"><svg id="Grafik" width="10000" height="4200" style="border:solid 10px red" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="2000" y2="10000" stroke="black"/></svg></div></div>';
-    }alert(tcode);
+    tcode=tcode+'<div>Tab '+t+' mit '+tabs[t].rect.length+' nodes: '+tabs[t].quelle.label+'</div>\<div style="display:flex; flex-direction:column; overflow:auto; white-space:nowrap; max-height:420px; max-width:400px; border:solid black 10px">\n  <div id="svg" style="display:flex; flex-direction:row; overflow:auto; white-space:nowrap; width:4200px; height:4200px; border:solid green 10px">\n    <svg id="Grafik" width="10000" height="4200" style="border:solid 10px red" xmlns="http://www.w3.org/2000/svg">\n    <line x1="0" y1="0" x2="2000" y2="10000" stroke="black"/>\n';
+    for (n=0;n<tabs[t].rect.length;n++) {
+      let tn=tabs[t].rect[n];
+      tcode=tcode+'      <text x="'+tn.x+'" y="'+tn.y+'">'+tn.type+' '+tn.name+', </text>\n';
+      }
+    tcode=tcode+'</svg></div></div>';
+    }
+  alert(tcode);
   div_Tabs.innerHTML=tcode;
   }
   </script>
