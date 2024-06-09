@@ -7,7 +7,7 @@ Hallo Welte 7<9
 <code>7<9 <div>xyz</div></code>
 
 <div id="div_Tabs"> </div>
-<style>.code {display:flex; overflow:auto; white-space:pre; font-family:Monospace; border:solid}</style>
+<style>.code {display:flex; overflow:auto; white-space:pre; font-family:Monospace; border:solid; max-height:420px}</style>
 <div id="Logfile" class='code'> </div>
   
   </body>
@@ -37,8 +37,8 @@ function init() {
 function erzeuge_div_Tabs() {
   let tcode='';
   for (let t=0;t<tabs.length;t++) {
-    tcode=tcode+'<div>Tab '+t+': '+tabs[t].quelle.label+'</div>';
-    }//alert(tcode);
+    tcode=tcode+'<div>Tab '+t+': '+tabs[t].quelle.label+'</div><div style="display:flex; flex-direction:column; overflow:auto; white-space:nowrap; max-height:420px; max-width:400px; border:solid black 10px"><div id="svg" style="display:flex; flex-direction:row; overflow:auto; white-space:nowrap; width:4200px; height:4200px; border:solid green 10px"><svg id="Grafik" width="10000" height="4200" style="border:solid 10px red" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="2000" y2="10000" stroke="black"/></svg></div></div>';
+    }alert(tcode);
   div_Tabs.innerHTML=tcode;
   }
   </script>
