@@ -1,17 +1,33 @@
 <html>
 <head>
+  <meta charset='utf-8'/>
   </head>
-<body onload="alert(0);init();alert(2)">
+<body onload='init()'>
 Hallo Welt
+<code>7<8</code>
+
+<style>.code {display:flex; overflow:auto; white-space:pre; font-family:Monospace; border:solid}</style>
+<div id="Logfile" class='code'> </div>
   
-<script>
-function init() {
-  alert(1);
-  alert(flow.length);
-  }
-  </script>
   </body>
   </html>
+
+<script>
+function init() {
+  let nodes={};
+  let tabs=[];
+  let functions=[];
+  for (node of flow) {
+    nodes[node.id]={quelle:node};
+    //if (node.func) alert(node.func);
+    if (node.type=='tab') tabs.push(node);
+    if (node.type=='function') functions.push(node.func);
+    }
+  //alert(tabs.length+' tabs');
+  //alert(functions.length+' functions');
+  Logfile.firstChild.nodeValue='\n\n'+functions.join('\n\n—–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–—\n\n')+'\n';
+  }
+  </script>
   
 
 <script>
