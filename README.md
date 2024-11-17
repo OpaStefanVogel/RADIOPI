@@ -3,46 +3,63 @@ RADIOPI
 #sc-card mit fdisk formatieren auf W95 FAT32 #http://www.technik-tipps-und-tricks.de/raspberry-pi/raspberry-pi-betriebssystem-installation/raspberry-pi-sd-karte-formatieren/#linux
 rpi-imager
 
-Start mit neuem Raspberry PI 4 und Bullseye
-df #3033540 11%
-dd if=/dev/zero of=./largefile bs=1M count=1024 #31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
-rm largefile
-#also erstmal Welcome to Rasoberry Pi durchmachen
-df #3205592 12%
-#und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
-sudo apt update
-sudo apt full-upgrade
-df #25951992  11%
+#Start mit Raspberry PI 4 und bookworm 32 bit und labwc ♥#... und Bullseye
+df #24290092 15%♥=vorher #3033540 11%
 
-cat /proc/cpuinfo #revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
+#dann als erstes♥
+sudo apt update
+sudo apt upgrade
+df #24358404 15%♥
+
+#in einem extra Terminal
+sudo watch cat /proc/swaps
+
+dd if=/dev/zero of=./largefile bs=1M count=1024 #21.2 MB/s ♥#31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
+rm largefile
+#hier nicht ♥#also erstmal Welcome to Raspberry Pi durchmachen
+df #3205592 12%
+#Preferences firefox, ssh, vnc, serial ohne console, remote GPIO, dann reboot und update ♥#und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
+df 23508696 #nach dem update♥
+
+
+cat /proc/cpuinfo #a03111 ♥#revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
 cat /sys/firmware/devicetree/base/model
-aplay /usr/share/sounds/alsa/Noise.wav
-speaker-test -t wav -c 4 #und wenn kein Stereo dann folgendes:
+aplay /usr/share/sounds/alsa/Noise.wav #vorher laut stellen ♥
+speaker-test -t wav -c 8 #war vorher 4 ♥
+rvlc https://soundcloud.com/sickspud/tyk-tyk-tyk
+rvlc http://www.uzic.ch/tek.m3u
+#und wenn kein Stereo dann folgendes: ist weg
+
 
 #im Dateimanager Einstellungen: single Klick, Remove, no ask
 
-sudo nano /etc/dphys-swapfile # dort statt 100 eine 1024 einsetzen #pimylifeup.com/raspberry-pi-swap-file
+#anschließend
+sudo nano /etc/dphys-swapfile #von 200 auf 1024 ♥# dort statt 100 eine 1024 einsetzen #pimylifeup.com/raspberry-pi-swap-file
 sudo reboot
 
-#Geschwindigkeit testen:
-sudo apt install hdparm
-sudo hdparm -t --direct /dev/mmcblk0 #33.06 MB/sec
-
+#oben schon ♥#Geschwindigkeit testen:
 
 #neuen ssh-key für github erzeugen
-ssh-keygen #Enter Enter Enter
-ssh-copy-id pi@localhost #pi@KEYSTATION_61 #und weitere
-#und den aus id_rsa.pub irgendwie zU github schaffen, dann geht
+ssh-keygen #und mit vnc aufs Tablet holen und zu github schaffen ♥#Enter Enter Enter
+ssh-copy-id pi@localhost #geht momentan nicht, sudo? ♥#pi@KEYSTATION_61 #und weitere
 cd Desktop
-git clone git@github.com:/OpaStefanVogel/OpaStefanVogel.github.io CLONE
+git clone git@github.com:OpaStefanVogel/OpaStefanVogel.github.io.git CLONE
 cd CLONE
-git submodule init
+git submodule init #momentan nicht drin, deshalb einzeln clonen
 git submodule update
-df #24453852  16%
+df #23505692 18%#24453852  16%
 
+git clone git@github.com:OpaStefanVogel/KLETTERN_UND_RUTSCHEN.git
+git clone git@github.com:OpaStefanVogel/RADIOPI.git #und so weiter alle durch ♥
+
+df #23493748 18% ♥
 
 #dann Anwendung node-red hinzuinstallieren aus Menü "Recommended Software"
-#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
+sudo apt install nodered #weil Menü noch leer, geht aber auch nicht, also später ♥
+
+
+
+#nö ♥#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
 #wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
 #wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_armhf.deb
 #wget https://downloads.vivaldi.com/stable/vivaldi-stable_4.3.2439.65-1_armhf.deb
@@ -53,26 +70,22 @@ cd KLETTERN_UND_RUTSCHEN
 git submodule init
 git submodule update --depth 1
 df #23483876  20%
-#jetzt sollte schon MIT_KONSTRUK_FF.html gehen
-
-cd ../RADIO
-git remote set-url origin git@github.com:OpaStefanVogel/RADIOPI.git #und die anderen auch
-
+#ok firefox geht auf Anhieb!!! ♥#jetzt sollte schon MIT_KONSTRUK_FF.html gehen
 
 #Desktop füllen
 cd
-ln -f -r -s -v ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
-ln -f -r -s -v ./Desktop/CLONE/*/*.desktop ./Desktop/.
-ln -f -r -s -v ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -f -r -s -v ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
-ln -f -r -s -v ./Desktop/CLONE/index.html .
+ln -f -r -s ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
+ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
+ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
+ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
 
+df #20400688 29% #♥#
 
-sudo apt-get install gitk
-sudo apt-get install screen
-sudo apt-get install espeak #für Ansage Zeit/Temperatur/Bus
-sudo apt install wolframscript
-sudo apt install zynaddsubfx #juhuuu geht wieder, jetzt auf aseqdump -p20:0
+sudo apt install gitk
+sudo apt install screen
+sudo apt install espeak #für Ansage Zeit/Temperatur/Bus
+sudo apt install wolframscript #später♥#
+sudo apt install zynaddsubfx -I alsa -O alsa #noch kein Ton ♥#juhuuu geht wieder, jetzt auf aseqdump -p20:0
 
 
 #aus der vorherigen SD rüberkopieren weil nicht comitted:
@@ -104,22 +117,20 @@ touch broadlink/switch_on
 wolframscript -cloud -code "10^200-(10^100+1)*(10^100-1)"
 
 
-
 #ganz neu, ein richtiger web-server für Rezepte.xml:
 #https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm
 sudo apt install lighttpd
-sudo systemctl status lighttpd
-sudo groupadd www-data
-sudo usermpod -G www-data -a pi
+sudo systemctl status lighttpd #active (running) ♥
+sudo groupadd www-data #already exists ♥
+sudo usermod -G www-data -a pi
 sudo usermod -G www-data -a pi
 sudo chown -R www-data:www-data /var/www/html
 sudo chmod -R 775 /var/www/html
 sudo service lighttpd force-reload
 sudo nano /etc/lighttpd/lighttpd.conf
-#dort die Zeile server.document-root umändern auf server.document-root = "/home/pi" 
+#dort die Zeile server.document-root umändern auf server.document-root = "/home/pi/Desktop/CLONE" 
 sudo reboot
 #Dann http://RADIO/Desktop/CLONE/Rezete.xml
-
 
 
 
@@ -129,7 +140,7 @@ sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96
   #zuletzt CORES=4, ALLOCATION=500, PRIORITY=5, #geht bisjetzt am flüssigsten
   #zuletzt CORES=1, ALLOCATION=500, PRIORITY=-1, #geht wie? bei 380 bleibt swap löschen stecken
   #zuletzt CORES=4, ALLOCATION=600, PRIORITY=-1, #geht wie?
-  #zuletzt SIZE=400, PRIORITY=5, #und CORE gibts nicht mehr
+  #zuletzt SIZE=400, PRIORITY=5, #♥#und CORE gibts nicht mehr
 sudo nano /etc/sysctl.conf #dort ergänzen:
 vm.vfs_cache_pressure=100             #zuletzt 500#100
 vm.swappiness=10                      #100#10 10=SWAP startet ab 90% gefüllt
@@ -142,7 +153,7 @@ sudo watch cat /proc/swaps
 //rpi-apps aus ???
 sudo apt install pulseeffects
 
-#-----------------------------------soweit Bullseye ---------------------------------------------------
+#-----------------------------------soweit Bookworm ♥ und Bullseye---------------------------------------------------
 #------------------------------------------------------------------------------------------------------
 
 
