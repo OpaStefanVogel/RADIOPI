@@ -15,7 +15,9 @@ Hallo Welt
   let nodes={};
   let tabs=[];
   let functions=[];
+  let flow=false;
 function init() {
+  if (flow) ; else {alert('fehlende Datei "flows_Radio.js"\n\nErst ein file "flows_Radio.js" erzeugen\nmit dem Inhalt "flow=..."\nund darin anstelle der "..."\nden Inhalt vom file "flows_Radio.json" einsetzen.');return}
   nodes={};
   tabs=[];
   functions=[];
@@ -65,7 +67,7 @@ function erzeuge_div_Tabs() {
           }
         tcode=tcode+'      <circle cx="'+tn.x+'" cy="'+(tn.y+out*10)+'" r="2"/>\n';
         }
-      tcode=tcode+'      <text onclick="alert(99)" x="'+tn.x+'" y="'+(tn.y*1-6)+'">'+tn.type+' '+tn.name+'</text>\n';
+      tcode=tcode+'      <text onclick="alert_id('+t+','+n+')" x="'+tn.x+'" y="'+(tn.y*1-6)+'">'+tn.type+' '+tn.name+'</text>\n';
       }
     tcode=tcode+'</svg></div></div>';
     }
@@ -74,8 +76,20 @@ function erzeuge_div_Tabs() {
   }
   </script>
 
-<script src="flows_Radio.js" type="text/javascript"></script>
+<script>
+function alert_id(t,n) {
+  let tn=tabs[t].rect[n];
+  if (tn.type=='inject') alert(tn.type);
+  if (tn.type=='function') alert(tn.func);
+  alert(JSON.stringify(tn));
+  }
+  </script>
+
+<script id="sc" src="flows_Radio.js" type="text/javascript"></script>
 <script>
 //alert(flow);
+//for (let i in sc) alert(i+'\n'+sc[i]);
+//alert(sc.dataset);
+//for (let i in sc['dataset']) alert(i);
   </script>
   </html>
