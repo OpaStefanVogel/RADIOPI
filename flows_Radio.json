@@ -4653,7 +4653,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Chemnitz: \"+Temperatur;\nreturn msg;\n",
+        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=Math.round(msg.payload.current.temperature[0].$.value);\nglobal.set('Temp',{Ch:Temperatur});\nvar output=Temperatur+\" °C um \"+zeitpunkt.toTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Chemnitz: \"+Temperatur;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4663,7 +4663,6 @@
         "y": 340,
         "wires": [
             [
-                "449f4847.b0f968",
                 "93be106cc27aa284"
             ]
         ]
@@ -5156,7 +5155,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=msg.payload.current.temperature[0].$.value.toString().split('.')[0];\nvar output=Temperatur+\" °C um \"+zeitpunkt.toTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Raun: \"+Temperatur;\nreturn msg;\n",
+        "func": "zeitpunkt=new Date(msg.payload.current.lastupdate[0].$.value);\nvar Temperatur=Math.round(msg.payload.current.temperature[0].$.value);\nglobal.set('Temp.Ra',Temperatur);\nvar output=Temperatur+\" °C um \"+zeitpunkt.toTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Raun: \"+Temperatur;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5166,7 +5165,6 @@
         "y": 400,
         "wires": [
             [
-                "449f4847.b0f968",
                 "93be106cc27aa284"
             ]
         ]
@@ -6681,7 +6679,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Temperatur=Math.round(msg.payload.lastMeasurement.value);\nlet output=Temperatur+\" °C um \"+Zeitpunkt.toTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Dresden, Ernemann Turm: \"+Temperatur;\nreturn msg;\n",
+        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Temperatur=Math.round(msg.payload.lastMeasurement.value);\nglobal.set('Temp.Dr',Temperatur);\nlet output=Temperatur+\" °C um \"+Zeitpunkt.toTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Dresden, Ernemann Turm: \"+Temperatur;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6691,7 +6689,6 @@
         "y": 460,
         "wires": [
             [
-                "449f4847.b0f968",
                 "93be106cc27aa284"
             ]
         ]
@@ -6701,7 +6698,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Temperatur=Math.round(msg.payload.lastMeasurement.value);\nlet output=Temperatur+\" °C um \"+Zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Vevey: \"+Temperatur;\nreturn msg;\n",
+        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Temperatur=Math.round(msg.payload.lastMeasurement.value);\nglobal.set('Temp.Ve',Temperatur);\nlet output=Temperatur+\" °C um \"+Zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Vevey: \"+Temperatur;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6711,7 +6708,6 @@
         "y": 520,
         "wires": [
             [
-                "449f4847.b0f968",
                 "93be106cc27aa284"
             ]
         ]
@@ -6950,7 +6946,8 @@
         "y": 580,
         "wires": [
             [
-                "1a9482b227f1cf89"
+                "1a9482b227f1cf89",
+                "d2e9b6e888044333"
             ]
         ]
     },
@@ -6975,7 +6972,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Feinstaub=msg.payload.lastMeasurement.value;\nlet output=Feinstaub+\" Mikrogramm je Kubikmeter um \"+Zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Feinstaub Chemnitz: \"+Feinstaub+\" Mikrogramm je Kubikmeter\";\nreturn msg;\n",
+        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Feinstaub=Math.round(msg.payload.lastMeasurement.value);\nglobal.set('Temp.FCh',Feinstaub);\nlet output=Feinstaub+\" Mikrogramm je Kubikmeter um \"+Zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Feinstaub Chemnitz: \"+Feinstaub+\" Mikrogramm je Kubikmeter\";\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6985,7 +6982,6 @@
         "y": 580,
         "wires": [
             [
-                "449f4847.b0f968",
                 "93be106cc27aa284"
             ]
         ]
@@ -7011,11 +7007,56 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 260,
+        "x": 280,
         "y": 560,
         "wires": [
             [
                 "a8153b0b73b2ce84"
+            ]
+        ]
+    },
+    {
+        "id": "d2e9b6e888044333",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 820,
+        "y": 720,
+        "wires": [
+            [
+                "8b4e3ff11801a5be"
+            ]
+        ]
+    },
+    {
+        "id": "8b4e3ff11801a5be",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "func": "let text=global.get('Temp');\nnode.status({fill:\"yellow\",shape:\"dot\",text:JSON.stringify(text)});\nmsg.payload='Temperatur in Grad Celsius, Chemnitz '+text.Ch+' Grad, Raun '+text.Ra+' Grad, Dresden '+text.Dr+' Grad, Vevey '+text.Ve+' Grad, Feinstaub Chemnitz: '+text.FCh+\" Mikrogramm je Kubikmeter\";\nnode.status({fill:\"yellow\",shape:\"dot\",text:msg.payload});\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 660,
+        "wires": [
+            [
+                "93be106cc27aa284",
+                "449f4847.b0f968"
             ]
         ]
     },
