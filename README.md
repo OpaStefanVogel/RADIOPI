@@ -1,7 +1,7 @@
 RADIOPI
 #Konfigurationsfiles für den Radio Raspberry Pi
 #sc-card mit fdisk formatieren auf W95 FAT32 #http://www.technik-tipps-und-tricks.de/raspberry-pi/raspberry-pi-betriebssystem-installation/raspberry-pi-sd-karte-formatieren/#linux
-rpi-imager
+#oder mit dem rpi-imager formatieren
 
 #Start mit Raspberry PI 4 und bookworm 32 bit und labwc ♥#... und Bullseye
 df #24290092 15%♥=vorher #3033540 11%

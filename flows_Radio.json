@@ -6913,7 +6913,7 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://api.opensensemap.org/boxes/5c30c8b22c80100019313cfa/sensors/5c30c8b22c80100019313cfe",
+        "url": "https://api.opensensemap.org/boxes/623209aebe6329001c86a6db/sensors/623209aebe6329001c86a6e0#5c30c8b22c80100019313cfa/sensors/5c30c8b22c80100019313cfe",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -6975,7 +6975,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Feinstaub=msg.payload.lastMeasurement.value;\nlet output=Feinstaub+\" Mikrogramm je Kubikmeter um \"+Zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Feinstaub Chemnitz: \"+Feinstaub;\nreturn msg;\n",
+        "func": "let Zeitpunkt=new Date(msg.payload.lastMeasurement.createdAt);\nlet Feinstaub=msg.payload.lastMeasurement.value;\nlet output=Feinstaub+\" Mikrogramm je Kubikmeter um \"+Zeitpunkt.toLocaleTimeString();\nnode.status({fill:\"yellow\",shape:\"dot\",text:output});\nmsg.payload=\"Feinstaub Chemnitz: \"+Feinstaub+\" Mikrogramm je Kubikmeter\";\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -6987,6 +6987,35 @@
             [
                 "449f4847.b0f968",
                 "93be106cc27aa284"
+            ]
+        ]
+    },
+    {
+        "id": "9ff9b1ea0d1be8e3",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 560,
+        "wires": [
+            [
+                "a8153b0b73b2ce84"
             ]
         ]
     },
