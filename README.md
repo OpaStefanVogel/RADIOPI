@@ -68,7 +68,13 @@ sudo apt install nodered #weil Menü noch leer, geht aber auch nicht, also spät
 
 cd KLETTERN_UND_RUTSCHEN
 git submodule init
-git submodule update --depth 1
+git submodule update --depth 1 
+#wenn git submodule update nicht duchgeht:
+cd
+ln -f -r -s ./Desktop/CLONE_2023/KLETTERN_UND_RUTSCHEN/threejs2024/build/ ./Desktop/CLONE/KLETTERN_UND_RUTSCHEN/threejs2024/.
+ln -f -r -s ./Desktop/CLONE_2024/KLETTERN_UND_RUTSCHEN/threejs2024/examples/ ./Desktop/CLONE/KLETTERN_UND_RUTSCHEN/threejs2024/.
+
+
 df #23483876  20%
 #ok firefox geht auf Anhieb!!! ♥#jetzt sollte schon MIT_KONSTRUK_FF.html gehen
 
