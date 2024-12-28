@@ -6606,7 +6606,6 @@
         "y": 280,
         "wires": [
             [
-                "449f4847.b0f968",
                 "133bc552500af6f0"
             ]
         ]
@@ -7007,7 +7006,7 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "let text=global.get('Temp');\nnode.status({fill:\"yellow\",shape:\"dot\",text:JSON.stringify(text)});\nmsg.payload='Temperatur in Grad Celsius, Chemnitz '+text.Ch+' Grad, Raun '+text.Ra+' Grad, Dresden '+text.Dr+' Grad, Vevey '+text.Ve+' Grad, Feinstaub Chemnitz: '+text.FCh+\" Mikrogramm je Kubikmeter\";\nnode.status({fill:\"yellow\",shape:\"dot\",text:msg.payload});\nreturn msg;\n",
+        "func": "let text=global.get('Temp');\nnode.status({fill:\"yellow\",shape:\"dot\",text:JSON.stringify(text)});\nmsg.payload='Temperatur in Grad Celsius, Chemnitz. '+text.Ch\n  +' . Raun. '+text.Ra\n  +' . Dresden. '+text.Dr\n  +' . Vevey. '+text.Ve\n  +' . Feinstaub Chemnitz. '+text.FCh+\" Mikrogramm je Kubikmeter\";\nnode.status({fill:\"yellow\",shape:\"dot\",text:msg.payload});\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
