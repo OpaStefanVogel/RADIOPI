@@ -1232,62 +1232,21 @@
         "z": "df2ae089.27e66",
         "name": "Vorlesen (\"vorzulesenden Text\" hinschicken)",
         "links": [
-            "ff53dda6.b761f",
-            "4c7e094a.d82148",
-            "d6f22b6c.0c4688",
             "56365600.07fe0c",
-            "9b284c24.0f5e5",
-            "ea58d61c.834528",
-            "b457e8f.091ba18",
-            "e2d9e145.519bb",
             "a37608eb.f5e428",
-            "82b83a6d.d972a8",
-            "87119ebd.0511d",
-            "9301f1b9.5ac26",
-            "b2791061.4ed19",
-            "d0c1c2d.315384",
             "e2e04866.0276d8",
             "cfd0925f.eb69f",
             "65333246.6150bc",
-            "3dbd7d64.be3ff2",
-            "7acc88f8.260048",
             "78a2a961.d6d0e8",
             "18d99c8e.b3f043",
             "af9dc596.ff09c8",
             "5f21b716.7f4068",
             "b0f419e8.529558",
             "89ded12f.26d2d",
-            "ecba8162.6fd69",
-            "3c2b9afa.c29d76",
-            "2d367de1.f7f692",
-            "150dcd81.2999f2",
-            "a1735dd5.c24ff",
-            "5724873f.0ab7b8",
-            "6e09f4fa.45a1cc",
-            "2572da3d.31d096",
-            "e4c85d82.437b9",
-            "585c8d38.82b854",
-            "4b504247.b677ac",
-            "a3cb1261.11d71",
-            "8075c985.570048",
-            "8727c42e.1d47b8",
-            "7963a087.0b70f",
-            "79b701f6.2456",
-            "197f938e.ca3afc",
-            "b0ec2cca.2b356",
-            "948f1587.ad8e08",
-            "750821c5.7d4bf",
-            "443c2269.a1facc",
-            "4787cef7.225b2",
-            "fc8238e0.cd0338",
-            "1b90b36b.29fd2d",
-            "c4af63f9.d9c66",
-            "4552a6ba.f3b8d8",
             "53b9771d.1fa048",
             "4b98d028.b81e8",
             "2c2cc807.ca8158",
             "b58329c1.d50828",
-            "6a565369.42817c",
             "120ff95.633b607"
         ],
         "x": 135,
@@ -4177,6 +4136,9 @@
         "useSSL": true,
         "autotls": "never",
         "port": "993",
+        "authtype": "BASIC",
+        "saslformat": false,
+        "token": "oauth2Response.access_token",
         "box": "INBOX",
         "disposition": "None",
         "criteria": "UNSEEN",
@@ -4317,12 +4279,6 @@
         "z": "4c1f2825.5c8bc8",
         "name": "Sheet Ansagen - Wetter Chemnitz",
         "links": [
-            "1f7210e6.5392af",
-            "ee8b90ed.b8d79",
-            "52cdffbf.0c3da",
-            "2cab4965.805ef6",
-            "765dedb0.cf1854",
-            "6935d75e.2cd2d8",
             "a24c0c99.2bfc2"
         ],
         "x": 155,
@@ -7526,9 +7482,7 @@
         "z": "2b3797a1.ec9d18",
         "name": "zum Vorlesen",
         "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
+            "6b533d6.c015cc4"
         ],
         "x": 943,
         "y": 929,
@@ -7937,18 +7891,10 @@
         "z": "a49d08e2.c6bc28",
         "name": "rvlc",
         "links": [
-            "4f8bdcbe.08de84",
             "8bd56f66.48157",
             "709cb912.694db8",
-            "171ae574.c0135b",
-            "5eb11923.d39d48",
-            "adb7f2bf.73a43",
-            "f41e47f5.0f2ab8",
-            "5d4fdbe2.3824b4",
-            "f13704d8.00fe18",
             "5dbcc3d7.c2590c",
-            "38ba60c7.c1d6f",
-            "8919a45538c5190a"
+            "38ba60c7.c1d6f"
         ],
         "x": 295,
         "y": 600,
@@ -8424,23 +8370,6 @@
         ]
     },
     {
-        "id": "ec617a3a.28ad48",
-        "type": "youtube-ytdl",
-        "z": "a49d08e2.c6bc28",
-        "name": "",
-        "url": "",
-        "urlType": "str",
-        "path": "/home/pi",
-        "pathType": "str",
-        "x": 420,
-        "y": 960,
-        "wires": [
-            [
-                "2d1f48e6.859b88"
-            ]
-        ]
-    },
-    {
         "id": "481a7a23.b25d84",
         "type": "inject",
         "z": "a49d08e2.c6bc28",
@@ -8656,6 +8585,23 @@
         "wires": [
             [
                 "e705cd71.ffdd5"
+            ]
+        ]
+    },
+    {
+        "id": "ec617a3a.28ad48",
+        "type": "youtube-ytdl",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "url": "",
+        "urlType": "str",
+        "path": "/home/pi",
+        "pathType": "str",
+        "x": 420,
+        "y": 960,
+        "wires": [
+            [
+                "2d1f48e6.859b88"
             ]
         ]
     },
@@ -9394,7 +9340,6 @@
         "z": "cc59d9f8.9429c8",
         "name": "gatttool output ohne join",
         "links": [
-            "9b199230.d71c9",
             "695dc0b0.cdfdd"
         ],
         "x": 635,
@@ -9541,10 +9486,7 @@
         "type": "link out",
         "z": "cc59d9f8.9429c8",
         "name": "stdout von gatttool -I0",
-        "links": [
-            "13e47c28.8e6cc4",
-            "e7686e1.93de09"
-        ],
+        "links": [],
         "x": 1335,
         "y": 320,
         "wires": []
@@ -10198,9 +10140,7 @@
         "z": "c82fd5f1.38c628",
         "name": "",
         "links": [
-            "6b533d6.c015cc4",
-            "466e22f5.4036fc",
-            "75e16a7b.0401a4"
+            "6b533d6.c015cc4"
         ],
         "x": 515,
         "y": 360,
@@ -10498,10 +10438,7 @@
             "1d240f0f.259b51",
             "4da46bfc.c0f9d4",
             "d7886334.d7d66",
-            "169ea3.71ff915e",
-            "296d79b0.a2c556",
-            "a82e6468.a50188",
-            "42c6ab64.1ab064"
+            "169ea3.71ff915e"
         ],
         "x": 75,
         "y": 1680,
@@ -10763,8 +10700,7 @@
         "z": "c0d2b8ff.7a7ce8",
         "name": "stdout von gatttool -I0",
         "links": [
-            "5c6ea42.5d12f5c",
-            "46ca8314.ea64cc"
+            "5c6ea42.5d12f5c"
         ],
         "x": 1315,
         "y": 1620,
@@ -11074,10 +11010,7 @@
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Schaltprogramm \"Heizung aus\"",
-        "links": [
-            "81b0bf8f.ac8c2",
-            "b187ef87.c94ca"
-        ],
+        "links": [],
         "x": 315,
         "y": 520,
         "wires": [
@@ -11101,10 +11034,7 @@
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Schaltprogramm \"Heizung an\"",
-        "links": [
-            "e937d913.f9cc08",
-            "7c0b40fb.3bb4d"
-        ],
+        "links": [],
         "x": 315,
         "y": 420,
         "wires": [
@@ -11356,10 +11286,7 @@
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Schaltprogramm \"Status abfragen\"",
-        "links": [
-            "4c3fdae7.2b2684",
-            "1dde554c.17b38b"
-        ],
+        "links": [],
         "x": 315,
         "y": 620,
         "wires": [
@@ -11593,10 +11520,7 @@
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "Schaltprogramm \"Temperatur einstellen\"",
-        "links": [
-            "cbd3e994.ec93d8",
-            "678922d4.759b8c"
-        ],
+        "links": [],
         "x": 315,
         "y": 720,
         "wires": [
@@ -11861,10 +11785,7 @@
         "type": "link out",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "links": [
-            "8febab8d.794748",
-            "420a1715.181768"
-        ],
+        "links": [],
         "x": 1660,
         "y": 800,
         "wires": []
@@ -11993,10 +11914,7 @@
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "ganze Woche umprogrammieren",
-        "links": [
-            "4c478841.5e3a68",
-            "e88cf0ea.0433d"
-        ],
+        "links": [],
         "x": 315,
         "y": 840,
         "wires": [
@@ -12400,9 +12318,7 @@
         "type": "link in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "was zum Chat gehen soll",
-        "links": [
-            "649df18a.0a84e"
-        ],
+        "links": [],
         "x": 200,
         "y": 3440,
         "wires": [
@@ -12418,9 +12334,7 @@
         "type": "link out",
         "z": "c0d2b8ff.7a7ce8",
         "name": "was vom Chat zurückgeschickt wird",
-        "links": [
-            "46ca8314.ea64cc"
-        ],
+        "links": [],
         "x": 655,
         "y": 3380,
         "wires": []
