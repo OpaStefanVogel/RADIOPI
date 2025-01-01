@@ -3,24 +3,38 @@ RADIOPI
 #sc-card mit fdisk formatieren auf W95 FAT32 #http://www.technik-tipps-und-tricks.de/raspberry-pi/raspberry-pi-betriebssystem-installation/raspberry-pi-sd-karte-formatieren/#linux
 #oder mit dem rpi-imager formatieren
 
-#Start mit Raspberry PI 4 und bookworm 32 bit und labwc ♥#... und Bullseye
-df #24290092 15%♥=vorher #3033540 11%
+#Start mit Raspberry PI 4 und bookworm 64 bit und wayland x11 ♥#... und Bullseye
+df #5053516 18%♥
 
 #dann als erstes♥
 sudo apt update
 sudo apt upgrade
-df #24358404 15%♥
+df #5479484 20%♥
+
+#nochmal mit raspi-config vnc einschalten, dann gehts
+
+#display drehen mit Preferences→Screen_Configuration (wirkt dauerhaft erst nach mehreren Versuchen)²
+
+#den touch um 90° drehen laut https://www.raspberrypi.com/documentation/accessories/touch-display-2.html#install
+#  mit dtoverlay=vc4-kms-dsi-ili9881-7inch,sizex=400,swapxy,invy in /boot/firmware/config.txt
+#  https://www.instructables.com/Rotate-Raspberry-Pi-Display-and-Touchscreen/ ging dafür auch
+
+#den authorized_key "Galax" für connect-bot reinkopieren aus dem alten authorized_keys, dann geht connect-bot	
+
+#genügend swap-Speicher bereitstellen
+sudo nano /etc/dphys-swapfile #von 200 auf 1024 ♥# dort statt 100 eine 1024 einsetzen #pimylifeup.com/raspberry-pi-swap-file
+sudo reboot
 
 #in einem extra Terminal
 sudo watch cat /proc/swaps
 
-dd if=/dev/zero of=./largefile bs=1M count=1024 #21.2 MB/s ♥#31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
-rm largefile
-#hier nicht ♥#also erstmal Welcome to Raspberry Pi durchmachen
-df #3205592 12%
-#Preferences firefox, ssh, vnc, serial ohne console, remote GPIO, dann reboot und update ♥#und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
-df 23508696 #nach dem update♥
+df #7119336 25%
 
+dd if=/dev/zero of=./largefile bs=1M count=1024 #21.7 MB/s ♥#31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
+rm largefile
+
+#Preferences firefox, ssh, vnc, serial ohne console, remote GPIO, dann reboot und update ♥#und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
+df #7127580 25%
 
 cat /proc/cpuinfo #a03111 ♥#revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
 cat /sys/firmware/devicetree/base/model
@@ -30,12 +44,7 @@ rvlc https://soundcloud.com/sickspud/tyk-tyk-tyk
 rvlc http://www.uzic.ch/tek.m3u
 #und wenn kein Stereo dann folgendes: ist weg
 
-
 #im Dateimanager Einstellungen: single Klick, Remove, no ask
-
-#anschließend
-sudo nano /etc/dphys-swapfile #von 200 auf 1024 ♥# dort statt 100 eine 1024 einsetzen #pimylifeup.com/raspberry-pi-swap-file
-sudo reboot
 
 #oben schon ♥#Geschwindigkeit testen:
 
@@ -47,17 +56,27 @@ git clone git@github.com:OpaStefanVogel/OpaStefanVogel.github.io.git CLONE
 cd CLONE
 git submodule init #momentan nicht drin, deshalb einzeln clonen
 git submodule update
-df #23505692 18%#24453852  16%
+df #?? 27%#
 
-git clone git@github.com:OpaStefanVogel/KLETTERN_UND_RUTSCHEN.git
-git clone git@github.com:OpaStefanVogel/RADIOPI.git #und so weiter alle durch ♥
-
-df #23493748 18% ♥
+#wenn submodule nicht geht, einzeln:
+#git clone git@github.com:OpaStefanVogel/KLETTERN_UND_RUTSCHEN.git
+#git clone git@github.com:OpaStefanVogel/RADIOPI.git #und so weiter alle durch ♥
 
 #dann Anwendung node-red hinzuinstallieren aus Menü "Recommended Software"
 sudo apt install nodered #weil Menü noch leer, geht aber auch nicht, also später ♥
+#oder wenn nicht geht das bash script aus https://nodered.org/docs/getting-started/raspberrypi
+#dann die fehlenden nodes nachladen
+#node email neues passwort https://bustatech.com/send-and-receive-email-on-node-red/
+df #?? ??%#
 
-
+#node-red starten
+cd RADIOPI
+node-red ./flows_Radio.json 
+#in .node-red/settings.js setze flowFilePretty: true
+#mit Tablet-Browser localhost:1880 menu-install dropbox daemon
+#und schon geht Temperaturansage von alleine los
+#inject Radio an#oder besser über Touchscreen.html
+#und node email adresse neu einsetzen#dann kommt schon die neue Email
 
 #nö ♥#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
 #wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
@@ -65,17 +84,15 @@ sudo apt install nodered #weil Menü noch leer, geht aber auch nicht, also spät
 #wget https://downloads.vivaldi.com/stable/vivaldi-stable_4.3.2439.65-1_armhf.deb
 #dann im Filemanager installieren und starten und gleich synchronisieren und als Startbrowser einstellen
 
-
 cd KLETTERN_UND_RUTSCHEN
 git submodule init
-git submodule update --depth 1 
+git submodule update --depth 1
+df #9209052 33%#
 #wenn git submodule update nicht duchgeht:
 cd
 ln -f -r -s ./Desktop/CLONE_2023/KLETTERN_UND_RUTSCHEN/threejs2024/build/ ./Desktop/CLONE/KLETTERN_UND_RUTSCHEN/threejs2024/.
 ln -f -r -s ./Desktop/CLONE_2024/KLETTERN_UND_RUTSCHEN/threejs2024/examples/ ./Desktop/CLONE/KLETTERN_UND_RUTSCHEN/threejs2024/.
 
-
-df #23483876  20%
 #ok firefox geht auf Anhieb!!! ♥#jetzt sollte schon MIT_KONSTRUK_FF.html gehen
 
 #Desktop füllen
@@ -83,7 +100,7 @@ cd
 ln -f -r -s ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/Repositories/RADIOPI/.xsessionrc .xsessionrc
+ln -f -r -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
 df #20400688 29% #♥#
 
@@ -91,8 +108,10 @@ sudo apt install gitk
 sudo apt install screen
 sudo apt install espeak #für Ansage Zeit/Temperatur/Bus
 sudo apt install wolframscript #später♥#
-sudo apt install zynaddsubfx -I alsa -O alsa #noch kein Ton ♥#juhuuu geht wieder, jetzt auf aseqdump -p20:0
-
+sudo apt install zynaddsubfx#noch kein Ton ♥#juhuuu geht wieder, jetzt auf aseqdump -p20:0
+zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
+sudo apt install xscreensaver
+sudo apt install pulseeffects
 
 #aus der vorherigen SD rüberkopieren weil nicht comitted:
 #Diagonalen.js
@@ -104,24 +123,23 @@ sudo apt install zynaddsubfx -I alsa -O alsa #noch kein Ton ♥#juhuuu geht wied
 sudo nano /boot/config.txt
 dtoverlay=uart5
 
-
-#node-red starten
-cd RADIO
-node-red ./flows_Radio.json 
-#in .node-red/settings.js setze flowFilePretty: true
-#mit Tablet-Browser localhost:1880 menu-install dropbox daemon
-#und schon geht Temperaturansage von alleine los
-#inject Radio an#oder besser über Touchscreen.html
-#und node email adresse neu einsetzen#dann kommt schon die neue Email
-
-
 #.history füllen mit
 make;hexdump kernel.img -v -e '1/4 "%08x" "\n"' >/dev/ttyS0;echo -n "MN" >/dev/ttyS0
 ytdl "https://youtu.be/1OxRLXTHqls" | mpv --force-seekable=yes - #Hexer und Medizinmann
+
 touch broadlink/switch_off
 touch broadlink/switch_on
+touch /tmp/ttyS0_RXD
+touch /tmp/RADIO_Ansage.txt
 wolframscript -cloud -code "10^200-(10^100+1)*(10^100-1)"
 
+
+#alternativ zum nachfolgenden lighttpd: apache2
+sudo apt install apache2
+sudo nano /etc/apache2/envvars #dort eintragen APACHE_RUN_USER=pi und APACHE_RUN_GROUP=pi
+sudo mv /var/www/html/ /var/www/html2/
+sudo ln -f -r -s ./Desktop/CLONE/ /var/www/html
+sudo chown www-data:www-data /var/www/html
 
 #ganz neu, ein richtiger web-server für Rezepte.xml:
 #https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm
@@ -129,16 +147,21 @@ sudo apt install lighttpd
 sudo systemctl status lighttpd #active (running) ♥
 sudo groupadd www-data #already exists ♥
 sudo usermod -G www-data -a pi
-sudo usermod -G www-data -a pi
 sudo chown -R www-data:www-data /var/www/html
 sudo chmod -R 775 /var/www/html
 sudo service lighttpd force-reload
 sudo nano /etc/lighttpd/lighttpd.conf
 #dort die Zeile server.document-root umändern auf server.document-root = "/home/pi/Desktop/CLONE" 
 sudo reboot
-#Dann http://RADIO/Desktop/CLONE/Rezete.xml
+#Dann http://RADIO/Desktop/CLONE/Rezepte.xml
 
-
+sudo apt-get install gap
+gap
+gap> 1/0; 
+brk> quit;
+gap> SaveWorkspace("GAP_WORKSPACE");
+gap> quit;
+df #???? ??%
 
 #bei Bedarf aus haydenjames.io/raspberry-pi-performance-add-zram-kernel-parameters/
 sudo apt install zram-tools
@@ -157,7 +180,6 @@ sudo reboot
 sudo watch cat /proc/swaps
 
 //rpi-apps aus ???
-sudo apt install pulseeffects
 
 #-----------------------------------soweit Bookworm ♥ und Bullseye---------------------------------------------------
 #------------------------------------------------------------------------------------------------------
@@ -212,13 +234,9 @@ df #7673 #27%
 
 #sudo apt-get remove pulseaudio #bei nspawn64, doch erstmal nicht
 
-df #7796 28%
-#sudo apt-get install xscreensaver #und damit Bildschirmschoner ein-/ausschalten
-#nicht mehr nötig
 #sudo nano /boot/cmdline.txt #und dort am Zeilenende nach Leerzeichen consoleblank=0 ergänzen
 
 sudo apt-get install zynaddsubfx #und schon mal mit ./.xsessionrc starten:
-zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
 
 
 df #7848 28%
@@ -236,15 +254,6 @@ mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an
 
 hostnamectl
 #hostnamectl set-hostname Radio #wenn noch nicht eingestellt
-
-
-sudo apt-get install gap
-gap
-gap> 1/0; 
-brk> quit;
-gap> SaveWorkspace("GAP_WORKSPACE");
-gap> quit;
-df #8743 31%
 
 cd Desktop/GHDL
 sudo apt-get install ghdl gtkwave #bzw. ghdl-llvm laut https://github.com/ghdl/ghdl/issues/1028
