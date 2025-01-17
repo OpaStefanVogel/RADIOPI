@@ -5520,29 +5520,6 @@
         ]
     },
     {
-        "id": "8ef5cb50.42e1c8",
-        "type": "inject",
-        "z": "4c1f2825.5c8bc8",
-        "name": "jede vollen Stunde",
-        "repeat": "",
-        "crontab": "0 0-22 * * *",
-        "once": false,
-        "topic": "jede volle Stunde",
-        "payload": "",
-        "payloadType": "date",
-        "x": 280,
-        "y": 2120,
-        "wires": [
-            [
-                "a9498e8d.4c409",
-                "527284ec.4b332c",
-                "6fb80b29.974174",
-                "9b38b14e.49083",
-                "f3a24a0e.5171c8"
-            ]
-        ]
-    },
-    {
         "id": "a9498e8d.4c409",
         "type": "delay",
         "z": "4c1f2825.5c8bc8",
@@ -5606,7 +5583,6 @@
         "y": 2180,
         "wires": [
             [
-                "eb921e54.a50dc",
                 "527284ec.4b332c",
                 "f3a24a0e.5171c8"
             ]
@@ -5716,30 +5692,6 @@
         "wires": [],
         "inputLabels": [
             "zum mpc"
-        ]
-    },
-    {
-        "id": "eb921e54.a50dc",
-        "type": "delay",
-        "z": "4c1f2825.5c8bc8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "outputs": 1,
-        "x": 600,
-        "y": 2220,
-        "wires": [
-            [
-                "398e7734.041688"
-            ]
         ]
     },
     {
@@ -7018,6 +6970,277 @@
             [
                 "93be106cc27aa284",
                 "449f4847.b0f968"
+            ]
+        ]
+    },
+    {
+        "id": "8ef5cb50.42e1c8",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "jede vollen Stunde",
+        "repeat": "",
+        "crontab": "0 0-22 * * *",
+        "once": false,
+        "topic": "jede volle Stunde",
+        "payload": "",
+        "payloadType": "date",
+        "x": 280,
+        "y": 2120,
+        "wires": [
+            [
+                "a9498e8d.4c409",
+                "527284ec.4b332c",
+                "6fb80b29.974174",
+                "9b38b14e.49083",
+                "f3a24a0e.5171c8",
+                "4654437921e58b57"
+            ]
+        ]
+    },
+    {
+        "id": "ac27a9b700212256",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "stop von DJ2",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nvar s=global.get(\"DJ\")||'aus';\nvar t=global.get(\"DJ2\")||'an';\n\nnode.status({text:r+\" \"+s+\" \"+t});\nif (r==\"an\"&&s=='Pause'&&t=='an') return msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 1800,
+        "wires": [
+            [
+                "527284ec.4b332c"
+            ]
+        ]
+    },
+    {
+        "id": "af34166cd0e12747",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "play von DJ2",
+        "func": "var r=global.get(\"Radio\")||\"aus\";\nvar s=global.get(\"DJ\")||'aus';\nvar t=global.get(\"DJ2\")||'an';\n\nnode.status({text:r+\" \"+s+\" \"+t});\nif (r==\"an\"&&s=='Pause'&&t=='an') return msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 2080,
+        "wires": [
+            [
+                "d56c1f4d.3048a"
+            ]
+        ]
+    },
+    {
+        "id": "4654437921e58b57",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "12",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 1800,
+        "wires": [
+            [
+                "ac27a9b700212256",
+                "137545c7a0e27c78"
+            ]
+        ]
+    },
+    {
+        "id": "137545c7a0e27c78",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "6",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 1840,
+        "wires": [
+            [
+                "aafa87c7433d2b23",
+                "af34166cd0e12747"
+            ]
+        ]
+    },
+    {
+        "id": "aafa87c7433d2b23",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 1880,
+        "wires": [
+            [
+                "a5c02a90288ab674",
+                "ac27a9b700212256"
+            ]
+        ]
+    },
+    {
+        "id": "a5c02a90288ab674",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "6",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 1920,
+        "wires": [
+            [
+                "a625b03aa873e1e6",
+                "af34166cd0e12747"
+            ]
+        ]
+    },
+    {
+        "id": "a625b03aa873e1e6",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "13",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 1960,
+        "wires": [
+            [
+                "58198efa91983337",
+                "ac27a9b700212256"
+            ]
+        ]
+    },
+    {
+        "id": "58198efa91983337",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "6",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 2000,
+        "wires": [
+            [
+                "6c535faefd10d903",
+                "af34166cd0e12747"
+            ]
+        ]
+    },
+    {
+        "id": "6c535faefd10d903",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 2040,
+        "wires": [
+            [
+                "017aa44fe9b53659",
+                "ac27a9b700212256"
+            ]
+        ]
+    },
+    {
+        "id": "017aa44fe9b53659",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "6",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 2080,
+        "wires": [
+            [
+                "af34166cd0e12747"
             ]
         ]
     },
