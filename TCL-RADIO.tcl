@@ -11,7 +11,7 @@ pack [button .info -text "Info" -command "mache {Radio Info}"]
 pack [button .bus31 -text "Bus 31" -command "mache Bus31"]
 pack [button .bus62 -text "Bus 62" -command "mache Bus62"]
 pack [button .rpib -text "RPI B" -command RPIB]
-pack [button .ttyAMA1 -text "ttyAMA1" -command ttyAMA1]
+pack [button .ttyAMA5 -text "ttyAMA5" -command ttyAMA5]
 pack [button .wlan_ein -text "WLAN ein" -command "exec touch tmp/hostapd_start"]
 pack [button .wlan_aus -text "WLAN aus" -command "exec touch tmp/hostapd_stop"]
 pack [button .ansageein -text "Ansage an" -command "mache {Ansage an}"]
@@ -63,8 +63,8 @@ proc RPIB {} {
   exec echo >/dev/ttyS0 "77 88 M* M. F0 EMIT 9D EMIT 84 EMIT 9E EMIT 20 EMIT"
   }
 
-proc ttyAMA1 {} {
-  exec lxterminal -e "stty -F /dev/ttyAMA1 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; cp /dev/ttyAMA1 /dev/tty & cp /dev/tty /dev/ttyAMA1" &
+proc ttyAMA5 {} {
+  exec lxterminal -e "stty -F /dev/ttyAMA5 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; cp /dev/ttyAMA5 /dev/tty & cp /dev/tty /dev/ttyAMA5" &
   exec echo >/dev/ttyS0 "55 66 77 M* M."
   exec echo >/dev/ttyS0 "55 66 M* M. F0 EMIT 9D EMIT 84 EMIT 9E EMIT 20 EMIT"
   }

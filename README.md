@@ -102,6 +102,9 @@ ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
+ln -f -r -s /tmp ./Desktop/CLONE/RADIOPI/.
+
+
 df #20400688 29% #♥#
 
 sudo apt install gitk

@@ -3119,9 +3119,9 @@
         "type": "watch",
         "z": "df2ae089.27e66",
         "name": "",
-        "files": "/tmp/RADIO_Ansage.txt",
+        "files": "./tmp/RADIO_Ansage.txt",
         "recursive": "",
-        "x": 220,
+        "x": 230,
         "y": 2200,
         "wires": [
             [
@@ -3134,11 +3134,13 @@
         "type": "file in",
         "z": "df2ae089.27e66",
         "name": "",
-        "filename": "/tmp/RADIO_Ansage.txt",
+        "filename": "./tmp/RADIO_Ansage.txt",
+        "filenameType": "str",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
+        "allProps": false,
         "x": 470,
         "y": 2200,
         "wires": [
@@ -8828,6 +8830,73 @@
         ]
     },
     {
+        "id": "863af67370ded373",
+        "type": "exec",
+        "z": "a49d08e2.c6bc28",
+        "command": "pwd",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 1120,
+        "wires": [
+            [
+                "4c424fa4b6df93ad"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7054064ef77f1462",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 1120,
+        "wires": [
+            [
+                "863af67370ded373"
+            ]
+        ]
+    },
+    {
+        "id": "4c424fa4b6df93ad",
+        "type": "debug",
+        "z": "a49d08e2.c6bc28",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1120,
+        "wires": []
+    },
+    {
         "id": "9848b237.267d6",
         "type": "websocket in",
         "z": "8b708117.11fb9",
@@ -13192,7 +13261,7 @@
         "name": "",
         "filetype": "text",
         "split": "\\n",
-        "filename": "/tmp/ttyS0_RXD",
+        "filename": "./tmp/ttyS0_RXD",
         "inputs": 0,
         "x": 100,
         "y": 240,
