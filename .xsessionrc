@@ -14,3 +14,4 @@ stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff
 #cp Desktop/CLONE/BAKINGPI/ok02/INIT41.txt /dev/ttyS0
 (echo 0 | sudo tee /sys/class/leds/led1/brightness > /dev/null) &
 (echo 0 | sudo tee /sys/class/leds/led0/brightness > /dev/null) &
+( sleep 40;lxterminal -e "stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; tee </dev/ttyS0 /tmp/ttyS0_RXD & cp /dev/tty /dev/ttyS0") &

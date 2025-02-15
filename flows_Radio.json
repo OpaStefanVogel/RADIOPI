@@ -1241,7 +1241,6 @@
             "18d99c8e.b3f043",
             "af9dc596.ff09c8",
             "5f21b716.7f4068",
-            "b0f419e8.529558",
             "89ded12f.26d2d",
             "53b9771d.1fa048",
             "4b98d028.b81e8",
@@ -3154,8 +3153,9 @@
         "type": "link out",
         "z": "df2ae089.27e66",
         "name": "/tmp/Radio/Ansage.txt",
+        "mode": "link",
         "links": [
-            "6b533d6.c015cc4"
+            "35b0a1b5.88525e"
         ],
         "x": 635,
         "y": 2200,
@@ -3173,7 +3173,8 @@
             "f95e4c0b.0ce5a",
             "58c6c558.2e1cfc",
             "03ac323787131df5",
-            "449f4847.b0f968"
+            "449f4847.b0f968",
+            "b0f419e8.529558"
         ],
         "x": 135,
         "y": 2020,
@@ -3471,8 +3472,9 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var ret=[null,null,null,null];\nif (msg.action==\"down\") {\n  if ((global.get(\"keydown\")==1)&&(msg.payload==42)) ret[0]={};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==54)) ret[1]={};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==97)) ret[2]={};\n  global.set(\"keydown\",msg.payload);\n  node.status({text:msg.payload})\n  return ret;\n  }\n",
+        "func": "var ret=[null,null,null,null];\nif (msg.action==\"down\") {\n  if ((global.get(\"keydown\")==1)&&(msg.payload==42)) ret[0]={payload:\"set last_key shift_left\"};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==54)) ret[1]={payload:\"set last_key shift_right\"};\n  if ((global.get(\"keydown\")==1)&&(msg.payload==97)) ret[2]={};\n  global.set(\"keydown\",msg.payload);\n  node.status({text:msg.payload})\n  return ret;\n  }\n",
         "outputs": 3,
+        "timeout": "",
         "noerr": 0,
         "initialize": "global.set(\"keydown\",0);\n",
         "finalize": "",
@@ -4272,6 +4274,74 @@
         "wires": [
             [
                 "17ae3c0d432b8a16"
+            ]
+        ]
+    },
+    {
+        "id": "4b42553f529ae34f",
+        "type": "exec",
+        "z": "df2ae089.27e66",
+        "command": "echo",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 957,
+        "y": 1973,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "07d2bd7e232ed0b3",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 600,
+        "y": 2000,
+        "wires": [
+            [
+                "10e59f48cfaf6c58"
+            ]
+        ]
+    },
+    {
+        "id": "10e59f48cfaf6c58",
+        "type": "template",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": " >/tmp/piper.txt 'Das ist ein vierter Test'\n",
+        "output": "str",
+        "x": 800,
+        "y": 1980,
+        "wires": [
+            [
+                "4b42553f529ae34f"
             ]
         ]
     },
@@ -5586,7 +5656,8 @@
         "wires": [
             [
                 "527284ec.4b332c",
-                "f3a24a0e.5171c8"
+                "f3a24a0e.5171c8",
+                "b38eb156099036eb"
             ]
         ]
     },
@@ -7240,6 +7311,31 @@
         "outputs": 1,
         "x": 900,
         "y": 2080,
+        "wires": [
+            [
+                "af34166cd0e12747"
+            ]
+        ]
+    },
+    {
+        "id": "b38eb156099036eb",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 2200,
         "wires": [
             [
                 "af34166cd0e12747"
@@ -12936,16 +13032,19 @@
         "name": "aktuelles_Gewicht",
         "func": "var m=msg.payload.slice(6,14);\nvar n=msg.payload.slice(15,16);\nvar Tara0g=global.get(\"Tara0g\");\nvar TaraXg=global.get(\"TaraXg\");\nvar Kalibrieren_auf_Xg=global.get(\"Kalibrieren_auf_Xg\");\nvar aktueller_Messwert=eval(\"0x\"+m);\nvar aktuelles_Gewicht=(aktueller_Messwert-Tara0g)/(TaraXg-Tara0g)*1.0*Kalibrieren_auf_Xg;\nglobal.set(\"aktueller_Messwert\",aktueller_Messwert);\nglobal.set(\"aktuelles_Gewicht\",aktuelles_Gewicht);\nnode.status({\"text\":aktuelles_Gewicht});\nmsg.payload=aktuelles_Gewicht;\nmsg.Kanal=n;\nmsg.raw=aktueller_Messwert;\nmsg.Frage_vom_Touchscreen=\"Waage\";\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 130,
         "y": 320,
         "wires": [
             [
                 "37948feb.b24ef",
                 "9ebf910f.1bfe7",
-                "bea236116968483b"
+                "bea236116968483b",
+                "5f42c1422a7c45c0"
             ]
         ]
     },
@@ -13405,6 +13504,56 @@
                 "7bb75e3372db5a62"
             ]
         ]
+    },
+    {
+        "id": "1779389d20901557",
+        "type": "link out",
+        "z": "2e9a16ae.4294ca",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "d438ba833cdc2a6f"
+        ],
+        "x": 715,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "5f42c1422a7c45c0",
+        "type": "function",
+        "z": "2e9a16ae.4294ca",
+        "name": "set aktuelles_Gewicht",
+        "func": "msg.payload=\"set aktuelles_Gewicht \"+msg.payload.toString().slice(0,8);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 360,
+        "wires": [
+            [
+                "1779389d20901557",
+                "9e5b23d49e0e4415"
+            ]
+        ]
+    },
+    {
+        "id": "9e5b23d49e0e4415",
+        "type": "debug",
+        "z": "2e9a16ae.4294ca",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 420,
+        "wires": []
     },
     {
         "id": "7d8ab507.04aabc",
@@ -14789,7 +14938,8 @@
         "z": "40dd5032dfbd45ba",
         "name": "RADIO focus -force .",
         "links": [
-            "508e3f2f008ee01f"
+            "508e3f2f008ee01f",
+            "1779389d20901557"
         ],
         "x": 145,
         "y": 760,
