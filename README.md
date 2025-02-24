@@ -166,6 +166,12 @@ gap> SaveWorkspace("GAP_WORKSPACE");
 gap> quit;
 df #???? ??%
 
+
+#piper installieren laut https://youtu.be/9e1Wt82GKmU
+
+
+
+
 #bei Bedarf aus haydenjames.io/raspberry-pi-performance-add-zram-kernel-parameters/
 sudo apt install zram-tools
 sudo nano /etc/default/zramswap # dort CORES=1, ALLOCATION=2048, PRIORITY=96

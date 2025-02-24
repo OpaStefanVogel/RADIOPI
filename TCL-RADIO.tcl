@@ -77,7 +77,7 @@ proc Bild_aus {} {
   global aktuelles_Gewicht
   destroy .c .c.l
   toplevel .c -background black -cursor none
-  label .c.l -font {Arial 240} -textvariable aktuelles_Gewicht
+  label .c.l -font {Arial 240} -bg black -fg yellow -textvariable aktuelles_Gewicht
   pack .c.l
   wm attributes .c -fullscreen 1; 
   bind .c X { focus -force . ; destroy .c}; 
@@ -99,6 +99,15 @@ proc Bild_aus {} {
 #chan event $f readable [puts "Hiho"]
 
 #after 10000 { set aktuelles_Gewicht "hehehheheheheee"; puts "Hiha"; chan puts $f "hiiiiihaaaaa"; chan flush $f }
+
+proc every {} {
+  global aktuelles_Gewicht
+  set aktuelles_Gewicht ""
+  puts every
+  after 20000 every
+  }
+
+every
 
 proc swapoffon {} {
   exec sudo swapoff /dev/zram0 

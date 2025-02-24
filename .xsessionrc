@@ -1,6 +1,8 @@
 speaker-test -c 8 -t wave -l 1 &
 touch /tmp/ttyS0_RXD
 touch /tmp/RADIO_Ansage.txt
+touch /tmp/piper.txt
+ln -f -r -s /tmp Desktop/CLONE/RADIOPI/.
 lxterminal --geometry=100x10 -e "sudo watch cat /proc/swaps" &
 cd Desktop/CLONE/RADIOPI/
 screen -d -m node-red ./flows_Radio.json & #nicht mehr sudo systemctl enable nodered.service

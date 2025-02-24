@@ -1233,7 +1233,6 @@
         "name": "Vorlesen (\"vorzulesenden Text\" hinschicken)",
         "links": [
             "56365600.07fe0c",
-            "a37608eb.f5e428",
             "e2e04866.0276d8",
             "cfd0925f.eb69f",
             "65333246.6150bc",
@@ -2053,8 +2052,9 @@
         "type": "link out",
         "z": "df2ae089.27e66",
         "name": "Hah hatter gesacht",
+        "mode": "link",
         "links": [
-            "6b533d6.c015cc4"
+            "35b0a1b5.88525e"
         ],
         "x": 296,
         "y": 2161,
@@ -2527,8 +2527,8 @@
         "randomUnits": "seconds",
         "drop": false,
         "outputs": 1,
-        "x": 570,
-        "y": 2080,
+        "x": 690,
+        "y": 2060,
         "wires": [
             [
                 "8ddb48bfa9b5c85d"
@@ -2642,8 +2642,8 @@
         "name": "",
         "server": "9d30c019.5a20e",
         "client": "",
-        "x": 320,
-        "y": 2040,
+        "x": 330,
+        "y": 2020,
         "wires": [
             [
                 "8ddb48bfa9b5c85d"
@@ -3174,10 +3174,11 @@
             "58c6c558.2e1cfc",
             "03ac323787131df5",
             "449f4847.b0f968",
-            "b0f419e8.529558"
+            "b0f419e8.529558",
+            "a37608eb.f5e428"
         ],
         "x": 135,
-        "y": 2020,
+        "y": 2000,
         "wires": [
             [
                 "6eab6c604f98e465",
@@ -3987,7 +3988,7 @@
         "oldrc": false,
         "name": "",
         "x": 960,
-        "y": 2080,
+        "y": 2100,
         "wires": [
             [],
             [],
@@ -4019,8 +4020,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 2080,
+        "x": 400,
+        "y": 2060,
         "wires": [
             [
                 "42a9e426.810d0c",
@@ -4103,13 +4104,10 @@
         "links": [
             "b76dca11.f7ca68"
         ],
-        "x": 135,
-        "y": 1960,
+        "x": 165,
+        "y": 1940,
         "wires": [
-            [
-                "f71363c87d5b53b2",
-                "2cc1b5adbe5beba8"
-            ]
+            []
         ]
     },
     {
@@ -4281,16 +4279,16 @@
         "id": "4b42553f529ae34f",
         "type": "exec",
         "z": "df2ae089.27e66",
-        "command": "echo",
-        "addpay": "payload",
-        "append": "",
+        "command": "aplay",
+        "addpay": "",
+        "append": "./tmp/piper.wav",
         "useSpawn": "false",
         "timer": "",
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 957,
-        "y": 1973,
+        "x": 1170,
+        "y": 1980,
         "wires": [
             [],
             [],
@@ -4316,32 +4314,106 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 600,
-        "y": 2000,
+        "payload": "7 8 9",
+        "payloadType": "str",
+        "x": 330,
+        "y": 1980,
         "wires": [
             [
-                "10e59f48cfaf6c58"
+                "8ddb48bfa9b5c85d"
             ]
         ]
     },
     {
-        "id": "10e59f48cfaf6c58",
-        "type": "template",
+        "id": "6a9f15e88d980a30",
+        "type": "exec",
         "z": "df2ae089.27e66",
+        "command": "./piper/piper/piper",
+        "addpay": "",
+        "append": "<./tmp/piper.txt --model ./piper/de_DE-thorsten-low.onnx --output_file ./tmp/piper.wav",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
         "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "plain",
-        "template": " >/tmp/piper.txt 'Das ist ein vierter Test'\n",
-        "output": "str",
-        "x": 800,
+        "x": 1010,
         "y": 1980,
         "wires": [
             [
                 "4b42553f529ae34f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a68b81c905507a6b",
+        "type": "file",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "filename": "./tmp/piper.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 660,
+        "y": 1980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "558c5ffbbd25b93a",
+        "type": "comment",
+        "z": "df2ae089.27e66",
+        "name": "←geht nicht mehr zu verbinden",
+        "info": "",
+        "x": 330,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "5035e1bdcc8771ee",
+        "type": "watch",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "files": "./tmp/piper.txt",
+        "recursive": "",
+        "x": 830,
+        "y": 1980,
+        "wires": [
+            [
+                "6a9f15e88d980a30"
+            ]
+        ]
+    },
+    {
+        "id": "33b78d872bb0ce50",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 820,
+        "y": 1940,
+        "wires": [
+            [
+                "6a9f15e88d980a30"
             ]
         ]
     },
