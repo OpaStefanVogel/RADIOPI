@@ -10,7 +10,9 @@ pack [button .radioleiser -text "leiser" -command "mache {Radio leiser}"]
 pack [button .info -text "Info" -command "mache {Radio Info}"]
 pack [button .bus31 -text "Bus 31" -command "mache Bus31"]
 pack [button .bus62 -text "Bus 62" -command "mache Bus62"]
-pack [button .rpib -text "RPI B" -command RPIB]
+#pack [button .rpib -text "RPI B" -command RPIB]
+pack [button .tara_0_g -text "Tara 0 g" -command "mache 0"]
+pack [button .tara_20_g -text "Tara 20 g" -command "mache 20"]
 #pack [label .l1 -textvariable aktuelles_Gewicht]
 pack [button .ttyAMA5 -text "ttyAMA5" -command ttyAMA5]
 pack [button .wlan_ein -text "WLAN ein" -command "exec touch tmp/hostapd_start"]
@@ -40,7 +42,8 @@ bind . 6 {mache {rvlc goto 9}}
 bind . 7 {mache {rvlc goto 10}}
 bind . 8 {mache {rvlc goto 11}}
 bind . 9 {mache {rvlc goto 12}}
-bind . 0 {mache {rvlc goto 13}}
+bind . 0 {.tara_0_g invoke}
+bind . o {.tara_20_g invoke}
 
 set Test 0
 
@@ -89,6 +92,8 @@ proc Bild_aus {} {
   bind .c I {.info invoke}; 
   bind .c B {.bus31 invoke}; 
   bind .c C {.bus62 invoke}; 
+  bind .c 0 {.tara_0_g invoke}
+  bind .c o {.tara_20_g invoke}
   }
 
 #exec mkfifo Tst.txt
@@ -146,7 +151,7 @@ proc readLine {who channel} {
 #	puts $channel "Return of $line"
 #	flush $channel
 	eval $line
-	puts "eval $aktuelles_Gewicht"
+	puts $aktuelles_Gewicht
 	set didRead 1
 #	focus -force .
     }

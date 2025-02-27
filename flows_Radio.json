@@ -9201,7 +9201,8 @@
                 "cb53952e.be6cd8",
                 "1aae2558.86bf2b",
                 "fa6ec396.8942d",
-                "dd76ae1f.16e4"
+                "dd76ae1f.16e4",
+                "3ca708abda098ba6"
             ]
         ]
     },
@@ -9504,6 +9505,19 @@
                 "7b144fd6.fc349"
             ]
         ]
+    },
+    {
+        "id": "3ca708abda098ba6",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "6918f1eecfd84610"
+        ],
+        "x": 435,
+        "y": 440,
+        "wires": []
     },
     {
         "id": "944293ef.3cb17",
@@ -13144,7 +13158,7 @@
         "name": "",
         "server": "841d57cb.021f68",
         "client": "",
-        "x": 520,
+        "x": 540,
         "y": 420,
         "wires": []
     },
@@ -13257,7 +13271,8 @@
         "wires": [
             [
                 "6671131d.44957c",
-                "9ebf910f.1bfe7"
+                "9ebf910f.1bfe7",
+                "5f42c1422a7c45c0"
             ]
         ]
     },
@@ -13595,7 +13610,7 @@
         "type": "function",
         "z": "2e9a16ae.4294ca",
         "name": "set aktuelles_Gewicht",
-        "func": "msg.payload=\"set aktuelles_Gewicht \"+msg.payload.toString().slice(0,8);\nreturn msg;",
+        "func": "msg.payload='set aktuelles_Gewicht \"'+Math.round(msg.payload).toString().slice(0,8)+' g\"';\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -13616,7 +13631,7 @@
         "type": "debug",
         "z": "2e9a16ae.4294ca",
         "name": "debug 2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -13626,6 +13641,51 @@
         "x": 740,
         "y": 420,
         "wires": []
+    },
+    {
+        "id": "6918f1eecfd84610",
+        "type": "link in",
+        "z": "2e9a16ae.4294ca",
+        "name": "Tarieren",
+        "links": [
+            "3ca708abda098ba6"
+        ],
+        "x": 95,
+        "y": 520,
+        "wires": [
+            [
+                "4b8bb32d.bf08ec"
+            ]
+        ]
+    },
+    {
+        "id": "ce020f72143a38d7",
+        "type": "inject",
+        "z": "2e9a16ae.4294ca",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "11.23456",
+        "payloadType": "str",
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "5f42c1422a7c45c0"
+            ]
+        ]
     },
     {
         "id": "7d8ab507.04aabc",
