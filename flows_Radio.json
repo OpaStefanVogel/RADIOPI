@@ -2531,7 +2531,7 @@
         "y": 2060,
         "wires": [
             [
-                "8ddb48bfa9b5c85d"
+                "a68b81c905507a6b"
             ]
         ]
     },
@@ -2646,7 +2646,7 @@
         "y": 2020,
         "wires": [
             [
-                "8ddb48bfa9b5c85d"
+                "a68b81c905507a6b"
             ]
         ]
     },
@@ -4287,12 +4287,18 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 1170,
-        "y": 1980,
+        "x": 1250,
+        "y": 1960,
         "wires": [
-            [],
-            [],
-            []
+            [
+                "b62a482f20619870"
+            ],
+            [
+                "b62a482f20619870"
+            ],
+            [
+                "b62a482f20619870"
+            ]
         ]
     },
     {
@@ -4320,30 +4326,8 @@
         "y": 1980,
         "wires": [
             [
-                "8ddb48bfa9b5c85d"
+                "a68b81c905507a6b"
             ]
-        ]
-    },
-    {
-        "id": "6a9f15e88d980a30",
-        "type": "exec",
-        "z": "df2ae089.27e66",
-        "command": "./piper/piper/piper",
-        "addpay": "",
-        "append": "<./tmp/piper.txt --model ./piper/de_DE-thorsten-low.onnx --output_file ./tmp/piper.wav",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 1010,
-        "y": 1980,
-        "wires": [
-            [
-                "4b42553f529ae34f"
-            ],
-            [],
-            []
         ]
     },
     {
@@ -4384,7 +4368,7 @@
         "y": 1980,
         "wires": [
             [
-                "6a9f15e88d980a30"
+                "0bbd8fab113115e2"
             ]
         ]
     },
@@ -4409,13 +4393,164 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 820,
+        "x": 840,
         "y": 1940,
         "wires": [
             [
-                "6a9f15e88d980a30"
+                "0bbd8fab113115e2"
             ]
         ]
+    },
+    {
+        "id": "7a8599498d297be4",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "0bbd8fab113115e2",
+        "type": "exec",
+        "z": "df2ae089.27e66",
+        "command": "./piper/piper/piper",
+        "addpay": "",
+        "append": "<./tmp/piper.txt --model ./piper/de_DE-thorsten-high.onnx --output_file  ./tmp/piper.wav --sentence_silence 0.3 --length_scale 1.2 --noise_w 1.0",
+        "useSpawn": "false",
+        "timer": "60",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1050,
+        "y": 1960,
+        "wires": [
+            [
+                "4b42553f529ae34f",
+                "b62a482f20619870"
+            ],
+            [
+                "b62a482f20619870"
+            ],
+            [
+                "b62a482f20619870"
+            ]
+        ]
+    },
+    {
+        "id": "36b8a9979e83a505",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "piper",
+        "command": "./piper/piper/piper",
+        "args": "--model ./piper/de_DE-thorsten-high.onnx --output_raw --sentence_silence 0.6 --length_scale 1.2 --noise_w 1.0 ",
+        "autorun": true,
+        "cr": true,
+        "redo": false,
+        "op": "buffer",
+        "x": 1090,
+        "y": 2020,
+        "wires": [
+            [
+                "bf2a8b99f2ccda0d",
+                "b62a482f20619870"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5d035e2301f7dc98",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "hallihallo",
+        "payloadType": "str",
+        "x": 1100,
+        "y": 2200,
+        "wires": [
+            [
+                "36b8a9979e83a505"
+            ]
+        ]
+    },
+    {
+        "id": "bf2a8b99f2ccda0d",
+        "type": "daemon",
+        "z": "df2ae089.27e66",
+        "name": "aplay",
+        "command": "aplay",
+        "args": "-r 22050 -f S16_LE -t raw -",
+        "autorun": true,
+        "cr": false,
+        "redo": false,
+        "op": "lines",
+        "x": 1230,
+        "y": 2020,
+        "wires": [
+            [
+                "b62a482f20619870"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6c6fdf1ce17f6d21",
+        "type": "file in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "filename": "./tmp/piper.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 920,
+        "y": 2020,
+        "wires": [
+            [
+                "36b8a9979e83a505"
+            ]
+        ]
+    },
+    {
+        "id": "b62a482f20619870",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1380,
+        "y": 2120,
+        "wires": []
     },
     {
         "id": "a6d13b06.eb2ce8",
@@ -7103,8 +7238,9 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "let text=global.get('Temp');\nnode.status({fill:\"yellow\",shape:\"dot\",text:JSON.stringify(text)});\nmsg.payload='Temperatur in Grad Celsius, Chemnitz. '+text.Ch\n  +' . Raun. '+text.Ra\n  +' . Dresden. '+text.Dr\n  +' . Vevey. '+text.Ve\n  +' . Feinstaub Chemnitz. '+text.FCh+\" Mikrogramm je Kubikmeter\";\nnode.status({fill:\"yellow\",shape:\"dot\",text:msg.payload});\nreturn msg;\n",
+        "func": "let text=global.get('Temp');\nnode.status({fill:\"yellow\",shape:\"dot\",text:JSON.stringify(text)});\nmsg.payload='Temperatur in Grad Celsius. Kemnitz. '+text.Ch\n  +' . Raun. '+text.Ra\n  +' . Dreesden. '+text.Dr\n  +' . Weweeh. '+text.Ve\n  +' . Feinstaub Kemnitz. '+text.FCh+' Mikrogramm je Kubikmeter. ';\nnode.status({fill:\"yellow\",shape:\"dot\",text:msg.payload});\nreturn msg;\n",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -7411,6 +7547,35 @@
         "wires": [
             [
                 "af34166cd0e12747"
+            ]
+        ]
+    },
+    {
+        "id": "e79af0029a5d2519",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 840,
+        "y": 780,
+        "wires": [
+            [
+                "8b4e3ff11801a5be"
             ]
         ]
     },
@@ -13343,8 +13508,8 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 610,
-        "y": 760,
+        "x": 580,
+        "y": 840,
         "wires": [
             []
         ]
@@ -13610,7 +13775,7 @@
         "type": "function",
         "z": "2e9a16ae.4294ca",
         "name": "set aktuelles_Gewicht",
-        "func": "msg.payload='set aktuelles_Gewicht \"'+Math.round(msg.payload).toString().slice(0,8)+' g\"';\nreturn msg;",
+        "func": "let m=msg.payload;  \nif (Math.abs(m)>=0) m=Math.round(m); else {m=Math.round(10*m)/10};\nmsg.payload='set aktuelles_Gewicht \"'+m+' g\"';\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -13631,7 +13796,7 @@
         "type": "debug",
         "z": "2e9a16ae.4294ca",
         "name": "debug 2",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

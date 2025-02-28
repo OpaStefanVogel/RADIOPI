@@ -80,7 +80,7 @@ proc Bild_aus {} {
   global aktuelles_Gewicht
   destroy .c .c.l
   toplevel .c -background black -cursor none
-  label .c.l -font {Arial 240} -bg black -fg yellow -textvariable aktuelles_Gewicht
+  label .c.l -font {Arial 400} -bg black -fg yellow -textvariable aktuelles_Gewicht
   pack .c.l
   wm attributes .c -fullscreen 1; 
   bind .c X { focus -force . ; destroy .c}; 
