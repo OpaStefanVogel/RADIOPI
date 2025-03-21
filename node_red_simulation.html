@@ -60,7 +60,7 @@ function erzeuge_div_Tabs() {
     for (let n=0;n<tabs[t].rect.length;n++) {
       let tn=tab.rect[n];
       for (let out=0;out<tn.wires.length;out++) {//alert(tn.wires.length);
-        let ln0=tn.wires[0];//alert(JSON.stringify(ln0));
+        let ln0=tn.wires[out];//alert(JSON.stringify(ln0));
         if (ln0) for (let l=0;l<ln0.length;l++) {
           let nxy=nodes[ln0[l]].quelle;//alert(JSON.stringify(nxy));
           tcode=tcode+'      <path d="M '+tn.x+','+(tn.y+out*10)+' C '+(tn.x+130)+','+(tn.y+out*10)+' '+(nxy.x-130)+','+nxy.y+' '+nxy.x+','+nxy.y+'"/>\n';
