@@ -5,6 +5,7 @@
   </head>
 <body onload='init()'>
 Hallo Welt
+<div id='id_types'>types</div>
 <div id="div_Tabs"> </div>
 <style>.code {display:flex; overflow:auto; white-space:pre; font-family:Monospace; border:solid; max-height:420px}</style>
 <div id="Logfile" class='code'> </div>
@@ -16,6 +17,8 @@ Hallo Welt
   let tabs=[];
   let functions=[];
   let flow=false;
+  let types={};
+
 function init() {
   if (flow) ; else {alert('fehlende Datei "flows_Radio.js"\n\nErst ein file "flows_Radio.js" erzeugen\nmit dem Inhalt "flow=..."\nund darin anstelle der "..."\nden Inhalt vom file "flows_Radio.json" einsetzen.');return}
   nodes={};
@@ -27,10 +30,14 @@ function init() {
     if (node.type=='tab') tabs.push(nodes[node.id]);
     if (node.type=='function') functions.push(node.func);
     if (node.x) nodes[node.z].rect.push(node);
+    //if (types.indexOf(node.type)==-1) types.push(node.type);
+    if (types[node.type]) ; else types[node.type]=[];
     }
   //alert(tabs.length+' tabs');
   //alert(functions.length+' functions');
   //alert(tabs[4].rect.length);
+  //alert(types);
+  id_types.innerHTML=JSON.stringify(types);
   Logfile.firstChild.nodeValue='\n\n'+functions.join('\n\n—–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–—\n\n')+'\n';
   erzeuge_div_Tabs();
   }
