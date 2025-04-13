@@ -1241,7 +1241,6 @@
             "af9dc596.ff09c8",
             "5f21b716.7f4068",
             "89ded12f.26d2d",
-            "53b9771d.1fa048",
             "4b98d028.b81e8",
             "2c2cc807.ca8158",
             "b58329c1.d50828",
@@ -3175,7 +3174,8 @@
             "03ac323787131df5",
             "449f4847.b0f968",
             "b0f419e8.529558",
-            "a37608eb.f5e428"
+            "a37608eb.f5e428",
+            "53b9771d.1fa048"
         ],
         "x": 135,
         "y": 2000,
@@ -4089,7 +4089,7 @@
         "syntax": "mustache",
         "template": "-p 30 -a 30 -s 160 -vde \"{{payload}}.\"",
         "x": 640,
-        "y": 1940,
+        "y": 1840,
         "wires": [
             [
                 "e3ca5d6c9598137b"
@@ -4320,9 +4320,9 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "7 8 9",
+        "payload": "10 11 12 13 14 15",
         "payloadType": "str",
-        "x": 330,
+        "x": 370,
         "y": 1980,
         "wires": [
             [
@@ -4364,11 +4364,11 @@
         "name": "",
         "files": "./tmp/piper.txt",
         "recursive": "",
-        "x": 830,
-        "y": 1980,
+        "x": 90,
+        "y": 1840,
         "wires": [
             [
-                "0bbd8fab113115e2"
+                "dafddc37014768f7"
             ]
         ]
     },
@@ -4402,22 +4402,6 @@
         ]
     },
     {
-        "id": "7a8599498d297be4",
-        "type": "debug",
-        "z": "df2ae089.27e66",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 300,
-        "y": 1860,
-        "wires": []
-    },
-    {
         "id": "0bbd8fab113115e2",
         "type": "exec",
         "z": "df2ae089.27e66",
@@ -4425,7 +4409,7 @@
         "addpay": "",
         "append": "<./tmp/piper.txt --model ./piper/de_DE-thorsten-high.onnx --output_file  ./tmp/piper.wav --sentence_silence 0.3 --length_scale 1.2 --noise_w 1.0",
         "useSpawn": "false",
-        "timer": "60",
+        "timer": "120",
         "winHide": false,
         "oldrc": false,
         "name": "",
@@ -4529,7 +4513,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 920,
-        "y": 2020,
+        "y": 2040,
         "wires": [
             [
                 "36b8a9979e83a505"
@@ -4553,6 +4537,135 @@
         "wires": []
     },
     {
+        "id": "13e2edb8d27f5c09",
+        "type": "file in",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "filename": "payload",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 480,
+        "y": 1840,
+        "wires": [
+            [
+                "8ddb48bfa9b5c85d"
+            ]
+        ]
+    },
+    {
+        "id": "dafddc37014768f7",
+        "type": "switch",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "property": "voice",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "espeak",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "thorsten",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 1840,
+        "wires": [
+            [
+                "13e2edb8d27f5c09"
+            ],
+            [
+                "0bbd8fab113115e2"
+            ]
+        ]
+    },
+    {
+        "id": "e59e09c2487099f8",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "espeak",
+        "payloadType": "str",
+        "x": 330,
+        "y": 1740,
+        "wires": [
+            [
+                "d6cea0e326265659"
+            ]
+        ]
+    },
+    {
+        "id": "d6cea0e326265659",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "global.set(\"voice\",msg.payload)",
+        "func": "global.set(\"voice\",msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bcdab1c923ecce4",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "thorsten",
+        "payloadType": "str",
+        "x": 340,
+        "y": 1780,
+        "wires": [
+            [
+                "d6cea0e326265659"
+            ]
+        ]
+    },
+    {
         "id": "a6d13b06.eb2ce8",
         "type": "link in",
         "z": "4c1f2825.5c8bc8",
@@ -4574,7 +4687,7 @@
         "z": "4c1f2825.5c8bc8",
         "name": "",
         "pauseType": "delay",
-        "timeout": "130",
+        "timeout": "70",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -4583,6 +4696,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "allowrate": false,
         "outputs": 1,
         "x": 310,
         "y": 160,
@@ -5954,8 +6068,7 @@
         "y": 2420,
         "wires": [
             [
-                "b1365662.9d8648",
-                "c2d8aa89.4e5bd8"
+                "b1365662.9d8648"
             ]
         ]
     },
@@ -6144,7 +6257,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Bitte nicht erschrecken, das Radio spielt gleich weiter \nmit volem Karacho.\n",
+        "template": "Bitte nicht erschrecken, das Radio spielt gleich weiter \nmit follem Karacho.\n",
         "output": "str",
         "x": 940,
         "y": 2220,
@@ -6305,8 +6418,9 @@
         "type": "link out",
         "z": "4c1f2825.5c8bc8",
         "name": "Kartoffelpreis und Batterien",
+        "mode": "link",
         "links": [
-            "6b533d6.c015cc4"
+            "35b0a1b5.88525e"
         ],
         "x": 1235,
         "y": 2360,
