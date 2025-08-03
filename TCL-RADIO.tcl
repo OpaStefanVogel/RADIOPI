@@ -94,6 +94,15 @@ proc Bild_aus {} {
   bind .c C {.bus62 invoke}; 
   bind .c 0 {.tara_0_g invoke}
   bind .c o {.tara_20_g invoke}
+  bind .c L {
+    toplevel .motoren -background teal -cursor none
+    wm attributes .motoren -fullscreen 1; 
+    bind .motoren X { focus -force . ; destroy .c ; destroy .motoren}; 
+    bind .motoren <Button-1> {destroy .c ; focus -force . ; destroy .motoren}; 
+    bind .motoren A {mache {Motor_1_plus}}
+    bind .motoren S {mache {Motor_1_aus}}
+    bind .motoren D {mache {Motor_1_minus}}
+    }
   }
 
 #exec mkfifo Tst.txt

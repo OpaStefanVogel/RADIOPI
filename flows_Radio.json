@@ -111,6 +111,14 @@
         "env": []
     },
     {
+        "id": "f7f5e3fd5c68be5e",
+        "type": "tab",
+        "label": "Motoren",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "dcf46aa6.338d68",
         "type": "subflow",
         "name": "aktuellen Schlüssel holen",
@@ -311,6 +319,16 @@
         "type": "sp2device",
         "mac": "780f7719cc2e",
         "host": "192.168.1.100"
+    },
+    {
+        "id": "9b6451b5ebd53d68",
+        "type": "websocket-client",
+        "path": "ws://192.168.1.134:1880/ws/motoren",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": "",
+        "headers": []
     },
     {
         "id": "f4f25af4.dd7ad8",
@@ -4652,8 +4670,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "1",
         "topic": "",
         "payload": "thorsten",
         "payloadType": "str",
@@ -4664,6 +4682,103 @@
                 "d6cea0e326265659"
             ]
         ]
+    },
+    {
+        "id": "9364c8433a8d251d",
+        "type": "schedex",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "passthroughunhandled": false,
+        "suspended": false,
+        "lat": "",
+        "lon": "",
+        "ontime": "07:28",
+        "ontopic": "",
+        "onpayload": "",
+        "onoffset": 0,
+        "onrandomoffset": 0,
+        "offtime": "goldenHour",
+        "offtopic": "",
+        "offpayload": "",
+        "offoffset": 0,
+        "offrandomoffset": 0,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "sun": true,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea5680d8f88f46ba",
+        "type": "inject",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1380,
+        "wires": [
+            [
+                "529987959970f4a7"
+            ]
+        ]
+    },
+    {
+        "id": "529987959970f4a7",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "function 1",
+        "func": "msg.payload=flow.keys();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1380,
+        "wires": [
+            [
+                "8e7c1981959a1935"
+            ]
+        ]
+    },
+    {
+        "id": "8e7c1981959a1935",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 1380,
+        "wires": []
     },
     {
         "id": "a6d13b06.eb2ce8",
@@ -9477,11 +9592,12 @@
             [
                 "c209e57.76ea818",
                 "27e57b46.1dc1c4",
-                "cb53952e.be6cd8",
                 "1aae2558.86bf2b",
                 "fa6ec396.8942d",
                 "dd76ae1f.16e4",
-                "3ca708abda098ba6"
+                "3ca708abda098ba6",
+                "cb53952e.be6cd8",
+                "83c1f238c4e86c76"
             ]
         ]
     },
@@ -9796,6 +9912,39 @@
         ],
         "x": 435,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "83c1f238c4e86c76",
+        "type": "function",
+        "z": "8b708117.11fb9",
+        "name": "Motoren",
+        "func": "var m=msg.payload;\nif (m.slice(0,5)==\"Motor\") {\n  node.status({text:m});\n  return msg;\n  }\n\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 520,
+        "wires": [
+            [
+                "6a5bfc4f6891d51d"
+            ]
+        ]
+    },
+    {
+        "id": "6a5bfc4f6891d51d",
+        "type": "link out",
+        "z": "8b708117.11fb9",
+        "name": "Ansage an/aus",
+        "mode": "link",
+        "links": [
+            "e47ee4068a7b418e"
+        ],
+        "x": 815,
+        "y": 520,
         "wires": []
     },
     {
@@ -15357,6 +15506,292 @@
         "wires": [
             [
                 "7ea32bee1124102b"
+            ]
+        ]
+    },
+    {
+        "id": "3433c463edcebf99",
+        "type": "websocket out",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "server": "",
+        "client": "9b6451b5ebd53d68",
+        "x": 750,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "ae8182559305b98e",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_1_plus",
+        "payloadType": "str",
+        "x": 310,
+        "y": 640,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "577f688de1667e0b",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_1_aus",
+        "payloadType": "str",
+        "x": 310,
+        "y": 700,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "0b1eff57cf54b0fb",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_1_minus",
+        "payloadType": "str",
+        "x": 320,
+        "y": 760,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "66a1fdf7e295dddd",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_2_plus",
+        "payloadType": "str",
+        "x": 310,
+        "y": 820,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "d233da55c1021b23",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_2_aus",
+        "payloadType": "str",
+        "x": 310,
+        "y": 880,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "b08912e55cbc1d5b",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_2_minus",
+        "payloadType": "str",
+        "x": 320,
+        "y": 940,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "bb161efcd7961822",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_3_plus",
+        "payloadType": "str",
+        "x": 310,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7b215660e0873d92",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_3_aus",
+        "payloadType": "str",
+        "x": 310,
+        "y": 1060,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "2796c6247454fe4f",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_3_minus",
+        "payloadType": "str",
+        "x": 320,
+        "y": 1120,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "e47ee4068a7b418e",
+        "type": "link in",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "Motoren",
+        "links": [
+            "6a5bfc4f6891d51d"
+        ],
+        "x": 355,
+        "y": 560,
+        "wires": [
+            [
+                "3433c463edcebf99"
             ]
         ]
     }
