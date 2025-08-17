@@ -95,6 +95,7 @@ proc Bild_aus {} {
   bind .c 0 {.tara_0_g invoke}
   bind .c o {.tara_20_g invoke}
   bind .c L {
+    mache {Motor_LED_0}
     toplevel .motoren -background teal 
     wm attributes .motoren -fullscreen 1; 
     pack [button .motoren.motor_1_Kippen  -text "K = Kippen" -command "mache {Motor_1_Kippen}" -font {Arial 40} ] -anchor w
@@ -103,7 +104,8 @@ proc Bild_aus {} {
     pack [button .motoren.motor_2_aus  -text "A = Drehen aus " -command "mache {Motor_2_aus}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_plus  -text "S = Drehen plus " -command "mache {Motor_2_plus}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_minus  -text "D = Drehen minus " -command "mache {Motor_2_minus}" -font {Arial 40} ] -anchor w
-    bind .motoren X { focus -force .c ; destroy .motoren}; 
+    pack [button .motoren.exit  -text "X = Fenster schließen" -command "focus -force .c ; destroy .motoren" -font {Arial 40} ] -side bottom -anchor w
+    bind .motoren X { focus -force .c ; destroy .motoren; mache {Motor_LED_1}}; 
 #    bind .motoren <Button-1> {focus -force . ; destroy .motoren}; 
     bind .motoren S {mache {Motor_2_plus}}
     bind .motoren A {mache {Motor_2_aus}}

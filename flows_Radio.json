@@ -15794,5 +15794,63 @@
                 "3433c463edcebf99"
             ]
         ]
+    },
+    {
+        "id": "1da1834cea8ad615",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_LED_0",
+        "payloadType": "str",
+        "x": 310,
+        "y": 1200,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "f99b75fa75b90be8",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_LED_1",
+        "payloadType": "str",
+        "x": 310,
+        "y": 1240,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
     }
 ]
