@@ -100,7 +100,7 @@ proc Bild_aus {} {
     wm attributes .motoren -fullscreen 1; 
     pack [button .motoren.motor_1_Kippen  -text "K = Kippen" -command "mache {Motor_1_Kippen}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Festhalten  -text "F = Festhalten " -command "mache {Motor_1_Festhalten}" -font {Arial 40} ] -anchor w
-    pack [button .motoren.motor_1_Loslassen  -text "L = Loslassen " -command "mache {Motor_1_Loslassen}" -font {Arial 40} ] -anchor w
+    pack [button .motoren.motor_1_Loslassen  -text "G = Loslassen " -command "mache {Motor_1_Loslassen}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_aus  -text "A = Drehen aus " -command "mache {Motor_2_aus}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_plus  -text "S = Drehen plus " -command "mache {Motor_2_plus}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_minus  -text "D = Drehen minus " -command "mache {Motor_2_minus}" -font {Arial 40} ] -anchor w
@@ -112,7 +112,7 @@ proc Bild_aus {} {
     bind .motoren D {mache {Motor_2_minus}}
     bind .motoren K {mache {Motor_1_Kippen}}
     bind .motoren F {mache {Motor_1_Festhalten}}
-    bind .motoren L {mache {Motor_1_Loslassen}}
+    bind .motoren G {mache {Motor_1_Loslassen}}
     }
   }
 

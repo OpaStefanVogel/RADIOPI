@@ -15524,6 +15524,7 @@
         "id": "ae8182559305b98e",
         "type": "inject",
         "z": "f7f5e3fd5c68be5e",
+        "d": true,
         "name": "",
         "props": [
             {
@@ -15553,6 +15554,7 @@
         "id": "577f688de1667e0b",
         "type": "inject",
         "z": "f7f5e3fd5c68be5e",
+        "d": true,
         "name": "",
         "props": [
             {
@@ -15582,6 +15584,7 @@
         "id": "0b1eff57cf54b0fb",
         "type": "inject",
         "z": "f7f5e3fd5c68be5e",
+        "d": true,
         "name": "",
         "props": [
             {
@@ -15628,8 +15631,8 @@
         "topic": "",
         "payload": "Motor_2_plus",
         "payloadType": "str",
-        "x": 310,
-        "y": 820,
+        "x": 630,
+        "y": 360,
         "wires": [
             [
                 "3433c463edcebf99"
@@ -15657,8 +15660,8 @@
         "topic": "",
         "payload": "Motor_2_aus",
         "payloadType": "str",
-        "x": 310,
-        "y": 880,
+        "x": 590,
+        "y": 460,
         "wires": [
             [
                 "3433c463edcebf99"
@@ -15686,8 +15689,8 @@
         "topic": "",
         "payload": "Motor_2_minus",
         "payloadType": "str",
-        "x": 320,
-        "y": 940,
+        "x": 620,
+        "y": 400,
         "wires": [
             [
                 "3433c463edcebf99"
@@ -15793,6 +15796,9 @@
             [
                 "3433c463edcebf99"
             ]
+        ],
+        "outputLabels": [
+            "vom Touchscreen"
         ]
     },
     {
@@ -15847,6 +15853,93 @@
         "payloadType": "str",
         "x": 310,
         "y": 1240,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "25f34b0f93556807",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_1_Kippen",
+        "payloadType": "str",
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "2744d9a6d8fe234c",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_1_Loslassen",
+        "payloadType": "str",
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "3433c463edcebf99"
+            ]
+        ]
+    },
+    {
+        "id": "e9a8a86e3fc9fcd7",
+        "type": "inject",
+        "z": "f7f5e3fd5c68be5e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Motor_1_Festhalten",
+        "payloadType": "str",
+        "x": 330,
+        "y": 400,
         "wires": [
             [
                 "3433c463edcebf99"
