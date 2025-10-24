@@ -97,14 +97,21 @@ proc Bild_aus {} {
   bind .c L {
     mache {Motor_LED_0}
     toplevel .motoren -background teal 
-    wm attributes .motoren -fullscreen 1; 
+    wm attributes .motoren -fullscreen 0; 
+    pack [frame .motoren.frame] -side right
+    pack [button .motoren.frame.motor_Pause  -text "P = Pause" -command "mache {Motor_Pause}" -font {Arial 40} ] -anchor w
+    pack [button .motoren.frame.motor_weiter  -text "W = weiter" -command "mache {Motor_weiter}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Kippen  -text "K = Kippen" -command "mache {Motor_1_Kippen}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Festhalten  -text "F = Festhalten " -command "mache {Motor_1_Festhalten}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Loslassen  -text "G = Loslassen " -command "mache {Motor_1_Loslassen}" -font {Arial 40} ] -anchor w
-    pack [button .motoren.motor_2_aus  -text "A = Drehen aus " -command "mache {Motor_2_aus}" -font {Arial 40} ] -anchor w
+    pack [button .motoren.motor_2_aus -activebackground red -background IndianRed -text "A = alles aus (NotAus)" -command "mache {Motor_2_aus}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_plus  -text "S = Drehen plus " -command "mache {Motor_2_plus}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_2_minus  -text "D = Drehen minus " -command "mache {Motor_2_minus}" -font {Arial 40} ] -anchor w
+
     pack [button .motoren.exit  -text "X = Fenster schließen" -command "focus -force .c ; destroy .motoren" -font {Arial 40} ] -side bottom -anchor w
+    pack [button .motoren.motor_2_testbeispiel  -text "T = Testbeispiel" -command "mache {Motor_Testbeispiel}" -font {Arial 40} ] -side bottom -anchor w
+    pack [button .motoren.motor_2_testbeispiel2  -text "Z = großes Testbeispiel" -command "mache {Motor_Testbeispiel2}" -font {Arial 40} ] -side bottom -anchor w
+
     bind .motoren X { focus -force .c ; destroy .motoren; mache {Motor_LED_1}}; 
 #    bind .motoren <Button-1> {focus -force . ; destroy .motoren}; 
     bind .motoren S {mache {Motor_2_plus}}
@@ -113,6 +120,10 @@ proc Bild_aus {} {
     bind .motoren K {mache {Motor_1_Kippen}}
     bind .motoren F {mache {Motor_1_Festhalten}}
     bind .motoren G {mache {Motor_1_Loslassen}}
+    bind .motoren T {mache {Motor_Testbeispiel}}
+    bind .motoren Z {mache {Motor_Testbeispiel2}}
+    bind .motoren P {mache {Motor_Pause}}
+    bind .motoren W {mache {Motor_weiter}}
     }
   }
 

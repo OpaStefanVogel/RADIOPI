@@ -9141,7 +9141,17 @@
         "id": "4c710d40.116884",
         "type": "inject",
         "z": "a49d08e2.c6bc28",
+        "d": true,
         "name": "add http://www.uzic.ch/tek.m3u",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": true,
@@ -9279,7 +9289,7 @@
         "topic": "",
         "payload": "goto 4",
         "payloadType": "str",
-        "x": 70,
+        "x": 90,
         "y": 620,
         "wires": [
             [
@@ -9308,7 +9318,7 @@
         "topic": "",
         "payload": "goto 5",
         "payloadType": "str",
-        "x": 70,
+        "x": 90,
         "y": 660,
         "wires": [
             [
@@ -9337,7 +9347,7 @@
         "topic": "",
         "payload": "goto 6",
         "payloadType": "str",
-        "x": 70,
+        "x": 90,
         "y": 700,
         "wires": [
             [
@@ -9457,6 +9467,33 @@
         "x": 680,
         "y": 1120,
         "wires": []
+    },
+    {
+        "id": "719788553d0576f9",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "add https://uzic.ice.infomaniak.ch/uzic-128.mp3",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "add https://uzic.ice.infomaniak.ch/uzic-128.mp3",
+        "payloadType": "str",
+        "x": 665.6666870117188,
+        "y": 453,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "9848b237.267d6",
