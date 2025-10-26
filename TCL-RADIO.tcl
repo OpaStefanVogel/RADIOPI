@@ -101,6 +101,8 @@ proc Bild_aus {} {
     pack [frame .motoren.frame] -side right
     pack [button .motoren.frame.motor_Pause  -text "P = Pause" -command "mache {Motor_Pause}" -font {Arial 40} ] -anchor w
     pack [button .motoren.frame.motor_weiter  -text "W = weiter" -command "mache {Motor_weiter}" -font {Arial 40} ] -anchor w
+    pack [button .motoren.frame.motor_Test_Y  -text "Y = Test Y" -command "mache {Motor_Testbeispiel_Y}" -font {Arial 40} ] -anchor w
+    pack [button .motoren.frame.motor_Test_Q  -text "Q = Test Q" -command "mache {Motor_Testbeispiel_Q}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Kippen  -text "K = Kippen" -command "mache {Motor_1_Kippen}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Festhalten  -text "F = Festhalten " -command "mache {Motor_1_Festhalten}" -font {Arial 40} ] -anchor w
     pack [button .motoren.motor_1_Loslassen  -text "G = Loslassen " -command "mache {Motor_1_Loslassen}" -font {Arial 40} ] -anchor w
@@ -124,6 +126,8 @@ proc Bild_aus {} {
     bind .motoren Z {mache {Motor_Testbeispiel2}}
     bind .motoren P {mache {Motor_Pause}}
     bind .motoren W {mache {Motor_weiter}}
+    bind .motoren Y {mache {Motor_Testbeispiel_Y}}
+    bind .motoren Q {mache {Motor_Testbeispiel_Q}}
     }
   }
 
