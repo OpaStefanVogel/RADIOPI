@@ -6,9 +6,9 @@ touch /tmp/piper.txt
 ln -f -r -s /tmp Desktop/CLONE/RADIOPI/.
 lxterminal --geometry=100x10 -e "sudo watch cat /proc/swaps" &
 cd Desktop/CLONE/RADIOPI/
-alias node-red='/mnt/dietpi_userdata/node-red/node_modules/.bin/node-red'
+#alias node-red='/mnt/dietpi_userdata/node-red/node_modules/.bin/node-red'
 #screen -d -m node-red ./flows_Radio.json & #nicht mehr sudo systemctl enable nodered.service # screen -d -m geht nicht mehr in dietpi
-node-red -u node-red ./flows_Radio.json & #mit dem -u . wird *cred.json von . verwendet
+#node-red -u node-red ./flows_Radio.json & #mit dem -u . wird *cred.json von . verwendet
 wish TCL-RADIO.tcl &
 ( sleep 20 ; zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz ) &
 cd
