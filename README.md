@@ -1,3 +1,39 @@
+#Neunstallation jetzt mit dietpi
+
+#für startx irgendwas in display konfigurieren:
+
+
+#Touchdispay zuschalten in /boot/firmware/config.txt am Ende ergänzen:-----------
+#aus https://forums.raspberrypi.com/viewtopic.php?p=2332795&hilit=Dietpi#p2332795
+# Automatically load overlays for detected DSI displays
+
+display_auto_detect=1
+# Don't have the firmware create an initial video= setting in cmdline.txt.
+# Use the kernel's default instead.
+
+disable_fw_kms_setup=1
+#--------------------------------------------------------------------------------
+
+
+
+
+
+#Datum auf %T%n%a    %d
+
+#samba ging nicht zu instllieren, aber cat /etc/samba/smb.conf enthält
+	comment = DietPi Share
+	path = /mnt/dietpi_userdata
+	browseable = yes
+	create mask = 0664
+	directory mask = 0775
+	valid users = samba
+	writeable = yes
+	max connections = 8
+#ach so path ändern in /home/dietpi und damit geht auf dem tablet smb mit user samba und passwd dietrasp...
+
+
+
+
 RADIOPI
 #Konfigurationsfiles für den Radio Raspberry Pi
 #sc-card mit fdisk formatieren auf W95 FAT32 #http://www.technik-tipps-und-tricks.de/raspberry-pi/raspberry-pi-betriebssystem-installation/raspberry-pi-sd-karte-formatieren/#linux

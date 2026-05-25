@@ -286,11 +286,6 @@
         "wholemsg": "false"
     },
     {
-        "id": "541b8a76.cb7e74",
-        "type": "dropbox-config",
-        "name": "db_to_nodered_3"
-    },
-    {
         "id": "126138a7.4cda77",
         "type": "websocket-listener",
         "path": "/ws/gap2",
@@ -315,12 +310,6 @@
         "wholemsg": "true"
     },
     {
-        "id": "dbabaa45.020408",
-        "type": "sp2device",
-        "mac": "780f7719cc2e",
-        "host": "192.168.1.100"
-    },
-    {
         "id": "9b6451b5ebd53d68",
         "type": "websocket-client",
         "path": "ws://192.168.1.134:1880/ws/motoren",
@@ -329,6 +318,17 @@
         "hb": "0",
         "subprotocol": "",
         "headers": []
+    },
+    {
+        "id": "541b8a76.cb7e74",
+        "type": "dropbox-config",
+        "name": "db_to_nodered_3"
+    },
+    {
+        "id": "dbabaa45.020408",
+        "type": "sp2device",
+        "mac": "780f7719cc2e",
+        "host": "192.168.1.100"
     },
     {
         "id": "f4f25af4.dd7ad8",
@@ -1053,7 +1053,7 @@
         "id": "d20e7f60.be461",
         "type": "exec",
         "z": "df2ae089.27e66",
-        "command": "speaker-test -c2 -t sin -f 40 -l 1 -s 1 -v 1",
+        "command": "speaker-test -c2 -t sin -f 40 -l 1 -s 1",
         "addpay": false,
         "append": "",
         "useSpawn": "",
@@ -1061,7 +1061,7 @@
         "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 1160,
+        "x": 1150,
         "y": 740,
         "wires": [
             [],
@@ -1185,16 +1185,6 @@
         ]
     },
     {
-        "id": "78e80229.aae6bc",
-        "type": "play audio",
-        "z": "df2ae089.27e66",
-        "name": "",
-        "voice": "4",
-        "x": 410,
-        "y": 360,
-        "wires": []
-    },
-    {
         "id": "acc8a20.2c2386",
         "type": "inject",
         "z": "df2ae089.27e66",
@@ -1208,9 +1198,7 @@
         "x": 170,
         "y": 360,
         "wires": [
-            [
-                "78e80229.aae6bc"
-            ]
+            []
         ]
     },
     {
@@ -1761,7 +1749,7 @@
         "topic": "",
         "payload": "Hah hatter gesacht",
         "payloadType": "str",
-        "x": 170,
+        "x": 150,
         "y": 2160,
         "wires": [
             [
@@ -3044,8 +3032,8 @@
         "wires": [
             [
                 "2a46292a.f80786",
-                "2156c459.c747fc",
-                "d652a1903fd08a60"
+                "d652a1903fd08a60",
+                "0ddd849982a4f706"
             ]
         ]
     },
@@ -3074,7 +3062,7 @@
         "z": "df2ae089.27e66",
         "name": "",
         "pauseType": "delay",
-        "timeout": "55",
+        "timeout": "30",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -3083,13 +3071,15 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "allowrate": false,
         "outputs": 1,
-        "x": 750,
-        "y": 4660,
+        "x": 610,
+        "y": 4480,
         "wires": [
             [
                 "1d45a6d0.292e19",
-                "a793dda902a56bb6"
+                "a793dda902a56bb6",
+                "d42566b6d48a9ca0"
             ]
         ]
     },
@@ -3135,9 +3125,9 @@
         "type": "watch",
         "z": "df2ae089.27e66",
         "name": "",
-        "files": "./tmp/RADIO_Ansage.txt",
+        "files": "/tmp/RADIO_Ansage.txt",
         "recursive": "",
-        "x": 230,
+        "x": 220,
         "y": 2200,
         "wires": [
             [
@@ -3150,7 +3140,7 @@
         "type": "file in",
         "z": "df2ae089.27e66",
         "name": "",
-        "filename": "./tmp/RADIO_Ansage.txt",
+        "filename": "/tmp/RADIO_Ansage.txt",
         "filenameType": "str",
         "format": "utf8",
         "chunk": false,
@@ -3209,7 +3199,7 @@
         "type": "debug",
         "z": "df2ae089.27e66",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3519,7 +3509,7 @@
         "type": "debug",
         "z": "df2ae089.27e66",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3652,7 +3642,7 @@
         "id": "61cb9dedec91f64c",
         "type": "exec",
         "z": "df2ae089.27e66",
-        "command": "/home/pi/Desktop/CLONE/RADIOPI/led.sh",
+        "command": "/home/dietpi/Desktop/CLONE/RADIOPI/led.sh",
         "addpay": "payload",
         "append": "",
         "useSpawn": "false",
@@ -4110,7 +4100,8 @@
         "y": 1840,
         "wires": [
             [
-                "e3ca5d6c9598137b"
+                "e3ca5d6c9598137b",
+                "c32b18b864adfffb"
             ]
         ]
     },
@@ -4169,8 +4160,7 @@
         "y": 4580,
         "wires": [
             [
-                "adef2cf0.d8d89",
-                "2e74388c.f4e468"
+                "b1343270a4ad5303"
             ]
         ]
     },
@@ -4299,7 +4289,7 @@
         "z": "df2ae089.27e66",
         "command": "aplay",
         "addpay": "",
-        "append": "./tmp/piper.wav",
+        "append": "/tmp/piper.wav",
         "useSpawn": "false",
         "timer": "",
         "winHide": false,
@@ -4353,7 +4343,7 @@
         "type": "file",
         "z": "df2ae089.27e66",
         "name": "",
-        "filename": "./tmp/piper.txt",
+        "filename": "/tmp/piper.txt",
         "filenameType": "str",
         "appendNewline": true,
         "createDir": false,
@@ -4380,7 +4370,7 @@
         "type": "watch",
         "z": "df2ae089.27e66",
         "name": "",
-        "files": "./tmp/piper.txt",
+        "files": "/tmp/piper.txt",
         "recursive": "",
         "x": 90,
         "y": 1840,
@@ -4425,7 +4415,7 @@
         "z": "df2ae089.27e66",
         "command": "./piper/piper/piper",
         "addpay": "",
-        "append": "<./tmp/piper.txt --model ./piper/de_DE-thorsten-high.onnx --output_file  ./tmp/piper.wav --sentence_silence 0.3 --length_scale 1.2 --noise_w 1.0",
+        "append": "</tmp/piper.txt --model ./piper/de_DE-thorsten-high.onnx --output_file  /tmp/piper.wav --sentence_silence 0.3 --length_scale 1.2 --noise_w 1.0",
         "useSpawn": "false",
         "timer": "120",
         "winHide": false,
@@ -4523,7 +4513,7 @@
         "type": "file in",
         "z": "df2ae089.27e66",
         "name": "",
-        "filename": "./tmp/piper.txt",
+        "filename": "/tmp/piper.txt",
         "filenameType": "str",
         "format": "utf8",
         "chunk": false,
@@ -4623,12 +4613,12 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "10",
         "topic": "",
         "payload": "espeak",
         "payloadType": "str",
-        "x": 330,
+        "x": 340,
         "y": 1740,
         "wires": [
             [
@@ -4670,7 +4660,7 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": "1",
         "topic": "",
         "payload": "thorsten",
@@ -4779,6 +4769,113 @@
         "x": 500,
         "y": 1380,
         "wires": []
+    },
+    {
+        "id": "c32b18b864adfffb",
+        "type": "debug",
+        "z": "df2ae089.27e66",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "b1343270a4ad5303",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "email 06:26 ignorieren",
+        "func": "node.status({text:msg.date.toISOString()});\nif (msg.date.toISOString()=='2026-05-05T06:26:13.000Z') global.set('neue_Email',false); else global.set('neue_Email',true);\n//node.status({text:global.get('neue_Email')});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 4520,
+        "wires": [
+            [
+                "adef2cf0.d8d89",
+                "043fb979faa6adea"
+            ]
+        ]
+    },
+    {
+        "id": "d42566b6d48a9ca0",
+        "type": "function",
+        "z": "df2ae089.27e66",
+        "name": "function 2",
+        "func": "let nE=global.get('neue_Email');\nnode.status({text:nE});\nif (nE==true) return msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 4480,
+        "wires": [
+            [
+                "2e74388c.f4e468"
+            ]
+        ]
+    },
+    {
+        "id": "043fb979faa6adea",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 290,
+        "y": 4460,
+        "wires": [
+            [
+                "2e74388c.f4e468"
+            ]
+        ]
+    },
+    {
+        "id": "0ddd849982a4f706",
+        "type": "delay",
+        "z": "df2ae089.27e66",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "25",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 4660,
+        "wires": [
+            [
+                "2156c459.c747fc"
+            ]
+        ]
     },
     {
         "id": "a6d13b06.eb2ce8",
@@ -5276,11 +5373,13 @@
         "type": "function",
         "z": "4c1f2825.5c8bc8",
         "name": "",
-        "func": "//aus SONNE_UND_MOND.xml\n  var t = new Date();\n  var tn = new Date(2015,9,13);//irgendein nahegelegener Neumond\n  var phi = (t.valueOf() % 31556952000)/31556952000*2*Math.PI+0.19191919;\n  var sonnex = Math.sin(phi)*150+400;\n  var sonney = Math.cos(phi)*150+200;\n  var kw = ((t.valueOf()-tn.valueOf()) % 2551392000) / 2551392000;\n  var mphi=kw*2*Math.PI+phi;\n  var mmphi = -mphi*180/Math.PI;\n  var mondx = Math.sin(mphi)*150+400;\n  var mondy = Math.cos(mphi)*150+200;\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cx\", sonnex);\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cy\", sonney);\n  //evt.target.getElementById(\"mond\").setAttribute(\"transform\", \"translate(400,200) rotate(\"+mmphi+\")\");\n  var Zenitstand=new Date(kw*86400000+43200000);\n  msg.payload=\"Deer Moond steht im Zenit, wenn die Sonne auf \"+Zenitstand.getHours()+\" Uhr und \"+Zenitstand.getMinutes()+\" Minuten steht.\";\nreturn msg;",
+        "func": "//aus SONNE_UND_MOND.xml\n  var t = new Date();\n  var tn = new Date(2015,9,13);//irgendein nahegelegener Neumond\n  var phi = (t.valueOf() % 31556952000)/31556952000*2*Math.PI+0.19191919;\n  var sonnex = Math.sin(phi)*150+400;\n  var sonney = Math.cos(phi)*150+200;\n  var kw = ((t.valueOf()-tn.valueOf()) % 2551392000) / 2551392000;\n  var mphi=kw*2*Math.PI+phi;\n  var mmphi = -mphi*180/Math.PI;\n  var mondx = Math.sin(mphi)*150+400;\n  var mondy = Math.cos(mphi)*150+200;\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cx\", sonnex);\n  //evt.target.getElementById(\"sonne\").setAttribute(\"cy\", sonney);\n  //evt.target.getElementById(\"mond\").setAttribute(\"transform\", \"translate(400,200) rotate(\"+mmphi+\")\");\n  var Zenitstand=new Date(kw*86400000+43200000);\n  msg.payload=\"Deer Moond steht im Zenit um \"+Zenitstand.getHours()+\" Uhr und \"+Zenitstand.getMinutes()+\" Minuten.\";\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 610,
         "y": 1000,
         "wires": [
@@ -8443,7 +8542,8 @@
         "wires": [
             [
                 "65fb0986.26aee8",
-                "41755e0e.626f"
+                "70e14a1fcbb33d61",
+                "088f198b0f713b08"
             ]
         ]
     },
@@ -8460,54 +8560,10 @@
         "wires": []
     },
     {
-        "id": "225f8661.f5d39a",
-        "type": "inject",
-        "z": "a49d08e2.c6bc28",
-        "name": "tick every 60 min",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "3600",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "20",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 250,
-        "y": 180,
-        "wires": [
-            [
-                "77289f06.41785",
-                "efaf1e11.f655a"
-            ]
-        ]
-    },
-    {
-        "id": "41755e0e.626f",
-        "type": "rpi-gpio out",
-        "z": "a49d08e2.c6bc28",
-        "name": "",
-        "pin": "4",
-        "set": false,
-        "freq": "",
-        "out": "out",
-        "bcm": true,
-        "x": 790,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "efaf1e11.f655a",
         "type": "exec",
         "z": "a49d08e2.c6bc28",
-        "command": "speaker-test -c2 -t sine -f 66 -l 1 -v 30",
+        "command": "speaker-test -c 2 -t sin -f 66 -l 1 #-v 30",
         "addpay": false,
         "append": "",
         "useSpawn": "",
@@ -8540,19 +8596,17 @@
         "name": "",
         "props": [
             {
-                "p": "payload",
-                "v": "play",
-                "vt": "str"
+                "p": "payload"
             },
             {
                 "p": "topic",
-                "v": "",
                 "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": false,
+        "onceDelay": "15",
         "topic": "",
         "payload": "play",
         "payloadType": "str",
@@ -8630,7 +8684,7 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": "20",
         "topic": "",
         "payload": "pause",
@@ -8695,9 +8749,18 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "clear",
@@ -9006,7 +9069,7 @@
         "z": "a49d08e2.c6bc28",
         "name": "",
         "command": "rvlc",
-        "args": "./playlist.m3u",
+        "args": "/home/dietpi/Desktop/CLONE/RADIOPI/playlist.m3u",
         "autorun": true,
         "cr": true,
         "redo": true,
@@ -9373,10 +9436,10 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": "3",
         "topic": "",
-        "x": 460,
+        "x": 450,
         "y": 560,
         "wires": [
             [
@@ -9391,7 +9454,7 @@
         "name": "",
         "url": "",
         "urlType": "str",
-        "path": "/home/pi",
+        "path": "/home/dietpi",
         "pathType": "str",
         "x": 420,
         "y": 960,
@@ -9494,6 +9557,69 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "70e14a1fcbb33d61",
+        "type": "pi-gpiod out",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "host": "localhost",
+        "port": 8888,
+        "pin": "4",
+        "set": "",
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 810,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a40f03ccc2c6e158",
+        "type": "inject",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "77289f06.41785",
+                "efaf1e11.f655a"
+            ]
+        ]
+    },
+    {
+        "id": "088f198b0f713b08",
+        "type": "rpi-gpio out",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "pin": "17",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 820,
+        "y": 120,
+        "wires": []
     },
     {
         "id": "9848b237.267d6",
@@ -9774,7 +9900,7 @@
         "type": "debug",
         "z": "8b708117.11fb9",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9789,10 +9915,10 @@
         "type": "watch",
         "z": "8b708117.11fb9",
         "name": "",
-        "files": "tcl_an_nodered.txt",
+        "files": "/tmp/tcl_an_nodered.txt",
         "recursive": "",
-        "x": 140,
-        "y": 300,
+        "x": 150,
+        "y": 280,
         "wires": [
             [
                 "c2604e89.ab3e3"
@@ -9818,13 +9944,14 @@
         "type": "file in",
         "z": "8b708117.11fb9",
         "name": "",
-        "filename": "tcl_an_nodered.txt",
+        "filename": "/tmp/tcl_an_nodered.txt",
+        "filenameType": "str",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 150,
+        "x": 170,
         "y": 340,
         "wires": [
             [
@@ -9983,6 +10110,117 @@
         "x": 815,
         "y": 520,
         "wires": []
+    },
+    {
+        "id": "95028d4dbf18ad50",
+        "type": "inject",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 780,
+        "wires": [
+            [
+                "dd702b7268a3e6d5",
+                "58437a62a8b30fd9"
+            ]
+        ]
+    },
+    {
+        "id": "dd702b7268a3e6d5",
+        "type": "file",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "filename": "Testfile1.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 470,
+        "y": 780,
+        "wires": [
+            [
+                "95663ab660e8df30"
+            ]
+        ]
+    },
+    {
+        "id": "58437a62a8b30fd9",
+        "type": "file",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "filename": "./Testfile2.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 470,
+        "y": 840,
+        "wires": [
+            [
+                "95663ab660e8df30"
+            ]
+        ]
+    },
+    {
+        "id": "95663ab660e8df30",
+        "type": "debug",
+        "z": "8b708117.11fb9",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "009e96dfb1757e4a",
+        "type": "inject",
+        "z": "8b708117.11fb9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 740,
+        "y": 160,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "944293ef.3cb17",
@@ -10520,7 +10758,7 @@
         "args": "-I --listen",
         "autorun": true,
         "cr": true,
-        "redo": true,
+        "redo": false,
         "op": "string",
         "x": 450,
         "y": 380,
@@ -10585,7 +10823,7 @@
         "type": "file in",
         "z": "5117498b.878128",
         "name": "html-Datei holen",
-        "filename": "/home/pi/Desktop/CLONE/RADIOPI/Einkaufsliste.html",
+        "filename": "/home/dietpi/Desktop/CLONE/RADIOPI/Einkaufsliste.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -10641,20 +10879,8 @@
         "x": 440,
         "y": 60,
         "wires": [
-            [
-                "a39b201f.42d9a"
-            ]
+            []
         ]
-    },
-    {
-        "id": "a39b201f.42d9a",
-        "type": "play audio",
-        "z": "5117498b.878128",
-        "name": "",
-        "voice": "4",
-        "x": 630,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "60963191.82299",
@@ -10737,7 +10963,7 @@
         "type": "file in",
         "z": "5117498b.878128",
         "name": "Einkaufslisten dazuholen",
-        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
+        "filename": "/home/dietpi/Desktop/Einkaufsliste.txt",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -10771,7 +10997,7 @@
         "type": "file in",
         "z": "5117498b.878128",
         "name": "alte Einkaufslisten dazuholen",
-        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
+        "filename": "/home/dietpi/Desktop/Einkaufsliste.txt",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -10804,7 +11030,7 @@
         "type": "file",
         "z": "5117498b.878128",
         "name": "und wieder abspeichern",
-        "filename": "/home/pi/Desktop/Einkaufsliste.txt",
+        "filename": "/home/dietpi/Desktop/Einkaufsliste.txt",
         "appendNewline": false,
         "createDir": true,
         "overwriteFile": "true",
@@ -10866,7 +11092,7 @@
         "type": "file in",
         "z": "ca718d9f.a1a43",
         "name": "",
-        "filename": "/home/pi/Downloads/pochpoch.xml",
+        "filename": "/home/dietpi/Downloads/pochpoch.xml",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -11190,8 +11416,9 @@
         "name": "gatttool -I",
         "command": "gatttool",
         "args": "-I",
+        "autorun": true,
         "cr": true,
-        "redo": true,
+        "redo": false,
         "op": "string",
         "x": 400,
         "y": 1680,
@@ -13147,7 +13374,7 @@
         "type": "file",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "filename": "/home/pi/Chat.txt",
+        "filename": "/home/dietpi/Chat.txt",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
@@ -13422,7 +13649,7 @@
         "type": "file in",
         "z": "c0d2b8ff.7a7ce8",
         "name": "",
-        "filename": "/home/pi/Heizung.html",
+        "filename": "/home/dietpi/Heizung.html",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -13912,7 +14139,7 @@
         "name": "",
         "filetype": "text",
         "split": "\\n",
-        "filename": "./tmp/ttyS0_RXD",
+        "filename": "/tmp/ttyS0_RXD",
         "inputs": 0,
         "x": 100,
         "y": 240,
@@ -14426,7 +14653,7 @@
         "type": "watch",
         "z": "f5852901.627d08",
         "name": "",
-        "files": "/home/pi/broadlink/switch_on",
+        "files": "/home/dietpi/broadlink/switch_on",
         "recursive": "",
         "x": 420,
         "y": 680,
@@ -14439,7 +14666,7 @@
         "type": "watch",
         "z": "f5852901.627d08",
         "name": "",
-        "files": "/home/pi/broadlink/switch_off",
+        "files": "/home/dietpi/broadlink/switch_off",
         "recursive": "",
         "x": 420,
         "y": 740,
@@ -14475,7 +14702,7 @@
         "id": "fc42b1ae.2161f",
         "type": "comment",
         "z": "f5852901.627d08",
-        "name": "ssh-tunnel zu pi@RADIO:/home/pi und dann",
+        "name": "ssh-tunnel zu pi@RADIO:/home/dietpi und dann",
         "info": "",
         "x": 310,
         "y": 640,
@@ -15412,7 +15639,7 @@
         "type": "watch",
         "z": "f6de0de9.ddb1d",
         "name": "",
-        "files": "tmp/hostapd_start",
+        "files": "/tmp/hostapd_start",
         "recursive": "",
         "x": 250,
         "y": 100,
@@ -15427,7 +15654,7 @@
         "type": "watch",
         "z": "f6de0de9.ddb1d",
         "name": "",
-        "files": "tmp/hostapd_stop",
+        "files": "/tmp/hostapd_stop",
         "recursive": "",
         "x": 210,
         "y": 320,

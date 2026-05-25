@@ -1,8 +1,10 @@
 wm geometry . +328+37
 wm title . "Radio"
 . configure -background black
-pack [button .radioan  -text "Radio an " -command "mache {Radio an}" ]
-pack [button .radioaus -text "Radio aus" -command "mache {Radio aus}"]
+pack [button .radioan  -text "Radio an " -command "exec echo Radio an >/tmp/tcl_an_nodered.txt"] 
+# -command "mache {Radio an}" ]
+pack [button .radioaus -text "Radio aus" -command "exec echo Radio aus >/tmp/tcl_an_nodered.txt"] 
+# -command "mache {Radio aus}"]
 pack [button .lichtan  -text "Licht an " -command LICHT_AN ]
 pack [button .lichtaus -text "Licht aus" -command LICHT_AUS]
 pack [button .radiolauter -text "lauter" -command "mache {Radio lauter}"] -expand 1
@@ -48,7 +50,7 @@ bind . o {.tara_20_g invoke}
 set Test 0
 
 proc mache {text} {  
-  set outfile [open "tcl_an_nodered.txt" w]
+  set outfile [open "/tmp/tcl_an_nodered.txt" w]
   puts $outfile $text
   close $outfile
   }
@@ -97,7 +99,7 @@ proc Bild_aus {} {
   bind .c L {
     mache {Motor_LED_0}
     toplevel .motoren -background teal 
-    wm attributes .motoren -fullscreen 0; 
+    wm attributes .motoren -fullscreen 1; 
     pack [frame .motoren.frame] -side right
     pack [button .motoren.frame.motor_Pause  -text "P = Pause" -command "mache {Motor_Pause}" -font {Arial 40} ] -anchor w
     pack [button .motoren.frame.motor_weiter  -text "W = weiter" -command "mache {Motor_weiter}" -font {Arial 40} ] -anchor w
