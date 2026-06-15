@@ -3,14 +3,29 @@
   <meta charset='utf-8'/>
   <title>node_red_simulation.html</title>
   </head>
-<body onload='init()'>
-Hallo Welt
+<body>
+
+id_types: 
 <div id='id_types'>types</div>
+
+div_Tabs: 
 <div id="div_Tabs"> </div>
-<style>.code {display:flex; overflow:auto; white-space:pre; font-family:Monospace; border:solid; max-height:420px}</style>
+
+Logfile:
 <div id="Logfile" class='code'> </div>
-  
-  </body>
+
+ </body>
+
+<style>
+.code {
+  display:flex; 
+  white-space:pre; 
+  font-family:Monospace; 
+  border:solid; 
+  max-height:420px;
+  overflow:auto;
+  }
+  </style>
 
 <script>
   let nodes={};
@@ -18,6 +33,23 @@ Hallo Welt
   let functions=[];
   let flow=false;
   let types={};
+  let typelist=[];
+
+//deno geht beides nicht
+//{import flow from "./flows_Radio.json" with { type: "json" };
+//const flow = await import("./flows_Radio.json", { with: { type: "json" },});
+
+//aus ... das geht endlich
+async function LoadFlow() {
+  //alert('LoadFlow() gestartet');
+  let response = await fetch('./flows_Radio.json');
+  //alert(response);
+  flow = await response.json();
+  //alert(flow);
+  init();
+  }
+
+LoadFlow();
 
 function init() {
   if (flow) ; else {alert('fehlende Datei "flows_Radio.js"\n\nErst ein file "flows_Radio.js" erzeugen\nmit dem Inhalt "flow=..."\nund darin anstelle der "..."\nden Inhalt vom file "flows_Radio.json" einsetzen.');return}
@@ -32,12 +64,13 @@ function init() {
     if (node.x) nodes[node.z].rect.push(node);
     //if (types.indexOf(node.type)==-1) types.push(node.type);
     if (types[node.type]) ; else types[node.type]=[];
+    if (typelist.indexOf(node.type)==-1) typelist.push(node.type);
     }
   //alert(tabs.length+' tabs');
   //alert(functions.length+' functions');
   //alert(tabs[4].rect.length);
   //alert(types);
-  id_types.innerHTML=JSON.stringify(types);
+  id_types.innerHTML=typelist.join(', '); //JSON.stringify(types);
   Logfile.firstChild.nodeValue='\n\n'+functions.join('\n\n—–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–——–—\n\n')+'\n';
   erzeuge_div_Tabs();
   }
@@ -92,7 +125,6 @@ function alert_id(t,n) {
   }
   </script>
 
-<script id="sc" src="flows_Radio.js" type="text/javascript"></script>
 <script>
 //alert(flow);
 //for (let i in sc) alert(i+'\n'+sc[i]);
