@@ -180,19 +180,22 @@ sudo mv /var/www/html/ /var/www/html2/
 sudo ln -f -r -s ./Desktop/CLONE/ /var/www/html
 sudo chown www-data:www-data /var/www/html
 
-#ganz neu, ein richtiger web-server für Rezepte.xml:
-#https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm
+#ganz neu, der richtige web-server für Rezepte.xml:
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm und später Variante sudo lighty-enable-mod userdir
 sudo apt install lighttpd
 sudo systemctl status lighttpd #active (running) ♥
-sudo groupadd www-data #already exists ♥
-sudo usermod -G www-data -a pi
-sudo chown -R www-data:www-data /var/www/html
-sudo chmod -R 775 /var/www/html
+#sudo groupadd www-data #already exists ♥
+#sudo usermod -G www-data -a pi
+#sudo chown -R www-data:www-data /var/www/html
+#sudo chmod -R 775 /var/www/html
+mkdir public_html
+ln -f -r -s /home/dietpi/Desktop public_html/Stefan
+sudo lighty-enable-mod userdir
 sudo service lighttpd force-reload
-sudo nano /etc/lighttpd/lighttpd.conf
-#dort die Zeile server.document-root umändern auf server.document-root = "/home/pi/Desktop/CLONE" 
-sudo reboot
-#Dann http://RADIO/Desktop/CLONE/Rezepte.xml
+##sudo nano /etc/lighttpd/lighttpd.conf
+##dort die Zeile server.document-root umändern auf server.document-root = "/home/pi/Desktop/CLONE" 
+##sudo reboot
+#Dann http://~dietpi/Stefan/CLONE/Rezepte.xml
 
 sudo apt-get install gap
 gap

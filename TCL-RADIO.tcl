@@ -84,6 +84,7 @@ proc Bild_aus {} {
   toplevel .c -background black -cursor none
   label .c.l -font {Arial 400} -bg black -fg yellow -textvariable aktuelles_Gewicht
   pack .c.l
+  #wm geometry .c 4000x1000
   wm attributes .c -fullscreen 1; 
   bind .c X { focus -force . ; destroy .c}; 
   bind .c <Button-1> {destroy .c ; focus -force .}; 

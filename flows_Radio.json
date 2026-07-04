@@ -241,18 +241,25 @@
         "broker": "test.mosquitto.org",
         "port": "1883",
         "clientid": "",
+        "autoConnect": true,
         "usetls": false,
-        "compatmode": true,
+        "protocolVersion": 4,
         "keepalive": "60",
         "cleansession": true,
+        "autoUnsubscribe": true,
         "birthTopic": "",
         "birthQos": "0",
         "birthPayload": "",
+        "birthMsg": {},
         "closeTopic": "",
         "closePayload": "",
+        "closeMsg": {},
         "willTopic": "",
         "willQos": "0",
-        "willPayload": ""
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "47034f6b.a60b4",
@@ -1708,6 +1715,11 @@
         "topic": "Testheini78x11/psswd_ha72z",
         "qos": "",
         "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
         "broker": "eb3038de.87b1f8",
         "x": 757,
         "y": 3499,
@@ -8542,8 +8554,8 @@
         "wires": [
             [
                 "65fb0986.26aee8",
-                "70e14a1fcbb33d61",
-                "088f198b0f713b08"
+                "088f198b0f713b08",
+                "924e1c6b8631db9e"
             ]
         ]
     },
@@ -9559,24 +9571,6 @@
         ]
     },
     {
-        "id": "70e14a1fcbb33d61",
-        "type": "pi-gpiod out",
-        "z": "a49d08e2.c6bc28",
-        "name": "",
-        "host": "localhost",
-        "port": 8888,
-        "pin": "4",
-        "set": "",
-        "level": "0",
-        "out": "out",
-        "sermin": "1000",
-        "sermax": "2000",
-        "freq": "800",
-        "x": 810,
-        "y": 60,
-        "wires": []
-    },
-    {
         "id": "a40f03ccc2c6e158",
         "type": "inject",
         "z": "a49d08e2.c6bc28",
@@ -9611,14 +9605,32 @@
         "type": "rpi-gpio out",
         "z": "a49d08e2.c6bc28",
         "name": "",
-        "pin": "17",
+        "pin": "3",
         "set": "",
         "level": "0",
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 820,
-        "y": 120,
+        "x": 790,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "924e1c6b8631db9e",
+        "type": "pi-gpiod out",
+        "z": "a49d08e2.c6bc28",
+        "name": "",
+        "host": "localhost",
+        "port": 8888,
+        "pin": "4",
+        "set": "",
+        "level": "0",
+        "out": "out",
+        "sermin": "1000",
+        "sermax": "2000",
+        "freq": "800",
+        "x": 770,
+        "y": 40,
         "wires": []
     },
     {
@@ -14123,13 +14135,15 @@
         "z": "2e9a16ae.4294ca",
         "name": "",
         "filetype": "text",
-        "split": true,
+        "split": "",
         "filename": "logfile.txt",
         "inputs": 0,
-        "x": 250,
+        "x": 240,
         "y": 1800,
         "wires": [
-            []
+            [
+                "8907436509adb74b"
+            ]
         ]
     },
     {
@@ -14323,7 +14337,7 @@
         "type": "debug",
         "z": "2e9a16ae.4294ca",
         "name": "debug 2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -14378,6 +14392,22 @@
                 "5f42c1422a7c45c0"
             ]
         ]
+    },
+    {
+        "id": "8907436509adb74b",
+        "type": "debug",
+        "z": "2e9a16ae.4294ca",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 1780,
+        "wires": []
     },
     {
         "id": "7d8ab507.04aabc",
