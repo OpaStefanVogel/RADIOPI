@@ -2038,9 +2038,13 @@
         "type": "function",
         "z": "df2ae089.27e66",
         "name": "",
-        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nvar Antwort_an_Touchscreen=[];\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) {\n    j=i;\n    Antwort_an_Touchscreen.unshift(s[j].actualDeparture);\n    }\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 31 fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nmsg.Antwort_an_Touchscreen=Antwort_an_Touchscreen;\nvar msg2=null;\nif (minu>0) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
+        "func": "var s=msg.payload.stops;\nvar i=s.length;\nvar j=0;\nvar Antwort_an_Touchscreen=[];\nwhile (i>0) {\n  i=i-1;\n  if (s[i].destination.indexOf(\"Yorckgebiet\")>-1) {\n    j=i;\n    Antwort_an_Touchscreen.unshift(s[j].actualDeparture);\n    }\n  }\nvar diff=Math.floor((s[j].actualDeparture-msg.payload.now)/1000);\nvar minu=Math.floor(diff/60);\nvar seku=diff-minu*60;\nmsg.payload=\"Nächster Bus Linie 31 fährt in \"+minu+\" Minuten und \"+seku+\" Sekunden.\";\nmsg.Antwort_an_Touchscreen=Antwort_an_Touchscreen;\nvar msg2=null;\nif (minu>-1) msg2=msg;\nnode.status({text:minu+\":\"+seku+\" \"+s[j].destination});\nreturn [msg,msg2];\n",
         "outputs": 2,
+        "timeout": "",
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 1010,
         "y": 4120,
         "wires": [
@@ -4107,7 +4111,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "-p 30 -a 30 -s 160 -vde \"{{payload}}.\"",
+        "template": "-p 30 -a 30 -s 120 -vde \"{{payload}}.\"",
         "x": 640,
         "y": 1840,
         "wires": [
@@ -6270,7 +6274,8 @@
         "wires": [
             [
                 "2c267e30.4639e2",
-                "566d44f1.5da50c"
+                "566d44f1.5da50c",
+                "bea85fb7bd0962d6"
             ]
         ]
     },
@@ -6306,7 +6311,7 @@
         "links": [
             "30e558.70cfbaa8"
         ],
-        "x": 1215,
+        "x": 1415,
         "y": 2240,
         "wires": [],
         "inputLabels": [
@@ -6356,10 +6361,15 @@
         "id": "2c267e30.4639e2",
         "type": "function",
         "z": "4c1f2825.5c8bc8",
+        "d": true,
         "name": "table",
         "func": "var pos=msg.payload.indexOf(\"boerseTitleKurs\")+42;\nvar pos2=pos+6;\nvar Kartoffelpreis=msg.payload.slice(pos,pos2).trim();\nglobal.set(\"Kartoffelpreis\",Kartoffelpreis);\nnode.status({text:Kartoffelpreis});\nmsg.payload=Kartoffelpreis;\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 950,
         "y": 2360,
         "wires": [
@@ -6470,7 +6480,8 @@
         "y": 2280,
         "wires": [
             [
-                "5dbcc3d7.c2590c"
+                "5dbcc3d7.c2590c",
+                "bee9f57b4e469702"
             ]
         ]
     },
@@ -7139,7 +7150,7 @@
         "links": [
             "785134f.383f6cc"
         ],
-        "x": 265,
+        "x": 255,
         "y": 2320,
         "wires": [
             [
@@ -7916,6 +7927,202 @@
         "wires": [
             [
                 "8b4e3ff11801a5be"
+            ]
+        ]
+    },
+    {
+        "id": "3569dfd2d90b0c98",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 280,
+        "y": 2280,
+        "wires": [
+            [
+                "2a4a6086.7715"
+            ]
+        ]
+    },
+    {
+        "id": "bea85fb7bd0962d6",
+        "type": "http request",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://www.weuthen-gmbh.de/notierungenboerse/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 2320,
+        "wires": [
+            [
+                "612358ecfb92e8b3"
+            ]
+        ]
+    },
+    {
+        "id": "612358ecfb92e8b3",
+        "type": "function",
+        "z": "4c1f2825.5c8bc8",
+        "name": "function 3",
+        "func": "let m=msg.payload;\nlet ie=m.indexOf('€');\nlet ret=m.slice(ie-6,ie-1); //+' bei weuthen gmbh Punkt d e Notierungsbörse';\nmsg.payload=ret;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 2320,
+        "wires": [
+            [
+                "e589aa24.a1a608",
+                "426a1860.e6d408"
+            ]
+        ]
+    },
+    {
+        "id": "bee9f57b4e469702",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "volume -x",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "volume -90",
+        "output": "str",
+        "x": 1340,
+        "y": 2300,
+        "wires": [
+            [
+                "5dbcc3d7.c2590c",
+                "317cab867ebd9502"
+            ]
+        ]
+    },
+    {
+        "id": "317cab867ebd9502",
+        "type": "delay",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1370,
+        "y": 2400,
+        "wires": [
+            [
+                "6a509d2677234a3c"
+            ]
+        ]
+    },
+    {
+        "id": "6a509d2677234a3c",
+        "type": "template",
+        "z": "4c1f2825.5c8bc8",
+        "name": "volume +x",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "volume +90",
+        "output": "str",
+        "x": 1570,
+        "y": 2400,
+        "wires": [
+            [
+                "5dbcc3d7.c2590c"
+            ]
+        ]
+    },
+    {
+        "id": "1d01cd4b731983ac",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1140,
+        "y": 2220,
+        "wires": [
+            [
+                "d56c1f4d.3048a"
+            ]
+        ]
+    },
+    {
+        "id": "4fa4f7150cca801b",
+        "type": "inject",
+        "z": "4c1f2825.5c8bc8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1340,
+        "y": 2140,
+        "wires": [
+            [
+                "527284ec.4b332c"
             ]
         ]
     },
@@ -8974,6 +9181,18 @@
         "type": "inject",
         "z": "a49d08e2.c6bc28",
         "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "volume -10",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,

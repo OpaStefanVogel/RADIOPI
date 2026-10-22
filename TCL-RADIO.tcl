@@ -81,13 +81,20 @@ set aktuelles_Gewicht ""
 proc Bild_aus {} {
   global aktuelles_Gewicht
   destroy .c .c.l
+  toplevel .c2 -background black -cursor none
+  wm geometry .c2 +720+0
+  wm attributes .c2 -fullscreen 1; 
   toplevel .c -background black -cursor none
   label .c.l -font {Arial 400} -bg black -fg yellow -textvariable aktuelles_Gewicht
   pack .c.l
   #wm geometry .c 4000x1000
   wm attributes .c -fullscreen 1; 
-  bind .c X { focus -force . ; destroy .c}; 
-  bind .c <Button-1> {destroy .c ; focus -force .}; 
+  bind .c2 X { focus -force . ; destroy .c; destroy .c2}; 
+  bind .c2 <Button-1> {destroy .c ; focus -force .; destroy .c2}; 
+  bind .c2 E {.radioan invoke}; 
+  bind .c2 A {.radioaus invoke}; 
+  bind .c X { focus -force . ; destroy .c2; destroy .c}; 
+  bind .c <Button-1> {destroy .c ; focus -force .; destroy .c2}; 
   bind .c E {.radioan invoke}; 
   bind .c A {.radioaus invoke}; 
   bind .c P {.radiolauter invoke}; 
