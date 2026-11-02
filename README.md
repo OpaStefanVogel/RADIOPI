@@ -1,75 +1,49 @@
-#Neunstallation jetzt mit dietpi
+#Neunstallation jetzt mit trixie 32 bit:
 
-#für startx irgendwas in display konfigurieren:
+#SD mit rpi-imager erstellen
 
+#Touchdispay 2 zuschalten laut raspberrypi.com (zur Zeit ohne etwas einzugeben)
 
-#Touchdispay zuschalten in /boot/firmware/config.txt am Ende ergänzen:-----------
-#aus https://forums.raspberrypi.com/viewtopic.php?p=2332795&hilit=Dietpi#p2332795
-# Automatically load overlays for detected DSI displays
+sudo raspi-config #vnc zuschalten und und und...
 
-display_auto_detect=1
-# Don't have the firmware create an initial video= setting in cmdline.txt.
-# Use the kernel's default instead.
+#Timeformat auf %T%n%a   %d
 
-disable_fw_kms_setup=1
-#--------------------------------------------------------------------------------
+cd Desktop
+git clone git@github.com:OpaStefanVogel/OpaStefanVogel.github.io.git CLONE
+cd CLONE/
+git clone git@github.com:OpaStefanVogel/WO_IST_MEINE_FERNBEDIENUNG.git
+git clone git@github.com:OpaStefanVogel/RUBIKs_CUBE.git
+git clone git@github.com:OpaStefanVogel/ISOMORPHISM_GROUPS_PCLASS_2.git
+git clone git@github.com:OpaStefanVogel/RADIOPI.git
+git clone git@github.com:OpaStefanVogel/MODELLEISENBAHN.git
+git clone git@github.com:OpaStefanVogel/BACKOFEN.git
+git clone git@github.com:OpaStefanVogel/KLETTERN_UND_RUTSCHEN.git
+git clone git@github.com:OpaStefanVogel/submodules.git
+git clone git@github.com:OpaStefanVogel/FORTY-FORTH.git
+git clone git@github.com:OpaStefanVogel/DRUECK_EINE_BUCHSTABENTASTE.git
+git clone git@github.com:OpaStefanVogel/BAKINGPI.git
+git clone git@github.com:OpaStefanVogel/Easy_Elektro_-_Big_Fun.git
+git clone git@github.com:OpaStefanVogel/HEIZUNGSPI.git
+git clone git@github.com:OpaStefanVogel/MACHXO2.git
+cd
+sudo apt install zynaddsubfx espeak tk rpi-imager screen gitk pulseeffects
 
-
-
-
-
-#Datum auf %T%n%a    %d
-
-#samba ging nicht zu instllieren, aber cat /etc/samba/smb.conf enthält
-	comment = DietPi Share
-	path = /mnt/dietpi_userdata
-	browseable = yes
-	create mask = 0664
-	directory mask = 0775
-	valid users = samba
-	writeable = yes
-	max connections = 8
-#ach so path ändern in /home/dietpi und damit geht auf dem tablet smb mit user samba und passwd dietrasp...
-
-
-
-
-RADIOPI
-#Konfigurationsfiles für den Radio Raspberry Pi
-#sc-card mit fdisk formatieren auf W95 FAT32 #http://www.technik-tipps-und-tricks.de/raspberry-pi/raspberry-pi-betriebssystem-installation/raspberry-pi-sd-karte-formatieren/#linux
-#oder mit dem rpi-imager formatieren
-
-#Start mit Raspberry PI 4 und bookworm 64 bit und wayland x11 ♥#... und Bullseye
-df #5053516 18%♥
-
-#dann als erstes♥
-sudo apt update
-sudo apt upgrade
-df #5479484 20%♥
-
-#nochmal mit raspi-config vnc einschalten, dann gehts
+#die Zeilen aus .xsessionrc einzeln ausführen und dabei .xsessionrc anpassen
 
 #display drehen mit Preferences→Screen_Configuration (wirkt dauerhaft erst nach mehreren Versuchen)²
-
 #den touch um 90° drehen laut https://www.raspberrypi.com/documentation/accessories/touch-display-2.html#install
 #  mit dtoverlay=vc4-kms-dsi-ili9881-7inch,sizex=400,swapxy,invy in /boot/firmware/config.txt
 #  https://www.instructables.com/Rotate-Raspberry-Pi-Display-and-Touchscreen/ ging dafür auch
 
-#den authorized_key "Galax" für connect-bot reinkopieren aus dem alten authorized_keys, dann geht connect-bot	
+ssh-keygen #und dann authorized-keys füllen
 
-#genügend swap-Speicher bereitstellen
-sudo nano /etc/dphys-swapfile #von 200 auf 1024 ♥# dort statt 100 eine 1024 einsetzen #pimylifeup.com/raspberry-pi-swap-file
-sudo reboot
+#genügend swap-Speicher bereitstellen, /etc/dphys-swapfile ist nicht mehr da
 
-#in einem extra Terminal
-sudo watch cat /proc/swaps
 
-df #7119336 25%
-
-dd if=/dev/zero of=./largefile bs=1M count=1024 #21.7 MB/s ♥#31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
+dd if=/dev/zero of=./largefile bs=1M count=1024 #13.6 MB/s 21.7 MB/s ♥#31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
 rm largefile
 
-#Preferences firefox, ssh, vnc, serial ohne console, remote GPIO, dann reboot und update ♥#und in Preferences vnc und ssh erlauben in Configuration und gleich mit Hostname Radio setzen
+#Preferences chromium, ssh, vnc, serial ohne console, remote GPIO,
 df #7127580 25%
 
 cat /proc/cpuinfo #a03111 ♥#revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
@@ -77,26 +51,18 @@ cat /sys/firmware/devicetree/base/model
 aplay /usr/share/sounds/alsa/Noise.wav #vorher laut stellen ♥
 speaker-test -t wav -c 8 #war vorher 4 ♥
 rvlc https://soundcloud.com/sickspud/tyk-tyk-tyk
-rvlc http://www.uzic.ch/tek.m3u
-#und wenn kein Stereo dann folgendes: ist weg
+rvlc https://uzic.ice.infomaniak.ch/uzic-128.aac
 
 #im Dateimanager Einstellungen: single Klick, Remove, no ask
+
+#im terminal Einstellungen: Farben
+#Hintergrundbild
 
 #oben schon ♥#Geschwindigkeit testen:
 
 #neuen ssh-key für github erzeugen
 ssh-keygen #und mit vnc aufs Tablet holen und zu github schaffen ♥#Enter Enter Enter
 ssh-copy-id pi@localhost #geht momentan nicht, sudo? ♥#pi@KEYSTATION_61 #und weitere
-cd Desktop
-git clone git@github.com:OpaStefanVogel/OpaStefanVogel.github.io.git CLONE
-cd CLONE
-git submodule init #momentan nicht drin, deshalb einzeln clonen
-git submodule update
-df #?? 27%#
-
-#wenn submodule nicht geht, einzeln:
-#git clone git@github.com:OpaStefanVogel/KLETTERN_UND_RUTSCHEN.git
-#git clone git@github.com:OpaStefanVogel/RADIOPI.git #und so weiter alle durch ♥
 
 #dann Anwendung node-red hinzuinstallieren aus Menü "Recommended Software"
 sudo apt install nodered #weil Menü noch leer, geht aber auch nicht, also später ♥
@@ -148,7 +114,8 @@ sudo apt install screen
 sudo apt install espeak #für Ansage Zeit/Temperatur/Bus
 sudo apt install wolframscript #später♥#
 sudo apt install zynaddsubfx#noch kein Ton ♥#juhuuu geht wieder, jetzt auf aseqdump -p20:0
-zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz &
+zynaddsubfx -I alsa -O alsY
+a -l So_hat_Weihnachten_2015_geklungen.xmz &
 sudo apt install xscreensaver
 sudo apt install pulseeffects
 
