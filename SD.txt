@@ -1,0 +1,10 @@
+1 32 dietpi
+2 32 bullseye
+3 8 leer
+4 16 Heidi
+5 64 trixie 32 Bit
+6 32 leer
+7 32 leer
+8 .. backup von 5 (trixie 32 Bit)
+9 .. trixie light 32 Bit für RPI3
+

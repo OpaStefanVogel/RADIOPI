@@ -2,11 +2,52 @@
 
 #SD mit rpi-imager erstellen
 
-#Touchdispay 2 zuschalten laut raspberrypi.com (zur Zeit ohne etwas einzugeben)
+#wenn vorhanden Touchdispay 2 zuschalten laut raspberrypi.com (zur Zeit angeblich ohne etwas einzugeben)
 
-sudo raspi-config #vnc zuschalten und und und...
+#das Hintergrundbild holen von Desktop/Download und auch gleich Desktop/BARE und Desktop/TABLET mit in Desktop kopieren
+
+#Hintergrundbild einstellen
+
+sudo raspi-config 
+#S10 sudo passwd ausschalten
+#D2 screen blanking,
+#I1 ssh server
+#I3 vnc zuschalten,
+#I6 serial port ohne login shell
+#A4 boot order
+#A6 beta access
+#A9 Always display the UI for a few seconds
+
+#history vergrößern
+nano .bashrc #und dort HISTSIZE auf 100000 vergrößern und HISTFILESIZE auf 200000
+ 
+
+#die pins checken 
+pinctrl -h
+pinctrl -l
+pinctrl -c bcm2711 #beim RPI4
+pinctrl -c bcm2835 #beim RPI3
+pinctrl -p
+pinctrl -p funcs 19
+pinctrl -p get 19 
+pinctrl -p set 19 op 
+pinctrl -p set 19 pu
+pinctrl -p set 19 dl 
+pinctrl -p set 19 dh 
+pinctrl -p poll 1-30 #auch 1-40
 
 #Timeformat auf %T%n%a   %d
+
+#genügend swap-Speicher bereitstellen, /etc/dphys-swapfile ist nicht mehr da
+
+#?sudo apt install openssh
+ssh-keygen #und dann .pub übers Tablet zu github und anderen RPI's schaffen und authorized-keys von den anderen RPI's füllen
+ssh-copy-id pi@localhost #geht momentan nicht, sudo? ♥#pi@KEYSTATION_61 #und weitere
+
+sudo apt install git gitk
+git config --global user.email "backebackekuchen16@gmail.com"
+git config --global user.name "Stefan_mit_RPI4_und_Trixie_32_Bit"
+
 
 cd Desktop
 git clone git@github.com:OpaStefanVogel/OpaStefanVogel.github.io.git CLONE
@@ -26,30 +67,31 @@ git clone git@github.com:OpaStefanVogel/Easy_Elektro_-_Big_Fun.git
 git clone git@github.com:OpaStefanVogel/HEIZUNGSPI.git
 git clone git@github.com:OpaStefanVogel/MACHXO2.git
 cd
-sudo apt install zynaddsubfx espeak tk rpi-imager screen gitk pulseeffects
 
-#die Zeilen aus .xsessionrc einzeln ausführen und dabei .xsessionrc anpassen
+sudo apt install wish
+cd Desktop/CLONE/RADIOPI
+wish TCL-RADIO.tcl
+cd
+
+sudo apt install screen
+sudo apt install espeak #für Ansage Zeit/Temperatur/Bus
+espeak -x "hallo" --ipa -v german
+
 
 #display drehen mit Preferences→Screen_Configuration (wirkt dauerhaft erst nach mehreren Versuchen)²
 #den touch um 90° drehen laut https://www.raspberrypi.com/documentation/accessories/touch-display-2.html#install
 #  mit dtoverlay=vc4-kms-dsi-ili9881-7inch,sizex=400,swapxy,invy in /boot/firmware/config.txt
 #  https://www.instructables.com/Rotate-Raspberry-Pi-Display-and-Touchscreen/ ging dafür auch
 
-ssh-keygen #und dann authorized-keys füllen
-
-#genügend swap-Speicher bereitstellen, /etc/dphys-swapfile ist nicht mehr da
 
 
-dd if=/dev/zero of=./largefile bs=1M count=1024 #13.6 MB/s 21.7 MB/s ♥#31.4 MB/s statt 43,7 MB/s statt 6,4 MB/s
+dd if=/dev/zero of=./largefile bs=1M count=128 #70 MB/s
 rm largefile
-
-#Preferences chromium, ssh, vnc, serial ohne console, remote GPIO,
-df #7127580 25%
 
 cat /proc/cpuinfo #a03111 ♥#revision aus https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
 cat /sys/firmware/devicetree/base/model
 aplay /usr/share/sounds/alsa/Noise.wav #vorher laut stellen ♥
-speaker-test -t wav -c 8 #war vorher 4 ♥
+speaker-test -t wav -c 8 -l 1#war vorher 4 ,aufm Radio geht nur mitte+rechts
 rvlc https://soundcloud.com/sickspud/tyk-tyk-tyk
 rvlc https://uzic.ice.infomaniak.ch/uzic-128.aac
 
@@ -60,42 +102,25 @@ rvlc https://uzic.ice.infomaniak.ch/uzic-128.aac
 
 #oben schon ♥#Geschwindigkeit testen:
 
-#neuen ssh-key für github erzeugen
-ssh-keygen #und mit vnc aufs Tablet holen und zu github schaffen ♥#Enter Enter Enter
-ssh-copy-id pi@localhost #geht momentan nicht, sudo? ♥#pi@KEYSTATION_61 #und weitere
 
 #dann Anwendung node-red hinzuinstallieren aus Menü "Recommended Software"
 sudo apt install nodered #weil Menü noch leer, geht aber auch nicht, also später ♥
 #oder wenn nicht geht das bash script aus https://nodered.org/docs/getting-started/raspberrypi
+#node-red installieren nach https://nodered.org/docs/getting-started/raspberrypi
+bash <(curl -sL https://github.com/node-red/linux-installers/releases/latest/download/install-update-nodered-deb)
+
 #dann die fehlenden nodes nachladen
 #node email neues passwort https://bustatech.com/send-and-receive-email-on-node-red/
 df #?? ??%#
 
 #node-red starten
-cd RADIOPI
+cd Desktop/CLONE/RADIOPI
 node-red ./flows_Radio.json 
 #in .node-red/settings.js setze flowFilePretty: true
 #mit Tablet-Browser localhost:1880 menu-install dropbox daemon
 #und schon geht Temperaturansage von alleine los
 #inject Radio an#oder besser über Touchscreen.html
-#und node email adresse neu einsetzen#dann kommt schon die neue Email
-
-#nö ♥#von vivaldi download die Adresse mit vnc reinkopieren die aktuelle Version 
-#wget https://downloads.vivaldi.com/stable/vivaldi-stable_2.9.1705.41-1_armhf.deb
-#wget https://downloads.vivaldi.com/stable/vivaldi-stable_3.0.1874.38-1_armhf.deb
-#wget https://downloads.vivaldi.com/stable/vivaldi-stable_4.3.2439.65-1_armhf.deb
-#dann im Filemanager installieren und starten und gleich synchronisieren und als Startbrowser einstellen
-
-cd KLETTERN_UND_RUTSCHEN
-git submodule init
-git submodule update --depth 1
-df #9209052 33%#
-#wenn git submodule update nicht duchgeht:
-cd
-ln -f -r -s ./Desktop/CLONE_2023/KLETTERN_UND_RUTSCHEN/threejs2024/build/ ./Desktop/CLONE/KLETTERN_UND_RUTSCHEN/threejs2024/.
-ln -f -r -s ./Desktop/CLONE_2024/KLETTERN_UND_RUTSCHEN/threejs2024/examples/ ./Desktop/CLONE/KLETTERN_UND_RUTSCHEN/threejs2024/.
-
-#ok firefox geht auf Anhieb!!! ♥#jetzt sollte schon MIT_KONSTRUK_FF.html gehen
+#und node email adresse neu einsetzen über google apps#dann kommt schon die neue Email
 
 #Desktop füllen
 cd
@@ -104,53 +129,95 @@ ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
 ln -f -r -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
 
+ls /tmp
 ln -f -r -s /tmp ./Desktop/CLONE/RADIOPI/.
 
 
-df #20400688 29% #♥#
+#die Zeilen aus .xsessionrc einzeln ausführen und dabei .xsessionrc anpassen
 
-sudo apt install gitk
-sudo apt install screen
-sudo apt install espeak #für Ansage Zeit/Temperatur/Bus
 sudo apt install wolframscript #später♥#
-sudo apt install zynaddsubfx#noch kein Ton ♥#juhuuu geht wieder, jetzt auf aseqdump -p20:0
-zynaddsubfx -I alsa -O alsY
-a -l So_hat_Weihnachten_2015_geklungen.xmz &
-sudo apt install xscreensaver
+
+sudo apt install zynaddsubfx#noch kein Ton auf 32 Bit
+zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz
+
 sudo apt install pulseeffects
 
-#aus der vorherigen SD rüberkopieren weil nicht comitted:
-#Diagonalen.js
-#ERGS2_2945_20180813.js
-#Download/THULE...jpg
-#BARE/STREICHHOL... und so weiter
-
-#uart5 einschalten:
+#???uart5 einschalten:
 sudo nano /boot/config.txt
 dtoverlay=uart5
 
-#.history füllen mit
+#??? RPI1B .history füllen mit
 make;hexdump kernel.img -v -e '1/4 "%08x" "\n"' >/dev/ttyS0;echo -n "MN" >/dev/ttyS0
+
+
 ytdl "https://youtu.be/1OxRLXTHqls" | mpv --force-seekable=yes - #Hexer und Medizinmann
 
 touch broadlink/switch_off
 touch broadlink/switch_on
 touch /tmp/ttyS0_RXD
 touch /tmp/RADIO_Ansage.txt
-wolframscript -cloud -code "10^200-(10^100+1)*(10^100-1)"
 
+#wolframscript -cloud -code "10^200-(10^100+1)*(10^100-1)"
 
-#alternativ zum nachfolgenden lighttpd: apache2
-sudo apt install apache2
-sudo nano /etc/apache2/envvars #dort eintragen APACHE_RUN_USER=pi und APACHE_RUN_GROUP=pi
-sudo mv /var/www/html/ /var/www/html2/
-sudo ln -f -r -s ./Desktop/CLONE/ /var/www/html
-sudo chown www-data:www-data /var/www/html
 
 #ganz neu, der richtige web-server für Rezepte.xml:
-#https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm und später Variante sudo lighty-enable-mod userdir
+#https://redmine.lighttpd.net&projects&lighttpd&wiki&TutorialConfiguration
+cd Desktop/CLONE
 sudo apt install lighttpd
-sudo systemctl status lighttpd #active (running) ♥
+sudo systemctl status lighttpd #active (running)
+sudo systemctl stop lighttpd
+sudo systemctl disable lighttpd
+#lighttpd.conf bereithalten, dann
+/usr/sbin/lighttpd -tt -f lighttpd.conf
+/usr/sbin/lighttpd -D -f lighttpd.conf
+#und schon müsste RADIO:8080/index.html funktionieren
+cd
+
+
+sudo apt-get install gap
+gap
+gap> 1/0; 
+brk> quit;
+gap> SaveWorkspace("GAP_WORKSPACE");
+gap> quit;
+
+
+#wenn benötigt piper installieren laut https://youtu.be/9e1Wt82GKmU
+
+
+
+#zum Schluß noch submodules füllen (dauert eine Weile)
+cd
+cd Desktop/CLONE/submodules
+git submodule init
+git submodule update
+cd 
+#jetzt aufbauen.html testen
+
+#zum Schluss noch ein Backup machen mit rpi-config
+
+#-----------------------------------soweit Trixie ---------------------------------------------------
+#------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ursprünglich zu lighttpd
+#https://www.elektronik-kompendium.de/sites/raspberry-pi/1905271.htm und später Variante sudo lighty-enable-mod userdir
 #sudo groupadd www-data #already exists ♥
 #sudo usermod -G www-data -a pi
 #sudo chown -R www-data:www-data /var/www/html
@@ -164,17 +231,12 @@ sudo service lighttpd force-reload
 ##sudo reboot
 #Dann http://~dietpi/Stefan/CLONE/Rezepte.xml
 
-sudo apt-get install gap
-gap
-gap> 1/0; 
-brk> quit;
-gap> SaveWorkspace("GAP_WORKSPACE");
-gap> quit;
-df #???? ??%
-
-
-#piper installieren laut https://youtu.be/9e1Wt82GKmU
-
+#alternativ zum vorhergehenden lighttpd: apache2, hat aber nie funktioniert
+sudo apt install apache2
+sudo nano /etc/apache2/envvars #dort eintragen APACHE_RUN_USER=pi und APACHE_RUN_GROUP=pi
+sudo mv /var/www/html/ /var/www/html2/
+sudo ln -f -r -s ./Desktop/CLONE/ /var/www/html
+sudo chown www-data:www-data /var/www/html
 
 
 
@@ -191,10 +253,7 @@ vm.swappiness=10                      #100#10 10=SWAP startet ab 90% gefüllt
 vm.dirty_background_ratio=10          #1
 vm.dirty_ratio=50                     #50
 
-sudo reboot
-sudo watch cat /proc/swaps
 
-//rpi-apps aus ???
 
 #-----------------------------------soweit Bookworm ♥ und Bullseye---------------------------------------------------
 #------------------------------------------------------------------------------------------------------
@@ -237,22 +296,7 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 
 #Farbe Terminal einstellen
 
-df #7438 26% woher die auf einmal?
-#+neues Verzeichnis Desktop/CLONE
-cd Desktop/CLONE
-#git clone https://github.com/OpaStefanVogel/RADIOPI
-#und mehr
-cp -s /*/.*.desktop .
-git pull
-
-df #7673 #27%
-
-#sudo apt-get remove pulseaudio #bei nspawn64, doch erstmal nicht
-
-#sudo nano /boot/cmdline.txt #und dort am Zeilenende nach Leerzeichen consoleblank=0 ergänzen
-
-sudo apt-get install zynaddsubfx #und schon mal mit ./.xsessionrc starten:
-
+#nur Light: sudo nano /boot/cmdline.txt #und dort am Zeilenende nach Leerzeichen consoleblank=300 ergänzen
 
 df #7848 28%
 ssh-keygen
@@ -260,12 +304,16 @@ nano .ssh/authorized_keys #dort key aus id_rsa.pub eintragen wegen ssh pi@localh
 #sudo apt-get --allow-releaseinfo-change update #wenn nur update nicht geht wegen "testing" "stable"
 
 #sudo apt-get install florence at-spi2-core
+
+#mosquitto geht zur zeit nicht
 sudo apt-get install mosquitto mosquitto-clients
+sudo systemctl stop mosquitto
+sudo systemctl disable mosquitto
 mosquitto_sub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z"
+#im anderen terminal:
 mosquitto_pub -h test.mosquitto.org -t "Testheini78x11/psswd_ha72z" -m "Radio an"
 
 
-#Hintergrundbild einstellen
 
 hostnamectl
 #hostnamectl set-hostname Radio #wenn noch nicht eingestellt
