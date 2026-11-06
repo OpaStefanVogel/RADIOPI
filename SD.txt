@@ -1,10 +1,117 @@
-1 32 dietpi
-2 32 bullseye
-3 8 leer
+1 32 Kopie von 5 trixie 32 Bit mit identischer uuid
+2 32 *RPI3
+3 8  geht nur bis 0%
 4 16 Heidi
-5 64 trixie 32 Bit
-6 32 leer
-7 32 leer
-8 .. backup von 5 (trixie 32 Bit)
-9 .. trixie light 32 Bit für RPI3
+5 64 *trixie 32 Bit
+6 32 geht langsam und auch nur bis 39%, komisch, auch am USB2
+7 32 
+8 32 *neu RPI2 RUBIKsCUBE
+9 .. defekt
+10 16 Kopie von  8 RPI2 RUBIKsCUBE
+
+* = im Gerät, die anderen im Karton
+
+
+
+sudo rpi-imager-cli --debug --log-file logfile.txt /home/pi/Downloads/2026-10-06-raspios-trixie-armhf.img.xz /dev/sda
+Platform: Linux 6.18.59+rpt-rpi-v8 (aarch64)
+Running as root via sudo
+Original user: pi
+Original UID: 1000
+Original home directory: /home/pi
+DISPLAY already set to: :0
+XAUTHORITY already set to: /home/pi/.Xauthority
+localuser:root being added to access control list
+Set HOME to: /home/pi
+Set XDG_CACHE_HOME to: /home/pi/.cache
+Set XDG_CONFIG_HOME to: /home/pi/.config
+Set XDG_DATA_HOME to: /home/pi/.local/share
+Set XDG_RUNTIME_DIR to: /run/user/1000
+Set DBUS_SESSION_BUS_ADDRESS to: unix:path=/run/user/1000/bus
+[DEBUG] libcurl initialized globally
+[DEBUG] CacheManager initialized with background thread
+[DEBUG] Optimal async queue depth: 8 (available: 96 MB, budget: 14 MB, block size: 1024 KB, baseline: 8 )
+[DEBUG] FileOperations log callback installed
+[DEBUG] Starting background cache operations
+[DEBUG] Starting background drive list polling
+[DEBUG] setSrc: initFormat parameter: "systemd" -> _initFormat set to: "systemd"
+[DEBUG] Parsed .xz file. Uncompressed size: 5888802816
+[DEBUG] Drive added: "/dev/loop0"
+[DEBUG] Drive added: "/dev/sda"
+[DEBUG] Device selection changed to: "/dev/sda"
+[DEBUG] Drive added: "/dev/loop0"
+[DEBUG] Drive added: "/dev/sda"
+[DEBUG] Pausing drive scanning during write operation
+[DEBUG] Drive scan mode changed to: Paused
+[DEBUG] PerformanceStats: Started cycle for "2026-10-06-raspios-trixie-armhf.img.xz" size: 5888802816 device: "/dev/sda" total events: 1
+[DEBUG] Detected total system memory: 905 MB on "Linux"
+[DEBUG] Adaptive sync configuration: "Low memory (905MB)" - Sync interval: 16 MB - Time interval: 3000 ms
+[DEBUG] Optimal write buffer size: 512 KB for 905 MB system
+[DEBUG] Ring buffer: 16 slots x 128 KB = 2 MB (available: 96 MB, total: 905 MB)
+[DEBUG] PerformanceStats: System info set - RAM: 905 MB total, 96 MB available Device: ""
+[DEBUG] [FileOps] io_uring initialized with queue size 64
+[DEBUG] [FileOps] io_uring available and initialized
+[DEBUG] Adaptive sync configuration: "Low memory (905MB)" - Sync interval: 16 MB - Time interval: 3000 ms
+[DEBUG] Optimal write buffer size: 512 KB for 905 MB system
+[DEBUG] Coordinated ring buffer config: available= 96 MB total_system= 905 MB budget= 28 MB
+[DEBUG]   Input: 76 slots x 128 KB = 9 MB
+[DEBUG]   Write: 38 slots x 512 KB = 19 MB
+[DEBUG]   Total: 28 MB ( 29 % of available)
+[DEBUG] RingBuffer: Allocated 76 slots of 128 KB each ( 9 MB total)
+[DEBUG] RingBuffer: Allocated 38 slots of 512 KB each ( 19 MB total)
+[DEBUG] Using buffer size: 524288 bytes with page size: 4096 bytes
+[DEBUG] Input ring buffer: 76 slots of 131072 bytes
+[DEBUG] Write ring buffer: 38 slots of 524288 bytes
+[DEBUG] Total ring buffer memory: 28 MB
+[DEBUG] Optimal write buffer size: 512 KB for 905 MB system
+[DEBUG] Network thread pool created with 6 threads
+[DEBUG] configureWriteThread: passing to thread - initFormat: "systemd" cloudinit empty: true cloudinitNetwork empty: true
+[DEBUG] DownloadThread::setImageCustomisation - initFormat: "systemd" cloudinit empty: true cloudinitNetwork empty: true
+[DEBUG] DownloadThread: Direct I/O enabled
+[DEBUG] DownloadThread: Periodic sync enabled
+[DEBUG] DownloadThread: Verbose logging disabled
+[DEBUG] DownloadThread: Async I/O enabled
+[DEBUG] Optimal write buffer size: 512 KB for 905 MB system
+[DEBUG] Optimal write buffer size: 512 KB for 905 MB system
+[DEBUG] DownloadThread: Async queue depth set to 8 (estimated memory: 4 MB)
+[DEBUG] DownloadThread: IPv4-only mode disabled
+[DEBUG] DownloadThread: Skip end-of-device operations disabled
+[DEBUG] DownloadThread: Ignore device I/O limits disabled
+[DEBUG] Unmounting: "/dev/sda"
+[DEBUG] unmountDisk: no mounts found for "/dev/sda"
+[DEBUG] [FileOps] Device I/O limits: max_transfer=1048576 bytes, suggested_queue_depth=2
+[DEBUG] Device authorization and open took 0 ms
+[DEBUG] Capping async queue depth from 8 to 6 (device suggested: 2 )
+[DEBUG] Device max transfer: 1048576 bytes
+[DEBUG] WriteProgressWatchdog: Started monitoring
+[DEBUG] [FileOps] Async queue depth set to 6 (io_uring: yes)
+[DEBUG] Async I/O: configured with queue depth 6
+[DEBUG] Zeroing out first and last MB of drive
+[DEBUG]   First MB + flush took 73 ms
+[DEBUG]   Last MB + flush + sync took 70 ms
+[DEBUG] Done zero'ing out start and end of drive. Total MBR prep: 145 ms
+[DEBUG] PerformanceStats: Direct I/O state updated to enabled
+[DEBUG] libarchive probe: format 589824 filter 6 -> extract
+[DEBUG] Started progress updates after successful drive opening
+[DEBUG] Decompression pipeline: "xz" %
+[DEBUG] XZ/LZMA: Multi-threaded decode enabled if file has multiple blocks
+[DEBUG] _writeFile: captured first block ( 524288 ) and advanced file offset via seek
+[DEBUG] [FileOps] io_uring write failed: Invalid argument
+[DEBUG] Async write (zero-copy): error 2 expected 524288 wrote 0
+[DEBUG] Async write (zero-copy): error 2 expected 524288 wrote 0
+[DEBUG] Async write queue failed, falling back to sync
+[DEBUG] RingBuffer: slot 2 released while already free - ignoring
+[DEBUG] Write complete, switching to slow drive scanning
+[DEBUG] Drive scan mode changed to: Slow
+[DEBUG] WriteProgressWatchdog: Stopped
+[DEBUG] PerformanceStats: Cycle ended, state: "failed" events: 9 samples: dl= 709 dec= 1151 wr= 1685 vfy= 0
+Error: Invalid disk parameter. The storage device may not be properly recognized. Please try reconnecting the device.
+[DEBUG] Stopping network monitoring
+[DEBUG] Stopping background drive list polling
+[DEBUG] Cleaning up CacheManager
+[DEBUG] CacheManager destructor: cleaning up background thread
+[DEBUG] CacheManager destructor: cleanup complete
+[DEBUG] Cancelling running thread in ImageWriter destructor
+[DEBUG] WriteProgressWatchdog: Stopped
+pi@RADIO:~ $ 
 

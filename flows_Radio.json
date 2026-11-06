@@ -3,7 +3,7 @@
         "id": "474e306c.0c45c",
         "type": "tab",
         "label": "Baumkuchen",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -50,7 +50,7 @@
         "id": "cc59d9f8.9429c8",
         "type": "tab",
         "label": "Heizung",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -71,7 +71,7 @@
         "id": "c82fd5f1.38c628",
         "type": "tab",
         "label": "Corona",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -92,14 +92,14 @@
         "id": "f5852901.627d08",
         "type": "tab",
         "label": "Broadlink SPMini",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
         "id": "f6de0de9.ddb1d",
         "type": "tab",
         "label": "hostapd",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -114,6 +114,14 @@
         "id": "f7f5e3fd5c68be5e",
         "type": "tab",
         "label": "Motoren",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1333f82d8d2510b2",
+        "type": "tab",
+        "label": "Flow 1",
         "disabled": false,
         "info": "",
         "env": []
@@ -15990,6 +15998,9 @@
         "out": "sit",
         "ret": "string",
         "splitc": " ",
+        "newline": "",
+        "trim": false,
+        "tls": "",
         "x": 290,
         "y": 820,
         "wires": [
