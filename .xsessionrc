@@ -6,7 +6,7 @@ touch /tmp/piper.txt
 ln -f -r -s /tmp Desktop/CLONE/RADIOPI/.
 lxterminal --geometry=100x10 -e "sudo watch cat /proc/swaps" &
 cd Desktop/CLONE/RADIOPI/
-screen -d -m node-red ./flows_Radio.json & #nicht mehr sudo systemctl enable nodered.service # screen -d -m geht nicht mehr in dietpi
+screen -d -m node-red --max-old-space-size=200 ./flows_Radio.json & #nicht mehr sudo systemctl enable nodered.service # screen -d -m geht nicht mehr in dietpi
 wish TCL-RADIO.tcl &
 ( sleep 20 ; zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz ) &
 cd
@@ -17,4 +17,4 @@ stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff
 (echo 0 | sudo tee /sys/class/leds/led1/brightness > /dev/null) &
 (echo 0 | sudo tee /sys/class/leds/led0/brightness > /dev/null) &
 ( sleep 40; lxterminal -e "stty -F /dev/ttyS0 115200 raw cs8 -cstopb -parenb -crtscts -echo ixon -ixoff;stty raw -echo opost quit ^C isig ixon -ixoff; tee </dev/ttyS0 /tmp/ttyS0_RXD & cp /dev/tty /dev/ttyS0") &
-/usr/sbin/lighttpd -D -f Desktop/CLONE/RADIO/lighttpd.conf &
+/usr/sbin/lighttpd -D -f lighttpd.conf &

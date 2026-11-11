@@ -4,9 +4,9 @@
 4 16 Heidi
 5 64 *trixie 32 Bit
 6 32 geht langsam und auch nur bis 39%, komisch, auch am USB2
-7 32 
+7 32 defekt ab
 8 32 *neu RPI2 RUBIKsCUBE
-9 .. defekt
+9 .. definitiv defekt
 10 16 Kopie von  8 RPI2 RUBIKsCUBE
 
 * = im Gerät, die anderen im Karton

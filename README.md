@@ -66,6 +66,20 @@ git clone git@github.com:OpaStefanVogel/BAKINGPI.git
 git clone git@github.com:OpaStefanVogel/Easy_Elektro_-_Big_Fun.git
 git clone git@github.com:OpaStefanVogel/HEIZUNGSPI.git
 git clone git@github.com:OpaStefanVogel/MACHXO2.git
+git clone git@github.com:OpaStefanVogel/TASTEN.git
+#Desktop füllen
+cd
+cd Desktop
+ln -f -r -s ./CLONE/RADIOPI/README.md .
+ln -f -r -s ./CLONE/RADIOPI/SD.txt .
+ln -f -r -s ./CLONE/*/*.desktop .
+ln -f -r -s ./CLONE/*.desktop .
+ln -f -r -s ./CLONE/RADIOPI/.xsessionrc ../.xsessionrc
+ln -f -r -s ./CLONE/RADIOPI/lighttpd.conf ../. 
+ln -f -r -s ./CLONE/index.html ../. 
+ls /tmp
+ln -f -r -s /tmp ./CLONE/RADIOPI/.
+ls /tmp
 cd
 
 sudo apt install wish
@@ -122,20 +136,9 @@ node-red ./flows_Radio.json
 #inject Radio an#oder besser über Touchscreen.html
 #und node email adresse neu einsetzen über google apps#dann kommt schon die neue Email
 
-#Desktop füllen
-cd
-ln -f -r -s ./Desktop/CLONE/RADIOPI/README.md ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/*/*.desktop ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/*.desktop ./Desktop/.
-ln -f -r -s ./Desktop/CLONE/RADIOPI/.xsessionrc .xsessionrc
-
-ls /tmp
-ln -f -r -s /tmp ./Desktop/CLONE/RADIOPI/.
-
-
 #die Zeilen aus .xsessionrc einzeln ausführen und dabei .xsessionrc anpassen
 
-sudo apt install wolframscript #später♥#
+#sudo apt install wolframscript #später♥#
 
 sudo apt install zynaddsubfx#noch kein Ton auf 32 Bit
 zynaddsubfx -I alsa -O alsa -l So_hat_Weihnachten_2015_geklungen.xmz
